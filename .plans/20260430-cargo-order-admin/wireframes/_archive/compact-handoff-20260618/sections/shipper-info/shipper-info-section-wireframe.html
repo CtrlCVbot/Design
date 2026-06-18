@@ -1,0 +1,1932 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>화주 정보 섹션 와이어프레임</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #858b93;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --rule: #d8d4c6;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+
+  .sheet {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 22px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  .subtitle,
+  .scrid {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .scrid {
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .chips,
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chips {
+    margin: 12px 0 4px;
+  }
+
+  .state-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1px dashed var(--rule);
+  }
+
+  .state-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 2px 12px;
+    border: 1.25px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 14px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .state-tab.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .state-panel[hidden] {
+    display: none;
+  }
+
+  .chip,
+  .badge,
+  .step-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on {
+    background: #efe6c2;
+    font-weight: 700;
+  }
+
+  .chip.wait,
+  .badge.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+    font-weight: 700;
+  }
+
+  .section {
+    position: relative;
+    min-width: 0;
+    margin-top: 22px;
+    padding: 16px 12px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .section-title {
+    position: absolute;
+    top: -14px;
+    left: 12px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 23px;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .shipper-panel {
+    display: grid;
+    gap: 8px;
+  }
+
+  .shipper-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .shipper-row {
+    display: grid;
+    grid-template-columns: 58px minmax(180px, 1fr) 132px 104px 160px minmax(220px, 1fr) 112px;
+    gap: 7px;
+    align-items: center;
+    min-width: 1080px;
+    padding: 5px 8px;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cell {
+    min-width: 0;
+    padding: 3px 4px;
+    border-bottom: 1px dotted transparent;
+  }
+
+  .cell-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cell-value {
+    min-height: 22px;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 19px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .row-action,
+  .ghost-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 2px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .shipper-row.change-absorbing .row-action {
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  .shipper-row.change-absorbing {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .meta-row {
+    margin-top: 6px;
+  }
+
+  .activation-demo {
+    position: relative;
+    display: grid;
+    gap: 7px;
+  }
+
+  .empty-row {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    gap: 7px;
+    align-items: center;
+    min-width: 720px;
+    padding: 6px 8px;
+  }
+
+  .empty-line {
+    position: relative;
+    min-height: 1px;
+    border-top: 1.25px dashed var(--line-soft);
+  }
+
+  .empty-line[data-placeholder] {
+    min-height: 18px;
+    border-top: 0;
+    border-bottom: 1.25px dashed var(--line-soft);
+  }
+
+  .empty-line[data-placeholder]::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .shipper-row .cell,
+  .shipper-row .cell-value {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .activation-button {
+    position: relative;
+    min-width: 116px;
+    background: var(--ok-bg);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+
+  .activation-demo.activating .activation-button {
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  .activation-demo.activated .empty-row {
+    display: none;
+  }
+
+  .activation-demo .activated-card {
+    display: none;
+  }
+
+  .activation-demo.activated .activated-card {
+    display: block;
+  }
+
+  .reset-line {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 4px;
+  }
+
+  .dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    padding: 22px;
+    background: rgba(31, 35, 40, 0.22);
+  }
+
+  .dialog-backdrop[hidden] {
+    display: none;
+  }
+
+  .lookup-dialog {
+    width: min(1120px, calc(100vw - 44px));
+    max-height: min(760px, calc(100vh - 44px));
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: var(--paper);
+    box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .dialog-head,
+  .dialog-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dialog-foot {
+    border-top: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .dialog-title {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 26px;
+    font-weight: 400;
+  }
+
+  .dialog-body {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    padding: 12px;
+    overflow: auto;
+  }
+
+  .lookup-search {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .lookup-input,
+  .mini-input,
+  .applied-inline-input {
+    width: 100%;
+    min-height: 31px;
+    padding: 4px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .filter-row,
+  .dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .lookup-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 248px;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .result-card,
+  .preview-card,
+  .add-contact-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .result-head,
+  .result-row {
+    display: grid;
+    grid-template-columns: 34px minmax(118px, 1.1fr) 112px 82px 110px minmax(120px, 0.9fr) 76px;
+    gap: 6px;
+    align-items: center;
+    min-width: 0;
+    padding: 5px 7px;
+  }
+
+  .result-head > span,
+  .result-row > span {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .result-head {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .result-list {
+    max-height: 238px;
+    overflow: auto;
+  }
+
+  .result-row {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px dashed var(--rule);
+    background: #fffefb;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .result-row:hover,
+  .result-row.selected {
+    background: #fff8df;
+  }
+
+  .select-marker {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .select-marker::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  .result-row.selected .select-marker {
+    background: var(--ok-bg);
+    border-color: var(--ok);
+  }
+
+  .result-row.selected .select-marker::before {
+    background: var(--ok);
+  }
+
+  .result-main {
+    font-weight: 700;
+  }
+
+  .result-row.is-new .result-main::after {
+    content: "신규";
+    display: inline-flex;
+    align-items: center;
+    min-height: 18px;
+    margin-left: 6px;
+    padding: 0 6px;
+    border: 1px solid var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .result-pen,
+  .preview-value {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .applied-editable {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 27px;
+    padding: 2px 32px 2px 4px;
+    border-radius: 3px;
+    border-bottom: 1px dashed var(--note);
+    cursor: text;
+  }
+
+  .applied-editable::after {
+    content: "수정";
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    min-height: 17px;
+    padding: 0 5px;
+    border: 1px solid var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Gaegu", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .applied-editable:hover,
+  .applied-editable:focus {
+    outline: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .applied-editable:hover::after,
+  .applied-editable:focus::after {
+    opacity: 1;
+  }
+
+  .applied-editable.editing {
+    padding: 0;
+    border-bottom-color: transparent;
+  }
+
+  .applied-editable.editing::after {
+    content: none;
+  }
+
+  .applied-inline-input {
+    min-height: 27px;
+    padding: 2px 6px;
+  }
+
+  .role-cell,
+  .role-choice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+  }
+
+  .result-row .role-cell {
+    flex-wrap: nowrap;
+  }
+
+  .role-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22px;
+    padding: 1px 7px;
+    border: 1.1px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .role-choice {
+    cursor: pointer;
+  }
+
+  .role-choice.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .new-badge {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .preview-card,
+  .add-contact-card {
+    padding: 9px;
+  }
+
+  .preview-card .add-contact-card {
+    margin-top: 9px;
+  }
+
+  .preview-card .mini-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-title,
+  .add-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .preview-list {
+    display: grid;
+    gap: 5px;
+  }
+
+  .preview-item {
+    display: grid;
+    grid-template-columns: 76px 1fr;
+    gap: 7px;
+    align-items: baseline;
+    min-width: 0;
+  }
+
+  .preview-label,
+  .mini-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .preview-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .add-contact-card {
+    margin-top: 10px;
+    background: #fffaf0;
+  }
+
+  .add-contact-card[hidden] {
+    display: none;
+  }
+
+  .add-contact-card .add-body {
+    display: none;
+    gap: 7px;
+  }
+
+  .add-contact-card.expanded .add-body {
+    display: grid;
+  }
+
+  .mini-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .mini-field {
+    display: grid;
+    gap: 3px;
+  }
+
+  .mini-field.wide {
+    grid-column: 1 / -1;
+  }
+
+  .dialog-status {
+    color: var(--ink-mute);
+    font-size: 13px;
+  }
+
+  .primary-button,
+  .plain-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 29px;
+    padding: 3px 10px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .primary-button {
+    background: var(--ok-bg);
+    border-color: var(--ok);
+    color: var(--ok);
+  }
+
+  .primary-button:disabled {
+    border-color: var(--line-soft);
+    background: #f7f5ed;
+    color: var(--ink-mute);
+  }
+
+  .grid-two {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .note-card {
+    min-height: 70px;
+    padding: 9px 10px;
+    border: 1.15px dashed var(--line-soft);
+    border-radius: 4px;
+    background: var(--paper-2);
+  }
+
+  .note-card strong {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 15px;
+  }
+
+  .review-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 6px;
+    font-size: 14px;
+  }
+
+  .review-table th,
+  .review-table td {
+    padding: 6px 7px;
+    border: 1px solid var(--line-soft);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .review-table th {
+    background: var(--paper-2);
+  }
+
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .motion-card {
+    display: grid;
+    gap: 8px;
+    min-width: 0;
+    padding: 9px;
+    border: 1.15px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .motion-card.selected {
+    border-color: var(--ok);
+    background: #f4f8fc;
+    box-shadow: inset 0 0 0 1px var(--ok-bg);
+  }
+
+  .motion-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .motion-title {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  .motion-copy {
+    margin-top: 2px;
+    color: var(--ink-mute);
+    font-size: 13px;
+  }
+
+  .motion-selected-badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 18px;
+    margin-top: 4px;
+    padding: 0 7px;
+    border: 1px solid var(--ok);
+    border-radius: 999px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .motion-stage {
+    position: relative;
+    min-height: 94px;
+    padding: 9px;
+    border: 1px dashed var(--line-soft);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--paper-2);
+  }
+
+  .motion-row {
+    display: grid;
+    grid-template-columns: 42px minmax(110px, 1fr) 96px 96px 110px;
+    gap: 6px;
+    align-items: center;
+    min-width: 0;
+    padding: 5px 6px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: #fffefb;
+    transform-origin: top;
+  }
+
+  .motion-value {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  .motion-button,
+  .motion-play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 25px;
+    padding: 2px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .motion-play {
+    min-width: 72px;
+    cursor: pointer;
+  }
+
+  .motion-dialog-mini {
+    position: absolute;
+    right: 10px;
+    bottom: 9px;
+    display: grid;
+    gap: 5px;
+    width: 168px;
+    padding: 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    pointer-events: none;
+  }
+
+  .motion-search {
+    min-height: 16px;
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  .motion-result-line {
+    min-height: 12px;
+    border-radius: 999px;
+    background: var(--ok-bg);
+  }
+
+  .motion-link {
+    position: absolute;
+    right: 92px;
+    top: 46px;
+    width: 0;
+    height: 1px;
+    border-top: 2px solid var(--ok);
+    opacity: 0;
+  }
+
+  .motion-card.playing[data-motion="a"] .motion-button {
+    animation: motionAbsorbButton 520ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="a"] .motion-row {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="a"] .motion-dialog-mini {
+    animation: motionDialogFade 360ms ease 220ms forwards;
+  }
+
+  .motion-card.playing[data-motion="b"] .motion-row {
+    animation: motionRowHighlight 780ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="b"] .motion-dialog-mini {
+    animation: motionDialogFade 320ms ease 420ms forwards;
+  }
+
+  .motion-card.playing[data-motion="c"] .motion-button {
+    animation: motionButtonPress 260ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="c"] .motion-dialog-mini {
+    animation: motionDialogZoom 450ms cubic-bezier(.2, .8, .2, 1) 180ms forwards;
+  }
+
+  .motion-card.playing[data-motion="d"] .motion-link {
+    animation: motionSearchLink 620ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="d"] .motion-search {
+    animation: motionSearchFocus 700ms ease 160ms forwards;
+  }
+
+  .motion-card.playing[data-motion="d"] .motion-dialog-mini {
+    animation: motionDialogFade 320ms ease 420ms forwards;
+  }
+
+  .motion-card.playing[data-motion="e"] .motion-row {
+    animation: motionRowFold 520ms ease forwards;
+  }
+
+  .motion-card.playing[data-motion="e"] .motion-dialog-mini {
+    animation: motionDialogFade 360ms ease 360ms forwards;
+  }
+
+  @keyframes absorbToLabel {
+    from {
+      transform: translateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: translateX(var(--absorb-x, -120px));
+      opacity: 0;
+    }
+  }
+
+  @keyframes motionAbsorbButton {
+    0% { transform: translateX(0); opacity: 1; }
+    70% { transform: translateX(-18px); opacity: .35; }
+    100% { transform: translateX(-18px); opacity: .35; }
+  }
+
+  @keyframes motionSoftHighlight {
+    0%, 100% { background: #fffefb; }
+    45% { background: #fff7d6; }
+  }
+
+  @keyframes motionDialogFade {
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes motionRowHighlight {
+    0%, 100% { background: #fffefb; box-shadow: none; }
+    30% { background: #fff7d6; box-shadow: 0 0 0 2px rgba(178, 122, 0, .18); }
+    62% { background: #fffdf0; }
+  }
+
+  @keyframes motionButtonPress {
+    0% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(1px) scale(.94); }
+    100% { transform: translateY(0) scale(1); }
+  }
+
+  @keyframes motionDialogZoom {
+    0% { opacity: 0; transform: translateY(4px) scale(.9); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes motionSearchLink {
+    0% { width: 0; opacity: 0; }
+    20% { opacity: 1; }
+    100% { width: 126px; opacity: .85; }
+  }
+
+  @keyframes motionSearchFocus {
+    0%, 100% { box-shadow: none; border-color: var(--line-soft); }
+    45% { box-shadow: 0 0 0 3px rgba(43, 108, 176, .16); border-color: var(--ok); }
+  }
+
+  @keyframes motionRowFold {
+    0% { transform: scaleY(1); opacity: 1; }
+    65% { transform: scaleY(.56); opacity: .48; }
+    100% { transform: scaleY(.56); opacity: .48; }
+  }
+
+  @media (max-width: 760px) {
+    body {
+      padding: 14px 10px 60px;
+    }
+
+    .sheet {
+      width: min(100%, calc(100vw - 20px));
+      padding: 14px 12px 18px;
+    }
+
+    h1 {
+      font-size: 29px;
+    }
+
+    .grid-two {
+      grid-template-columns: 1fr;
+    }
+
+    .lookup-layout,
+    .mini-grid,
+    .motion-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .lookup-search {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="mast">
+    <div>
+      <h1>화주 정보 섹션 와이어프레임</h1>
+      <div class="subtitle">B 통합본 1번 섹션을 독립 패키지로 분리한 1차 화면안</div>
+      <div class="chips" aria-label="설계 기준">
+        <span class="chip on">필수 5개 항목</span>
+        <span class="chip on">값 있음 요약 row</span>
+        <span class="chip">inline edit</span>
+        <span class="chip wait">조회/검증 분리</span>
+      </div>
+    </div>
+    <div class="scrid">SCR-SI-001 / SCR-SI-002 / SCR-SI-003</div>
+  </header>
+
+  <nav class="state-tabs" aria-label="화주 정보 상태 보기">
+    <button class="state-tab on" type="button" data-state-tab="summary" aria-pressed="true">적용 후 row</button>
+    <button class="state-tab" type="button" data-state-tab="empty" aria-pressed="false">입력 전/조회</button>
+    <button class="state-tab" type="button" data-state-tab="rules" aria-pressed="false">수정 기준</button>
+    <button class="state-tab" type="button" data-state-tab="motion" aria-pressed="false">변경 애니메이션</button>
+  </nav>
+
+  <section class="section state-panel" aria-labelledby="shipper-data-title" data-state-panel="summary">
+    <div class="section-title" id="shipper-data-title"><span class="num">5</span>화주 정보</div>
+    <div class="section-note">값 있음 - 한 줄 요약 row</div>
+    <div class="shipper-panel">
+      <div class="shipper-card" aria-label="화주 정보 값 있음 요약">
+        <div class="shipper-row">
+          <span class="kind">화주</span>
+          <div class="cell" data-summary-cell data-field="company">
+            <div class="cell-label">화주 업체명</div>
+            <div class="cell-value" data-read-value>로지스팩토리</div>
+          </div>
+          <div class="cell" data-summary-cell data-field="business">
+            <div class="cell-label">사업자 번호</div>
+            <div class="cell-value" data-read-value>123-45-67890</div>
+          </div>
+          <div class="cell" data-summary-cell data-field="manager">
+            <div class="cell-label">담당자명</div>
+            <div class="cell-value" data-read-value>김민수</div>
+          </div>
+          <div class="cell" data-summary-cell data-field="phone">
+            <div class="cell-label">담당자 연락처</div>
+            <div class="cell-value applied-editable" data-read-value data-applied-inline-edit="phone" tabindex="0">010-1234-5678</div>
+          </div>
+          <div class="cell" data-summary-cell data-field="email">
+            <div class="cell-label">담당자 이메일</div>
+            <div class="cell-value applied-editable" data-read-value data-applied-inline-edit="email" tabindex="0">minsu@logis.co.kr</div>
+          </div>
+          <button class="row-action" type="button" data-change-shipper>화주/담당자 변경</button>
+        </div>
+      </div>
+      <div class="meta-row" aria-label="화주 정보 보조 상태">
+        <span class="badge on">청구 대상 확인</span>
+        <span class="badge">담당자 연락 가능</span>
+        <span class="badge warn">사업자 번호 검증 대기</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" aria-labelledby="shipper-empty-title" data-state-panel="empty" hidden>
+    <div class="section-title" id="shipper-empty-title"><span class="num">5</span>화주 정보</div>
+    <div class="section-note">값 없음 - CTA 흡수 전환</div>
+    <div class="shipper-card activation-demo" data-activation-demo>
+      <div class="empty-row">
+        <span class="kind" data-activation-target>화주</span>
+        <span class="empty-line" data-placeholder="화주와 담당자를 선택하세요" aria-label="화주 정보 입력 대기"></span>
+        <button class="activation-button" type="button" data-activation-button>화주 정보 입력</button>
+      </div>
+      <div class="activated-card">
+        <div class="shipper-row">
+          <span class="kind">화주</span>
+          <div class="cell">
+            <div class="cell-label">화주 업체명</div>
+            <div class="cell-value" data-applied-field="company">업체명 입력</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">사업자 번호</div>
+            <div class="cell-value" data-applied-field="business">000-00-00000</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">담당자명</div>
+            <div class="cell-value" data-applied-field="manager">담당자명 입력</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">담당자 연락처</div>
+            <div class="cell-value applied-editable" data-applied-field="phone" data-applied-inline-edit="phone" tabindex="0">010-0000-0000</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">담당자 이메일</div>
+            <div class="cell-value applied-editable" data-applied-field="email" data-applied-inline-edit="email" tabindex="0">name@company.com</div>
+          </div>
+          <button class="row-action" type="button" data-change-shipper data-apply-state>조회중</button>
+        </div>
+      </div>
+    </div>
+    <div class="reset-line">
+      <button class="ghost-button" type="button" data-activation-reset>전환 초기화</button>
+    </div>
+  </section>
+
+  <div class="dialog-backdrop" data-shipper-dialog hidden>
+    <section class="lookup-dialog" role="dialog" aria-modal="true" aria-labelledby="lookup-dialog-title">
+      <div class="dialog-head">
+        <div>
+          <h2 class="dialog-title" id="lookup-dialog-title">화주/담당자 통합 조회</h2>
+          <div class="dialog-status">행을 선택한 뒤 화주 정보에 적용하세요. 연락처와 이메일 임시 수정은 적용 후 화주 정보 row에서 진행합니다.</div>
+        </div>
+        <button class="plain-button" type="button" data-dialog-close>닫기</button>
+      </div>
+      <div class="dialog-body">
+        <div class="lookup-search">
+          <input class="lookup-input" placeholder="업체명, 사업자번호, 담당자명, 연락처, 이메일 검색" aria-label="화주 담당자 통합 검색" />
+          <button class="primary-button" type="button">조회</button>
+        </div>
+        <div class="filter-row" aria-label="검색 기준">
+          <span class="badge on">통합검색</span>
+          <span class="badge">업체명</span>
+          <span class="badge">사업자 번호</span>
+          <span class="badge">담당자명</span>
+          <span class="badge">연락처</span>
+          <span class="badge">이메일</span>
+        </div>
+
+        <div class="lookup-layout">
+          <div>
+            <div class="result-card" aria-label="화주 담당자 조회 결과">
+              <div class="result-head">
+                <span>선택</span>
+                <span>업체명</span>
+                <span>사업자번호</span>
+                <span>담당자명</span>
+                <span>담당자 연락처</span>
+                <span>담당자 이메일</span>
+                <span>역할</span>
+              </div>
+              <div class="result-list">
+                <div class="result-row" role="button" tabindex="0" data-result-row data-company="로지스팩토리" data-business="123-45-67890" data-manager="김민수" data-phone="010-1234-5678" data-email="minsu@logis.co.kr" data-roles="배차">
+                  <span class="select-marker" aria-hidden="true"></span>
+                  <span class="result-main">로지스팩토리</span>
+                  <span class="result-pen">123-45-67890</span>
+                  <span class="result-pen">김민수</span>
+                  <span class="result-pen">010-1234-5678</span>
+                  <span class="result-pen">minsu@logis.co.kr</span>
+                  <span class="role-cell"><span class="role-chip">배차</span></span>
+                </div>
+                <div class="result-row" role="button" tabindex="0" data-result-row data-company="코덱트 물류" data-business="211-86-45210" data-manager="박서연" data-phone="010-8181-7061" data-email="sy.park@codect.co.kr" data-roles="정산">
+                  <span class="select-marker" aria-hidden="true"></span>
+                  <span class="result-main">코덱트 물류</span>
+                  <span class="result-pen">211-86-45210</span>
+                  <span class="result-pen">박서연</span>
+                  <span class="result-pen">010-8181-7061</span>
+                  <span class="result-pen">sy.park@codect.co.kr</span>
+                  <span class="role-cell"><span class="role-chip">정산</span></span>
+                </div>
+                <div class="result-row" role="button" tabindex="0" data-result-row data-company="한빛산업" data-business="407-12-90231" data-manager="이하준" data-phone="010-4159-4636" data-email="hajun@hanbit.kr" data-roles="관리">
+                  <span class="select-marker" aria-hidden="true"></span>
+                  <span class="result-main">한빛산업</span>
+                  <span class="result-pen">407-12-90231</span>
+                  <span class="result-pen">이하준</span>
+                  <span class="result-pen">010-4159-4636</span>
+                  <span class="result-pen">hajun@hanbit.kr</span>
+                  <span class="role-cell"><span class="role-chip">관리</span></span>
+                </div>
+                <div class="result-row" role="button" tabindex="0" data-result-row data-company="무갑리 현장" data-business="619-04-11870" data-manager="최현장" data-phone="010-3372-0042" data-email="site@moogap.example" data-roles="배차 · 관리">
+                  <span class="select-marker" aria-hidden="true"></span>
+                  <span class="result-main">무갑리 현장</span>
+                  <span class="result-pen">619-04-11870</span>
+                  <span class="result-pen">최현장</span>
+                  <span class="result-pen">010-3372-0042</span>
+                  <span class="result-pen">site@moogap.example</span>
+                  <span class="role-cell"><span class="role-chip">배차</span><span class="role-chip">관리</span></span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <aside class="preview-card" aria-label="선택 미리보기">
+            <div class="preview-title">
+              <span>선택 미리보기</span>
+              <span class="badge warn" data-preview-state>미선택</span>
+            </div>
+            <div class="preview-list">
+              <div class="preview-item"><span class="preview-label">업체명</span><span class="preview-value" data-preview-field="company">-</span></div>
+              <div class="preview-item"><span class="preview-label">사업자</span><span class="preview-value" data-preview-field="business">-</span></div>
+              <div class="preview-item"><span class="preview-label">담당자</span><span class="preview-value" data-preview-field="manager">-</span></div>
+              <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value" data-preview-field="phone">-</span></div>
+              <div class="preview-item"><span class="preview-label">이메일</span><span class="preview-value" data-preview-field="email">-</span></div>
+              <div class="preview-item"><span class="preview-label">역할</span><span class="preview-value" data-preview-field="roles">-</span></div>
+            </div>
+            <div class="add-contact-card" data-add-contact-card hidden>
+              <div class="add-title">
+                <span>담당자 추가</span>
+                <button class="plain-button" type="button" data-add-contact-toggle>열기</button>
+              </div>
+              <div class="add-body">
+                <div class="dialog-status">선택한 화주를 유지한 채 담당자만 추가합니다.</div>
+                <div class="mini-grid">
+                  <label class="mini-field">
+                    <span class="mini-label">담당자명</span>
+                    <input class="mini-input" value="신규 담당자" data-new-contact="manager" />
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">담당자 연락처</span>
+                    <input class="mini-input" value="010-0000-0000" data-new-contact="phone" />
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">담당자 이메일</span>
+                    <input class="mini-input" value="new@company.com" data-new-contact="email" />
+                  </label>
+                  <div class="mini-field wide">
+                    <span class="mini-label">역할 구분</span>
+                    <div class="role-choice-row" aria-label="담당자 역할 구분">
+                      <button class="role-chip role-choice on" type="button" data-role-choice data-role="배차" aria-pressed="true">배차</button>
+                      <button class="role-chip role-choice" type="button" data-role-choice data-role="정산" aria-pressed="false">정산</button>
+                      <button class="role-chip role-choice" type="button" data-role-choice data-role="관리" aria-pressed="false">관리</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="dialog-actions">
+                  <span class="badge on">선택 화주 기준</span>
+                  <button class="plain-button" type="button" data-add-contact-save>담당자 추가</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+      </div>
+      <div class="dialog-foot">
+        <div class="dialog-status">취소 시 입력 전 상태로 돌아갑니다.</div>
+        <div class="dialog-actions">
+          <button class="plain-button" type="button" data-dialog-cancel>취소</button>
+          <button class="primary-button" type="button" data-dialog-apply disabled>화주 정보에 적용</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section state-panel" aria-labelledby="shipper-edit-title" data-state-panel="rules" hidden>
+    <div class="section-title" id="shipper-edit-title"><span class="num">5</span>화주 정보</div>
+    <div class="section-note">수정 기준 - 연락처/이메일만 같은 위치에서 input 전환</div>
+    <div class="grid-two">
+      <div class="note-card">
+        <strong>기본 원칙</strong>
+        값이 있으면 라벨형 요약으로 보여주고, 연락처와 이메일만 현재 오더 기준 임시 수정이 가능합니다.
+      </div>
+      <div class="note-card">
+        <strong>후속 분리</strong>
+        업체명, 사업자 번호, 담당자명 변경은 `화주/담당자 변경`으로 다시 조회해 선택합니다.
+      </div>
+    </div>
+    <table class="review-table" aria-label="화주 정보 필드 상태">
+      <thead>
+        <tr>
+          <th>필드</th>
+          <th>값 있음</th>
+          <th>값 없음</th>
+          <th>수정 진입</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>화주 업체명</td>
+          <td>업체명 텍스트</td>
+          <td>업체명 입력</td>
+          <td>화주/담당자 변경</td>
+        </tr>
+        <tr>
+          <td>사업자 번호</td>
+          <td>123-45-67890</td>
+          <td>000-00-00000</td>
+          <td>화주/담당자 변경</td>
+        </tr>
+        <tr>
+          <td>담당자명</td>
+          <td>김민수</td>
+          <td>담당자명 입력</td>
+          <td>화주/담당자 변경 또는 담당자 추가</td>
+        </tr>
+        <tr>
+          <td>담당자 연락처</td>
+          <td>010-1234-5678</td>
+          <td>010-0000-0000</td>
+          <td>row 값 클릭</td>
+        </tr>
+        <tr>
+          <td>담당자 이메일</td>
+          <td>minsu@logis.co.kr</td>
+          <td>name@company.com</td>
+          <td>row 값 클릭</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section state-panel" aria-labelledby="shipper-motion-title" data-state-panel="motion" hidden>
+    <div class="section-title" id="shipper-motion-title"><span class="num">5</span>화주 정보</div>
+    <div class="section-note">화주/담당자 변경 애니메이션 후보 비교</div>
+    <div class="motion-grid" aria-label="화주 담당자 변경 애니메이션 후보">
+      <article class="motion-card selected" data-motion="a" data-selected-motion="true">
+        <div class="motion-head">
+          <div>
+            <div class="motion-title">A. 버튼 흡수형</div>
+            <div class="motion-copy">최종 적용안입니다. 기존 CTA 흡수 전환과 가장 일관적입니다.</div>
+            <span class="motion-selected-badge">적용안</span>
+          </div>
+          <button class="motion-play" type="button" data-motion-play>미리보기</button>
+        </div>
+        <div class="motion-stage">
+          <div class="motion-row">
+            <span class="kind">화주</span>
+            <span class="motion-value">로지스팩토리</span>
+            <span class="motion-value">김민수</span>
+            <span class="motion-value">010-1234-5678</span>
+            <button class="motion-button" type="button">화주/담당자 변경</button>
+          </div>
+          <div class="motion-dialog-mini" aria-hidden="true">
+            <span class="motion-search"></span>
+            <span class="motion-result-line"></span>
+            <span class="motion-result-line"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="motion-card" data-motion="b">
+        <div class="motion-head">
+          <div>
+            <div class="motion-title">B. Row 하이라이트형</div>
+            <div class="motion-copy">변경 범위가 row 전체임을 가장 쉽게 보여줍니다.</div>
+          </div>
+          <button class="motion-play" type="button" data-motion-play>미리보기</button>
+        </div>
+        <div class="motion-stage">
+          <div class="motion-row">
+            <span class="kind">화주</span>
+            <span class="motion-value">로지스팩토리</span>
+            <span class="motion-value">김민수</span>
+            <span class="motion-value">010-1234-5678</span>
+            <button class="motion-button" type="button">화주/담당자 변경</button>
+          </div>
+          <div class="motion-dialog-mini" aria-hidden="true">
+            <span class="motion-search"></span>
+            <span class="motion-result-line"></span>
+            <span class="motion-result-line"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="motion-card" data-motion="c">
+        <div class="motion-head">
+          <div>
+            <div class="motion-title">C. 버튼 눌림 + Dialog 확대</div>
+            <div class="motion-copy">가장 단순하고 익숙한 버튼 피드백입니다.</div>
+          </div>
+          <button class="motion-play" type="button" data-motion-play>미리보기</button>
+        </div>
+        <div class="motion-stage">
+          <div class="motion-row">
+            <span class="kind">화주</span>
+            <span class="motion-value">로지스팩토리</span>
+            <span class="motion-value">김민수</span>
+            <span class="motion-value">010-1234-5678</span>
+            <button class="motion-button" type="button">화주/담당자 변경</button>
+          </div>
+          <div class="motion-dialog-mini" aria-hidden="true">
+            <span class="motion-search"></span>
+            <span class="motion-result-line"></span>
+            <span class="motion-result-line"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="motion-card" data-motion="d">
+        <div class="motion-head">
+          <div>
+            <div class="motion-title">D. 버튼 → 검색창 연결형</div>
+            <div class="motion-copy">변경 액션이 조회 검색으로 이어진다는 의미가 선명합니다.</div>
+          </div>
+          <button class="motion-play" type="button" data-motion-play>미리보기</button>
+        </div>
+        <div class="motion-stage">
+          <div class="motion-row">
+            <span class="kind">화주</span>
+            <span class="motion-value">로지스팩토리</span>
+            <span class="motion-value">김민수</span>
+            <span class="motion-value">010-1234-5678</span>
+            <button class="motion-button" type="button">화주/담당자 변경</button>
+          </div>
+          <span class="motion-link" aria-hidden="true"></span>
+          <div class="motion-dialog-mini" aria-hidden="true">
+            <span class="motion-search"></span>
+            <span class="motion-result-line"></span>
+            <span class="motion-result-line"></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="motion-card" data-motion="e">
+        <div class="motion-head">
+          <div>
+            <div class="motion-title">E. Row 접힘 전환형</div>
+            <div class="motion-copy">교체 액션은 강하지만 화면 변화가 큰 후보입니다.</div>
+          </div>
+          <button class="motion-play" type="button" data-motion-play>미리보기</button>
+        </div>
+        <div class="motion-stage">
+          <div class="motion-row">
+            <span class="kind">화주</span>
+            <span class="motion-value">로지스팩토리</span>
+            <span class="motion-value">김민수</span>
+            <span class="motion-value">010-1234-5678</span>
+            <button class="motion-button" type="button">화주/담당자 변경</button>
+          </div>
+          <div class="motion-dialog-mini" aria-hidden="true">
+            <span class="motion-search"></span>
+            <span class="motion-result-line"></span>
+            <span class="motion-result-line"></span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+</main>
+<script>
+  const activationDemo = document.querySelector("[data-activation-demo]");
+  const activationButton = activationDemo?.querySelector("[data-activation-button]");
+  const activationReset = document.querySelector("[data-activation-reset]");
+  const activationTarget = activationDemo?.querySelector("[data-activation-target]");
+  const shipperDialog = document.querySelector("[data-shipper-dialog]");
+  const dialogApply = document.querySelector("[data-dialog-apply]");
+  const previewState = document.querySelector("[data-preview-state]");
+  const addContactCard = document.querySelector("[data-add-contact-card]");
+  const resultList = document.querySelector(".result-list");
+  const stateTabs = document.querySelectorAll("[data-state-tab]");
+  const statePanels = document.querySelectorAll("[data-state-panel]");
+  const motionCards = document.querySelectorAll("[data-motion]");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const appliedPlaceholders = {
+    company: "업체명 입력",
+    business: "000-00-00000",
+    manager: "담당자명 입력",
+    phone: "010-0000-0000",
+    email: "name@company.com"
+  };
+  const previewFields = ["company", "business", "manager", "phone", "email", "roles"];
+  let selectedShipper = null;
+  let dialogMode = "empty";
+
+  const setAppliedRow = (values) => {
+    Object.entries(values).forEach(([field, value]) => {
+      const target = document.querySelector(`[data-applied-field="${field}"]`);
+      if (target) target.textContent = value;
+    });
+
+    const state = document.querySelector("[data-apply-state]");
+    if (state) state.textContent = values.company === appliedPlaceholders.company ? "조회중" : "화주/담당자 변경";
+  };
+
+  const resetSelectedPreview = () => {
+    selectedShipper = null;
+    document.querySelectorAll("[data-result-row].selected").forEach((row) => row.classList.remove("selected"));
+    previewFields.forEach((field) => {
+      const preview = document.querySelector(`[data-preview-field="${field}"]`);
+      if (preview) preview.textContent = "-";
+    });
+    if (previewState) previewState.textContent = "미선택";
+    if (dialogApply) dialogApply.disabled = true;
+    if (addContactCard) {
+      addContactCard.hidden = true;
+      addContactCard.classList.remove("expanded");
+    }
+    const addContactToggle = document.querySelector("[data-add-contact-toggle]");
+    if (addContactToggle) addContactToggle.textContent = "열기";
+  };
+
+  const resetActivationState = () => {
+    activationDemo?.classList.remove("activated", "activating");
+    setAppliedRow(appliedPlaceholders);
+    resetSelectedPreview();
+  };
+
+  const setStatePanel = (panelId) => {
+    stateTabs.forEach((tab) => {
+      const isActive = tab.dataset.stateTab === panelId;
+      tab.classList.toggle("on", isActive);
+      tab.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+
+    statePanels.forEach((panel) => {
+      panel.hidden = panel.dataset.statePanel !== panelId;
+    });
+
+    if (shipperDialog) shipperDialog.hidden = true;
+    resetSelectedPreview();
+  };
+
+  stateTabs.forEach((tab) => {
+    tab.addEventListener("click", () => setStatePanel(tab.dataset.stateTab));
+  });
+
+  document.querySelectorAll("[data-motion-play]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const card = button.closest("[data-motion]");
+      if (!card) return;
+
+      motionCards.forEach((motionCard) => motionCard.classList.remove("playing"));
+      void card.offsetWidth;
+      card.classList.add("playing");
+      window.setTimeout(() => card.classList.remove("playing"), 1200);
+    });
+  });
+
+  const openLookupDialog = ({ mode = "empty", values = null } = {}) => {
+    if (!shipperDialog) return;
+    dialogMode = mode;
+    shipperDialog.hidden = false;
+    if (values) selectMatchingResult(values);
+  };
+
+  const closeLookupDialog = ({ resetEmptyState } = {}) => {
+    if (shipperDialog) shipperDialog.hidden = true;
+    const shouldReset = typeof resetEmptyState === "boolean" ? resetEmptyState : dialogMode === "empty";
+    if (shouldReset) {
+      resetActivationState();
+    } else {
+      resetSelectedPreview();
+    }
+  };
+
+  const finishActivation = () => {
+    activationDemo?.classList.remove("activating");
+    activationDemo?.classList.add("activated");
+    openLookupDialog({ mode: "empty" });
+  };
+
+  activationButton?.addEventListener("click", () => {
+    if (!activationDemo || !activationTarget) return;
+    if (activationDemo.classList.contains("activating")) return;
+
+    const buttonRect = activationButton.getBoundingClientRect();
+    const targetRect = activationTarget.getBoundingClientRect();
+    const distanceToLabel = targetRect.right - buttonRect.left + 4;
+
+    activationButton.style.setProperty("--absorb-x", `${distanceToLabel}px`);
+    activationDemo.classList.remove("activated");
+    activationDemo.classList.add("activating");
+
+    if (prefersReducedMotion) {
+      finishActivation();
+      return;
+    }
+
+    activationButton.addEventListener("animationend", finishActivation, { once: true });
+    window.setTimeout(finishActivation, 560);
+  });
+
+  activationReset?.addEventListener("click", () => {
+    closeLookupDialog({ resetEmptyState: true });
+  });
+
+  document.querySelectorAll("[data-dialog-close], [data-dialog-cancel]").forEach((button) => {
+    button.addEventListener("click", () => closeLookupDialog());
+  });
+
+  const getRowValues = (row) => ({
+    company: row.dataset.company ?? "",
+    business: row.dataset.business ?? "",
+    manager: row.dataset.manager ?? "",
+    phone: row.dataset.phone ?? "",
+    email: row.dataset.email ?? "",
+    roles: row.dataset.roles ?? "배차"
+  });
+
+  const updatePreviewField = (field, value) => {
+    const preview = document.querySelector(`[data-preview-field="${field}"]`);
+    if (preview) preview.textContent = value;
+  };
+
+  const getSummaryValues = (scope) => {
+    const values = {};
+    previewFields.filter((field) => field !== "roles").forEach((field) => {
+      const applied = scope?.querySelector(`[data-applied-field="${field}"]`);
+      const summary = scope?.querySelector(`[data-summary-cell][data-field="${field}"] [data-read-value]`);
+      values[field] = applied?.textContent.trim() || summary?.textContent.trim() || "";
+    });
+    return values;
+  };
+
+  const selectMatchingResult = (values) => {
+    const rows = Array.from(document.querySelectorAll("[data-result-row]"));
+    const match = rows.find((row) =>
+      row.dataset.company === values.company &&
+      row.dataset.business === values.business &&
+      row.dataset.manager === values.manager
+    ) || rows.find((row) =>
+      row.dataset.company === values.company &&
+      row.dataset.business === values.business
+    );
+
+    if (match) {
+      selectResultRow(match);
+    }
+  };
+
+  const selectResultRow = (row) => {
+    selectedShipper = getRowValues(row);
+
+    document.querySelectorAll("[data-result-row].selected").forEach((selectedRow) => selectedRow.classList.remove("selected"));
+    row.classList.add("selected");
+
+    Object.entries(selectedShipper).forEach(([field, value]) => {
+      updatePreviewField(field, value);
+    });
+
+    if (previewState) previewState.textContent = "적용 대기";
+    if (dialogApply) dialogApply.disabled = false;
+    if (addContactCard) addContactCard.hidden = false;
+  };
+
+  const bindResultRow = (row) => {
+    row.addEventListener("click", () => {
+      selectResultRow(row);
+    });
+
+    row.addEventListener("keydown", (event) => {
+      if ((event.key === "Enter" || event.key === " ") && event.target === row) {
+        event.preventDefault();
+        selectResultRow(row);
+      }
+    });
+  };
+
+  document.querySelectorAll("[data-result-row]").forEach((row) => {
+    bindResultRow(row);
+  });
+
+  const commitAppliedInlineEdit = (cell, { restore = false } = {}) => {
+    const input = cell?.querySelector("[data-applied-inline-control]");
+    if (!cell || !input) return;
+
+    const beforeEdit = cell.dataset.beforeEdit ?? "";
+    const value = restore ? beforeEdit : input.value.trim() || beforeEdit || "미입력";
+    cell.classList.remove("editing");
+    cell.textContent = value;
+  };
+
+  const beginAppliedInlineEdit = (cell) => {
+    document.querySelectorAll("[data-applied-inline-edit].editing").forEach((editingCell) => {
+      if (editingCell !== cell) commitAppliedInlineEdit(editingCell);
+    });
+
+    const field = cell.dataset.appliedInlineEdit;
+    const beforeEdit = cell.textContent.trim();
+    cell.dataset.beforeEdit = beforeEdit;
+    cell.classList.add("editing");
+    cell.textContent = "";
+
+    const input = document.createElement("input");
+    input.className = "applied-inline-input";
+    input.type = field === "email" ? "email" : "text";
+    input.value = beforeEdit;
+    input.dataset.appliedInlineControl = "";
+    input.setAttribute("aria-label", field === "email" ? "담당자 이메일 임시 수정" : "담당자 연락처 임시 수정");
+    cell.append(input);
+
+    input.addEventListener("click", (event) => event.stopPropagation());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        event.stopPropagation();
+        commitAppliedInlineEdit(cell);
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        commitAppliedInlineEdit(cell, { restore: true });
+      }
+    });
+    input.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        if (cell.classList.contains("editing")) commitAppliedInlineEdit(cell);
+      }, 0);
+    });
+
+    input.focus();
+    input.select();
+  };
+
+  document.querySelectorAll("[data-applied-inline-edit]").forEach((cell) => {
+    cell.addEventListener("click", () => {
+      if (!cell.classList.contains("editing")) beginAppliedInlineEdit(cell);
+    });
+
+    cell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !cell.classList.contains("editing")) {
+        event.preventDefault();
+        beginAppliedInlineEdit(cell);
+      }
+    });
+  });
+
+  dialogApply?.addEventListener("click", () => {
+    if (!selectedShipper) return;
+    setAppliedRow(selectedShipper);
+    closeLookupDialog({ resetEmptyState: false });
+  });
+
+  document.querySelectorAll("[data-change-shipper]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const values = getSummaryValues(button.closest(".shipper-card"));
+      const row = button.closest(".shipper-row");
+      const kind = row?.querySelector(".kind");
+      let changeMotionDone = false;
+
+      const finishChangeMotion = () => {
+        if (changeMotionDone) return;
+        changeMotionDone = true;
+        row?.classList.remove("change-absorbing");
+        button.style.removeProperty("--absorb-x");
+        button.dataset.motionRunning = "false";
+        openLookupDialog({ mode: "change", values });
+      };
+
+      if (!row || !kind || prefersReducedMotion) {
+        openLookupDialog({ mode: "change", values });
+        return;
+      }
+
+      if (button.dataset.motionRunning === "true") return;
+
+      const buttonRect = button.getBoundingClientRect();
+      const kindRect = kind.getBoundingClientRect();
+      const distanceToLabel = kindRect.right - buttonRect.left + 4;
+      button.style.setProperty("--absorb-x", `${distanceToLabel}px`);
+      button.dataset.motionRunning = "true";
+      row.classList.add("change-absorbing");
+
+      button.addEventListener("animationend", finishChangeMotion, { once: true });
+      window.setTimeout(finishChangeMotion, 560);
+    });
+  });
+
+  document.querySelector("[data-add-contact-toggle]")?.addEventListener("click", (event) => {
+    const card = document.querySelector("[data-add-contact-card]");
+    card?.classList.toggle("expanded");
+    event.currentTarget.textContent = card?.classList.contains("expanded") ? "접기" : "열기";
+  });
+
+  document.querySelectorAll("[data-role-choice]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const activeChoices = Array.from(document.querySelectorAll("[data-role-choice].on"));
+      const willTurnOff = button.classList.contains("on");
+
+      if (willTurnOff && activeChoices.length === 1) return;
+
+      button.classList.toggle("on");
+      button.setAttribute("aria-pressed", button.classList.contains("on") ? "true" : "false");
+    });
+  });
+
+  const getSelectedRoles = () => {
+    const roles = Array.from(document.querySelectorAll("[data-role-choice].on")).map((button) => button.dataset.role).filter(Boolean);
+    return roles.length > 0 ? roles.join(" · ") : "배차";
+  };
+
+  const appendText = (parent, className, text) => {
+    const span = document.createElement("span");
+    span.className = className;
+    span.textContent = text;
+    parent.append(span);
+    return span;
+  };
+
+  const appendRoleCell = (parent, roles, { isNew = false } = {}) => {
+    const roleCell = document.createElement("span");
+    roleCell.className = "role-cell";
+    roles.split(" · ").forEach((role) => appendText(roleCell, "role-chip", role));
+    if (isNew) appendText(roleCell, "role-chip new-badge", "신규");
+    parent.append(roleCell);
+  };
+
+  document.querySelector("[data-add-contact-save]")?.addEventListener("click", () => {
+    if (!selectedShipper || !resultList) return;
+
+    const manager = document.querySelector('[data-new-contact="manager"]')?.value.trim() || "신규 담당자";
+    const phone = document.querySelector('[data-new-contact="phone"]')?.value.trim() || "010-0000-0000";
+    const email = document.querySelector('[data-new-contact="email"]')?.value.trim() || "new@company.com";
+    const roles = getSelectedRoles();
+    const row = document.createElement("div");
+
+    row.className = "result-row is-new";
+    row.setAttribute("role", "button");
+    row.tabIndex = 0;
+    row.dataset.resultRow = "";
+    row.dataset.company = selectedShipper.company;
+    row.dataset.business = selectedShipper.business;
+    row.dataset.manager = manager;
+    row.dataset.phone = phone;
+    row.dataset.email = email;
+    row.dataset.roles = roles;
+
+    const marker = document.createElement("span");
+    marker.className = "select-marker";
+    marker.setAttribute("aria-hidden", "true");
+    row.append(marker);
+    appendText(row, "result-main", selectedShipper.company);
+    appendText(row, "result-pen", selectedShipper.business);
+    appendText(row, "result-pen", manager);
+    appendText(row, "result-pen", phone);
+    appendText(row, "result-pen", email);
+    appendRoleCell(row, roles, { isNew: true });
+
+    resultList.prepend(row);
+    bindResultRow(row);
+    selectResultRow(row);
+    addContactCard?.classList.remove("expanded");
+    const addContactToggle = document.querySelector("[data-add-contact-toggle]");
+    if (addContactToggle) addContactToggle.textContent = "열기";
+  });
+
+</script>
+</body>
+</html>
