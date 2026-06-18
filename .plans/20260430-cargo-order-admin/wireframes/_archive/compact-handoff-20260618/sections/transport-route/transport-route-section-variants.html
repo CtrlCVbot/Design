@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>운송구간 표시 방식 비교</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #8a8f96;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --rule: #d8d4c6;
+    --highlight: #fff3a8;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  .sheet {
+    width: min(1240px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 22px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+
+  .subtitle,
+  .scrid {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .scrid {
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 12px 0 4px;
+  }
+
+  .chip,
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on {
+    background: #efe6c2;
+    font-weight: 700;
+  }
+
+  .badge.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+    font-weight: 700;
+  }
+
+  .meta-band {
+    display: grid;
+    gap: 7px;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    background: #fffaf0;
+  }
+
+  .meta-band.compact {
+    margin-top: 8px;
+    padding: 7px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .meta-label {
+    min-width: 74px;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 23px;
+    padding: 2px 8px;
+    border: 1.15px solid var(--line-soft);
+    border-radius: 13px;
+    background: #fff;
+    color: var(--ink-soft);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .meta-chip.on {
+    border-color: var(--line);
+    background: #efe6c2;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .meta-chip.wait {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+    font-weight: 700;
+  }
+
+  .section {
+    position: relative;
+    min-width: 0;
+    margin-top: 22px;
+    padding: 16px 12px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .section-title {
+    position: absolute;
+    top: -14px;
+    left: 12px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 23px;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .table-scroll {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: auto;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .route-table {
+    min-width: 980px;
+  }
+
+  th,
+  td {
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 7px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: 0;
+  }
+
+  thead th {
+    background: var(--paper-2);
+    border-bottom: 1.5px solid var(--line);
+    font-weight: 700;
+  }
+
+  .route-table tbody tr.main-row td {
+    background: #fffefb;
+  }
+
+  .route-table tbody tr.main-row.pickup td:first-child,
+  .route-table tbody tr.main-row.dropoff td:first-child {
+    background: #efe6c2;
+    font-weight: 700;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .place {
+    font-weight: 700;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .addr,
+  .time-method,
+  .detail-value {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .time-method {
+    white-space: nowrap;
+  }
+
+  .detail-row td {
+    background: #fffaf0;
+    border-bottom: 1.5px solid var(--line);
+  }
+
+  .detail-label {
+    display: block;
+    color: var(--ink-mute);
+    font-size: 12px;
+  }
+
+  .detail-value {
+    display: block;
+    margin-top: 2px;
+    color: var(--ink);
+  }
+
+  .fold {
+    color: var(--ink-soft);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  .route-card {
+    display: grid;
+    grid-template-columns: 96px minmax(0, 1fr) auto;
+    gap: 10px;
+    align-items: start;
+    padding: 10px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 2px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .card-title {
+    margin: 0 0 2px;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .card-line {
+    margin: 0;
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+    color: var(--ink-soft);
+  }
+
+  .variant-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .variant-grid > div {
+    min-width: 0;
+  }
+
+  .sheet-card-grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  .sheet-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .sheet-card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--rule);
+    background: #efe6c2;
+    font-weight: 700;
+  }
+
+  .sheet-card-row,
+  .sheet-card-detail {
+    display: grid;
+    grid-template-columns: 128px minmax(190px, 1fr) 126px 118px;
+    gap: 8px;
+    align-items: start;
+    min-width: 610px;
+    padding: 8px;
+  }
+
+  .sheet-card-row + .sheet-card-detail {
+    border-top: 1px dashed var(--rule);
+    background: #fffaf0;
+  }
+
+  .sheet-card-label {
+    display: block;
+    color: var(--ink-mute);
+    font-size: 12px;
+  }
+
+  .compact-route-grid {
+    display: grid;
+    gap: 6px;
+  }
+
+  .compact-route-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .compact-route-card summary {
+    display: grid;
+    grid-template-columns: 52px 152px minmax(220px, 1fr) 132px 106px 58px;
+    gap: 7px;
+    align-items: center;
+    min-width: 720px;
+    padding: 5px 8px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .compact-route-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .compact-route-kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .compact-route-detail {
+    display: grid;
+    grid-template-columns: 52px minmax(180px, 1fr) minmax(170px, 1fr) minmax(170px, 1fr);
+    gap: 8px;
+    min-width: 720px;
+    padding: 6px 8px 8px;
+    border-top: 1px dashed var(--rule);
+    background: #fffaf0;
+  }
+
+  .mini-title {
+    margin: 0 0 8px;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  .empty-sheet {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+    background: #fff;
+  }
+
+  .empty-row {
+    display: grid;
+    grid-template-columns: 54px minmax(0, 1fr) 110px 110px 120px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .empty-row:last-child {
+    border-bottom: 0;
+  }
+
+  .empty-row > div {
+    min-height: 42px;
+    padding: 6px 8px;
+    border-right: 1px solid var(--rule);
+  }
+
+  .empty-row > div:last-child {
+    border-right: 0;
+  }
+
+  .empty-head {
+    background: var(--paper-2);
+    font-weight: 700;
+  }
+
+  .ph {
+    display: block;
+    height: 12px;
+    margin-top: 4px;
+    border-bottom: 1.5px dashed #b9a974;
+  }
+
+  .review-note {
+    margin-top: 14px;
+    padding: 8px 10px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .variant-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    body {
+      padding: 10px;
+    }
+
+    .sheet {
+      width: calc(100vw - 20px);
+      padding: 12px 10px 18px;
+    }
+
+    .route-card {
+      grid-template-columns: 1fr;
+    }
+
+    .sheet-card-row,
+    .sheet-card-detail {
+      grid-template-columns: 128px minmax(190px, 1fr) 126px 118px;
+    }
+
+    .empty-row {
+      grid-template-columns: 1fr;
+    }
+
+    .empty-row > div {
+      border-right: 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .empty-row > div:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet" aria-label="운송구간 표시 방식 비교">
+  <header class="mast">
+    <div>
+      <h1>운송구간 표시 방식 비교</h1>
+      <div class="subtitle">데이터 있음 상태를 A 명세표형, B 명세표 구조 카드형, C 기존 카드형, D 컴팩트 병합형으로 비교</div>
+    </div>
+    <div class="scrid">SCR-TR-004 · sheet-row + sheet-card + stacked-card + compact-hybrid</div>
+  </header>
+
+  <div class="chips" aria-label="기획 원칙">
+    <span class="chip on">우선안: 명세표 행</span>
+    <span class="chip">상차/하차 세로 2행</span>
+    <span class="chip">한 행 안에 지명·주소·일시/방법</span>
+    <span class="chip">펼침은 행 아래 상세행</span>
+    <span class="chip">배차 유형 대표/옵션 규칙 추가</span>
+    <span class="chip">06 리뷰 반영 상태 표시</span>
+    <span class="chip">톤수·차종 후 계산 메타</span>
+    <span class="chip">명세표 구조 카드형 추가</span>
+    <span class="chip">B+C 컴팩트 병합안 추가</span>
+    <span class="chip">기존 카드형 비교 유지</span>
+  </div>
+
+  <section class="section" aria-labelledby="sheet-title">
+    <div class="section-title" id="sheet-title"><span class="num">1</span>데이터 있음: 명세표 한 줄 행</div>
+    <div class="section-note">상차지명 옆 주소, 주소 옆 일시/방법이 한 행에 보이는 우선안</div>
+    <div class="table-scroll">
+      <table class="route-table" aria-label="명세표형 운송구간">
+        <thead>
+          <tr>
+            <th style="width:74px">구분</th>
+            <th style="width:170px">상/하차지명</th>
+            <th>주소</th>
+            <th style="width:170px">일시 / 방법</th>
+            <th style="width:120px">특이사항</th>
+            <th style="width:92px">상세</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="main-row pickup">
+            <td>상차</td>
+            <td><span class="place">코덱트 후진입차</span></td>
+            <td><span class="addr">경기 여주시 산북면 후리</span></td>
+            <td><span class="time-method">지금 / 지게차</span></td>
+            <td><span class="badge warn">특이사항 2</span></td>
+            <td><span class="fold">펼침</span></td>
+          </tr>
+          <tr class="detail-row pickup-detail">
+            <td></td>
+            <td></td>
+            <td><span class="detail-label">상세주소</span><span class="detail-value">18-1 코덱트 후진입차</span></td>
+            <td><span class="detail-label">담당자 / 연락처</span><span class="detail-value">김상차 / 010-1234-5678</span></td>
+            <td colspan="2"><span class="detail-label">특이사항 요약</span><span class="detail-value">진입로 협소, 10분 전 연락 필요</span></td>
+          </tr>
+          <tr class="main-row dropoff">
+            <td>하차</td>
+            <td><span class="place">무갑리 현장</span></td>
+            <td><span class="addr">경기 광주시 초월읍 무갑리</span></td>
+            <td><span class="time-method">당일 / 지게차</span></td>
+            <td><span class="badge warn">특이사항 1</span></td>
+            <td><span class="fold">펼침</span></td>
+          </tr>
+          <tr class="detail-row dropoff-detail">
+            <td></td>
+            <td></td>
+            <td><span class="detail-label">상세주소</span><span class="detail-value">554-7</span></td>
+            <td><span class="detail-label">담당자 / 연락처</span><span class="detail-value">박하차 / 010-9876-5432</span></td>
+            <td colspan="2"><span class="detail-label">특이사항 요약</span><span class="detail-value">지게차 대기 필요</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="meta-band" aria-label="운송구간 전체 보조 메타">
+      <div class="meta-row">
+        <span class="meta-label">대표 선택</span>
+        <span class="meta-chip on">독차(기본)</span>
+        <span class="meta-chip wait">혼적 전환 가능</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">멀티 옵션</span>
+        <span class="meta-chip">예약</span>
+        <span class="meta-chip wait">긴급/왕복 미선택</span>
+        <span class="meta-chip wait">모두 미선택 가능</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">경유</span>
+        <span class="meta-chip">경유 없음</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">계산 메타</span>
+        <span class="meta-chip wait">톤수·차종 선택 후 거리/기준 금액 계산</span>
+        <span class="meta-chip">실시간 운송료 조회 가능</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="compare-title">
+    <div class="section-title" id="compare-title"><span class="num">2</span>표시 방식 비교</div>
+    <div class="section-note">A 명세표형, B 명세표 구조 카드형, C 기존 카드형, D 컴팩트 병합형을 같은 데이터로 비교</div>
+    <div class="variant-grid">
+      <div>
+        <p class="mini-title">A. 명세표형: 운영 화면 우선안</p>
+        <div class="table-scroll">
+          <table class="route-table" aria-label="명세표형 비교">
+            <thead>
+              <tr>
+                <th style="width:64px">구분</th>
+                <th style="width:150px">지명</th>
+                <th>주소</th>
+                <th style="width:150px">일시 / 방법</th>
+                <th style="width:110px">특이사항</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="main-row pickup">
+                <td>상차</td>
+                <td><span class="place">코덱트 후진입차</span></td>
+                <td><span class="addr">경기 여주시 산북면 후리</span></td>
+                <td><span class="time-method">지금 / 지게차</span></td>
+                <td><span class="badge warn">2</span></td>
+              </tr>
+              <tr class="main-row dropoff">
+                <td>하차</td>
+                <td><span class="place">무갑리 현장</span></td>
+                <td><span class="addr">경기 광주시 초월읍 무갑리</span></td>
+                <td><span class="time-method">당일 / 지게차</span></td>
+                <td><span class="badge warn">1</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="meta-band compact">
+          <div class="meta-row">
+            <span class="meta-label">전체 조건</span>
+            <span class="meta-chip on">독차(기본)</span>
+            <span class="meta-chip">예약</span>
+            <span class="meta-chip">경유 없음</span>
+            <span class="meta-chip wait">톤수·차종 후 계산</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="mini-title">B. 명세표 구조 카드형: 구분감 보조안</p>
+        <div class="sheet-card-grid" aria-label="명세표 구조 카드형 운송구간">
+          <article class="sheet-card">
+            <div class="sheet-card-head">
+              <span>상차</span>
+              <span class="badge warn">특이사항 2</span>
+            </div>
+            <div class="sheet-card-row">
+              <div><span class="sheet-card-label">지명</span><span class="place">코덱트 후진입차</span></div>
+              <div><span class="sheet-card-label">주소</span><span class="addr">경기 여주시 산북면 후리</span></div>
+              <div><span class="sheet-card-label">일시 / 방법</span><span class="time-method">지금 / 지게차</span></div>
+              <div><span class="sheet-card-label">상세</span><span class="fold">펼침</span></div>
+            </div>
+            <div class="sheet-card-detail">
+              <div></div>
+              <div><span class="detail-label">상세주소</span><span class="detail-value">18-1 코덱트 후진입차</span></div>
+              <div><span class="detail-label">담당자 / 연락처</span><span class="detail-value">김상차 / 010-1234-5678</span></div>
+              <div><span class="detail-label">요약</span><span class="detail-value">진입로 협소</span></div>
+            </div>
+          </article>
+
+          <article class="sheet-card">
+            <div class="sheet-card-head">
+              <span>하차</span>
+              <span class="badge warn">특이사항 1</span>
+            </div>
+            <div class="sheet-card-row">
+              <div><span class="sheet-card-label">지명</span><span class="place">무갑리 현장</span></div>
+              <div><span class="sheet-card-label">주소</span><span class="addr">경기 광주시 초월읍 무갑리</span></div>
+              <div><span class="sheet-card-label">일시 / 방법</span><span class="time-method">당일 / 지게차</span></div>
+              <div><span class="sheet-card-label">상세</span><span class="fold">펼침</span></div>
+            </div>
+            <div class="sheet-card-detail">
+              <div></div>
+              <div><span class="detail-label">상세주소</span><span class="detail-value">554-7</span></div>
+              <div><span class="detail-label">담당자 / 연락처</span><span class="detail-value">박하차 / 010-9876-5432</span></div>
+              <div><span class="detail-label">요약</span><span class="detail-value">지게차 대기</span></div>
+            </div>
+          </article>
+        </div>
+        <div class="meta-band compact">
+          <div class="meta-row">
+            <span class="meta-label">전체 조건</span>
+            <span class="meta-chip on">독차(기본)</span>
+            <span class="meta-chip">예약</span>
+            <span class="meta-chip">경유 없음</span>
+            <span class="meta-chip wait">톤수·차종 후 계산</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="mini-title">C. 기존 카드형: 설명형 비교안</p>
+        <div class="card-grid" aria-label="카드형 운송구간">
+          <article class="route-card">
+            <div class="kind">[상차지]</div>
+            <div>
+              <p class="card-title">코덱트 후진입차</p>
+              <p class="card-line">경기 여주시 산북면 후리</p>
+              <div class="card-meta"><span>지금 / 지게차</span><span class="badge warn">특이사항 2</span></div>
+            </div>
+            <span class="badge">카드</span>
+          </article>
+          <article class="route-card">
+            <div class="kind">[하차지]</div>
+            <div>
+              <p class="card-title">무갑리 현장</p>
+              <p class="card-line">경기 광주시 초월읍 무갑리</p>
+              <div class="card-meta"><span>당일 / 지게차</span><span class="badge warn">특이사항 1</span></div>
+            </div>
+            <span class="badge">카드</span>
+          </article>
+        </div>
+        <div class="meta-band compact">
+          <div class="meta-row">
+            <span class="meta-label">전체 조건</span>
+            <span class="meta-chip on">독차(기본)</span>
+            <span class="meta-chip">예약</span>
+            <span class="meta-chip">경유 없음</span>
+            <span class="meta-chip wait">톤수·차종 후 계산</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <p class="mini-title">D. B+C 병합형: 컴팩트 명세 카드형</p>
+        <div class="compact-route-grid" aria-label="B와 C를 병합한 컴팩트 명세 카드형 운송구간">
+          <details class="compact-route-card">
+            <summary>
+              <span class="compact-route-kind">상차</span>
+              <span class="place">코덱트 후진입차</span>
+              <span class="addr">경기 여주시 산북면 후리</span>
+              <span class="time-method">지금 / 지게차</span>
+              <span class="badge warn">특이사항 2</span>
+              <span class="fold">펼침</span>
+            </summary>
+            <div class="compact-route-detail">
+              <div></div>
+              <div><span class="detail-label">상세주소</span><span class="detail-value">18-1 코덱트 후진입차</span></div>
+              <div><span class="detail-label">담당자 / 연락처</span><span class="detail-value">김상차 / 010-1234-5678</span></div>
+              <div><span class="detail-label">특이사항 요약</span><span class="detail-value">진입로 협소</span></div>
+            </div>
+          </details>
+          <details class="compact-route-card">
+            <summary>
+              <span class="compact-route-kind">하차</span>
+              <span class="place">무갑리 현장</span>
+              <span class="addr">경기 광주시 초월읍 무갑리</span>
+              <span class="time-method">당일 / 지게차</span>
+              <span class="badge warn">특이사항 1</span>
+              <span class="fold">펼침</span>
+            </summary>
+            <div class="compact-route-detail">
+              <div></div>
+              <div><span class="detail-label">상세주소</span><span class="detail-value">554-7</span></div>
+              <div><span class="detail-label">담당자 / 연락처</span><span class="detail-value">박하차 / 010-9876-5432</span></div>
+              <div><span class="detail-label">특이사항 요약</span><span class="detail-value">지게차 대기</span></div>
+            </div>
+          </details>
+        </div>
+        <div class="meta-band compact">
+          <div class="meta-row">
+            <span class="meta-label">전체 조건</span>
+            <span class="meta-chip on">독차(기본)</span>
+            <span class="meta-chip">예약</span>
+            <span class="meta-chip">경유 없음</span>
+            <span class="meta-chip wait">톤수·차종 후 계산</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="empty-title">
+    <div class="section-title" id="empty-title"><span class="num">3</span>빈 상태: 주소 미적용</div>
+    <div class="section-note">기존 Spec Form의 빈칸 감각은 유지</div>
+    <div class="empty-sheet" aria-label="주소가 없는 운송구간 빈 상태">
+      <div class="empty-row empty-head">
+        <div>#</div><div>주소 / 상세</div><div>일시</div><div>방법</div><div>담당자</div>
+      </div>
+      <div class="empty-row">
+        <div>① 상차</div>
+        <div><span class="ph"></span><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+      </div>
+      <div class="empty-row">
+        <div>② 하차</div>
+        <div><span class="ph"></span><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+        <div><span class="ph"></span></div>
+      </div>
+    </div>
+    <div class="meta-band" aria-label="주소가 없는 운송구간 보조 메타">
+      <div class="meta-row">
+        <span class="meta-label">대표 선택</span>
+        <span class="meta-chip on">독차(기본)</span>
+        <span class="meta-chip wait">배차 유형 선택 전</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">멀티 옵션</span>
+        <span class="meta-chip wait">옵션 없음</span>
+        <span class="meta-chip wait">긴급/왕복/예약 미선택</span>
+      </div>
+      <div class="meta-row">
+        <span class="meta-label">계산 메타</span>
+        <span class="meta-chip wait">주소 입력 후 계산</span>
+        <span class="meta-chip wait">톤수·차종 선택 후 기준 금액 계산</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="review-title">
+    <div class="section-title" id="review-title"><span class="num">4</span>06 리뷰 반영 상태</div>
+    <div class="section-note">Source Comparison Review에서 결정된 반영 항목을 화면 안에서도 추적</div>
+    <div class="table-scroll">
+      <table class="route-table" aria-label="06 문서 반영 상태">
+        <thead>
+          <tr>
+            <th style="width:150px">반영 항목</th>
+            <th style="width:92px">상태</th>
+            <th>HTML 표기</th>
+            <th style="width:260px">확인 기준</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="main-row">
+            <td><span class="place">B+C 컴팩트 병합안</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>D. B+C 병합형: 컴팩트 명세 카드형</td>
+            <td>B안의 명세 구조를 유지하면서 C안처럼 높이와 라벨 노출을 줄임</td>
+          </tr>
+          <tr class="main-row">
+            <td><span class="place">대표 배차 유형</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>독차(기본) · 혼적 전환 가능</td>
+            <td>독차와 혼적은 동시에 선택하지 않는 대표 선택</td>
+          </tr>
+          <tr class="main-row">
+            <td><span class="place">멀티 옵션</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>예약 · 긴급/왕복 미선택 · 모두 미선택 가능</td>
+            <td>긴급, 왕복, 예약은 각각 독립 선택</td>
+          </tr>
+          <tr class="main-row">
+            <td><span class="place">입력 전 문구</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>독차(기본) · 배차 유형 선택 전</td>
+            <td>선택 전 안내는 유지하되 기본 대표값은 독차</td>
+          </tr>
+          <tr class="main-row">
+            <td><span class="place">계산 메타</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>톤수·차종 선택 후 거리/기준 금액 계산</td>
+            <td>주소만으로 확정값처럼 보이지 않게 대기 상태 표시</td>
+          </tr>
+          <tr class="main-row">
+            <td><span class="place">경유 조건</span></td>
+            <td><span class="badge">반영</span></td>
+            <td>경유 없음</td>
+            <td>대표 선택과 분리된 전체 운송 조건으로 표시</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <div class="review-note">검증 포인트: A안은 표 안의 상차 1행, 하차 1행입니다. 배차 유형은 독차(기본) 또는 혼적 중 하나의 대표 선택과 긴급/왕복/예약 멀티옵션으로 분리하고, 거리/기준 금액은 톤수·차종 선택 후 계산되는 메타로 분리합니다.</div>
+</main>
+</body>
+</html>

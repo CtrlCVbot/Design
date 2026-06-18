@@ -1,0 +1,2355 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>운송구간 주소 검색/적용 분리안</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #8a8f96;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --rule: #d8d4c6;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+    --warn: #b45309;
+    --warn-bg: #fff3d4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  .sheet {
+    width: min(1240px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 24px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  h1 {
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+
+  .subtitle,
+  .scrid {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .scrid {
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .chips,
+  .meta-row,
+  .toolbar,
+  .dialog-actions,
+  .field-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chips {
+    margin: 12px 0 4px;
+  }
+
+  .chip,
+  .badge,
+  .button,
+  .tab-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+
+  .chip.on,
+  .badge.on,
+  .tab-button.active,
+  .button.primary {
+    background: #efe6c2;
+    font-weight: 700;
+  }
+
+  .chip.wait,
+  .badge.warn,
+  .button.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+    font-weight: 700;
+  }
+
+  .chip.ok {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+    font-weight: 700;
+  }
+
+  .section {
+    position: relative;
+    min-width: 0;
+    margin-top: 22px;
+    padding: 16px 12px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .section-title {
+    position: absolute;
+    top: -14px;
+    left: 12px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 23px;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .toolbar {
+    margin-top: 14px;
+    padding: 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .panel {
+    display: none;
+  }
+
+  .panel.active {
+    display: block;
+  }
+
+  .compare-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .route-section-layout {
+    display: block;
+  }
+
+  .route-panel {
+    display: grid;
+    gap: 6px;
+    min-width: 0;
+  }
+
+  .route-line-row {
+    display: grid;
+    grid-template-columns: 52px 132px minmax(180px, 1.35fr) minmax(140px, 1fr) 86px 118px 82px 92px 112px;
+    gap: 7px;
+    align-items: center;
+    min-width: 1040px;
+    padding: 5px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .route-line-row[data-address-focus-row] {
+    transition: background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+  }
+
+  .route-line-row[data-address-focus-row] .button[data-open-lookup] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+    transition: opacity 140ms ease, transform 140ms ease;
+  }
+
+  .route-line-row[data-address-focus-row].address-section-focused,
+  .route-line-row[data-address-focus-row]:focus-within {
+    border-color: var(--note);
+    background: #fff9e7;
+    box-shadow: inset 0 0 0 1px rgba(178, 122, 0, .18), 0 0 0 2px rgba(178, 122, 0, .08);
+    animation: routeAddressFocusIn 260ms ease;
+  }
+
+  .route-line-row[data-address-focus-row].address-section-focused .button[data-open-lookup],
+  .route-line-row[data-address-focus-row]:focus-within .button[data-open-lookup],
+  .route-line-row[data-address-focus-row].route-change-absorbing .button[data-open-lookup] {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) scale(1);
+  }
+
+  @keyframes routeAddressFocusIn {
+    0% {
+      background: #fffefb;
+      box-shadow: inset 0 0 0 0 rgba(178, 122, 0, 0), 0 0 0 0 rgba(178, 122, 0, 0);
+    }
+    100% {
+      background: #fff9e7;
+      box-shadow: inset 0 0 0 1px rgba(178, 122, 0, .18), 0 0 0 2px rgba(178, 122, 0, .08);
+    }
+  }
+
+  .route-line-wrap {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .route-line-row .button {
+    justify-self: end;
+  }
+
+  .route-line-row.route-change-absorbing {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .route-line-row.route-change-absorbing .button {
+    pointer-events: none;
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  @keyframes absorbToLabel {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+    80% {
+      opacity: .18;
+      transform: translateX(var(--absorb-x, -120px)) scale(.9);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(var(--absorb-x, -120px)) scale(.86);
+    }
+  }
+
+  @keyframes motionSoftHighlight {
+    0% {
+      background: #fffefb;
+    }
+    45% {
+      background: var(--ok-bg);
+    }
+    100% {
+      background: #fffefb;
+    }
+  }
+
+  .route-card,
+  .summary-card,
+  .meta-band,
+  .layout-note,
+  .route-column-card,
+  .preview-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .route-card {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .route-card summary,
+  .readonly-summary {
+    display: grid;
+    grid-template-columns: 52px 152px minmax(220px, 1fr) 132px 96px 58px;
+    gap: 7px;
+    align-items: center;
+    min-width: 720px;
+    padding: 5px 8px;
+    list-style: none;
+  }
+
+  .route-card summary {
+    cursor: pointer;
+  }
+
+  .route-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .place,
+  .addr,
+  .detail-cell,
+  .manager,
+  .phone,
+  .time-method,
+  .method {
+    overflow: visible;
+    min-width: 0;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: keep-all;
+    line-height: 1.15;
+  }
+
+  .addr,
+  .detail-cell {
+    overflow-wrap: break-word;
+  }
+
+  .place {
+    font-weight: 700;
+  }
+
+  .addr {
+    color: var(--ink-soft);
+  }
+
+  .route-address-trigger {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    min-height: 27px;
+    padding: 2px 4px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 120ms ease, outline-color 120ms ease;
+  }
+
+  .addr.route-address-trigger {
+    padding-right: 40px;
+  }
+
+  .addr.route-address-trigger::after {
+    content: "변경";
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    min-height: 17px;
+    padding: 0 5px;
+    border: 1px solid var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Gaegu", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+  }
+
+  .route-line-row.address-section-focused .route-address-trigger,
+  .route-address-trigger:hover,
+  .route-address-trigger:focus {
+    outline: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .route-line-row.address-section-focused .addr.route-address-trigger::after,
+  .addr.route-address-trigger:hover::after,
+  .addr.route-address-trigger:focus::after {
+    opacity: 1;
+  }
+
+  .detail-cell,
+  .manager,
+  .phone {
+    color: var(--ink-soft);
+  }
+
+  .applied-editable {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    min-height: 27px;
+    padding: 2px 32px 2px 4px;
+    border-radius: 3px;
+    border-bottom: 1px dashed var(--note);
+    cursor: text;
+  }
+
+  .applied-editable::after {
+    content: "수정";
+    position: absolute;
+    right: 3px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: inline-flex;
+    align-items: center;
+    min-height: 17px;
+    padding: 0 5px;
+    border: 1px solid var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Gaegu", sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .applied-editable:hover,
+  .applied-editable:focus {
+    outline: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .applied-editable:hover::after,
+  .applied-editable:focus::after {
+    opacity: 1;
+  }
+
+  .applied-editable.editing {
+    padding: 0;
+    border-bottom-color: transparent;
+  }
+
+  .applied-editable.editing::after {
+    content: none;
+  }
+
+  .applied-inline-input {
+    width: 100%;
+    min-height: 27px;
+    padding: 2px 6px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .time-selectable {
+    cursor: pointer;
+  }
+
+  .time-selectable::after,
+  .method-selectable::after {
+    content: "선택";
+  }
+
+  .time-method {
+    color: var(--ok);
+    font-weight: 700;
+  }
+
+  .method {
+    color: var(--ok);
+    font-weight: 700;
+  }
+
+  .method-selectable {
+    cursor: pointer;
+  }
+
+  .method.is-unselected {
+    color: var(--ink-mute);
+  }
+
+  .detail {
+    display: grid;
+    grid-template-columns: 52px 152px minmax(220px, 1fr) minmax(132px, 180px) minmax(150px, 1fr) 58px;
+    gap: 7px;
+    min-width: 720px;
+    padding: 0 8px 7px;
+    border-top: 1px dashed var(--rule);
+    color: var(--ink-soft);
+  }
+
+  .detail-label {
+    display: block;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .detail-value {
+    display: block;
+    overflow: hidden;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .detail-note {
+    min-width: 150px;
+  }
+
+  .meta-band {
+    display: grid;
+    gap: 7px;
+    padding: 8px;
+    align-content: center;
+  }
+
+  .meta-row {
+    align-items: center;
+    min-width: 0;
+  }
+
+  .meta-label {
+    min-width: 70px;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .layout-note {
+    margin-top: 8px;
+    padding: 8px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .route-column-card {
+    display: grid;
+    gap: 7px;
+    padding: 9px;
+  }
+
+  .column-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .column-title {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .column-lines {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .line-item {
+    display: grid;
+    grid-template-columns: 70px minmax(0, 1fr);
+    gap: 7px;
+    align-items: baseline;
+    min-width: 0;
+  }
+
+  .line-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .line-value {
+    overflow: hidden;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .activation-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .empty-route {
+    display: grid;
+    gap: 6px;
+  }
+
+  .placeholder-row {
+    display: grid;
+    grid-template-columns: 52px minmax(180px, 1fr) 160px;
+    gap: 7px;
+    align-items: center;
+    min-height: 36px;
+    padding: 5px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .placeholder-line {
+    display: block;
+    height: 10px;
+    border-bottom: 1.25px dashed var(--line-soft);
+  }
+
+  .placeholder-row.absorbing .button {
+    animation: absorbButton 420ms cubic-bezier(.2, .8, .2, 1) forwards;
+  }
+
+  @keyframes absorbButton {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+    80% {
+      opacity: .2;
+      transform: translateX(-160px) scale(.9);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(-180px) scale(.86);
+    }
+  }
+
+  .lookup-dialog {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: rgba(31, 35, 40, 0.22);
+  }
+
+  .lookup-dialog[hidden] {
+    display: none;
+  }
+
+  .time-choice-popover {
+    position: fixed;
+    z-index: 24;
+    width: 218px;
+    padding: 9px;
+    border: 1.4px solid var(--line);
+    border-radius: 5px;
+    background: var(--paper);
+    box-shadow: 6px 7px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .time-choice-popover[hidden] {
+    display: none;
+  }
+
+  .time-menu-title {
+    margin-bottom: 7px;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .time-option-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .time-option-button {
+    min-height: 31px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fffefb;
+    color: var(--ink);
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .time-option-button:hover,
+  .time-option-button.active {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .time-dialog-panel {
+    width: min(520px, calc(100vw - 44px));
+  }
+
+  .custom-time-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 160px);
+    gap: 8px;
+  }
+
+  .custom-time-field {
+    display: grid;
+    gap: 4px;
+  }
+
+  .dialog-panel {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: min(1120px, calc(100vw - 44px));
+    max-height: min(760px, calc(100vh - 44px));
+    overflow: hidden;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: var(--paper);
+    box-shadow: 8px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .dialog-head,
+  .dialog-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .dialog-foot {
+    border-top: 1px solid var(--line);
+    border-bottom: 0;
+  }
+
+  .dialog-title {
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 28px;
+  }
+
+  .dialog-body {
+    display: grid;
+    gap: 10px;
+    min-height: 0;
+    padding: 12px;
+    overflow: auto;
+  }
+
+  .search-row,
+  .lookup-search {
+    display: grid;
+    grid-template-columns: minmax(260px, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .input,
+  .textarea {
+    width: 100%;
+    min-width: 0;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    color: var(--ink);
+  }
+
+  .input {
+    min-height: 28px;
+    padding: 3px 7px;
+  }
+
+  .input[readonly] {
+    background: #f3f1e9;
+    color: var(--ink-soft);
+    cursor: not-allowed;
+  }
+
+  .textarea {
+    min-height: 56px;
+    padding: 6px 7px;
+    resize: vertical;
+  }
+
+  .result-list {
+    max-height: 292px;
+    overflow: auto;
+  }
+
+  .result-row {
+    width: 100%;
+    border: 0;
+    border-bottom: 1px dashed var(--rule);
+    border-radius: 0;
+    background: #fffefb;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .result-row:hover,
+  .result-row.selected {
+    background: #fff8df;
+  }
+
+  .select-marker,
+  .result-radio {
+    display: inline-grid;
+    place-items: center;
+    width: 22px;
+    height: 22px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+  }
+
+  .select-marker::before,
+  .result-radio::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    border-radius: 999px;
+    background: transparent;
+  }
+
+  .result-row.selected .select-marker,
+  .result-row.selected .result-radio {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+  }
+
+  .result-row.selected .select-marker::before,
+  .result-row.selected .result-radio::before {
+    background: var(--ok);
+  }
+
+  .source-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 22px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .source-badge.shipper {
+    background: #efe6c2;
+  }
+
+  .source-badge.kakao {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .source-filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .lookup-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    gap: 10px;
+    align-items: start;
+  }
+
+  .result-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow: hidden;
+  }
+
+  .result-head,
+  .result-row {
+    display: grid;
+    grid-template-columns: 34px 86px minmax(118px, .8fr) minmax(230px, 1.3fr) 88px;
+    gap: 6px;
+    align-items: center;
+    min-width: 760px;
+    padding: 5px 7px;
+  }
+
+  .result-head > span,
+  .result-row > span {
+    overflow: hidden;
+    min-width: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .result-head {
+    border-bottom: 1px solid var(--rule);
+    background: var(--paper-2);
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .preview-card {
+    display: grid;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .preview-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    font-weight: 700;
+  }
+
+  .preview-list {
+    display: grid;
+    gap: 6px;
+  }
+
+  .preview-item {
+    display: grid;
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 7px;
+    align-items: baseline;
+    min-width: 0;
+    padding-bottom: 4px;
+    border-bottom: 1px dashed var(--rule);
+  }
+
+  .preview-value {
+    overflow: hidden;
+    min-width: 0;
+    color: var(--ink);
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .preview-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .preview-card.readonly-mode [data-preview-form],
+  .preview-card.form-mode [data-preview-readonly],
+  .preview-card.form-mode [data-edit-preview],
+  .preview-card.editing-mode [data-preview-readonly],
+  .preview-card.editing-mode [data-edit-preview] {
+    display: none;
+  }
+
+  .preview-card.form-mode [data-cancel-preview-edit],
+  .preview-card.readonly-mode [data-cancel-preview-edit] {
+    display: none;
+  }
+
+  .preview-grid {
+    display: grid;
+    gap: 7px;
+  }
+
+  .preview-field {
+    display: grid;
+    gap: 3px;
+  }
+
+  .preview-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .preview-source-line,
+  .save-option {
+    display: flex;
+    gap: 7px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .dialog-condition-card {
+    display: grid;
+    gap: 8px;
+    padding: 8px;
+    border: 1.25px dashed var(--line-soft);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .dialog-condition-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .dialog-condition-button {
+    display: grid;
+    gap: 3px;
+    min-width: 0;
+    min-height: 48px;
+    padding: 6px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .dialog-condition-button:hover,
+  .dialog-condition-button:focus {
+    outline: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .dialog-condition-value {
+    display: inline-flex;
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .dialog-condition-button.is-unselected .dialog-condition-value {
+    color: var(--ink-mute);
+  }
+
+  .save-option {
+    padding: 7px 8px;
+    border: 1.25px dashed var(--line-soft);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .save-option.disabled {
+    color: var(--ink-mute);
+  }
+
+  .save-help {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .edit-zone {
+    display: grid;
+    gap: 8px;
+  }
+
+  .editable-line {
+    display: grid;
+    grid-template-columns: 90px minmax(0, 1fr) 52px;
+    gap: 8px;
+    align-items: center;
+    padding: 7px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .edit-badge {
+    opacity: 0;
+    transition: opacity 120ms ease;
+  }
+
+  .editable-line:hover .edit-badge,
+  .editable-line:focus-within .edit-badge {
+    opacity: 1;
+  }
+
+  .editable-line.editing .line-value {
+    display: none;
+  }
+
+  .editable-line:not(.editing) .input {
+    display: none;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .metric-card {
+    padding: 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .metric-title {
+    display: block;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .metric-value {
+    display: block;
+    margin-top: 2px;
+    font-weight: 700;
+  }
+
+  .review-note {
+    margin-top: 14px;
+    padding: 10px;
+    border: 1px dashed var(--note);
+    border-radius: 4px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-size: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .activation-grid,
+    .dialog-body,
+    .metric-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .route-card summary,
+    .readonly-summary,
+    .route-line-row,
+    .detail {
+      min-width: 660px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    body {
+      padding-inline: 10px;
+    }
+
+    .sheet {
+      width: min(100%, calc(100vw - 20px));
+      padding-inline: 12px;
+    }
+
+    .placeholder-row,
+    .editable-line,
+    .search-row,
+    .result-row {
+      grid-template-columns: 1fr;
+    }
+
+    .line-item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet" aria-label="운송구간 주소 검색 적용 분리안">
+  <header class="mast">
+    <div>
+      <h1>운송구간 주소 검색/적용 분리안</h1>
+      <div class="subtitle">기존 D workflow는 그대로 두고, B안 운송구간의 1열 단일 행과 주소 적용 흐름을 별도 확인</div>
+    </div>
+    <div class="scrid">SCR-TR-014~019 · separated workflow</div>
+  </header>
+
+  <div class="chips" aria-label="적용 원칙">
+    <span class="chip on">기존 D workflow 원본 유지</span>
+    <span class="chip">B 원본 톤</span>
+    <span class="chip">1열 단일 행</span>
+    <span class="chip">주소 검색/적용 분리</span>
+    <span class="chip ok">화주 주소록+Kakao</span>
+    <span class="chip">펼침 제거</span>
+    <span class="chip">오른쪽 메타 제외</span>
+  </div>
+
+  <nav class="toolbar" aria-label="화면 전환">
+    <button class="tab-button active" type="button" data-panel-target="one-col">1열 정리안</button>
+    <button class="tab-button" type="button" data-panel-target="apply-flow">주소 검색/적용</button>
+    <button class="tab-button" type="button" data-panel-target="detail-edit">상세 수정</button>
+  </nav>
+
+  <section class="section panel active" data-panel="one-col" aria-labelledby="one-col-title">
+    <div class="section-title" id="one-col-title"><span class="num">1</span>1열 정리안</div>
+    <div class="section-note">펼침 없이 상차/하차를 각각 한 행으로 표시</div>
+    <div class="route-section-layout">
+      <div class="route-panel route-line-wrap" aria-label="1열 운송구간 한 줄 요약">
+        <div class="route-line-row" data-address-focus-row="pickup">
+          <span class="kind">상차</span>
+          <span class="place route-address-trigger" data-route-address-trigger="pickup" data-route-place="pickup" role="button" tabindex="0" aria-label="상차지 변경">코덱트 후진입차</span>
+          <span class="addr route-address-trigger" data-route-address-trigger="pickup" data-route-addr="pickup" role="button" tabindex="0" aria-label="상차지 변경">경기 여주시 산북면 후리</span>
+          <span class="detail-cell applied-editable" data-route-inline-edit="detail" data-route-detail="pickup" tabindex="0">18-1 코덱트 후진입차</span>
+          <span class="manager applied-editable" data-route-inline-edit="manager" data-route-manager="pickup" tabindex="0">김상차</span>
+          <span class="phone applied-editable" data-route-inline-edit="phone" data-route-phone="pickup" tabindex="0">010-1234-5678</span>
+          <span class="time-method applied-editable time-selectable" data-route-time="pickup" tabindex="0">지금</span>
+          <span class="method applied-editable method-selectable is-unselected" data-route-method="pickup" tabindex="0">상차방법</span>
+          <button class="button warn" type="button" data-open-lookup="pickup">상차지 변경</button>
+        </div>
+        <div class="route-line-row" data-address-focus-row="dropoff">
+          <span class="kind">하차</span>
+          <span class="place route-address-trigger" data-route-address-trigger="dropoff" data-route-place="dropoff" role="button" tabindex="0" aria-label="하차지 변경">무갑리 현장</span>
+          <span class="addr route-address-trigger" data-route-address-trigger="dropoff" data-route-addr="dropoff" role="button" tabindex="0" aria-label="하차지 변경">경기 광주시 초월읍 무갑리</span>
+          <span class="detail-cell applied-editable" data-route-inline-edit="detail" data-route-detail="dropoff" tabindex="0">554-7</span>
+          <span class="manager applied-editable" data-route-inline-edit="manager" data-route-manager="dropoff" tabindex="0">박하차</span>
+          <span class="phone applied-editable" data-route-inline-edit="phone" data-route-phone="dropoff" tabindex="0">010-9876-5432</span>
+          <span class="time-method applied-editable time-selectable" data-route-time="dropoff" tabindex="0">당일</span>
+          <span class="method applied-editable method-selectable is-unselected" data-route-method="dropoff" tabindex="0">하차방법</span>
+          <button class="button warn" type="button" data-open-lookup="dropoff">하차지 변경</button>
+        </div>
+      </div>
+    </div>
+    <div class="layout-note">
+      상차와 하차는 세로 2행을 유지하되, 각 행은 `지명 · 주소 · 상세주소 · 담당자 · 연락처 · 일시 · 방법 · 변경`을 한 줄로 표시합니다. 오른쪽 메타와 펼침은 이번 주소 검색/적용 화면에서 제외합니다.
+    </div>
+  </section>
+
+  <section class="section panel" data-panel="apply-flow" aria-labelledby="apply-title">
+    <div class="section-title" id="apply-title"><span class="num">2</span>주소 검색/적용</div>
+    <div class="section-note">상차/하차 공용 다이얼로그</div>
+    <div class="activation-grid">
+      <div class="empty-route">
+        <div class="placeholder-row" data-empty-row="pickup">
+          <span class="kind">상차</span>
+          <span class="placeholder-line" aria-label="상차 주소 입력 전"></span>
+          <button class="button warn" type="button" data-open-lookup="pickup">상차지 주소 입력</button>
+        </div>
+        <div class="placeholder-row" data-empty-row="dropoff">
+          <span class="kind">하차</span>
+          <span class="placeholder-line" aria-label="하차 주소 입력 전"></span>
+          <button class="button warn" type="button" data-open-lookup="dropoff">하차지 주소 입력</button>
+        </div>
+        <div class="route-panel" aria-label="적용 결과 미리보기">
+          <div class="route-line-wrap">
+            <div class="route-line-row">
+              <span class="kind">상차</span>
+              <span class="place" data-route-place="pickup">코덱트 후진입차</span>
+              <span class="addr" data-route-addr="pickup">경기 여주시 산북면 후리</span>
+              <span class="detail-cell applied-editable" data-route-inline-edit="detail" data-route-detail="pickup" tabindex="0">18-1 코덱트 후진입차</span>
+              <span class="manager applied-editable" data-route-inline-edit="manager" data-route-manager="pickup" tabindex="0">김상차</span>
+              <span class="phone applied-editable" data-route-inline-edit="phone" data-route-phone="pickup" tabindex="0">010-1234-5678</span>
+              <span class="time-method applied-editable time-selectable" data-route-time="pickup" tabindex="0">지금</span>
+              <span class="method applied-editable method-selectable is-unselected" data-route-method="pickup" tabindex="0">상차방법</span>
+              <button class="button" type="button" data-open-lookup="pickup">상차지 변경</button>
+            </div>
+          </div>
+          <div class="route-line-wrap">
+            <div class="route-line-row">
+              <span class="kind">하차</span>
+              <span class="place" data-route-place="dropoff">무갑리 현장</span>
+              <span class="addr" data-route-addr="dropoff">경기 광주시 초월읍 무갑리</span>
+              <span class="detail-cell applied-editable" data-route-inline-edit="detail" data-route-detail="dropoff" tabindex="0">554-7</span>
+              <span class="manager applied-editable" data-route-inline-edit="manager" data-route-manager="dropoff" tabindex="0">박하차</span>
+              <span class="phone applied-editable" data-route-inline-edit="phone" data-route-phone="dropoff" tabindex="0">010-9876-5432</span>
+              <span class="time-method applied-editable time-selectable" data-route-time="dropoff" tabindex="0">당일</span>
+              <span class="method applied-editable method-selectable is-unselected" data-route-method="dropoff" tabindex="0">하차방법</span>
+              <button class="button" type="button" data-open-lookup="dropoff">하차지 변경</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <aside class="preview-card">
+        <h3>적용 규칙</h3>
+        <div class="preview-grid">
+          <div><span class="chip on">행정주소</span> 검색/적용 다이얼로그에서만 변경</div>
+          <div><span class="chip">상세주소</span> 기본 행에 포함하고 inline edit 가능</div>
+          <div><span class="chip">담당자</span> 기본 행에서 분리 표시</div>
+          <div><span class="chip">연락처</span> 기본 행에서 분리 표시</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section panel" data-panel="detail-edit" aria-labelledby="edit-title">
+    <div class="section-title" id="edit-title"><span class="num">3</span>상세 수정</div>
+    <div class="section-note">행정주소는 다이얼로그, 상세 정보는 inline edit</div>
+    <div class="edit-zone" aria-label="상세 inline edit">
+      <div class="editable-line" tabindex="0">
+        <span class="line-label">상세주소</span>
+        <span class="line-value" data-edit-value>18-1 코덱트 후진입차</span>
+        <input class="input" value="18-1 코덱트 후진입차" />
+        <button class="button edit-badge" type="button" data-start-edit>수정</button>
+      </div>
+      <div class="editable-line" tabindex="0">
+        <span class="line-label">담당자</span>
+        <span class="line-value" data-edit-value>김상차</span>
+        <input class="input" value="김상차" />
+        <button class="button edit-badge" type="button" data-start-edit>수정</button>
+      </div>
+      <div class="editable-line" tabindex="0">
+        <span class="line-label">연락처</span>
+        <span class="line-value" data-edit-value>010-1234-5678</span>
+        <input class="input" value="010-1234-5678" />
+        <button class="button edit-badge" type="button" data-start-edit>수정</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="review-note">
+    검증 포인트: `transport-route-d-workflow.html` 원본은 수정하지 않습니다. 이 파일은 D workflow를 기반으로 주소 검색/적용과 1열 단일 행 구조만 별도 확장한 추가안입니다.
+  </div>
+</main>
+
+<div class="lookup-dialog" data-dialog hidden>
+  <section class="dialog-panel" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div class="dialog-head">
+      <div>
+        <div class="dialog-title" id="dialog-title">상차지 주소 검색</div>
+        <div class="subtitle">화주 등록 주소록과 Kakao 검색 결과를 함께 보고 선택합니다.</div>
+      </div>
+      <button class="button" type="button" data-close-dialog>닫기</button>
+    </div>
+    <div class="dialog-body">
+      <div class="lookup-search">
+        <input class="input" value="코덱트 후진입차" aria-label="주소 검색어" />
+        <button class="button warn" type="button">조회</button>
+      </div>
+      <div class="source-filter-row" aria-label="조회 결과 출처">
+        <span class="chip on">화주 등록 우선</span>
+        <span class="chip ok">Kakao 검색 포함</span>
+        <span class="chip">중복 가능 표시</span>
+      </div>
+
+      <div class="lookup-layout">
+        <div class="result-card" aria-label="상하차지 주소 조회 결과">
+          <div class="result-head">
+            <span>선택</span>
+            <span>출처</span>
+            <span>지명</span>
+            <span>주소</span>
+            <span>상태</span>
+          </div>
+          <div class="result-list" aria-label="주소 검색 결과">
+            <button class="result-row selected" type="button" data-result="0">
+              <span class="select-marker" aria-hidden="true"></span>
+              <span class="source-badge shipper">화주 등록</span>
+              <span class="result-main">코덱트 후진입차</span>
+              <span>경기 여주시 산북면 후리</span>
+              <span>최근 3회</span>
+            </button>
+            <button class="result-row" type="button" data-result="1">
+              <span class="select-marker" aria-hidden="true"></span>
+              <span class="source-badge shipper">화주 등록</span>
+              <span class="result-main">무갑리 현장</span>
+              <span>경기 광주시 초월읍 무갑리</span>
+              <span>최근 2회</span>
+            </button>
+            <button class="result-row" type="button" data-result="2">
+              <span class="select-marker" aria-hidden="true"></span>
+              <span class="source-badge kakao">Kakao</span>
+              <span class="result-main">산북면 후리 18-1</span>
+              <span>경기 여주시 산북면 후리</span>
+              <span>외부 검색</span>
+            </button>
+            <button class="result-row" type="button" data-result="3">
+              <span class="select-marker" aria-hidden="true"></span>
+              <span class="source-badge kakao">Kakao</span>
+              <span class="result-main">무갑리 554-7</span>
+              <span>경기 광주시 초월읍 무갑리</span>
+              <span>중복 가능</span>
+            </button>
+          </div>
+        </div>
+
+        <aside class="preview-card readonly-mode" data-preview-card aria-label="선택 미리보기">
+          <div class="preview-title">
+            <span>선택 미리보기</span>
+            <span class="chip on" data-preview-source>화주 등록</span>
+          </div>
+          <div class="save-help" data-preview-source-note>선택된 화주의 등록 주소입니다.</div>
+
+          <div class="preview-list" data-preview-readonly>
+            <div class="preview-item"><span class="preview-label">주소</span><span class="preview-value" data-preview-text="addr">경기 여주시 산북면 후리</span></div>
+            <div class="preview-item"><span class="preview-label">상세주소</span><span class="preview-value" data-preview-text="detail">18-1 코덱트 후진입차</span></div>
+            <div class="preview-item"><span class="preview-label">지명</span><span class="preview-value" data-preview-text="place">코덱트 후진입차</span></div>
+            <div class="preview-item"><span class="preview-label">담당자</span><span class="preview-value" data-preview-text="manager">김상차</span></div>
+            <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value" data-preview-text="phone">010-1234-5678</span></div>
+          </div>
+
+          <div class="preview-actions">
+            <button class="button" type="button" data-edit-preview>수정</button>
+            <button class="button" type="button" data-cancel-preview-edit hidden>라벨로 보기</button>
+          </div>
+
+          <div class="preview-grid" data-preview-form>
+            <label class="preview-field"><span class="preview-label">주소</span><input class="input" data-preview="addr" value="경기 여주시 산북면 후리" readonly /></label>
+            <label class="preview-field"><span class="preview-label">상세주소 선택</span><input class="input" data-preview="detail" value="18-1 코덱트 후진입차" /></label>
+            <label class="preview-field"><span class="preview-label">지명 또는 장소명 선택</span><input class="input" data-preview="place" value="코덱트 후진입차" /></label>
+            <label class="preview-field"><span class="preview-label">담당자 선택</span><input class="input" data-preview="manager" value="김상차" /></label>
+            <label class="preview-field"><span class="preview-label">담당자 연락처 선택</span><input class="input" data-preview="phone" value="010-1234-5678" /></label>
+          </div>
+
+          <label class="save-option disabled" data-save-option>
+            <input type="checkbox" data-save-book disabled />
+            <span data-save-label>선택된 화주의 주소록에 저장</span>
+          </label>
+          <div class="save-help" data-save-help>이미 화주 주소록에 등록된 장소입니다.</div>
+
+          <div class="dialog-condition-card" aria-label="상하차 일시와 방법 선택">
+            <div class="preview-title">
+              <span data-dialog-condition-title>상차 조건</span>
+              <span class="chip wait">주소와 함께 적용</span>
+            </div>
+            <div class="dialog-condition-grid">
+              <button class="dialog-condition-button" type="button" data-dialog-time-trigger>
+                <span class="preview-label" data-dialog-time-label>상차일시</span>
+                <span class="dialog-condition-value applied-editable time-selectable" data-dialog-time-value>지금</span>
+              </button>
+              <button class="dialog-condition-button is-unselected" type="button" data-dialog-method-trigger>
+                <span class="preview-label" data-dialog-method-label>상차방법</span>
+                <span class="dialog-condition-value applied-editable method-selectable" data-dialog-method-value>선택 안됨</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+    <div class="dialog-foot">
+      <span class="chip wait">주소·일시·방법 함께 적용</span>
+      <span class="chip">Kakao 결과는 저장 선택 가능</span>
+      <div class="dialog-actions">
+        <button class="button" type="button" data-close-dialog>취소</button>
+        <button class="button primary" type="button" data-apply-route>상차지에 적용</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="time-choice-popover" data-time-menu hidden aria-label="상하차일시 빠른 선택">
+  <div class="time-menu-title" data-time-menu-title>상차일시 선택</div>
+  <div class="time-option-grid" data-time-options></div>
+</div>
+
+<div class="time-choice-popover" data-method-menu hidden aria-label="상하차방법 선택">
+  <div class="time-menu-title" data-method-menu-title>상차방법 선택</div>
+  <div class="time-option-grid" data-method-options></div>
+</div>
+
+<div class="lookup-dialog" data-time-dialog hidden>
+  <section class="dialog-panel time-dialog-panel" role="dialog" aria-modal="true" aria-labelledby="time-dialog-title">
+    <div class="dialog-head">
+      <div>
+        <div class="dialog-title" id="time-dialog-title" data-time-dialog-title>상차일시 지정</div>
+        <div class="subtitle" data-time-dialog-summary>날짜와 시간을 지정해 오더 row에 반영합니다.</div>
+      </div>
+      <button class="button" type="button" data-close-time-dialog>닫기</button>
+    </div>
+    <div class="dialog-body">
+      <div class="custom-time-form" aria-label="지정 일시 입력">
+        <label class="custom-time-field">
+          <span class="preview-label">날짜</span>
+          <input class="input" type="date" data-custom-date />
+        </label>
+        <label class="custom-time-field">
+          <span class="preview-label">시간</span>
+          <input class="input" type="time" data-custom-time />
+        </label>
+      </div>
+      <div class="save-help">지정값은 `지정 6/2 09:00` 형식으로 상차/하차 row에 표시됩니다.</div>
+    </div>
+    <div class="dialog-foot">
+      <span class="chip wait">지정 일시</span>
+      <div class="dialog-actions">
+        <button class="button" type="button" data-close-time-dialog>취소</button>
+        <button class="button primary" type="button" data-apply-custom-time>지정 적용</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+  const routeData = [
+    {
+      source: "shipper",
+      sourceLabel: "화주 등록",
+      sourceNote: "선택된 화주의 등록 주소입니다.",
+      place: "코덱트 후진입차",
+      addr: "경기 여주시 산북면 후리",
+      detail: "18-1 코덱트 후진입차",
+      manager: "김상차",
+      phone: "010-1234-5678",
+      saveAvailable: false,
+      saveHelp: "이미 화주 주소록에 등록된 장소입니다."
+    },
+    {
+      source: "shipper",
+      sourceLabel: "화주 등록",
+      sourceNote: "선택된 화주의 등록 주소입니다.",
+      place: "무갑리 현장",
+      addr: "경기 광주시 초월읍 무갑리",
+      detail: "554-7",
+      manager: "박하차",
+      phone: "010-9876-5432",
+      saveAvailable: false,
+      saveHelp: "이미 화주 주소록에 등록된 장소입니다."
+    },
+    {
+      source: "kakao",
+      sourceLabel: "Kakao",
+      sourceNote: "Kakao API 검색 결과입니다. 필요한 정보를 보강할 수 있습니다.",
+      place: "산북면 후리 18-1",
+      addr: "경기 여주시 산북면 후리",
+      detail: "18-1",
+      manager: "",
+      phone: "",
+      saveAvailable: true,
+      saveHelp: "체크하면 선택된 화주의 주소록에 저장합니다."
+    },
+    {
+      source: "kakao",
+      sourceLabel: "Kakao",
+      sourceNote: "Kakao API 검색 결과입니다. 화주 주소록과 중복될 수 있습니다.",
+      place: "무갑리 554-7",
+      addr: "경기 광주시 초월읍 무갑리",
+      detail: "554-7",
+      manager: "",
+      phone: "",
+      saveAvailable: true,
+      saveHelp: "중복 가능성이 있으면 저장 전 기존 주소록과 비교합니다."
+    }
+  ];
+
+  let activeRouteType = "pickup";
+  let selectedIndex = 0;
+  let currentSelectedData = routeData[0];
+
+  const routeLabels = {
+    pickup: "상차지",
+    dropoff: "하차지"
+  };
+
+  const routeTimeLabels = {
+    pickup: "상차일시",
+    dropoff: "하차일시"
+  };
+
+  const routeTimeOptions = {
+    pickup: ["지금", "당일", "내일", "지정"],
+    dropoff: ["당일", "내일", "월착", "지정"]
+  };
+
+  const routeMethodLabels = {
+    pickup: "상차방법",
+    dropoff: "하차방법"
+  };
+
+  const routeMethodOptions = ["선택 안됨", "지게차", "호이스트", "수해줌", "수작업", "크레인"];
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  let activeTimeRouteType = "pickup";
+  let activeMethodRouteType = "pickup";
+  let activeTimeContext = "route";
+  const dialogRouteDraft = {
+    time: "지금",
+    method: "선택 안됨"
+  };
+
+  const tabs = document.querySelectorAll("[data-panel-target]");
+  const panels = document.querySelectorAll("[data-panel]");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      tabs.forEach((item) => item.classList.toggle("active", item === tab));
+      panels.forEach((panel) => {
+        panel.classList.toggle("active", panel.dataset.panel === tab.dataset.panelTarget);
+      });
+    });
+  });
+
+  function getPreviewData() {
+    return {
+      place: document.querySelector('[data-preview="place"]').value.trim(),
+      addr: document.querySelector('[data-preview="addr"]').value.trim(),
+      detail: document.querySelector('[data-preview="detail"]').value.trim(),
+      manager: document.querySelector('[data-preview="manager"]').value.trim(),
+      phone: document.querySelector('[data-preview="phone"]').value.trim()
+    };
+  }
+
+  function hasEditableChanges() {
+    const current = getPreviewData();
+    return ["place", "detail", "manager", "phone"].some((key) => current[key] !== (currentSelectedData[key] || ""));
+  }
+
+  function setPreviewMode(mode) {
+    const card = document.querySelector("[data-preview-card]");
+    const editButton = document.querySelector("[data-edit-preview]");
+    const cancelButton = document.querySelector("[data-cancel-preview-edit]");
+
+    card.classList.toggle("readonly-mode", mode === "readonly");
+    card.classList.toggle("form-mode", mode === "form");
+    card.classList.toggle("editing-mode", mode === "editing");
+
+    if (editButton) editButton.hidden = mode !== "readonly";
+    if (cancelButton) cancelButton.hidden = mode !== "editing";
+  }
+
+  function setReadonlyPreview(data) {
+    ["addr", "detail", "place", "manager", "phone"].forEach((key) => {
+      const node = document.querySelector(`[data-preview-text="${key}"]`);
+      if (node) node.textContent = data[key] || "-";
+    });
+  }
+
+  function refreshSaveState() {
+    const saveBook = document.querySelector("[data-save-book]");
+    const saveOption = document.querySelector("[data-save-option]");
+    const saveLabel = document.querySelector("[data-save-label]");
+    const saveHelp = document.querySelector("[data-save-help]");
+    const current = getPreviewData();
+    const isKakao = currentSelectedData.source === "kakao";
+    const changed = hasEditableChanges();
+    let canSave = false;
+    let helpText = "";
+
+    if (isKakao) {
+      canSave = current.place.length > 0;
+      saveLabel.textContent = "선택된 화주의 주소록에 저장";
+      helpText = canSave
+        ? "체크하면 선택 입력값과 함께 새 주소로 저장합니다."
+        : "Kakao 주소는 지명 또는 장소명을 입력해야 주소록에 저장할 수 있습니다.";
+    } else {
+      canSave = changed;
+      saveLabel.textContent = "선택된 화주의 주소록에 수정 저장";
+      helpText = canSave
+        ? "체크하면 변경된 상세주소, 지명, 담당자, 연락처를 주소록에 반영합니다."
+        : "기존 등록 주소입니다. 상세주소, 지명, 담당자, 연락처를 수정하면 저장이 활성화됩니다.";
+    }
+
+    saveBook.disabled = !canSave;
+    if (!canSave) {
+      saveBook.checked = false;
+    }
+    saveOption.classList.toggle("disabled", !canSave);
+    saveHelp.textContent = helpText;
+  }
+
+  function setPreview(data) {
+    currentSelectedData = data;
+    const sourceChip = document.querySelector("[data-preview-source]");
+
+    sourceChip.textContent = data.sourceLabel;
+    sourceChip.classList.toggle("ok", data.source === "kakao");
+    sourceChip.classList.toggle("on", data.source === "shipper");
+    document.querySelector("[data-preview-source-note]").textContent = data.sourceNote;
+    document.querySelector('[data-preview="place"]').value = data.place;
+    document.querySelector('[data-preview="addr"]').value = data.addr;
+    document.querySelector('[data-preview="detail"]').value = data.detail;
+    document.querySelector('[data-preview="manager"]').value = data.manager;
+    document.querySelector('[data-preview="phone"]').value = data.phone;
+    setReadonlyPreview(data);
+    setPreviewMode(data.source === "kakao" ? "form" : "readonly");
+    refreshSaveState();
+  }
+
+  function playAddressLookupMotion(sourceButton, onComplete) {
+    if (!sourceButton || prefersReducedMotion) {
+      onComplete();
+      return;
+    }
+
+    const placeholderRow = sourceButton.closest(".placeholder-row");
+
+    if (placeholderRow) {
+      placeholderRow.classList.add("absorbing");
+      window.setTimeout(() => placeholderRow.classList.remove("absorbing"), 520);
+      window.setTimeout(onComplete, 300);
+      return;
+    }
+
+    const routeRow = sourceButton.closest(".route-line-row");
+    const kind = routeRow?.querySelector(".kind");
+    let motionDone = false;
+
+    const finishMotion = () => {
+      if (motionDone) return;
+      motionDone = true;
+      routeRow?.classList.remove("route-change-absorbing");
+      routeRow?.classList.remove("address-section-focused");
+      sourceButton.style.removeProperty("--absorb-x");
+      sourceButton.dataset.motionRunning = "false";
+      onComplete();
+    };
+
+    if (!routeRow || !kind) {
+      onComplete();
+      return;
+    }
+
+    if (sourceButton.dataset.motionRunning === "true") return;
+
+    const buttonRect = sourceButton.getBoundingClientRect();
+    const kindRect = kind.getBoundingClientRect();
+    const distanceToLabel = kindRect.right - buttonRect.left + 4;
+
+    sourceButton.style.setProperty("--absorb-x", `${distanceToLabel}px`);
+    sourceButton.dataset.motionRunning = "true";
+    routeRow.classList.add("route-change-absorbing");
+
+    sourceButton.addEventListener("animationend", finishMotion, { once: true });
+    window.setTimeout(finishMotion, 560);
+  }
+
+  function openDialog(type, sourceButton) {
+    activeRouteType = type;
+    selectedIndex = type === "dropoff" ? 1 : 0;
+    document.querySelector("#dialog-title").textContent = `${routeLabels[type]} 주소 검색`;
+    document.querySelector("[data-apply-route]").textContent = `${routeLabels[type]}에 적용`;
+    document.querySelectorAll("[data-result]").forEach((item) => {
+      item.classList.toggle("selected", Number(item.dataset.result) === selectedIndex);
+    });
+    setPreview(routeData[selectedIndex]);
+    hydrateDialogConditions(type);
+    playAddressLookupMotion(sourceButton, () => {
+      document.querySelector("[data-dialog]").hidden = false;
+    });
+  }
+
+  function triggerRouteLookupFromAddress(trigger) {
+    const routeType = trigger.dataset.routeAddressTrigger;
+    const row = trigger.closest("[data-address-focus-row]");
+    const lookupButton = row?.querySelector(`[data-open-lookup="${routeType}"]`);
+
+    if (!lookupButton) return;
+
+    row.classList.add("address-section-focused");
+    lookupButton.click();
+  }
+
+  function closeDialog() {
+    closeTimeMenu();
+    closeMethodMenu();
+    document.querySelector("[data-dialog]").hidden = true;
+  }
+
+  function setRouteDisplayText(selector, value) {
+    document.querySelectorAll(selector).forEach((node) => {
+      node.classList.remove("editing");
+      node.textContent = value;
+      node.dataset.beforeEdit = value;
+    });
+  }
+
+  function setRouteTimeValue(routeType, value) {
+    setRouteDisplayText(`[data-route-time="${routeType}"]`, value);
+  }
+
+  function getRouteDisplayText(selector, fallback = "") {
+    return document.querySelector(selector)?.textContent.trim() || fallback;
+  }
+
+  function getRouteMethodDisplayValue(routeType, value) {
+    return value === "선택 안됨" ? routeMethodLabels[routeType] : value;
+  }
+
+  function normalizeRouteMethodValue(routeType, value) {
+    return value === routeMethodLabels[routeType] ? "선택 안됨" : (value || "선택 안됨");
+  }
+
+  function closeTimeMenu() {
+    const menu = document.querySelector("[data-time-menu]");
+    if (!menu) return;
+    menu.hidden = true;
+  }
+
+  function closeMethodMenu() {
+    const menu = document.querySelector("[data-method-menu]");
+    if (!menu) return;
+    menu.hidden = true;
+  }
+
+  function setRouteMethodValue(routeType, value) {
+    document.querySelectorAll(`[data-route-method="${routeType}"]`).forEach((node) => {
+      const displayValue = getRouteMethodDisplayValue(routeType, value);
+      node.classList.remove("editing");
+      node.textContent = displayValue;
+      node.dataset.beforeEdit = value;
+      node.dataset.methodValue = value;
+      node.classList.toggle("is-unselected", value === "선택 안됨");
+    });
+  }
+
+  function setDialogTimeValue(value) {
+    dialogRouteDraft.time = value;
+    const valueNode = document.querySelector("[data-dialog-time-value]");
+    if (valueNode) valueNode.textContent = value;
+  }
+
+  function setDialogMethodValue(value) {
+    dialogRouteDraft.method = value;
+    const valueNode = document.querySelector("[data-dialog-method-value]");
+    const trigger = document.querySelector("[data-dialog-method-trigger]");
+    if (valueNode) valueNode.textContent = value;
+    if (trigger) trigger.classList.toggle("is-unselected", value === "선택 안됨");
+  }
+
+  function hydrateDialogConditions(routeType) {
+    document.querySelector("[data-dialog-condition-title]").textContent = `${routeLabels[routeType]} 조건`;
+    document.querySelector("[data-dialog-time-label]").textContent = routeTimeLabels[routeType];
+    document.querySelector("[data-dialog-method-label]").textContent = routeMethodLabels[routeType];
+    setDialogTimeValue(getRouteDisplayText(`[data-route-time="${routeType}"]`, routeTimeOptions[routeType][0]));
+    setDialogMethodValue(normalizeRouteMethodValue(routeType, getRouteDisplayText(`[data-route-method="${routeType}"]`, "선택 안됨")));
+  }
+
+  function setDefaultCustomDateTime() {
+    const dateInput = document.querySelector("[data-custom-date]");
+    const timeInput = document.querySelector("[data-custom-time]");
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, "0");
+    const dd = String(now.getDate()).padStart(2, "0");
+
+    if (dateInput && !dateInput.value) dateInput.value = `${yyyy}-${mm}-${dd}`;
+    if (timeInput && !timeInput.value) timeInput.value = "09:00";
+  }
+
+  function openCustomTimeDialog(routeType, context = "route") {
+    activeTimeRouteType = routeType;
+    activeTimeContext = context;
+    const dialog = document.querySelector("[data-time-dialog]");
+    document.querySelector("[data-time-dialog-title]").textContent = `${routeTimeLabels[routeType]} 지정`;
+    document.querySelector("[data-time-dialog-summary]").textContent = `${routeTimeLabels[routeType]}를 날짜와 시간으로 지정합니다.`;
+    setDefaultCustomDateTime();
+    dialog.hidden = false;
+  }
+
+  function closeCustomTimeDialog() {
+    document.querySelector("[data-time-dialog]").hidden = true;
+  }
+
+  function formatCustomTime(dateValue, timeValue) {
+    if (!dateValue && !timeValue) return "지정";
+    let dateLabel = "";
+    if (dateValue) {
+      const [, month, day] = dateValue.split("-");
+      dateLabel = `${Number(month)}/${Number(day)}`;
+    }
+    return ["지정", dateLabel, timeValue].filter(Boolean).join(" ");
+  }
+
+  function applyCustomTime() {
+    const dateValue = document.querySelector("[data-custom-date]")?.value || "";
+    const timeValue = document.querySelector("[data-custom-time]")?.value || "";
+    const customValue = formatCustomTime(dateValue, timeValue);
+    if (activeTimeContext === "dialog") {
+      setDialogTimeValue(customValue);
+    } else {
+      setRouteTimeValue(activeTimeRouteType, customValue);
+    }
+    closeCustomTimeDialog();
+  }
+
+  function openTimeMenu(cell) {
+    activeTimeRouteType = cell.dataset.routeTime;
+    activeTimeContext = "route";
+    const menu = document.querySelector("[data-time-menu]");
+    const optionWrap = document.querySelector("[data-time-options]");
+    const title = document.querySelector("[data-time-menu-title]");
+    const currentValue = normalizeRouteMethodValue(activeMethodRouteType, cell.dataset.methodValue || cell.textContent.trim());
+
+    closeTimeMenu();
+    title.textContent = `${routeTimeLabels[activeTimeRouteType]} 선택`;
+    optionWrap.innerHTML = "";
+
+    routeTimeOptions[activeTimeRouteType].forEach((option) => {
+      const button = document.createElement("button");
+      button.className = "time-option-button";
+      button.type = "button";
+      button.textContent = option;
+      button.classList.toggle("active", currentValue === option || currentValue.startsWith(`${option} `));
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (option === "지정") {
+          closeTimeMenu();
+          openCustomTimeDialog(activeTimeRouteType, "route");
+          return;
+        }
+        setRouteTimeValue(activeTimeRouteType, option);
+        closeTimeMenu();
+      });
+      optionWrap.append(button);
+    });
+
+    menu.hidden = false;
+    const rect = cell.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 218;
+    const menuHeight = menu.offsetHeight || 120;
+    const left = Math.min(Math.max(12, rect.left), window.innerWidth - menuWidth - 12);
+    const top = Math.min(rect.bottom + 6, window.innerHeight - menuHeight - 12);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${Math.max(12, top)}px`;
+  }
+
+  function openDialogTimeMenu(trigger) {
+    activeTimeRouteType = activeRouteType;
+    activeTimeContext = "dialog";
+    const menu = document.querySelector("[data-time-menu]");
+    const optionWrap = document.querySelector("[data-time-options]");
+    const title = document.querySelector("[data-time-menu-title]");
+    const currentValue = dialogRouteDraft.time;
+
+    closeTimeMenu();
+    title.textContent = `${routeTimeLabels[activeRouteType]} 선택`;
+    optionWrap.innerHTML = "";
+
+    routeTimeOptions[activeRouteType].forEach((option) => {
+      const button = document.createElement("button");
+      button.className = "time-option-button";
+      button.type = "button";
+      button.textContent = option;
+      button.classList.toggle("active", currentValue === option || currentValue.startsWith(`${option} `));
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        if (option === "지정") {
+          closeTimeMenu();
+          openCustomTimeDialog(activeRouteType, "dialog");
+          return;
+        }
+        setDialogTimeValue(option);
+        closeTimeMenu();
+      });
+      optionWrap.append(button);
+    });
+
+    menu.hidden = false;
+    const rect = trigger.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 218;
+    const menuHeight = menu.offsetHeight || 120;
+    const left = Math.min(Math.max(12, rect.left), window.innerWidth - menuWidth - 12);
+    const top = Math.min(rect.bottom + 6, window.innerHeight - menuHeight - 12);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${Math.max(12, top)}px`;
+  }
+
+  function openMethodMenu(cell) {
+    activeMethodRouteType = cell.dataset.routeMethod;
+    const menu = document.querySelector("[data-method-menu]");
+    const optionWrap = document.querySelector("[data-method-options]");
+    const title = document.querySelector("[data-method-menu-title]");
+    const currentValue = cell.textContent.trim();
+
+    closeMethodMenu();
+    title.textContent = `${routeMethodLabels[activeMethodRouteType]} 선택`;
+    optionWrap.innerHTML = "";
+
+    routeMethodOptions.forEach((option) => {
+      const button = document.createElement("button");
+      button.className = "time-option-button";
+      button.type = "button";
+      button.textContent = option;
+      button.classList.toggle("active", currentValue === option);
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        setRouteMethodValue(activeMethodRouteType, option);
+        closeMethodMenu();
+      });
+      optionWrap.append(button);
+    });
+
+    menu.hidden = false;
+    const rect = cell.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 218;
+    const menuHeight = menu.offsetHeight || 154;
+    const left = Math.min(Math.max(12, rect.left), window.innerWidth - menuWidth - 12);
+    const top = Math.min(rect.bottom + 6, window.innerHeight - menuHeight - 12);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${Math.max(12, top)}px`;
+  }
+
+  function openDialogMethodMenu(trigger) {
+    activeMethodRouteType = activeRouteType;
+    const menu = document.querySelector("[data-method-menu]");
+    const optionWrap = document.querySelector("[data-method-options]");
+    const title = document.querySelector("[data-method-menu-title]");
+    const currentValue = dialogRouteDraft.method;
+
+    closeMethodMenu();
+    title.textContent = `${routeMethodLabels[activeRouteType]} 선택`;
+    optionWrap.innerHTML = "";
+
+    routeMethodOptions.forEach((option) => {
+      const button = document.createElement("button");
+      button.className = "time-option-button";
+      button.type = "button";
+      button.textContent = option;
+      button.classList.toggle("active", currentValue === option);
+      button.addEventListener("click", (event) => {
+        event.stopPropagation();
+        setDialogMethodValue(option);
+        closeMethodMenu();
+      });
+      optionWrap.append(button);
+    });
+
+    menu.hidden = false;
+    const rect = trigger.getBoundingClientRect();
+    const menuWidth = menu.offsetWidth || 218;
+    const menuHeight = menu.offsetHeight || 154;
+    const left = Math.min(Math.max(12, rect.left), window.innerWidth - menuWidth - 12);
+    const top = Math.min(rect.bottom + 6, window.innerHeight - menuHeight - 12);
+    menu.style.left = `${left}px`;
+    menu.style.top = `${Math.max(12, top)}px`;
+  }
+
+  function applyRoute() {
+    const placeValue = document.querySelector('[data-preview="place"]').value.trim();
+    const addrValue = document.querySelector('[data-preview="addr"]').value.trim();
+    const data = {
+      place: placeValue || addrValue || `${routeLabels[activeRouteType]}명 미입력`,
+      addr: addrValue,
+      detail: document.querySelector('[data-preview="detail"]').value,
+      manager: document.querySelector('[data-preview="manager"]').value,
+      phone: document.querySelector('[data-preview="phone"]').value
+    };
+    setRouteDisplayText(`[data-route-place="${activeRouteType}"]`, data.place);
+    setRouteDisplayText(`[data-route-addr="${activeRouteType}"]`, data.addr);
+    setRouteDisplayText(`[data-route-detail="${activeRouteType}"]`, data.detail);
+    setRouteDisplayText(`[data-route-manager="${activeRouteType}"]`, data.manager);
+    setRouteDisplayText(`[data-route-phone="${activeRouteType}"]`, data.phone);
+    setRouteTimeValue(activeRouteType, dialogRouteDraft.time);
+    setRouteMethodValue(activeRouteType, dialogRouteDraft.method);
+    closeDialog();
+  }
+
+  document.querySelectorAll("[data-open-lookup]").forEach((button) => {
+    button.addEventListener("click", () => openDialog(button.dataset.openLookup, button));
+  });
+
+  document.querySelectorAll("[data-address-focus-row]").forEach((row) => {
+    row.addEventListener("mouseleave", () => {
+      row.classList.remove("address-section-focused");
+    });
+
+    row.addEventListener("focusout", (event) => {
+      if (!row.contains(event.relatedTarget)) {
+        row.classList.remove("address-section-focused");
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-route-address-trigger]").forEach((trigger) => {
+    const row = trigger.closest("[data-address-focus-row]");
+
+    trigger.addEventListener("mouseenter", () => {
+      row?.classList.add("address-section-focused");
+    });
+
+    trigger.addEventListener("focus", () => {
+      row?.classList.add("address-section-focused");
+    });
+
+    trigger.addEventListener("click", () => {
+      triggerRouteLookupFromAddress(trigger);
+    });
+
+    trigger.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      triggerRouteLookupFromAddress(trigger);
+    });
+  });
+
+  document.querySelectorAll("[data-close-dialog]").forEach((button) => {
+    button.addEventListener("click", closeDialog);
+  });
+
+  document.querySelector("[data-time-menu]")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  document.querySelector("[data-method-menu]")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+  });
+
+  document.querySelector("[data-dialog-time-trigger]")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeMethodMenu();
+    openDialogTimeMenu(event.currentTarget);
+  });
+
+  document.querySelector("[data-dialog-method-trigger]")?.addEventListener("click", (event) => {
+    event.stopPropagation();
+    closeTimeMenu();
+    openDialogMethodMenu(event.currentTarget);
+  });
+
+  document.querySelector("[data-dialog-time-trigger]")?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openDialogTimeMenu(event.currentTarget);
+    }
+  });
+
+  document.querySelector("[data-dialog-method-trigger]")?.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      openDialogMethodMenu(event.currentTarget);
+    }
+  });
+
+  document.querySelectorAll("[data-route-time]").forEach((cell) => {
+    cell.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeMethodMenu();
+      openTimeMenu(cell);
+    });
+
+    cell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openTimeMenu(cell);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-route-method]").forEach((cell) => {
+    cell.addEventListener("click", (event) => {
+      event.stopPropagation();
+      closeTimeMenu();
+      openMethodMenu(cell);
+    });
+
+    cell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        openMethodMenu(cell);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-close-time-dialog]").forEach((button) => {
+    button.addEventListener("click", closeCustomTimeDialog);
+  });
+
+  document.querySelector("[data-apply-custom-time]")?.addEventListener("click", applyCustomTime);
+
+  document.addEventListener("click", () => {
+    closeTimeMenu();
+    closeMethodMenu();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    closeTimeMenu();
+    closeMethodMenu();
+    if (!document.querySelector("[data-time-dialog]")?.hidden) {
+      closeCustomTimeDialog();
+    }
+  });
+
+  document.querySelectorAll("[data-result]").forEach((row) => {
+    row.addEventListener("click", () => {
+      selectedIndex = Number(row.dataset.result);
+      document.querySelectorAll("[data-result]").forEach((item) => {
+        item.classList.toggle("selected", item === row);
+      });
+      setPreview(routeData[selectedIndex]);
+    });
+  });
+
+  document.querySelector("[data-apply-route]").addEventListener("click", applyRoute);
+
+  document.querySelectorAll("[data-preview]").forEach((input) => {
+    input.addEventListener("input", refreshSaveState);
+  });
+
+  document.querySelector("[data-edit-preview]")?.addEventListener("click", () => {
+    setPreviewMode("editing");
+  });
+
+  document.querySelector("[data-cancel-preview-edit]")?.addEventListener("click", () => {
+    setPreview(currentSelectedData);
+  });
+
+  const routeInlineFields = ["detail", "manager", "phone"];
+
+  function getRouteInlineMeta(cell) {
+    const field = routeInlineFields.find((item) => cell.dataset[`route${item.charAt(0).toUpperCase()}${item.slice(1)}`]);
+    if (!field) return null;
+    return {
+      field,
+      routeType: cell.dataset[`route${field.charAt(0).toUpperCase()}${field.slice(1)}`]
+    };
+  }
+
+  function syncRouteInlineValue(cell, value) {
+    const meta = getRouteInlineMeta(cell);
+    if (!meta) return;
+    document.querySelectorAll(`[data-route-${meta.field}="${meta.routeType}"]`).forEach((node) => {
+      node.classList.remove("editing");
+      node.textContent = value;
+      node.dataset.beforeEdit = value;
+    });
+  }
+
+  function commitRouteInlineEdit(cell, { restore = false } = {}) {
+    const input = cell?.querySelector("[data-route-inline-control]");
+    if (!cell || !input) return;
+
+    const beforeEdit = cell.dataset.beforeEdit ?? "";
+    const value = restore ? beforeEdit : input.value.trim() || beforeEdit || "미입력";
+    syncRouteInlineValue(cell, value);
+  }
+
+  function beginRouteInlineEdit(cell) {
+    document.querySelectorAll("[data-route-inline-edit].editing").forEach((editingCell) => {
+      if (editingCell !== cell) commitRouteInlineEdit(editingCell);
+    });
+
+    const field = cell.dataset.routeInlineEdit;
+    const beforeEdit = cell.textContent.trim();
+    cell.dataset.beforeEdit = beforeEdit;
+    cell.classList.add("editing");
+    cell.textContent = "";
+
+    const input = document.createElement("input");
+    input.className = "applied-inline-input";
+    input.type = field === "phone" ? "tel" : "text";
+    input.value = beforeEdit;
+    input.dataset.routeInlineControl = "";
+    input.setAttribute("aria-label", field === "detail" ? "상세주소 수정" : field === "manager" ? "담당자명 수정" : "담당자 연락처 수정");
+    cell.append(input);
+
+    input.addEventListener("click", (event) => event.stopPropagation());
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        event.stopPropagation();
+        commitRouteInlineEdit(cell);
+      }
+
+      if (event.key === "Escape") {
+        event.preventDefault();
+        event.stopPropagation();
+        commitRouteInlineEdit(cell, { restore: true });
+      }
+    });
+    input.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        if (cell.classList.contains("editing")) commitRouteInlineEdit(cell);
+      }, 0);
+    });
+
+    input.focus();
+    input.select();
+  }
+
+  document.querySelectorAll("[data-route-inline-edit]").forEach((cell) => {
+    cell.addEventListener("click", () => {
+      if (!cell.classList.contains("editing")) beginRouteInlineEdit(cell);
+    });
+
+    cell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !cell.classList.contains("editing")) {
+        event.preventDefault();
+        beginRouteInlineEdit(cell);
+      }
+    });
+  });
+
+  document.querySelectorAll("[data-start-edit]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest(".editable-line");
+      row.classList.add("editing");
+      row.querySelector(".input").focus();
+    });
+  });
+
+  document.querySelectorAll(".editable-line .input").forEach((input) => {
+    const commit = () => {
+      const row = input.closest(".editable-line");
+      row.querySelector("[data-edit-value]").textContent = input.value;
+      row.classList.remove("editing");
+    };
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        commit();
+      }
+      if (event.key === "Escape") {
+        input.value = input.closest(".editable-line").querySelector("[data-edit-value]").textContent;
+        input.closest(".editable-line").classList.remove("editing");
+      }
+    });
+    input.addEventListener("blur", commit);
+  });
+</script>
+</body>
+</html>
