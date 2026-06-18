@@ -1,0 +1,461 @@
+/* =====================================================================
+   화물 오더 접수/수정 — Design System Foundation
+   ds.css · single source of truth (tokens + common components)
+   ---------------------------------------------------------------------
+   - 이중 토큰 체계(accent/ink/line  +  pen/paper/note/rule)를
+     의미 기반 단일 토큰 세트로 통합한다.
+   - 손글씨 폰트(Gaegu/Caveat/Nanum) 제거. 전문 업무용 산세리프만 사용.
+   - 색은 모두 토큰을 경유한다(하드코딩 hex 금지).
+   ===================================================================== */
+
+:root {
+  /* ---------- 1. Color · 브랜드/주요 액션 (파랑 유지) ---------- */
+  --brand-50:  #eef4ff;
+  --brand-100: #dbe8ff;
+  --brand-200: #b9d1ff;
+  --brand-500: #2f74e6;
+  --brand-600: #1f64d6;   /* primary action (기존 유지) */
+  --brand-700: #1a52b0;   /* hover/active */
+
+  /* ---------- Color · 텍스트 3단계 + 반전 ---------- */
+  --text-strong:   #16203a;  /* 제목·값 강조 */
+  --text:          #364154;  /* 기본 본문 */
+  --text-muted:    #6b7488;  /* 보조·라벨 */
+  --text-disabled: #9aa3b2;  /* 비활성 */
+  --text-on-brand: #ffffff;
+
+  /* ---------- Color · 표면/배경/경계 ---------- */
+  --bg:            #eceff3;   /* 앱 배경 */
+  --surface:       #ffffff;   /* 카드/섹션 표면 */
+  --surface-soft:  #f5f7fa;   /* 섹션 헤더·옅은 채움 */
+  --surface-sunken:#eef1f5;   /* 읽기전용·잠금 필드 채움 */
+  --border:        #dce1e8;   /* 기본 헤어라인 */
+  --border-strong: #b7c0cd;   /* 입력 컨트롤 경계 */
+  --border-heavy:  #93a0b0;   /* 강조 경계 */
+
+  /* ---------- Color · 상태 (색 + 텍스트 병행) ----------
+     접수=파랑 / 완료=중립 / 취소·위험=빨강 / 선택=강조배경 / 경고=앰버 */
+  --status-received-fg: #1f64d6;  --status-received-bg: #eef4ff;  --status-received-bd: #cfe0ff;
+  --status-done-fg:     #475067;  --status-done-bg:     #eef1f5;  --status-done-bd:     #d6dce4;
+  --status-cancel-fg:   #c5362c;  --status-cancel-bg:   #fdeceb;  --status-cancel-bd:   #f3cac6;
+  --selected-bg:        #fff5cc;  --selected-bd:        #e6c34d;   /* 선택 행 강조 */
+
+  --danger-fg:  #c5362c;  --danger-bg:  #fdeceb;  --danger-bd:  #eebcb6;  --danger-600: #c5362c;  --danger-700: #a32a22;
+  --warn-fg:    #9a6700;  --warn-bg:    #fff6e2;  --warn-bd:    #f0d79c;
+  --success-fg: #1f7a47;  --success-bg: #e9f6ee;  --success-bd: #bfe3cb;
+  --info-fg:    var(--brand-600); --info-bg: var(--brand-50); --info-bd: var(--brand-200);
+
+  /* ---------- Color · 출처 배지 (source) ---------- */
+  --src-hwamulman-fg: #6b46c1;  --src-hwamulman-bg: #f1ecfd;  --src-hwamulman-bd: #ddd0f7;
+  --src-internal-fg:  #475067;  --src-internal-bg:  #eef1f5;  --src-internal-bd:  #d6dce4;
+  --src-kakao-fg:     #3b2b00;  --src-kakao-bg:     #fff0a8;  --src-kakao-bd:     #f0dd66;
+
+  /* ---------- 2. Typography · 모듈러 스케일 (base 13, work-dense) ---------- */
+  --font-sans: "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo",
+               "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-num:  "Pretendard", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --text-caption: 11px;  /* 캡션·미세 라벨 */
+  --text-sm:      12px;  /* 보조 텍스트·라벨 */
+  --text-base:    13px;  /* 본문·입력값 */
+  --text-md:      15px;  /* 값 강조 */
+  --text-lg:      17px;  /* 섹션 타이틀 */
+  --text-xl:      20px;  /* 페이지 서브타이틀 */
+  --text-2xl:     24px;  /* 페이지 타이틀 */
+
+  --lh-tight: 1.25;
+  --lh-base:  1.45;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+
+  /* ---------- 3. Spacing · 4/8 스케일 ---------- */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  --row-h:  32px;   /* SummaryRow 행 리듬 */
+  --ctrl-h: 30px;   /* 입력 컨트롤 높이 */
+  --ctrl-h-sm: 26px;
+
+  /* ---------- 4. Radius ---------- */
+  --radius-sm:   3px;
+  --radius:      5px;
+  --radius-lg:   8px;
+  --radius-pill: 999px;
+
+  /* ---------- 5. Shadow / Focus ---------- */
+  --shadow-sm: 0 1px 2px rgba(22, 32, 58, .06);
+  --shadow:    0 4px 14px rgba(22, 32, 58, .09);
+  --shadow-lg: 0 16px 40px rgba(22, 32, 58, .18);
+  --focus-ring: 0 0 0 3px rgba(31, 100, 214, .28);
+  --focus-ring-danger: 0 0 0 3px rgba(197, 54, 44, .25);
+}
+
+/* =====================================================================
+   Base
+   ===================================================================== */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.num { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
+
+/* =====================================================================
+   Section header  ·  번호 + 타이틀 + 얇은 구분선
+   ===================================================================== */
+.ds-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  overflow: hidden;
+}
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 40px;
+  padding: var(--space-2) var(--space-3);
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+.sec-head__num {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 22px; height: 22px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-600);
+  color: var(--text-on-brand);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-bold);
+  font-variant-numeric: tabular-nums;
+}
+.sec-head__title {
+  font-size: var(--text-lg);
+  font-weight: var(--fw-bold);
+  color: var(--text-strong);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.sec-head__rule { flex: 1; height: 1px; background: var(--border); }
+.sec-head__note {
+  flex: none;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+}
+.sec-body { padding: var(--space-3); }
+
+/* =====================================================================
+   Button  ·  primary / secondary / ghost / danger
+   ===================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--ctrl-h);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease;
+}
+.btn:hover { background: var(--surface-soft); border-color: var(--border-heavy); }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn:disabled, .btn.is-disabled {
+  color: var(--text-disabled);
+  background: var(--surface-sunken);
+  border-color: var(--border);
+  cursor: not-allowed;
+}
+
+.btn--primary { background: var(--brand-600); border-color: var(--brand-600); color: var(--text-on-brand); }
+.btn--primary:hover { background: var(--brand-700); border-color: var(--brand-700); }
+
+.btn--secondary { background: var(--surface); border-color: var(--border-strong); color: var(--text); }
+
+.btn--ghost { background: transparent; border-color: transparent; color: var(--text); }
+.btn--ghost:hover { background: var(--surface-soft); border-color: transparent; }
+
+/* danger = 위험 액션 전용. 일반 액션과 시각적으로 분리 */
+.btn--danger { background: var(--danger-bg); border-color: var(--danger-bd); color: var(--danger-600); }
+.btn--danger:hover { background: var(--danger-600); border-color: var(--danger-600); color: var(--text-on-brand); }
+.btn--danger:focus-visible { box-shadow: var(--focus-ring-danger); }
+
+.btn--sm { height: var(--ctrl-h-sm); padding: 0 var(--space-2); font-size: var(--text-sm); }
+.btn__key { font-size: var(--text-caption); color: var(--text-muted); font-weight: var(--fw-medium); }
+.btn--primary .btn__key { color: rgba(255,255,255,.75); }
+
+/* 위험 액션 구분용 세로 구분선 (액션바에서) */
+.action-sep { width: 1px; align-self: stretch; margin: 2px var(--space-2); background: var(--border); }
+
+/* =====================================================================
+   Field  ·  text / select / segment / money / date-time / inline-editable
+   ===================================================================== */
+.field { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.field__label {
+  color: var(--text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
+}
+.field__label .req { color: var(--danger-600); margin-left: 2px; }
+
+.ctl {
+  display: flex; align-items: center;
+  height: var(--ctrl-h);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text-strong);
+  font: inherit;
+  font-size: var(--text-base);
+  font-weight: var(--fw-medium);
+  width: 100%;
+  min-width: 0;
+}
+.ctl::placeholder, .ctl.is-placeholder { color: var(--text-disabled); font-weight: var(--fw-regular); }
+.ctl:focus, .ctl:focus-within { outline: none; border-color: var(--brand-500); box-shadow: var(--focus-ring); }
+
+/* select */
+.ctl--select { justify-content: space-between; cursor: pointer; }
+.ctl--select::after { content: "▾"; color: var(--text-muted); font-size: 10px; margin-left: var(--space-2); }
+
+/* money — 우측 정렬 + ₩ */
+.ctl--money { justify-content: flex-end; text-align: right; }
+.ctl--money .won { color: var(--text-muted); margin-right: auto; font-weight: var(--fw-regular); }
+.ctl--money .amt { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
+
+/* date / time */
+.ctl--date { gap: 6px; }
+.ctl--date .ico { color: var(--text-muted); }
+
+/* readonly / locked — 직접 편집 불가 필드(업체명·사업자·차주명·차량번호·행정주소).
+   편집 어포던스(밑줄/연필/hover 배경)를 절대 주지 않는다. */
+.ctl--readonly, .ctl[readonly] {
+  background: var(--surface-sunken);
+  border-color: var(--border);
+  color: var(--text);
+  cursor: default;
+}
+.ctl--readonly:focus { box-shadow: none; border-color: var(--border); }
+.lock-hint { color: var(--text-disabled); font-size: var(--text-caption); }
+
+/* segment control */
+.seg { display: inline-flex; border: 1px solid var(--border-strong); border-radius: var(--radius-sm); overflow: hidden; height: var(--ctrl-h); }
+.seg__opt {
+  display: inline-flex; align-items: center; padding: 0 var(--space-3);
+  border-right: 1px solid var(--border-strong);
+  background: var(--surface); color: var(--text); font-size: var(--text-base);
+  cursor: pointer; white-space: nowrap;
+}
+.seg__opt:last-child { border-right: 0; }
+.seg__opt.is-on { background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-bold); }
+
+/* inline-editable — 편집 가능 필드(연락처·이메일·상세주소 등): read ↔ control 토글.
+   read 상태는 점선 밑줄 + hover 시 '수정' 어포던스. */
+.editable {
+  position: relative;
+  display: inline-flex; align-items: center;
+  max-width: 100%;
+  min-height: 26px; padding: 1px 30px 1px 4px;
+  border-bottom: 1px dashed var(--border-heavy);
+  border-radius: var(--radius-sm);
+  color: var(--text-strong); font-weight: var(--fw-medium);
+  cursor: text;
+}
+.editable::after {
+  content: "수정";
+  position: absolute; right: 3px; top: 50%; transform: translateY(-50%);
+  padding: 0 6px; height: 17px; display: inline-flex; align-items: center;
+  border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+  background: var(--surface-soft); color: var(--text-muted);
+  font-size: var(--text-caption); font-weight: var(--fw-semibold);
+  opacity: 0; transition: opacity .12s ease;
+}
+.editable:hover, .editable:focus-within { background: var(--brand-50); border-bottom-color: var(--brand-500); }
+.editable:hover::after, .editable:focus-within::after { opacity: 1; }
+.editable.is-editing { padding: 0; border-bottom-color: transparent; }
+.editable.is-editing::after { content: none; }
+.editable__input {
+  width: 100%; height: 28px; padding: 3px 8px;
+  border: 1px solid var(--brand-500); border-radius: var(--radius-sm);
+  background: var(--surface); color: var(--text-strong); font: inherit; font-weight: var(--fw-medium);
+}
+
+/* =====================================================================
+   SummaryRow  ·  라벨 컬럼 + 값 + 액션 (5섹션 공통, 32px 리듬)
+   ===================================================================== */
+.summary-row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  align-items: center;
+  min-height: var(--row-h);
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+.summary-row:last-child { border-bottom: 0; }
+.summary-row__label { color: var(--text-muted); font-size: var(--text-sm); font-weight: var(--fw-semibold); }
+.summary-row__value { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); min-width: 0; color: var(--text-strong); }
+.summary-row__value .sep { color: var(--border-heavy); }
+.summary-row__action { display: inline-flex; gap: var(--space-1); }
+
+/* =====================================================================
+   Chip / Badge  ·  status / metric / source / role
+   ===================================================================== */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 22px; padding: 0 var(--space-2);
+  border: 1px solid transparent; border-radius: var(--radius-pill);
+  font-size: var(--text-sm); font-weight: var(--fw-bold); white-space: nowrap;
+}
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge--received { color: var(--status-received-fg); background: var(--status-received-bg); border-color: var(--status-received-bd); }
+.badge--done     { color: var(--status-done-fg);     background: var(--status-done-bg);     border-color: var(--status-done-bd); }
+.badge--cancel   { color: var(--status-cancel-fg);   background: var(--status-cancel-bg);   border-color: var(--status-cancel-bd); }
+
+/* metric chip — 거리/금액 (값 강조) */
+.chip {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 24px; padding: 0 var(--space-2);
+  border: 1px solid var(--border); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--text);
+  font-size: var(--text-sm); white-space: nowrap;
+}
+.chip--metric { background: var(--surface-soft); }
+.chip--metric .k { color: var(--text-muted); }
+.chip--metric .v { color: var(--text-strong); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.chip--wait { border-style: dashed; color: var(--text-disabled); background: var(--surface); } /* 대기/미확정 계산값 */
+
+/* role chip — 배차/정산/관리 (멀티선택) */
+.chip--role { cursor: pointer; }
+.chip--role.is-on { border-color: var(--brand-200); background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-bold); }
+
+/* source badge — 화물맨 / 내부 DB / Kakao */
+.chip--src { font-weight: var(--fw-bold); }
+.chip--src.src-hwamulman { color: var(--src-hwamulman-fg); background: var(--src-hwamulman-bg); border-color: var(--src-hwamulman-bd); }
+.chip--src.src-internal  { color: var(--src-internal-fg);  background: var(--src-internal-bg);  border-color: var(--src-internal-bd); }
+.chip--src.src-kakao     { color: var(--src-kakao-fg);     background: var(--src-kakao-bg);     border-color: var(--src-kakao-bd); }
+
+/* select pill (단일/멀티 선택, 독차/혼적 등) */
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  height: 24px; padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong); border-radius: var(--radius-pill);
+  background: var(--surface); color: var(--text); font-size: var(--text-base); cursor: pointer; white-space: nowrap;
+}
+.pill.is-on { border-color: var(--brand-200); background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-bold); }
+
+/* =====================================================================
+   Warning inline  ·  아이콘 + 문구 (색만으로 의미 전달 금지)
+   ===================================================================== */
+.notice {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px var(--space-2);
+  border: 1px solid var(--warn-bd); border-radius: var(--radius-sm);
+  background: var(--warn-bg); color: var(--warn-fg);
+  font-size: var(--text-sm); font-weight: var(--fw-semibold);
+}
+.notice::before { content: "⚠"; font-size: 13px; }
+.notice--danger { border-color: var(--danger-bd); background: var(--danger-bg); color: var(--danger-600); }
+.notice--danger::before { content: "⛔"; }
+.notice--info { border-color: var(--info-bd); background: var(--info-bg); color: var(--info-fg); }
+.notice--info::before { content: "ⓘ"; }
+
+/* =====================================================================
+   EmptyState  ·  placeholder + CTA (흡수 전환 진입점)
+   ===================================================================== */
+.empty {
+  display: flex; align-items: center; gap: var(--space-3);
+  min-height: var(--row-h); padding: var(--space-2) var(--space-3);
+  border: 1px dashed var(--border-strong); border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+.empty__text { color: var(--text-muted); font-size: var(--text-base); }
+.empty .btn { margin-left: auto; }
+
+/* =====================================================================
+   Dialog  ·  lookup / confirm / input  (푸터·버튼 패턴 통일)
+   ===================================================================== */
+.dialog-backdrop {
+  position: fixed; inset: 0; z-index: 40;
+  display: grid; place-items: center; padding: var(--space-5);
+  background: rgba(22, 32, 58, .32);
+}
+.dialog {
+  display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  width: min(880px, calc(100vw - 40px));
+  max-height: min(660px, calc(100vh - 40px));
+  border: 1px solid var(--border); border-radius: var(--radius-lg);
+  background: var(--surface); box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.dialog--confirm { width: min(420px, calc(100vw - 40px)); }
+.dialog__head, .dialog__foot {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+}
+.dialog__head { border-bottom: 1px solid var(--border); background: var(--surface-soft); }
+.dialog__foot { border-top: 1px solid var(--border); background: var(--surface); }
+.dialog__title { margin: 0; font-size: var(--text-lg); font-weight: var(--fw-bold); color: var(--text-strong); }
+.dialog__close { border: 0; background: transparent; color: var(--text-muted); font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; }
+.dialog__body { padding: var(--space-4); overflow: auto; }
+.dialog__foot-actions { display: inline-flex; gap: var(--space-2); margin-left: auto; }  /* primary 우측 끝 */
+
+/* lookup body */
+.lookup-search { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: var(--space-2); margin-bottom: var(--space-3); }
+.lookup-layout { display: grid; grid-template-columns: minmax(0,1fr) 240px; gap: var(--space-3); align-items: start; }
+.lookup-results { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.lookup-row {
+  display: grid; grid-template-columns: 24px minmax(0,1.1fr) 120px 96px; gap: var(--space-2);
+  align-items: center; width: 100%; text-align: left;
+  padding: var(--space-2) var(--space-3); border: 0; border-bottom: 1px solid var(--border);
+  background: var(--surface); color: var(--text); font: inherit; cursor: pointer;
+}
+.lookup-row:last-child { border-bottom: 0; }
+.lookup-row:hover { background: var(--surface-soft); }
+.lookup-row.is-selected { background: var(--brand-50); }
+.lookup-row__mark { width: 18px; height: 18px; border: 1px solid var(--border-strong); border-radius: 50%; display: inline-grid; place-items: center; }
+.lookup-row.is-selected .lookup-row__mark { border-color: var(--brand-600); }
+.lookup-row.is-selected .lookup-row__mark::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--brand-600); }
+.lookup-preview { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-soft); padding: var(--space-3); display: grid; gap: var(--space-2); align-content: start; }
+.lookup-preview__title { font-weight: var(--fw-bold); color: var(--text-strong); }
+.preview-item { display: grid; grid-template-columns: 64px 1fr; gap: var(--space-2); font-size: var(--text-sm); }
+.preview-item .k { color: var(--text-muted); }
+.preview-item .v { color: var(--text-strong); font-weight: var(--fw-medium); }
+
+/* =====================================================================
+   Utilities (구성용)
+   ===================================================================== */
+.stack { display: grid; gap: var(--space-2); }
+.row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.grow { flex: 1; }
+.muted { color: var(--text-muted); }
+.strong { color: var(--text-strong); font-weight: var(--fw-bold); }

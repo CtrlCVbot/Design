@@ -1,0 +1,617 @@
+<!-- LOCAL_HIFI_MOTION_LAYER_START -->
+<style id="hifi-local-motion-style">
+  :root {
+    --motion-fast: 140ms;
+    --motion-normal: 220ms;
+    --motion-apply: 420ms;
+    --motion-highlight: 720ms;
+    --motion-ease: cubic-bezier(.22, 1, .36, 1);
+  }
+
+  @keyframes hifi-motion-soft-highlight {
+    0% {
+      background-color: var(--success-bg);
+      border-color: var(--success-bd);
+      box-shadow: 0 0 0 0 rgb(31 100 214 / 0);
+    }
+    42% {
+      background-color: var(--brand-50);
+      border-color: var(--brand-200);
+      box-shadow: 0 0 0 3px rgb(31 100 214 / .12);
+    }
+    100% {
+      background-color: inherit;
+      border-color: inherit;
+      box-shadow: none;
+    }
+  }
+
+  @keyframes hifi-motion-row-reveal {
+    0% {
+      opacity: .92;
+      background-color: rgb(239 246 255 / .88);
+      box-shadow: inset 0 0 0 1px rgb(191 219 254 / .92);
+    }
+    100% {
+      opacity: 1;
+      background-color: transparent;
+      box-shadow: inset 0 0 0 0 rgb(191 219 254 / 0);
+    }
+  }
+
+  @keyframes hifi-motion-field-flash {
+    0% {
+      background-color: rgb(239 246 255 / .96);
+      box-shadow: inset 0 0 0 1px rgb(147 197 253 / .88);
+    }
+    48% {
+      background-color: rgb(219 234 254 / .62);
+      box-shadow: inset 0 0 0 1px rgb(96 165 250 / .58);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: inset 0 0 0 0 rgb(147 197 253 / 0);
+    }
+  }
+
+  @keyframes hifi-motion-handoff-pulse {
+    0% {
+      background-color: inherit;
+      box-shadow: 0 0 0 0 rgb(31 100 214 / 0);
+    }
+    42% {
+      background-color: var(--brand-50);
+      box-shadow: 0 0 0 3px rgb(31 100 214 / .14);
+    }
+    100% {
+      background-color: inherit;
+      box-shadow: 0 0 0 0 rgb(31 100 214 / 0);
+    }
+  }
+
+  @keyframes hifi-motion-handoff-dot {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.68);
+    }
+    14% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+    76% {
+      opacity: 1;
+      transform: translate(calc(var(--hifi-handoff-x, 0px) - 50%), calc(var(--hifi-handoff-y, 0px) - 50%)) scale(.92);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(calc(var(--hifi-handoff-x, 0px) - 50%), calc(var(--hifi-handoff-y, 0px) - 50%)) scale(.56);
+    }
+  }
+
+  @keyframes hifi-motion-absorb-to-label {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+    72% {
+      opacity: 1;
+      transform: translateX(var(--hifi-absorb-x, -120px)) scale(.97);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(var(--hifi-absorb-x, -120px)) scale(.92);
+    }
+  }
+
+  @keyframes hifi-motion-address-focus {
+    0% {
+      background-color: var(--surface);
+      box-shadow: inset 0 0 0 0 rgb(31 100 214 / 0);
+    }
+    38% {
+      background-color: var(--brand-50);
+      box-shadow: inset 3px 0 0 var(--brand-600);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: inset 0 0 0 0 rgb(31 100 214 / 0);
+    }
+  }
+
+  .hifi-motion-highlight {
+    animation: hifi-motion-soft-highlight var(--motion-highlight) var(--motion-ease) both;
+  }
+
+  .hifi-motion-row-reveal {
+    animation: hifi-motion-row-reveal var(--motion-apply) var(--motion-ease) both;
+    will-change: opacity, background-color, box-shadow;
+  }
+
+  .hifi-motion-field-flash {
+    animation: hifi-motion-field-flash 680ms var(--motion-ease) both;
+    will-change: background-color, box-shadow;
+  }
+
+  .hifi-motion-handoff-source,
+  .hifi-motion-handoff-target {
+    animation: hifi-motion-handoff-pulse 560ms var(--motion-ease) both;
+    will-change: background-color, box-shadow;
+  }
+
+  .hifi-motion-handoff-dot {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 10020;
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--brand-600);
+    box-shadow: 0 0 0 5px rgb(31 100 214 / .14), 0 8px 18px rgb(31 100 214 / .28);
+    pointer-events: none;
+    animation: hifi-motion-handoff-dot 460ms var(--motion-ease) both;
+    will-change: opacity, transform;
+  }
+
+  .hifi-motion-absorb {
+    animation: hifi-motion-absorb-to-label var(--motion-apply) var(--motion-ease) both;
+    transform-origin: center;
+    will-change: opacity, transform;
+  }
+
+  .hifi-motion-address-focus {
+    animation: hifi-motion-address-focus 560ms var(--motion-ease) both;
+  }
+
+  .hifi-motion-live {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hifi-motion-highlight,
+    .hifi-motion-row-reveal,
+    .hifi-motion-field-flash,
+    .hifi-motion-handoff-source,
+    .hifi-motion-handoff-target,
+    .hifi-motion-handoff-dot,
+    .hifi-motion-absorb,
+    .hifi-motion-address-focus {
+      animation-duration: 1ms !important;
+      transition-duration: 1ms !important;
+    }
+  }
+</style>
+<script id="hifi-local-motion-script">
+(function () {
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const MOTION_VERSION = "local-motion-20260616";
+  const sectionSelectors = {
+    shipper: "#sec-shipper",
+    route: "#sec-route",
+    cargoTransport: "#sec-cargo-transport",
+    cargoMoney: "#sec-cargo-money",
+    summary: "#sec-summary",
+    driver: "#driver-db, #hm-panel"
+  };
+  const sectionLabels = {
+    shipper: "화주 정보가 적용되었습니다.",
+    route: "운송 구간 정보가 적용되었습니다.",
+    cargoTransport: "운송과 품목 정보가 적용되었습니다.",
+    cargoMoney: "금액 조건이 적용되었습니다.",
+    summary: "화물정보 요약이 갱신되었습니다.",
+    driver: "차주 상태가 갱신되었습니다."
+  };
+  let lastFeedbackKey = "";
+  let lastFeedbackAt = 0;
+
+  function ensureLiveRegion() {
+    let live = document.querySelector(".hifi-motion-live");
+    if (!live) {
+      live = document.createElement("div");
+      live.className = "hifi-motion-live";
+      live.setAttribute("role", "status");
+      live.setAttribute("aria-live", "polite");
+      live.setAttribute("aria-atomic", "true");
+      document.body.appendChild(live);
+    }
+    return live;
+  }
+
+  function announce(message) {
+    const live = ensureLiveRegion();
+    live.textContent = "";
+    window.setTimeout(function () {
+      live.textContent = message;
+    }, 20);
+  }
+
+  function runMotion(node, className, fallbackMs) {
+    if (!node) return;
+    node.classList.remove(className);
+    void node.offsetWidth;
+
+    if (prefersReducedMotion.matches) {
+      node.classList.add(className);
+      window.setTimeout(function () {
+        node.classList.remove(className);
+      }, 30);
+      return;
+    }
+
+    let done = false;
+    const finish = function () {
+      if (done) return;
+      done = true;
+      node.classList.remove(className);
+    };
+
+    node.addEventListener("animationend", finish, { once: true });
+    node.classList.add(className);
+    window.setTimeout(finish, fallbackMs || 760);
+  }
+
+  function annotateCleanHooks() {
+    const hooks = [
+      ["#sec-shipper", "data-b-shipper-card", ""],
+      ["#sec-route", "data-b-route-card", ""],
+      ["#sec-cargo-transport", "data-b-cargo-activation", "transport"],
+      ["#sec-cargo-money", "data-b-cargo-activation", "money"],
+      ["#sec-summary", "data-b-summary-row", ""],
+      ["#driver-db", "data-b-driver-section", ""],
+      ["#hm-panel", "data-b-driver-section", ""]
+    ];
+
+    hooks.forEach(function ([selector, attr, value]) {
+      const node = document.querySelector(selector);
+      if (!node) return;
+      node.setAttribute(attr, value);
+      node.setAttribute("data-b-local-motion", MOTION_VERSION);
+      if (!node.hasAttribute("aria-live")) node.setAttribute("aria-live", "polite");
+    });
+  }
+
+  function closestSectionNode(kind) {
+    const selector = sectionSelectors[kind];
+    if (!selector) return null;
+    const node = document.querySelector(selector);
+    return node ? (node.closest(".ds-section") || node) : null;
+  }
+
+  function firstVisibleRow(kind) {
+    const selector = sectionSelectors[kind];
+    const scope = selector ? document.querySelector(selector) : null;
+    if (!scope) return null;
+    return scope.querySelector(".irow, .driver-grid, .meta-row, .empty") || scope;
+  }
+
+  function isMotionTargetVisible(node) {
+    if (!node) return false;
+    const rect = node.getBoundingClientRect();
+    return rect.width > 0 && rect.height > 0;
+  }
+
+  function fieldFlashTargets(kind) {
+    const selector = sectionSelectors[kind];
+    const sectionScope = selector ? document.querySelector(selector) : null;
+    const row = firstVisibleRow(kind);
+    const scope = row && !row.classList.contains("empty") ? row : sectionScope;
+    if (!scope) return [];
+
+    const selectors = [
+      ".cell__value",
+      ".cell__main",
+      ".cell:not(.cell--edit):not(.cell--addr)",
+      ".badge",
+      ".chip",
+      ".chip--metric",
+      ".driver-grid .cell",
+      ".meta-row .badge",
+      ".meta-row .chip"
+    ];
+
+    const nodes = selectors.flatMap(function (item) {
+      return Array.from(scope.querySelectorAll(item));
+    });
+
+    return Array.from(new Set(nodes))
+      .filter(function (node) {
+        return !node.closest("button, .btn, .empty") && isMotionTargetVisible(node);
+      })
+      .slice(0, 12);
+  }
+
+  function runChangedFieldFlash(kind) {
+    const targets = fieldFlashTargets(kind);
+    targets.forEach(function (node, index) {
+      window.setTimeout(function () {
+        runMotion(node, "hifi-motion-field-flash", 760);
+      }, index * 24);
+    });
+    return targets.length;
+  }
+
+  function isHmLinkAction(target) {
+    const onclick = target.getAttribute("onclick") || "";
+    return /confirmHmLink/.test(onclick);
+  }
+
+  function hmStatusTarget() {
+    return document.querySelector("#hm-panel .meta-row .badge")
+      || document.querySelector("#hm-panel .meta-row")
+      || document.querySelector("#hm-panel")
+      || closestSectionNode("driver");
+  }
+
+  function createHandoffDot(source, target) {
+    if (!source || !target || prefersReducedMotion.matches) return null;
+
+    const sourceRect = source.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    const sourceX = sourceRect.left + sourceRect.width / 2;
+    const sourceY = sourceRect.top + sourceRect.height / 2;
+    const targetX = targetRect.left + targetRect.width / 2;
+    const targetY = targetRect.top + targetRect.height / 2;
+
+    const dot = document.createElement("span");
+    dot.className = "hifi-motion-handoff-dot";
+    dot.setAttribute("aria-hidden", "true");
+    dot.style.left = `${sourceX}px`;
+    dot.style.top = `${sourceY}px`;
+    dot.style.setProperty("--hifi-handoff-x", `${targetX - sourceX}px`);
+    dot.style.setProperty("--hifi-handoff-y", `${targetY - sourceY}px`);
+    document.body.appendChild(dot);
+    return dot;
+  }
+
+  function runHmHandoffThen(target, action) {
+    if (!target || target.dataset.hifiHandoffRunning === "true") return;
+
+    const statusTarget = hmStatusTarget();
+    if (!statusTarget || prefersReducedMotion.matches) {
+      action();
+      return;
+    }
+
+    target.dataset.hifiHandoffRunning = "true";
+    target.setAttribute("aria-busy", "true");
+    runMotion(target, "hifi-motion-handoff-source", 640);
+    runMotion(statusTarget, "hifi-motion-handoff-target", 640);
+    runMotion(closestSectionNode("driver"), "hifi-motion-highlight", 820);
+
+    const dot = createHandoffDot(target, statusTarget);
+    let finished = false;
+    const finish = function () {
+      if (finished) return;
+      finished = true;
+      if (dot) dot.remove();
+      target.dataset.hifiHandoffRunning = "false";
+      target.removeAttribute("aria-busy");
+      action();
+    };
+
+    if (dot) dot.addEventListener("animationend", finish, { once: true });
+    window.setTimeout(finish, 540);
+  }
+
+  function runHmStatusFeedback(message) {
+    window.setTimeout(function () {
+      annotateCleanHooks();
+      const scope = document.querySelector("#hm-panel") || document.querySelector("#driver-db");
+      const statusTargets = scope
+        ? Array.from(scope.querySelectorAll(".meta-row .badge, .meta-row .chip, .driver-grid .cell, .driver-grid .chip"))
+            .filter(isMotionTargetVisible)
+            .slice(0, 8)
+        : [];
+
+      runMotion(closestSectionNode("driver"), "hifi-motion-highlight", 820);
+      if (statusTargets.length) {
+        runMotion(statusTargets[0], "hifi-motion-handoff-target", 640);
+        statusTargets.forEach(function (node, index) {
+          window.setTimeout(function () {
+            runMotion(node, "hifi-motion-field-flash", 760);
+          }, index * 24);
+        });
+      } else {
+        runMotion(scope, "hifi-motion-row-reveal", 560);
+      }
+      announce(message || sectionLabels.driver);
+    }, 60);
+  }
+
+  function wrapDriverStateFunctions() {
+    const messages = {
+      doHmLink: "화물맨 연동중 상태로 전환되었습니다.",
+      hmComplete: "화물맨 배차완료 상태로 전환되었습니다.",
+      hmCancelFail: "화물맨 취소 실패 상태로 전환되었습니다.",
+      doHmCancel: "화물맨 취소 요청중 상태로 전환되었습니다.",
+      applyHmDriver: "화물맨 차주 정보가 적용되었습니다."
+    };
+
+    Object.keys(messages).forEach(function (name) {
+      const original = window[name];
+      if (typeof original !== "function" || original.__hifiMotionWrapped) return;
+
+      const wrapped = function () {
+        const result = original.apply(this, arguments);
+        runHmStatusFeedback(messages[name]);
+        return result;
+      };
+      wrapped.__hifiMotionWrapped = true;
+      wrapped.__hifiMotionOriginal = original;
+      window[name] = wrapped;
+    });
+  }
+
+  function shouldDelayForAbsorb(target) {
+    const onclick = target.getAttribute("onclick") || "";
+    return /openShipperLookup|openAddrSearch|openCargoInput|openMoneyInput|openDriverLookup/.test(onclick);
+  }
+
+  function findAbsorbTarget(target, kind) {
+    const row = target.closest(".irow, .empty, .hm-line, .driver-grid") || firstVisibleRow(kind);
+    if (!row) return null;
+    const rowKind = row.querySelector(".kind, .cell__label, .empty__kind");
+    if (rowKind) return rowKind;
+
+    const sectionTitle = closestSectionNode(kind)?.querySelector(".sec-head__title");
+    if (sectionTitle) return sectionTitle;
+
+    return row.querySelector("span");
+  }
+
+  function runAbsorbThen(target, kind, action) {
+    if (!target || target.dataset.hifiMotionRunning === "true") return;
+
+    const label = findAbsorbTarget(target, kind);
+    if (!label || prefersReducedMotion.matches) {
+      action();
+      return;
+    }
+
+    const buttonRect = target.getBoundingClientRect();
+    const labelRect = label.getBoundingClientRect();
+    const distanceToLabel = labelRect.right - buttonRect.left + 4;
+
+    target.style.setProperty("--hifi-absorb-x", `${distanceToLabel}px`);
+    target.dataset.hifiMotionRunning = "true";
+    runMotion(closestSectionNode(kind), "hifi-motion-highlight", 820);
+
+    let finished = false;
+    const finish = function () {
+      if (finished) return;
+      finished = true;
+      target.classList.remove("hifi-motion-absorb");
+      target.style.removeProperty("--hifi-absorb-x");
+      target.dataset.hifiMotionRunning = "false";
+      action();
+    };
+
+    target.classList.remove("hifi-motion-absorb");
+    void target.offsetWidth;
+    target.addEventListener("animationend", finish, { once: true });
+    target.classList.add("hifi-motion-absorb");
+    window.setTimeout(finish, 560);
+  }
+
+  function runInlineOnclick(target, event) {
+    const onclick = target.getAttribute("onclick");
+    if (!onclick) return;
+    Function("event", onclick).call(target, event);
+  }
+
+  function classifyAction(target) {
+    const source = [
+      target.textContent || "",
+      target.getAttribute("onclick") || "",
+      target.getAttribute("aria-label") || "",
+      target.id || ""
+    ].join(" ");
+
+    if (source.includes("화주")) return "shipper";
+    if (source.includes("주소") || source.includes("상차") || source.includes("하차") || source.includes("openAddrSearch")) return "route";
+    if (source.includes("운송+품목") || source.includes("운송 + 품목") || source.includes("openCargoInput") || source.includes("applyCargo")) return "cargoTransport";
+    if (source.includes("금액") || source.includes("청구") || source.includes("운송비용") || source.includes("openMoneyInput") || source.includes("applyMoney")) return "cargoMoney";
+    if (source.includes("요약") || source.includes("summary")) return "summary";
+    if (source.includes("차주") || source.includes("차량") || source.includes("화물맨") || source.includes("배차") || source.includes("연동")) return "driver";
+    if (source.includes("취소") || source.includes("정산")) return "summary";
+    return "";
+  }
+
+  function runSectionFeedback(kind, customMessage) {
+    if (!kind) return;
+    const now = Date.now();
+    const feedbackKey = `${kind}:${customMessage || ""}`;
+    if (feedbackKey === lastFeedbackKey && now - lastFeedbackAt < 260) return;
+    lastFeedbackKey = feedbackKey;
+    lastFeedbackAt = now;
+
+    annotateCleanHooks();
+    const section = closestSectionNode(kind);
+    const row = firstVisibleRow(kind);
+    const fieldCount = runChangedFieldFlash(kind);
+    runMotion(section, "hifi-motion-highlight", 820);
+    if (!fieldCount) runMotion(row, "hifi-motion-row-reveal", 560);
+    announce(customMessage || sectionLabels[kind] || "상태가 갱신되었습니다.");
+  }
+
+  function handleActionClick(event) {
+    const target = event.target.closest("button, .btn, .cell--addr, .cell--edit, .tm");
+    if (!target) return;
+
+    const kind = classifyAction(target);
+    if (!kind) return;
+
+    if (isHmLinkAction(target)) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      runHmHandoffThen(target, function () {
+        runInlineOnclick(target, event);
+        announce("화물맨 연동 확인 창을 열었습니다.");
+      });
+      return;
+    }
+
+    if (shouldDelayForAbsorb(target)) {
+      event.preventDefault();
+      event.stopPropagation();
+      event.stopImmediatePropagation();
+
+      runAbsorbThen(target, kind, function () {
+        runInlineOnclick(target, event);
+        announce(sectionLabels[kind] || "입력 창을 열었습니다.");
+      });
+      return;
+    }
+
+    window.setTimeout(function () {
+      runSectionFeedback(kind);
+    }, 120);
+  }
+
+  function handleRouteFocus(event) {
+    const target = event.target.closest(".cell--addr, .irow--route, #sec-route .empty");
+    if (!target) return;
+    runMotion(target.closest(".irow") || target, "hifi-motion-address-focus", 620);
+  }
+
+  function init() {
+    ensureLiveRegion();
+    annotateCleanHooks();
+    wrapDriverStateFunctions();
+    document.body.setAttribute("data-hifi-local-motion", MOTION_VERSION);
+    document.addEventListener("click", handleActionClick, true);
+    document.addEventListener("focusin", handleRouteFocus, true);
+    document.addEventListener("mouseover", function (event) {
+      if (event.target.closest(".cell--addr")) handleRouteFocus(event);
+    }, true);
+
+    const observer = new MutationObserver(function () {
+      annotateCleanHooks();
+      wrapDriverStateFunctions();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    window.__hifiLocalMotion = {
+      version: MOTION_VERSION,
+      runSectionFeedback: runSectionFeedback,
+      reducedMotion: function () {
+        return prefersReducedMotion.matches;
+      }
+    };
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init, { once: true });
+  } else {
+    init();
+  }
+})();
+</script>
+<!-- LOCAL_HIFI_MOTION_LAYER_END -->

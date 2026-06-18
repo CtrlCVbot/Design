@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>배차 담당자 섹션 배치 옵션 비교</title>
+  <style>
+    :root {
+      --bg: #f4f4f5;
+      --surface: #fff;
+      --surface-soft: #fafafa;
+      --surface-sunken: #f4f4f5;
+      --text-strong: #09090b;
+      --text: #27272a;
+      --text-muted: #71717a;
+      --text-disabled: #a1a1aa;
+      --border: #e4e4e7;
+      --border-strong: #d4d4d8;
+      --brand-50: #eff6ff;
+      --brand-100: #dbeafe;
+      --brand-200: #bfdbfe;
+      --brand-600: #1f64d6;
+      --brand-700: #1a52b0;
+      --green-50: #f0fdf4;
+      --green-700: #15803d;
+      --amber-50: #fffbeb;
+      --amber-700: #b45309;
+      --red-50: #fef2f2;
+      --red-600: #dc2626;
+      --shadow-xs: 0 1px 1px 0 rgb(39 39 42 / .035);
+      --shadow-sm: 0 1px 2px 0 rgb(39 39 42 / .055);
+      --shadow: 0 1px 2px -1px rgb(39 39 42 / .08), 0 2px 4px -2px rgb(39 39 42 / .08);
+      --radius-sm: 4px;
+      --radius: 6px;
+      --radius-lg: 8px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --font: "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+    button { font: inherit; }
+    .page {
+      width: min(1280px, calc(100vw - 32px));
+      margin: 24px auto 44px;
+      display: grid;
+      gap: var(--space-4);
+    }
+    .intro {
+      display: grid;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .intro__top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    h1 {
+      margin: 0;
+      color: var(--text-strong);
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+    .intro p {
+      margin: 0;
+      color: var(--text-muted);
+      max-width: 920px;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 var(--space-2);
+      border: 1px solid var(--brand-200);
+      border-radius: var(--radius);
+      background: var(--brand-50);
+      color: var(--brand-700);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .summary {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+    }
+    .summary table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .summary th,
+    .summary td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      vertical-align: top;
+    }
+    .summary th {
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .summary tr:last-child td { border-bottom: 0; }
+    .summary strong { color: var(--text-strong); }
+    .score { color: var(--brand-700); font-weight: 900; white-space: nowrap; }
+    .recommendation {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-4);
+      border: 1px solid var(--brand-200);
+      border-radius: var(--radius-lg);
+      background: var(--brand-50);
+      box-shadow: var(--shadow-sm);
+    }
+    .recommendation strong {
+      color: var(--brand-700);
+      font-size: 14px;
+    }
+    .recommendation p {
+      margin: 0;
+      color: var(--text);
+    }
+    .recommendation span {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+    .option {
+      display: grid;
+      gap: var(--space-3);
+      padding: var(--space-4);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+      box-shadow: var(--shadow-sm);
+      min-width: 0;
+    }
+    .option[data-reco="true"] {
+      border-color: var(--brand-200);
+      box-shadow: 0 0 0 1px rgb(31 100 214 / .08), var(--shadow-sm);
+    }
+    .option__head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+    .option__title {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+    .option__title strong {
+      color: var(--text-strong);
+      font-size: 15px;
+      line-height: 1.3;
+    }
+    .option__title span {
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 7px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface-soft);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .tag--reco {
+      border-color: var(--brand-200);
+      background: var(--brand-50);
+      color: var(--brand-700);
+    }
+    .preview {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      background: var(--surface);
+    }
+    .app-head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 52px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .app-title {
+      color: var(--text-strong);
+      font-size: 16px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .app-id {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .status-bar {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 24px;
+      padding: 0 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface-soft);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .chip--blue { border-color: var(--brand-200); background: var(--brand-50); color: var(--brand-700); }
+    .chip--green { border-color: #bbf7d0; background: var(--green-50); color: var(--green-700); }
+    .chip--amber { border-color: #fde68a; background: var(--amber-50); color: var(--amber-700); }
+    .chip--ghost { background: var(--surface); color: var(--text-muted); }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 28px;
+      padding: 0 9px;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--text-strong);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: var(--shadow-xs);
+      white-space: nowrap;
+    }
+    .btn--primary {
+      border-color: var(--brand-600);
+      background: var(--brand-600);
+      color: #fff;
+      box-shadow: var(--shadow-sm);
+    }
+    .btn--ghost {
+      border-color: transparent;
+      background: transparent;
+      color: var(--text-muted);
+      box-shadow: none;
+    }
+    .body {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      background: var(--surface-soft);
+    }
+    .section {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .section__head {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 34px;
+      padding: 6px 8px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+    .num {
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      border-radius: var(--radius-sm);
+      background: var(--brand-600);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 900;
+    }
+    .section__title {
+      color: var(--text-strong);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .section__rule {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section__note {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 54px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: var(--space-2);
+      min-height: 34px;
+      padding: 5px 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .row:last-child { border-bottom: 0; }
+    .label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 24px;
+      border: 1px solid var(--brand-100);
+      border-radius: var(--radius-sm);
+      background: var(--brand-50);
+      color: var(--brand-700);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .value {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--text-muted);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .assignee-row {
+      display: grid;
+      grid-template-columns: 70px minmax(0, 1fr) auto;
+      gap: var(--space-2);
+      align-items: center;
+      min-height: 38px;
+      padding: 7px 8px;
+      border: 1px solid var(--brand-200);
+      border-radius: var(--radius);
+      background: linear-gradient(0deg, var(--brand-50), #fff);
+    }
+    .assignee-name {
+      color: var(--text-strong);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+    .assignee-meta {
+      min-width: 0;
+      overflow: hidden;
+      color: var(--text-muted);
+      font-size: 12px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .assignee-mini {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-width: 0;
+    }
+    .avatar {
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: var(--brand-600);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+    }
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42%;
+      gap: var(--space-2);
+    }
+    .right-pane {
+      display: grid;
+      gap: var(--space-2);
+    }
+    .tabs {
+      display: inline-flex;
+      height: 30px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .tabs span {
+      display: inline-flex;
+      align-items: center;
+      padding: 0 9px;
+      border-right: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .tabs span:last-child { border-right: 0; }
+    .tabs .is-on {
+      background: var(--brand-50);
+      color: var(--brand-700);
+    }
+    .right-card {
+      display: grid;
+      gap: var(--space-2);
+      padding: var(--space-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow-xs);
+    }
+    .timeline {
+      display: grid;
+      gap: var(--space-2);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .timeline li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-2);
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .dot {
+      width: 7px;
+      height: 7px;
+      margin-top: 5px;
+      border-radius: 999px;
+      background: var(--brand-600);
+    }
+    .actionbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-2);
+      padding: 10px 12px;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .action-group {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      min-width: 0;
+    }
+    .note {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .decision {
+      display: grid;
+      grid-template-columns: 72px minmax(0, 1fr);
+      gap: var(--space-2);
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+    .decision strong { color: var(--text-strong); }
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .split { grid-template-columns: 1fr; }
+      .intro__top { align-items: flex-start; flex-direction: column; }
+    }
+    @media (max-width: 640px) {
+      .page { width: calc(100vw - 20px); margin-top: 10px; }
+      .app-head { align-items: flex-start; flex-direction: column; }
+      .status-bar { margin-left: 0; flex-wrap: wrap; }
+      .summary { overflow-x: auto; }
+      .summary table { min-width: 760px; }
+      .row, .assignee-row { grid-template-columns: 1fr; }
+      .actionbar { align-items: stretch; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro">
+      <div class="intro__top">
+        <h1>배차 담당자 섹션 배치 옵션</h1>
+        <span class="badge">master 반영 전 시각화</span>
+      </div>
+      <p>배차 담당자는 내부 운영 책임자 정보입니다. 항상 눈에 보여야 하는지, 배차/차주 흐름과 묶을지, 보조 정보의 이력으로 둘지에 따라 배치가 달라집니다.</p>
+    </section>
+
+    <section class="recommendation" aria-label="추천 조합">
+      <strong>추천 조합: 헤더 상태 chip + 우측 보조 정보 상단</strong>
+      <p>헤더에는 현재 배차 담당자만 작게 고정하고, 상세 정보와 변경 이력은 우측 보조 정보 상단에 두는 구성이 가장 안정적입니다.</p>
+      <span>항상 보여야 하는 책임 정보와 상세 관리 UI를 분리해, 신규 접수/화물 수정 양쪽 흐름을 방해하지 않습니다.</span>
+    </section>
+
+    <section class="summary" aria-label="배차 담당자 배치안 요약">
+      <table>
+        <thead>
+          <tr>
+            <th>안</th>
+            <th>배치 위치</th>
+            <th>강점</th>
+            <th>주의점</th>
+            <th>추천</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td>헤더 상태 chip 옆</td>
+            <td>항상 보이고 화면 높이를 쓰지 않음</td>
+            <td>상세 필드가 부족함</td>
+            <td class="score">추천</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td>화주 정보 아래 독립 섹션</td>
+            <td>접수 책임 배정이 명확함</td>
+            <td>상단 입력 흐름이 길어짐</td>
+            <td class="score">강조 필요 시</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td>운송 구간 섹션 내부</td>
+            <td>배차 업무 맥락과 가까움</td>
+            <td>주소/구간 정보와 책임자 정보가 섞임</td>
+            <td class="score">보류</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td>우측 보조 정보 상단</td>
+            <td>담당자 + 메모 + 이력을 함께 보기 좋음</td>
+            <td>우측 영역이 접히면 가시성이 낮아짐</td>
+            <td class="score">추천</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td>차주 정보 섹션 상단</td>
+            <td>배차 담당과 차주 배정 흐름이 자연스럽게 연결됨</td>
+            <td>초기 접수 단계에서는 늦게 보임</td>
+            <td class="score">차주 중심</td>
+          </tr>
+          <tr>
+            <td><strong>6</strong></td>
+            <td>하단 actionbar</td>
+            <td>등록/수정 실행 시 책임자를 확인하기 좋음</td>
+            <td>스크롤 위쪽에서 잘 안 보임</td>
+            <td class="score">보조</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="grid" aria-label="배치 옵션 시각화">
+      <article class="option" data-reco="true">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>1. 헤더 상태 chip 옆</strong>
+            <span>오더 소유자처럼 항상 보이는 compact chip</span>
+          </div>
+          <span class="tag tag--reco">추천</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar">
+              <span class="chip chip--green">담당 김민지</span>
+              <span class="chip chip--ghost">신규</span>
+              <span class="chip chip--ghost">거리 —</span>
+              <button class="btn btn--ghost">Aa</button>
+            </div>
+          </div>
+          <div class="body">
+            <div class="section">
+              <div class="section__head"><span class="num">1</span><span class="section__title">화주 정보</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">화주</span><span class="value">업체명·사업자번호·담당자를 입력하세요</span><button class="btn btn--primary">화주 정보 입력</button></div>
+            </div>
+            <div class="section">
+              <div class="section__head"><span class="num">2</span><span class="section__title">운송 구간</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">상차</span><span class="value">상차지 주소를 검색하세요</span><button class="btn btn--primary">주소 검색</button></div>
+            </div>
+          </div>
+        </div>
+        <p class="note">오더 책임자를 빠르게 확인하는 목적이면 가장 좋습니다. 클릭 시 담당 변경 다이얼로그를 열면 됩니다.</p>
+        <div class="decision"><strong>추천 이유</strong><span>섹션을 늘리지 않고, 업무 책임자를 화면 전체 맥락에 붙일 수 있습니다.</span></div>
+      </article>
+
+      <article class="option">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>2. 화주 정보 아래 독립 섹션</strong>
+            <span>신규 접수 초기에 담당자 배정을 명확히 요구</span>
+          </div>
+          <span class="tag">책임 강조</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar"><span class="chip chip--ghost">신규</span><span class="chip chip--ghost">거리 —</span></div>
+          </div>
+          <div class="body">
+            <div class="section">
+              <div class="section__head"><span class="num">1</span><span class="section__title">화주 정보</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">화주</span><span class="value">화주 정보 입력 대기</span><button class="btn btn--primary">화주 정보 입력</button></div>
+            </div>
+            <div class="section">
+              <div class="section__head"><span class="num">2</span><span class="section__title">배차 담당자</span><span class="section__rule"></span><span class="section__note">내부 운영 책임</span></div>
+              <div class="assignee-row">
+                <span class="label">담당</span>
+                <span class="assignee-mini"><span class="avatar">김</span><span><span class="assignee-name">김민지</span><span class="assignee-meta">배차팀 · 주간 · 010-0000-0000</span></span></span>
+                <button class="btn">담당 변경</button>
+              </div>
+            </div>
+            <div class="section">
+              <div class="section__head"><span class="num">3</span><span class="section__title">운송 구간</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">상차</span><span class="value">상차지 주소를 검색하세요</span><button class="btn btn--primary">주소 검색</button></div>
+            </div>
+          </div>
+        </div>
+        <p class="note">담당자 미배정 상태를 저장 전 필수 조건으로 만들 계획이라면 적합합니다. 다만 섹션 번호와 흐름 재정리가 필요합니다.</p>
+        <div class="decision"><strong>주의</strong><span>현재 5개 핵심 섹션 앞부분이 길어져 운영자가 주소 입력까지 도달하는 시간이 늘어납니다.</span></div>
+      </article>
+
+      <article class="option">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>3. 운송 구간 섹션 내부</strong>
+            <span>상하차/거리 계산과 배차 담당자를 한 맥락에 배치</span>
+          </div>
+          <span class="tag">구간 맥락</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar"><span class="chip chip--ghost">신규</span><span class="chip chip--ghost">거리 —</span></div>
+          </div>
+          <div class="body">
+            <div class="section">
+              <div class="section__head"><span class="num">2</span><span class="section__title">운송 구간</span><span class="section__rule"></span><span class="chip chip--green">담당 김민지</span><button class="btn">변경</button></div>
+              <div class="row"><span class="label">상차</span><span class="value">상차지 주소를 검색하세요</span><button class="btn btn--primary">주소 검색</button></div>
+              <div class="row"><span class="label">하차</span><span class="value">하차지 주소를 검색하세요</span><button class="btn btn--primary">주소 검색</button></div>
+            </div>
+            <div class="section">
+              <div class="section__head"><span class="num">3</span><span class="section__title">화물 운송정보</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">화물</span><span class="value">톤수, 차종, 품목 입력 대기</span><button class="btn btn--primary">운송+품목 입력</button></div>
+            </div>
+          </div>
+        </div>
+        <p class="note">배차 담당자가 주로 상하차 조건을 조정한다면 자연스럽습니다. 하지만 `운송 구간`이 주소/조건 섹션인지 책임자 섹션인지 흐려질 수 있습니다.</p>
+        <div class="decision"><strong>판단</strong><span>담당자를 보조 메타로 약하게 보여줄 때만 적합합니다. 독립 필드가 많아지면 분리하는 편이 낫습니다.</span></div>
+      </article>
+
+      <article class="option" data-reco="true">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>4. 우측 보조 정보 상단</strong>
+            <span>담당자, 메모, 업무 로그를 같은 보조 컨텍스트로 묶음</span>
+          </div>
+          <span class="tag tag--reco">추천</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar"><span class="chip chip--ghost">신규</span><span class="chip chip--ghost">거리 —</span></div>
+          </div>
+          <div class="body split">
+            <div>
+              <div class="section">
+                <div class="section__head"><span class="num">1</span><span class="section__title">화주 정보</span><span class="section__rule"></span></div>
+                <div class="row"><span class="label">화주</span><span class="value">업체명·사업자번호·담당자를 입력하세요</span><button class="btn btn--primary">화주 정보 입력</button></div>
+              </div>
+              <div class="section" style="margin-top:8px">
+                <div class="section__head"><span class="num">2</span><span class="section__title">운송 구간</span><span class="section__rule"></span></div>
+                <div class="row"><span class="label">상차</span><span class="value">상차지 주소를 검색하세요</span><button class="btn btn--primary">주소 검색</button></div>
+              </div>
+            </div>
+            <aside class="right-pane">
+              <div class="right-card">
+                <div class="assignee-mini"><span class="avatar">김</span><span><span class="assignee-name">김민지</span><span class="assignee-meta">배차 담당 · 주간 · 마지막 확인 08:24</span></span></div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="chip chip--green">배정됨</span><span class="chip chip--ghost">백업 이정산</span><button class="btn">담당 변경</button></div>
+              </div>
+              <div class="section">
+                <div class="section__head"><span class="section__title">보조 정보</span><span class="section__rule"></span></div>
+                <div style="padding:8px;display:grid;gap:8px">
+                  <div class="tabs"><span class="is-on">메모</span><span>금액 로그</span><span>운송 구간 지도</span></div>
+                  <ul class="timeline">
+                    <li><span class="dot"></span><span>김민지 담당 배정 · 08:12</span></li>
+                    <li><span class="dot"></span><span>상차 조건 확인 요청 · 08:20</span></li>
+                  </ul>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </div>
+        <p class="note">담당자 정보가 메모/금액 로그/지도와 함께 업무 컨텍스트가 됩니다. 상세 이력까지 계획하기 좋습니다.</p>
+        <div class="decision"><strong>추천 이유</strong><span>현재 우측 보조 정보 영역의 성격과 잘 맞고, 메인 입력 흐름을 방해하지 않습니다.</span></div>
+      </article>
+
+      <article class="option">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>5. 차주 정보 섹션 상단</strong>
+            <span>배차 담당자와 차주/화물맨 연동을 하나의 배차 흐름으로 묶음</span>
+          </div>
+          <span class="tag">배차 중심</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar"><span class="chip chip--ghost">신규</span><span class="chip chip--ghost">거리 —</span></div>
+          </div>
+          <div class="body">
+            <div class="section">
+              <div class="section__head"><span class="num">5</span><span class="section__title">차주 정보</span><span class="section__rule"></span><span class="section__note">배차 담당 포함</span></div>
+              <div class="assignee-row">
+                <span class="label">담당</span>
+                <span class="assignee-mini"><span class="avatar">김</span><span><span class="assignee-name">김민지</span><span class="assignee-meta">차주 배정 전 검토 담당</span></span></span>
+                <button class="btn">변경</button>
+              </div>
+              <div class="row"><span class="label">차주</span><span class="value">차주를 선택하거나 화물맨에 공유하세요</span><button class="btn btn--primary">화물맨 연동</button></div>
+            </div>
+          </div>
+        </div>
+        <p class="note">실제 업무가 `담당자 배정 → 차주/화물맨 배차` 순서라면 흐름이 좋습니다. 초기 접수 단계에서는 아래쪽에 있어 놓칠 수 있습니다.</p>
+        <div class="decision"><strong>주의</strong><span>담당자 미배정이 저장을 막는 필수값이라면 너무 늦은 위치입니다.</span></div>
+      </article>
+
+      <article class="option">
+        <div class="option__head">
+          <div class="option__title">
+            <strong>6. 하단 actionbar</strong>
+            <span>등록/수정/취소 실행 직전에 담당자를 확인</span>
+          </div>
+          <span class="tag">실행 확인</span>
+        </div>
+        <div class="preview">
+          <div class="app-head">
+            <span class="app-title">화물 오더 접수/수정</span>
+            <span class="app-id">신규 · 미발번</span>
+            <div class="status-bar"><span class="chip chip--ghost">신규</span><span class="chip chip--ghost">거리 —</span></div>
+          </div>
+          <div class="body">
+            <div class="section">
+              <div class="section__head"><span class="num">1</span><span class="section__title">화주 정보</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">화주</span><span class="value">업체명·사업자번호·담당자를 입력하세요</span><button class="btn btn--primary">화주 정보 입력</button></div>
+            </div>
+            <div class="section">
+              <div class="section__head"><span class="num">5</span><span class="section__title">차주 정보</span><span class="section__rule"></span></div>
+              <div class="row"><span class="label">차주</span><span class="value">차주를 선택하거나 화물맨에 공유하세요</span><button class="btn btn--primary">화물맨 연동</button></div>
+            </div>
+          </div>
+          <div class="actionbar">
+            <div class="action-group">
+              <span class="chip chip--green">담당 김민지</span>
+              <button class="btn">담당 변경</button>
+            </div>
+            <div class="action-group">
+              <button class="btn btn--primary">신규 접수 F3</button>
+              <button class="btn">화물 등록</button>
+            </div>
+          </div>
+        </div>
+        <p class="note">등록/수정 직전 확인에는 좋습니다. 다만 상단 입력 중에는 담당자가 보이지 않아 메인 배치로는 약합니다.</p>
+        <div class="decision"><strong>용도</strong><span>헤더 chip이나 우측 패널을 채택한 뒤, 하단에는 확인용으로만 반복 노출하는 방식이 적합합니다.</span></div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>

@@ -1,0 +1,286 @@
+/* =====================================================================
+   화물 오더 — HiFi 비주얼 (shadcn/ui 기반 스킨)
+   shadcn.css · standalone (ds.css 와 동일한 변수명·클래스명을 재사용)
+   ---------------------------------------------------------------------
+   - ds.css 는 그대로 보존. HiFi.html 은 이 파일만 링크하면 shadcn 룩으로 전환.
+   - shadcn 네이밍 토큰(background/foreground/muted/border/input/ring/primary…)을
+     함께 정의하고, 기존 의미 토큰(--brand/--surface/--status…)을 그 위에 매핑.
+   - 브랜드 강조색(파랑 #1f64d6)·상태색 의미(접수/완료/취소/선택/경고) 유지.
+   ===================================================================== */
+
+:root {
+  /* ---------- shadcn neutral(zinc) 네이밍 토큰 (쇼케이스·매핑용) ---------- */
+  --background: #ffffff;
+  --foreground: #09090b;
+  --card: #ffffff;            --card-foreground: #09090b;
+  --popover: #ffffff;         --popover-foreground: #09090b;
+  --muted: #f4f4f5;           --muted-foreground: #71717a;
+  --accent: #f4f4f5;          --accent-foreground: #18181b;
+  --secondary: #f4f4f5;       --secondary-foreground: #18181b;
+  --primary: #1f64d6;         --primary-foreground: #ffffff;
+  --destructive: #dc2626;     --destructive-foreground: #ffffff;
+  --input: #e4e4e7;           --ring: #1f64d6;
+
+  /* ---------- 브랜드 (파랑 유지) ---------- */
+  --brand-50:  #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-500: #3b82f6;
+  --brand-600: #1f64d6;
+  --brand-700: #1a52b0;
+
+  /* ---------- 텍스트 (zinc) ---------- */
+  --text-strong:   #09090b;   /* zinc-950 */
+  --text:          #27272a;   /* zinc-800 */
+  --text-muted:    #71717a;   /* zinc-500 */
+  --text-disabled: #a1a1aa;   /* zinc-400 */
+  --text-on-brand: #ffffff;
+
+  /* ---------- 표면 / 경계 ---------- */
+  --bg:            #f4f4f5;    /* zinc-100 페이지 */
+  --surface:       #ffffff;
+  --surface-soft:  #fafafa;    /* zinc-50 */
+  --surface-sunken:#f4f4f5;    /* zinc-100 잠금 필드 */
+  --border:        #e4e4e7;    /* zinc-200 */
+  --border-strong: #d4d4d8;    /* zinc-300 input */
+  --border-heavy:  #a1a1aa;    /* zinc-400 */
+
+  /* ---------- 상태색 (색 + 텍스트 병행) ---------- */
+  --status-received-fg: #1f64d6;  --status-received-bg: #eff6ff;  --status-received-bd: #bfdbfe;
+  --status-done-fg:     #52525b;  --status-done-bg:     #f4f4f5;  --status-done-bd:     #e4e4e7;
+  --status-cancel-fg:   #dc2626;  --status-cancel-bg:   #fef2f2;  --status-cancel-bd:   #fecaca;
+  --selected-bg:        #fef9c3;  --selected-bd:        #fde047;
+
+  --danger-fg:  #dc2626;  --danger-bg:  #fef2f2;  --danger-bd:  #fecaca;  --danger-600: #dc2626;  --danger-700: #b91c1c;
+  --warn-fg:    #b45309;  --warn-bg:    #fffbeb;  --warn-bd:    #fde68a;
+  --success-fg: #15803d;  --success-bg: #f0fdf4;  --success-bd: #bbf7d0;
+  --info-fg:    var(--brand-600); --info-bg: var(--brand-50); --info-bd: var(--brand-200);
+
+  --src-hwamulman-fg: #7c3aed;  --src-hwamulman-bg: #f5f3ff;  --src-hwamulman-bd: #ddd6fe;
+  --src-internal-fg:  #52525b;  --src-internal-bg:  #f4f4f5;  --src-internal-bd:  #e4e4e7;
+  --src-kakao-fg:     #854d0e;  --src-kakao-bg:     #fef9c3;  --src-kakao-bd:     #fde047;
+
+  /* ---------- 타이포 (Pretendard 유지) ---------- */
+  --font-sans: "Pretendard", "Pretendard Variable", "Apple SD Gothic Neo",
+               "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+  --font-num:  "Pretendard", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --text-caption: 11px; --text-sm: 12px; --text-base: 13px; --text-md: 15px;
+  --text-lg: 17px; --text-xl: 20px; --text-2xl: 24px;
+  --lh-tight: 1.25; --lh-base: 1.45;
+  --fw-regular: 400; --fw-medium: 500; --fw-semibold: 600; --fw-bold: 700;
+
+  /* ---------- 스페이싱 (4/8) ---------- */
+  --space-0: 0; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  --row-h: 32px; --ctrl-h: 30px; --ctrl-h-sm: 26px;
+
+  /* ---------- radius (shadcn 0.5rem 기반) ---------- */
+  --radius-sm: 4px; --radius: 6px; --radius-lg: 10px; --radius-pill: 999px;
+
+  /* ---------- shadow / focus (shadcn) ---------- */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / .05);
+  --shadow:    0 1px 3px 0 rgb(0 0 0 / .1), 0 1px 2px -1px rgb(0 0 0 / .1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / .1), 0 4px 6px -4px rgb(0 0 0 / .1);
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px rgb(31 100 214 / .5);
+  --focus-ring-danger: 0 0 0 2px var(--surface), 0 0 0 4px rgb(220 38 38 / .45);
+}
+
+/* =====================================================================
+   Base
+   ===================================================================== */
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html, body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font-sans); font-size: var(--text-base); line-height: var(--lh-base);
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+.num { font-feature-settings: "tnum" 1; font-variant-numeric: tabular-nums; }
+
+/* =====================================================================
+   Section header  (shadcn Card 헤더 느낌)
+   ===================================================================== */
+.ds-section { border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); overflow: hidden; box-shadow: var(--shadow-sm); }
+.sec-head { display: flex; align-items: center; gap: var(--space-3); min-height: 40px; padding: var(--space-2) var(--space-3); border-bottom: 1px solid var(--border); background: var(--surface-soft); }
+.sec-head__num { flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: var(--radius-sm); background: var(--brand-600); color: var(--text-on-brand); font-size: var(--text-sm); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.sec-head__title { font-size: var(--text-lg); font-weight: var(--fw-bold); color: var(--text-strong); letter-spacing: -0.02em; white-space: nowrap; }
+.sec-head__rule { flex: 1; height: 1px; background: var(--border); }
+.sec-head__note { flex: none; display: inline-flex; align-items: center; gap: 6px; color: var(--text-muted); font-size: var(--text-sm); }
+.sec-body { padding: var(--space-3); }
+
+/* =====================================================================
+   Button  (shadcn: outline / default / secondary / ghost / destructive)
+   ===================================================================== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  height: var(--ctrl-h); padding: 0 var(--space-3);
+  border: 1px solid var(--border-strong); border-radius: var(--radius);
+  background: var(--surface); color: var(--text);
+  font: inherit; font-size: var(--text-base); font-weight: var(--fw-medium);
+  white-space: nowrap; cursor: pointer;
+  transition: background-color .12s ease, border-color .12s ease, color .12s ease, box-shadow .12s ease;
+}
+.btn:hover { background: var(--muted); }
+.btn:active { transform: translateY(0.5px); }
+.btn:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.btn:disabled, .btn.is-disabled { color: var(--text-disabled); background: var(--surface-sunken); border-color: var(--border); cursor: not-allowed; }
+
+.btn--primary { background: var(--primary); border-color: var(--primary); color: var(--primary-foreground); box-shadow: var(--shadow-sm); }
+.btn--primary:hover { background: var(--brand-700); border-color: var(--brand-700); }
+
+.btn--secondary { background: var(--secondary); border-color: var(--secondary); color: var(--secondary-foreground); }
+.btn--secondary:hover { background: #e7e7ea; border-color: #e7e7ea; }
+
+.btn--ghost { background: transparent; border-color: transparent; color: var(--text); }
+.btn--ghost:hover { background: var(--muted); border-color: transparent; }
+
+.btn--danger { background: var(--surface); border-color: var(--danger-bd); color: var(--danger-600); }
+.btn--danger:hover { background: var(--destructive); border-color: var(--destructive); color: var(--destructive-foreground); }
+.btn--danger:focus-visible { box-shadow: var(--focus-ring-danger); }
+
+.btn--sm { height: var(--ctrl-h-sm); padding: 0 var(--space-2); font-size: var(--text-sm); }
+.btn__key { font-size: var(--text-caption); color: var(--text-muted); font-weight: var(--fw-medium); }
+.btn--primary .btn__key { color: rgba(255,255,255,.8); }
+.action-sep { width: 1px; align-self: stretch; margin: 2px var(--space-2); background: var(--border); }
+
+/* =====================================================================
+   Field  (shadcn Input / Select)
+   ===================================================================== */
+.field { display: flex; flex-direction: column; gap: var(--space-1); min-width: 0; }
+.field__label { color: var(--text-muted); font-size: var(--text-sm); font-weight: var(--fw-medium); }
+.field__label .req { color: var(--danger-600); margin-left: 2px; }
+
+.ctl {
+  display: flex; align-items: center; height: var(--ctrl-h); padding: 0 var(--space-2);
+  border: 1px solid var(--input); border-radius: var(--radius); background: var(--surface);
+  color: var(--text-strong); font: inherit; font-size: var(--text-base); font-weight: var(--fw-medium);
+  width: 100%; min-width: 0; transition: border-color .12s ease, box-shadow .12s ease;
+}
+.ctl::placeholder, .ctl.is-placeholder { color: var(--text-disabled); font-weight: var(--fw-regular); }
+.ctl:focus, .ctl:focus-within { outline: none; border-color: var(--ring); box-shadow: var(--focus-ring); }
+.ctl--select { justify-content: space-between; cursor: pointer; }
+.ctl--select::after { content: "▾"; color: var(--text-muted); font-size: 10px; margin-left: var(--space-2); }
+.ctl--money { justify-content: flex-end; text-align: right; }
+.ctl--money .won { color: var(--text-muted); margin-right: auto; font-weight: var(--fw-regular); }
+.ctl--money .amt { font-family: var(--font-num); font-variant-numeric: tabular-nums; font-weight: var(--fw-semibold); }
+.ctl--date { gap: 6px; }
+.ctl--date .ico { color: var(--text-muted); }
+.ctl--readonly, .ctl[readonly] { background: var(--surface-sunken); border-color: var(--border); color: var(--text); cursor: default; }
+.ctl--readonly:focus { box-shadow: none; border-color: var(--border); }
+.lock-hint { color: var(--text-disabled); font-size: var(--text-caption); }
+
+.seg { display: inline-flex; border: 1px solid var(--input); border-radius: var(--radius); overflow: hidden; height: var(--ctrl-h); }
+.seg__opt { display: inline-flex; align-items: center; padding: 0 var(--space-3); border-right: 1px solid var(--input); background: var(--surface); color: var(--text); font-size: var(--text-base); cursor: pointer; white-space: nowrap; }
+.seg__opt:last-child { border-right: 0; }
+.seg__opt.is-on { background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-semibold); }
+
+.editable { position: relative; display: inline-flex; align-items: center; max-width: 100%; min-height: 26px; padding: 1px 30px 1px 4px; border-bottom: 1px dashed var(--border-heavy); border-radius: var(--radius-sm); color: var(--text-strong); font-weight: var(--fw-medium); cursor: text; }
+.editable::after { content: "수정"; position: absolute; right: 3px; top: 50%; transform: translateY(-50%); padding: 0 6px; height: 17px; display: inline-flex; align-items: center; border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--surface-soft); color: var(--text-muted); font-size: var(--text-caption); font-weight: var(--fw-semibold); opacity: 0; transition: opacity .12s ease; }
+.editable:hover, .editable:focus-within { background: var(--brand-50); border-bottom-color: var(--ring); }
+.editable:hover::after, .editable:focus-within::after { opacity: 1; }
+.editable:focus-visible { outline: none; box-shadow: var(--focus-ring); border-radius: var(--radius-sm); }
+.editable.is-editing { padding: 0; border-bottom-color: transparent; }
+.editable.is-editing::after { content: none; }
+.editable__input { width: 100%; height: 28px; padding: 3px 8px; border: 1px solid var(--ring); border-radius: var(--radius); background: var(--surface); color: var(--text-strong); font: inherit; font-weight: var(--fw-medium); }
+
+/* =====================================================================
+   SummaryRow
+   ===================================================================== */
+.summary-row { display: grid; grid-template-columns: 92px minmax(0, 1fr) auto; gap: var(--space-3); align-items: center; min-height: var(--row-h); padding: var(--space-1) var(--space-2); border-bottom: 1px solid var(--border); }
+.summary-row:last-child { border-bottom: 0; }
+.summary-row__label { color: var(--text-muted); font-size: var(--text-sm); font-weight: var(--fw-medium); }
+.summary-row__value { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); min-width: 0; color: var(--text-strong); }
+.summary-row__value .sep { color: var(--border-heavy); }
+.summary-row__action { display: inline-flex; gap: var(--space-1); }
+
+/* =====================================================================
+   Chip / Badge  (shadcn Badge: rounded-md)
+   ===================================================================== */
+.badge { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 var(--space-2); border: 1px solid transparent; border-radius: var(--radius); font-size: var(--text-sm); font-weight: var(--fw-semibold); white-space: nowrap; }
+.badge::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.badge--received { color: var(--status-received-fg); background: var(--status-received-bg); border-color: var(--status-received-bd); }
+.badge--done     { color: var(--status-done-fg);     background: var(--status-done-bg);     border-color: var(--status-done-bd); }
+.badge--cancel   { color: var(--status-cancel-fg);   background: var(--status-cancel-bg);   border-color: var(--status-cancel-bd); }
+
+.chip { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 var(--space-2); border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); color: var(--text); font-size: var(--text-sm); white-space: nowrap; }
+.chip--metric { background: var(--surface-soft); }
+.chip--metric .k { color: var(--text-muted); }
+.chip--metric .v { color: var(--text-strong); font-weight: var(--fw-bold); font-variant-numeric: tabular-nums; }
+.chip--wait { border-style: dashed; color: var(--text-disabled); background: var(--surface); }
+.chip--role { cursor: pointer; }
+.chip--role.is-on { border-color: var(--brand-200); background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-semibold); }
+.chip--src { font-weight: var(--fw-semibold); }
+.chip--src.src-hwamulman { color: var(--src-hwamulman-fg); background: var(--src-hwamulman-bg); border-color: var(--src-hwamulman-bd); }
+.chip--src.src-internal  { color: var(--src-internal-fg);  background: var(--src-internal-bg);  border-color: var(--src-internal-bd); }
+.chip--src.src-kakao     { color: var(--src-kakao-fg);     background: var(--src-kakao-bg);     border-color: var(--src-kakao-bd); }
+
+.pill { display: inline-flex; align-items: center; gap: 5px; height: 24px; padding: 0 var(--space-3); border: 1px solid var(--border-strong); border-radius: var(--radius-pill); background: var(--surface); color: var(--text); font-size: var(--text-base); cursor: pointer; white-space: nowrap; transition: background-color .12s, border-color .12s, color .12s; }
+.pill:hover { background: var(--muted); }
+.pill.is-on { border-color: var(--brand-200); background: var(--brand-50); color: var(--brand-600); font-weight: var(--fw-semibold); }
+
+/* =====================================================================
+   Warning inline
+   ===================================================================== */
+.notice { display: inline-flex; align-items: center; gap: 6px; padding: 4px var(--space-2); border: 1px solid var(--warn-bd); border-radius: var(--radius); background: var(--warn-bg); color: var(--warn-fg); font-size: var(--text-sm); font-weight: var(--fw-medium); }
+.notice::before { content: "⚠"; font-size: 13px; }
+.notice--danger { border-color: var(--danger-bd); background: var(--danger-bg); color: var(--danger-600); }
+.notice--danger::before { content: "⛔"; }
+.notice--info { border-color: var(--info-bd); background: var(--info-bg); color: var(--info-fg); }
+.notice--info::before { content: "ⓘ"; }
+
+/* =====================================================================
+   EmptyState
+   ===================================================================== */
+.empty { display: flex; align-items: center; gap: var(--space-3); min-height: var(--row-h); padding: var(--space-2) var(--space-3); border: 1px dashed var(--border-strong); border-radius: var(--radius); background: var(--surface-soft); }
+.empty__text { color: var(--text-muted); font-size: var(--text-base); }
+.empty .btn { margin-left: auto; }
+
+/* =====================================================================
+   Dialog  (shadcn: overlay + 중앙, rounded-lg, border, shadow-lg)
+   ===================================================================== */
+.dialog-backdrop { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; padding: var(--space-5); background: rgb(9 9 11 / .5); }
+.dialog { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; width: min(880px, calc(100vw - 40px)); max-height: min(660px, calc(100vh - 40px)); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-lg); overflow: hidden; }
+.dialog--confirm { width: min(420px, calc(100vw - 40px)); }
+.dialog__head, .dialog__foot { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); padding: var(--space-3) var(--space-4); }
+.dialog__head { border-bottom: 1px solid var(--border); }
+.dialog__foot { border-top: 1px solid var(--border); background: var(--surface-soft); }
+.dialog__title { margin: 0; font-size: var(--text-lg); font-weight: var(--fw-bold); color: var(--text-strong); letter-spacing: -0.02em; }
+.dialog__close { border: 0; background: transparent; color: var(--text-muted); font-size: 18px; cursor: pointer; line-height: 1; padding: 4px; border-radius: var(--radius-sm); }
+.dialog__close:hover { background: var(--muted); color: var(--text-strong); }
+.dialog__close:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.dialog__body { padding: var(--space-4); overflow: auto; }
+.dialog__foot-actions { display: inline-flex; gap: var(--space-2); margin-left: auto; }
+
+.lookup-search { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: var(--space-2); margin-bottom: var(--space-3); }
+.lookup-layout { display: grid; grid-template-columns: minmax(0,1fr) 240px; gap: var(--space-3); align-items: start; }
+.lookup-results { border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; }
+.lookup-row { display: grid; grid-template-columns: 24px minmax(0,1.1fr) 120px 96px; gap: var(--space-2); align-items: center; width: 100%; text-align: left; padding: var(--space-2) var(--space-3); border: 0; border-bottom: 1px solid var(--border); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.lookup-row:last-child { border-bottom: 0; }
+.lookup-row:hover { background: var(--muted); }
+.lookup-row.is-selected { background: var(--brand-50); }
+.lookup-row__mark { width: 18px; height: 18px; border: 1px solid var(--border-strong); border-radius: 50%; display: inline-grid; place-items: center; }
+.lookup-row.is-selected .lookup-row__mark { border-color: var(--brand-600); }
+.lookup-row.is-selected .lookup-row__mark::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--brand-600); }
+.lookup-preview { border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface-soft); padding: var(--space-3); display: grid; gap: var(--space-2); align-content: start; }
+.lookup-preview__title { font-weight: var(--fw-bold); color: var(--text-strong); }
+.preview-item { display: grid; grid-template-columns: 64px 1fr; gap: var(--space-2); font-size: var(--text-sm); }
+.preview-item .k { color: var(--text-muted); }
+.preview-item .v { color: var(--text-strong); font-weight: var(--fw-medium); }
+
+/* =====================================================================
+   접근성 — 키보드 포커스 가시성 (shadcn focus-visible ring)
+   ===================================================================== */
+.rrow:focus-visible, .pill:focus-visible, .chip--role:focus-visible, .seg__opt:focus-visible,
+.cell--edit:focus-visible, .cell--addr:focus-visible, .tm:focus-visible,
+.tabs__t:focus-visible, .strip__b:focus-visible, .lookup-row:focus-visible {
+  outline: none; box-shadow: var(--focus-ring); position: relative; z-index: 1; border-radius: var(--radius-sm);
+}
+
+/* =====================================================================
+   Utilities
+   ===================================================================== */
+.stack { display: grid; gap: var(--space-2); }
+.row { display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap; }
+.grow { flex: 1; }
+.muted { color: var(--text-muted); }
+.strong { color: var(--text-strong); font-weight: var(--fw-bold); }
