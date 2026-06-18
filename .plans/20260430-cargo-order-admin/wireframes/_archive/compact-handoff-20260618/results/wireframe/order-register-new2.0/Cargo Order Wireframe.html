@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1320" />
+<title>화물 오더 접수/수정 관리 — Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body data-density="comfort" data-grid="on" data-accent="on" data-annot="on">
+
+<div class="sheet">
+
+  <!-- Mast -->
+  <div class="mast">
+    <div>
+      <h1>화물 오더 접수 / 수정 관리</h1>
+      <div class="breadcrumbs">
+        <span>운송관리</span><span>오더관리</span><span>접수·수정</span>
+      </div>
+    </div>
+    <div class="scrid">screen-id: TMS-OR-001 · wireframe v1</div>
+  </div>
+
+  <!-- Top app menu (sketch) -->
+  <div class="topbar">
+    <span class="tab">홈</span>
+    <span class="tab">기준정보</span>
+    <span class="tab">화주관리</span>
+    <span class="tab">차주관리</span>
+    <span class="tab active">오더관리</span>
+    <span class="tab">배차/운송</span>
+    <span class="tab">정산</span>
+    <span class="tab">통계/리포트</span>
+    <span class="sep"></span>
+    <span class="tab">관리자</span>
+    <span style="margin-left:auto;color:var(--ink-mute);font-size:13px">홍길동 / (주)로지스 ▾</span>
+  </div>
+
+  <!-- Sub bar: 표시 옵션 / 거리·기준 -->
+  <div class="subbar">
+    <div class="pill"><span class="ttl">표시 옵션</span><span class="val">상세 ▾</span></div>
+    <div class="pill"><span class="ttl">기준 거리</span><span class="val">— km</span></div>
+    <div class="pill"><span class="ttl">기준 운송료</span><span class="val">자동 산출</span></div>
+    <div class="pill"><span class="ttl">실시간 시세</span><span class="val">조회</span></div>
+    <div class="pill"><span class="ttl">현황</span><span class="val">접수 12 / 완료 38 / 취소 2</span></div>
+  </div>
+
+  <!-- Two-column work area -->
+  <div class="work">
+    <!-- LEFT COLUMN -->
+    <div>
+      <!-- 1. 운송 구간 -->
+      <div class="group">
+        <div class="legend"><span class="num">①</span>운송 구간</div>
+        <div class="fields cols-6">
+          <div class="f span-2"><span class="lbl">상차지 (출발)</span><span class="inp search placeholder">주소 검색…</span></div>
+          <div class="f span-2"><span class="lbl">상차 상세</span><span class="inp placeholder">상세주소 / 동·호수</span></div>
+          <div class="f"><span class="lbl">시·도</span><span class="inp select">경기</span></div>
+          <div class="f"><span class="lbl">시·군·구</span><span class="inp select">화성시</span></div>
+
+          <div class="f span-2"><span class="lbl">하차지 (도착)</span><span class="inp search placeholder">주소 검색…</span></div>
+          <div class="f span-2"><span class="lbl">하차 상세</span><span class="inp placeholder">상세주소</span></div>
+          <div class="f"><span class="lbl">시·도</span><span class="inp select">충북</span></div>
+          <div class="f"><span class="lbl">시·군·구</span><span class="inp select">청주시</span></div>
+
+          <div class="f"><span class="lbl">거리</span><span class="inp">— km</span></div>
+          <div class="f"><span class="lbl">소요시간</span><span class="inp">— h —m</span></div>
+          <div class="f span-2"><span class="lbl">경유지</span><span class="inp btnish">+ 경유지 추가 (최대 3)</span></div>
+          <div class="f span-2 hint" style="margin-top:0">※ 주소 검색 시 좌표·거리·기준운송료 자동 계산</div>
+        </div>
+      </div>
+
+      <!-- 2. 화물 운송정보 -->
+      <div class="group">
+        <div class="legend"><span class="num">②</span>화물 운송정보</div>
+        <div class="fields cols-4">
+          <div class="f"><span class="lbl">상차일시</span><span class="inp">2025-04-30 09:00</span></div>
+          <div class="f"><span class="lbl">상차 시간대</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span class="on">오전</span><span>오후</span><span>야간</span><span>당일</span></span></span>
+          </div>
+          <div class="f"><span class="lbl">하차일시</span><span class="inp">2025-04-30 16:00</span></div>
+          <div class="f"><span class="lbl">하차 시간대</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span>오전</span><span class="on">오후</span><span>야간</span><span>익일</span></span></span>
+          </div>
+
+          <div class="f span-2"><span class="lbl">배차 유형</span>
+            <span class="inp" style="padding:0 4px;border:none;background:transparent">
+              <span class="chips">
+                <span class="chip on"><span class="box"></span>일반</span>
+                <span class="chip"><span class="box"></span>왕복</span>
+                <span class="chip"><span class="box"></span>혼적</span>
+                <span class="chip"><span class="box"></span>릴레이</span>
+                <span class="chip"><span class="box"></span>긴급</span>
+              </span>
+            </span>
+          </div>
+          <div class="f"><span class="lbl">운송 상품</span><span class="inp select">일반화물</span></div>
+          <div class="f"><span class="lbl">결제 조건</span><span class="inp select">인수증 / 후불</span></div>
+
+          <div class="f"><span class="lbl">차량 톤수</span><span class="inp select">5톤</span></div>
+          <div class="f"><span class="lbl">차량 종류</span><span class="inp select">카고</span></div>
+          <div class="f"><span class="lbl">옵션</span>
+            <span class="inp" style="padding:0 4px;border:none;background:transparent">
+              <span class="chips">
+                <span class="chip"><span class="box"></span>윙바디</span>
+                <span class="chip on"><span class="box"></span>축차</span>
+                <span class="chip"><span class="box"></span>냉장</span>
+                <span class="chip"><span class="box"></span>냉동</span>
+              </span>
+            </span>
+          </div>
+          <div class="f"><span class="lbl">긴급도</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span>일반</span><span class="on">우선</span><span>긴급</span></span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. 화물 요약·중량·증빙 -->
+      <div class="group">
+        <div class="legend"><span class="num">③</span>화물 요약 · 중량 · 증빙</div>
+        <div class="fields cols-4">
+          <div class="f span-2"><span class="lbl">품목명</span><span class="inp placeholder">예) 자동차 부품 / 일반잡화</span></div>
+          <div class="f"><span class="lbl">포장 형태</span><span class="inp select">팔레트</span></div>
+          <div class="f"><span class="lbl">수량 / 단위</span><span class="inp">12 / 박스</span></div>
+
+          <div class="f"><span class="lbl">실 중량(kg)</span><span class="inp">2,400</span></div>
+          <div class="f"><span class="lbl">부피(CBM)</span><span class="inp">3.6</span></div>
+          <div class="f"><span class="lbl">위험물</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span class="on">없음</span><span>UN1234</span><span>기타</span></span></span>
+          </div>
+          <div class="f"><span class="lbl">보험가입</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span>미가입</span><span class="on">기본</span><span>고가</span></span></span>
+          </div>
+
+          <div class="f span-4"><span class="lbl">화물 요약 메모</span>
+            <span class="summary-box">파렛트 12EA · 박스 적재 · 손상주의 · 인계 후 사진 1장 첨부 …</span>
+          </div>
+
+          <div class="f span-2"><span class="lbl">증빙 / 첨부</span>
+            <span class="inp btnish">📎 파일 업로드 (인수증 / 명세서 / 사진)</span>
+          </div>
+          <div class="f span-2"><span class="lbl">발행 문서</span>
+            <span class="inp" style="padding:0 4px;border:none;background:transparent">
+              <span class="chips">
+                <span class="chip on"><span class="box"></span>거래명세서</span>
+                <span class="chip"><span class="box"></span>인수증</span>
+                <span class="chip"><span class="box"></span>세금계산서</span>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. 차주 정보 -->
+      <div class="group">
+        <div class="legend"><span class="num">④</span>차주 (운전자) 정보 <span class="hint" style="margin-left:6px">※ 배차 후 자동 채움</span></div>
+        <div class="fields cols-4">
+          <div class="f"><span class="lbl">차주 검색</span><span class="inp search placeholder">이름 / 차량번호</span></div>
+          <div class="f"><span class="lbl">성명</span><span class="inp placeholder">—</span></div>
+          <div class="f"><span class="lbl">연락처</span><span class="inp placeholder">—</span></div>
+          <div class="f"><span class="lbl">차량번호</span><span class="inp placeholder">—</span></div>
+
+          <div class="f"><span class="lbl">소속</span><span class="inp placeholder">개인 / 운수사</span></div>
+          <div class="f"><span class="lbl">정산 계좌</span><span class="inp placeholder">—</span></div>
+          <div class="f"><span class="lbl">사업자번호</span><span class="inp placeholder">—</span></div>
+          <div class="f"><span class="lbl">평점</span><span class="inp">★★★★☆ (4.6)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div>
+      <!-- 5. 상차 조건 -->
+      <div class="group">
+        <div class="legend"><span class="num">⑤</span>상차 조건</div>
+        <div class="row"><span class="lbl">상차 방법</span>
+          <span class="ctl">
+            <span class="chip on"><span class="box"></span>지게차</span>
+            <span class="chip"><span class="box"></span>크레인</span>
+            <span class="chip"><span class="box"></span>수작업</span>
+            <span class="chip"><span class="box"></span>도크</span>
+          </span>
+        </div>
+        <div class="row"><span class="lbl">담당자</span>
+          <span class="ctl"><span class="inp" style="min-width:140px">김상차</span><span class="inp" style="min-width:140px">010-1234-5678</span></span>
+        </div>
+        <div class="row"><span class="lbl">대기시간</span>
+          <span class="ctl"><span class="inp" style="width:80px">30</span> 분 이내
+            <span class="seg"><span class="on">무료</span><span>유료</span></span>
+          </span>
+        </div>
+        <div class="row"><span class="lbl">특이사항</span>
+          <span class="ctl"><span class="inp" style="width:100%;min-width:0">10시 이후 진입 불가 · 정문 보안실 통과</span></span>
+        </div>
+      </div>
+
+      <!-- 6. 하차 조건 -->
+      <div class="group">
+        <div class="legend"><span class="num">⑥</span>하차 조건</div>
+        <div class="row"><span class="lbl">하차 방법</span>
+          <span class="ctl">
+            <span class="chip"><span class="box"></span>지게차</span>
+            <span class="chip on"><span class="box"></span>수작업</span>
+            <span class="chip"><span class="box"></span>도크</span>
+            <span class="chip"><span class="box"></span>호이스트</span>
+          </span>
+        </div>
+        <div class="row"><span class="lbl">담당자</span>
+          <span class="ctl"><span class="inp" style="min-width:140px">박하차</span><span class="inp" style="min-width:140px">010-9876-5432</span></span>
+        </div>
+        <div class="row"><span class="lbl">대기시간</span>
+          <span class="ctl"><span class="inp" style="width:80px">60</span> 분 이내
+            <span class="seg"><span>무료</span><span class="on">유료</span></span>
+          </span>
+        </div>
+        <div class="row"><span class="lbl">인수확인</span>
+          <span class="ctl">
+            <span class="chip on"><span class="box"></span>서명</span>
+            <span class="chip"><span class="box"></span>사진</span>
+            <span class="chip"><span class="box"></span>OTP</span>
+          </span>
+        </div>
+        <div class="row"><span class="lbl">특이사항</span>
+          <span class="ctl"><span class="inp" style="width:100%;min-width:0">지하 1층 하차장 / 천장고 2.4m</span></span>
+        </div>
+      </div>
+
+      <!-- 7. 화주 정보 -->
+      <div class="group">
+        <div class="legend"><span class="num">⑦</span>화주 정보</div>
+        <div class="fields cols-4">
+          <div class="f span-2"><span class="lbl">화주 검색</span><span class="inp search placeholder">상호 / 사업자번호</span></div>
+          <div class="f"><span class="lbl">담당자</span><span class="inp">이화주</span></div>
+          <div class="f"><span class="lbl">연락처</span><span class="inp">02-555-1234</span></div>
+
+          <div class="f span-2"><span class="lbl">상호</span><span class="inp">(주)가나물류</span></div>
+          <div class="f"><span class="lbl">사업자번호</span><span class="inp">123-45-67890</span></div>
+          <div class="f"><span class="lbl">계약 구분</span><span class="inp select">스팟 / 정기</span></div>
+
+          <div class="f"><span class="lbl">결제 주기</span><span class="inp select">월말 정산</span></div>
+          <div class="f"><span class="lbl">여신 한도</span><span class="inp">5,000,000</span></div>
+          <div class="f"><span class="lbl">미수 잔액</span><span class="inp">320,000</span></div>
+          <div class="f"><span class="lbl">신용 등급</span><span class="inp">A</span></div>
+        </div>
+      </div>
+
+      <!-- 8. 수수료율 정보 -->
+      <div class="group">
+        <div class="legend"><span class="num">⑧</span>수수료율 / 운임 정보</div>
+        <div class="fields cols-4">
+          <div class="f"><span class="lbl">기준 운송료</span><span class="inp">450,000</span></div>
+          <div class="f"><span class="lbl">청구 운송료</span><span class="inp">480,000</span></div>
+          <div class="f"><span class="lbl">차주 지급</span><span class="inp">420,000</span></div>
+          <div class="f"><span class="lbl">마진(원/%)</span><span class="inp">60,000 (12.5%)</span></div>
+
+          <div class="f"><span class="lbl">수수료율(%)</span><span class="inp">8.0</span></div>
+          <div class="f"><span class="lbl">부가세</span>
+            <span class="inp" style="padding:0 4px"><span class="seg"><span class="on">별도</span><span>포함</span><span>면세</span></span></span>
+          </div>
+          <div class="f"><span class="lbl">유류 할증</span><span class="inp">+ 0</span></div>
+          <div class="f"><span class="lbl">기타 할증</span><span class="inp">+ 0</span></div>
+
+          <div class="f span-2"><span class="lbl">정산 메모</span><span class="inp placeholder">예) 회차 계산서 발행 후 7일 내 입금</span></div>
+          <div class="f span-2"><span class="lbl">계산 근거</span><span class="inp btnish">📋 단가표 보기 / 자동 재계산</span></div>
+        </div>
+        <div class="hint" style="margin-top:6px">※ 청구·지급·마진은 단가표·할증 변경 시 자동 재계산. 수동 잠금 가능.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action bar -->
+  <div class="actionbar">
+    <div class="gset">
+      <div class="gset-label">기본 작업</div>
+      <button class="btn primary">✚ 신규접수<span class="kbd">F2</span></button>
+      <button class="btn">💾 저장<span class="kbd">Ctrl+S</span></button>
+      <button class="btn">📋 복제</button>
+      <button class="btn">↺ 초기화</button>
+      <button class="btn">🔍 조회<span class="kbd">F5</span></button>
+    </div>
+    <div class="gset">
+      <div class="gset-label">상태 변경</div>
+      <button class="btn">▶ 배차요청</button>
+      <button class="btn disabled">완료처리</button>
+      <button class="btn danger">✕ 오더취소</button>
+    </div>
+    <div class="gset">
+      <div class="gset-label">출력 / 전송</div>
+      <button class="btn">🖨 인쇄</button>
+      <button class="btn">⤓ 엑셀</button>
+      <button class="btn">📤 SMS / 카톡 발송</button>
+      <button class="btn">📑 거래명세서</button>
+    </div>
+  </div>
+
+  <!-- List controls -->
+  <div class="listctl">
+    <div class="tabs">
+      <span class="on">전체 (52)</span>
+      <span>접수 (12)</span>
+      <span>배차중 (4)</span>
+      <span>운송중 (8)</span>
+      <span>완료 (38)</span>
+      <span>취소 (2)</span>
+    </div>
+    <span class="inp search placeholder" style="border:1.25px solid var(--line);background:#fff;height:26px;padding:2px 6px;font-family:Caveat;font-size:15px;display:inline-flex;align-items:center;min-width:200px">오더번호 / 화주 / 차주 / 차량번호…</span>
+    <span class="seg"><span class="on">오늘</span><span>3일</span><span>1주</span><span>1개월</span><span>기간선택</span></span>
+    <span class="meta">2025-04-30 09:14 기준</span>
+    <span class="grow"></span>
+    <span class="meta">정렬 ▾ 접수일시 (최신)</span>
+    <span class="meta">표시 ▾ 50행</span>
+    <span class="meta">컬럼 ▾</span>
+  </div>
+
+  <!-- Cargo table -->
+  <div class="tablewrap">
+    <table class="list">
+      <thead>
+        <tr>
+          <th style="width:24px">☑</th>
+          <th class="core">오더번호</th>
+          <th class="core">상태</th>
+          <th>접수일</th>
+          <th>상차일시</th>
+          <th>하차일시</th>
+          <th class="core">상차지</th>
+          <th class="core">하차지</th>
+          <th>거리</th>
+          <th>차종/톤</th>
+          <th>품목</th>
+          <th>중량(kg)</th>
+          <th>화주</th>
+          <th>차주</th>
+          <th>차량번호</th>
+          <th class="num">청구액</th>
+          <th class="num">지급액</th>
+          <th class="num">마진</th>
+          <th>결제</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sel">
+          <td>☑</td><td class="id">OR-2504-0142</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-30 09:10</td><td>04-30 09:00</td><td>04-30 16:00</td>
+          <td>화성 ▶</td><td>청주</td><td>168km</td><td>카고/5t</td>
+          <td>자동차부품</td><td class="num">2,400</td>
+          <td>(주)가나물류</td><td>—</td><td>—</td>
+          <td class="num">480,000</td><td class="num">420,000</td><td class="num">60,000</td>
+          <td>후불</td><td>축차/우선</td>
+        </tr>
+        <tr>
+          <td>☐</td><td class="id">OR-2504-0141</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-30 08:42</td><td>04-30 13:00</td><td>04-30 18:30</td>
+          <td>인천</td><td>대전</td><td>184km</td><td>윙/11t</td>
+          <td>일반잡화</td><td class="num">7,800</td>
+          <td>한라상사</td><td>—</td><td>—</td>
+          <td class="num">620,000</td><td class="num">550,000</td><td class="num">70,000</td>
+          <td>선불</td><td>야간상차</td>
+        </tr>
+        <tr class="done">
+          <td>☐</td><td class="id">OR-2504-0140</td><td><span class="badge b-dn">완료</span></td>
+          <td>04-29 17:20</td><td>04-30 06:00</td><td>04-30 11:30</td>
+          <td>안산</td><td>광주</td><td>312km</td><td>카고/8t</td>
+          <td>식품(상온)</td><td class="num">5,200</td>
+          <td>대성식품</td><td>김기사</td><td>경기81바1234</td>
+          <td class="num">780,000</td><td class="num">700,000</td><td class="num">80,000</td>
+          <td>월말</td><td>—</td>
+        </tr>
+        <tr class="done">
+          <td>☐</td><td class="id">OR-2504-0139</td><td><span class="badge b-dn">완료</span></td>
+          <td>04-29 16:05</td><td>04-30 07:30</td><td>04-30 12:00</td>
+          <td>평택</td><td>대구</td><td>262km</td><td>탑/5t</td>
+          <td>전자부품</td><td class="num">1,300</td>
+          <td>(주)가나물류</td><td>박기사</td><td>서울12가7788</td>
+          <td class="num">540,000</td><td class="num">480,000</td><td class="num">60,000</td>
+          <td>후불</td><td>—</td>
+        </tr>
+        <tr class="cancel">
+          <td>☐</td><td class="id">OR-2504-0138</td><td><span class="badge b-cx">취소</span></td>
+          <td>04-29 14:11</td><td>04-30 09:00</td><td>04-30 15:00</td>
+          <td>수원</td><td>천안</td><td>92km</td><td>카고/2.5t</td>
+          <td>일반잡화</td><td class="num">800</td>
+          <td>한라상사</td><td>—</td><td>—</td>
+          <td class="num">220,000</td><td class="num">—</td><td class="num">—</td>
+          <td>—</td><td>화주취소</td>
+        </tr>
+        <tr>
+          <td>☐</td><td class="id">OR-2504-0137</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-29 11:30</td><td>04-30 10:00</td><td>04-30 17:00</td>
+          <td>부산</td><td>서울</td><td>403km</td><td>윙/25t</td>
+          <td>철강(코일)</td><td class="num">22,000</td>
+          <td>한국철강</td><td>—</td><td>—</td>
+          <td class="num">1,250,000</td><td class="num">1,120,000</td><td class="num">130,000</td>
+          <td>월말</td><td>긴급</td>
+        </tr>
+        <tr class="done">
+          <td>☐</td><td class="id">OR-2504-0136</td><td><span class="badge b-dn">완료</span></td>
+          <td>04-28 18:42</td><td>04-29 06:00</td><td>04-29 14:00</td>
+          <td>울산</td><td>인천</td><td>362km</td><td>탱크/16t</td>
+          <td>액상화학</td><td class="num">14,000</td>
+          <td>SK케미칼</td><td>최기사</td><td>울산67가0011</td>
+          <td class="num">980,000</td><td class="num">880,000</td><td class="num">100,000</td>
+          <td>월말</td><td>위험물</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="legend-line">
+    <span><span class="swatch" style="background:var(--accept-bg);border-color:var(--accept)"></span>접수</span>
+    <span><span class="swatch" style="background:var(--done-bg);border-color:var(--done)"></span>완료</span>
+    <span><span class="swatch" style="background:var(--cancel-bg);border-color:var(--cancel)"></span>취소</span>
+    <span><span class="swatch" style="background:var(--highlight)"></span>선택 행</span>
+    <span class="scribble">기본 컬럼 = 강조(노란 헤더). 사용자 컬럼 표시/숨김 지원</span>
+  </div>
+
+  <!-- Annotations / design notes -->
+  <div style="margin-top:14px;border-top:1.5px dashed var(--line-soft);padding-top:8px">
+    <div class="scribble">설계 메모 ─ 원본 화면의 1:1 골격을 유지(상단 메뉴 → 표시옵션 → 좌:화물·구간 / 우:상하차·화주·정산 → 하단 액션 → 하단 리스트). 그룹별 번호·라벨을 명시해 신규 사용자도 흐름 파악 가능.</div>
+    <div class="scribble">상태 색상은 접수=blue / 완료=gray / 취소=red 3단계로만 단순화. 취소 행은 취소선 + 흐림 처리.</div>
+    <div class="scribble">신규접수 흐름: ① 운송구간 → ② 화물정보 → ⑤·⑥ 상하차조건 → ⑦ 화주 → ⑧ 정산 → 저장 (좌→우, 상→하 자연스러운 시선 이동).</div>
+  </div>
+</div>
+
+<!-- Tweaks -->
+<script type="text/babel">
+  const { useEffect, useState } = React;
+  function Tweaks(){
+    const [open,setOpen]=useState(false);
+    const [density,setDensity]=useState("comfort");
+    const [grid,setGrid]=useState(true);
+    const [accent,setAccent]=useState(true);
+    const [annot,setAnnot]=useState(true);
+
+    useEffect(()=>{
+      const onMsg=(e)=>{
+        if(!e.data) return;
+        if(e.data.type==="__activate_edit_mode") setOpen(true);
+        if(e.data.type==="__deactivate_edit_mode") setOpen(false);
+      };
+      window.addEventListener("message",onMsg);
+      window.parent.postMessage({type:"__edit_mode_available"},"*");
+      return ()=>window.removeEventListener("message",onMsg);
+    },[]);
+
+    useEffect(()=>{
+      document.body.dataset.density=density;
+      document.body.dataset.grid=grid?"on":"off";
+      document.body.dataset.accent=accent?"on":"off";
+      document.body.dataset.annot=annot?"on":"off";
+    },[density,grid,accent,annot]);
+
+    if(!open) return null;
+    const card={position:"fixed",right:18,bottom:18,zIndex:9999,
+      width:240,background:"#fbfaf6",border:"1.5px solid #2b2f33",
+      borderRadius:6,padding:"10px 12px",boxShadow:"3px 4px 0 rgba(0,0,0,.15)",
+      fontFamily:"Gaegu, sans-serif",fontSize:13};
+    const lbl={fontFamily:"Caveat",fontSize:14,color:"#7a7a7a",margin:"6px 0 2px"};
+    return (
+      <div style={card}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+          <strong style={{fontFamily:"Nanum Pen Script",fontSize:18}}>Tweaks</strong>
+          <span onClick={()=>{setOpen(false);window.parent.postMessage({type:"__edit_mode_dismissed"},"*");}}
+            style={{cursor:"pointer",color:"#888"}}>✕</span>
+        </div>
+        <div style={lbl}>밀도</div>
+        <div style={{display:"flex",gap:6}}>
+          {["comfort","compact"].map(d=>(
+            <button key={d} onClick={()=>setDensity(d)}
+              style={{flex:1,padding:"3px 6px",border:"1px solid #2b2f33",
+                background:density===d?"#efe6c2":"#fff",borderRadius:3,cursor:"pointer"}}>
+              {d==="comfort"?"보통":"조밀"}
+            </button>
+          ))}
+        </div>
+        <div style={lbl}>표시 옵션</div>
+        <label style={{display:"block",margin:"3px 0"}}>
+          <input type="checkbox" checked={grid} onChange={e=>setGrid(e.target.checked)}/> 표 격자선
+        </label>
+        <label style={{display:"block",margin:"3px 0"}}>
+          <input type="checkbox" checked={accent} onChange={e=>setAccent(e.target.checked)}/> 상태 컬러 강조
+        </label>
+        <label style={{display:"block",margin:"3px 0"}}>
+          <input type="checkbox" checked={annot} onChange={e=>setAnnot(e.target.checked)}/> 설계 메모 표시
+        </label>
+      </div>
+    );
+  }
+  ReactDOM.createRoot(document.getElementById("__tweaks")).render(<Tweaks/>);
+</script>
+<div id="__tweaks"></div>
+
+</body>
+</html>

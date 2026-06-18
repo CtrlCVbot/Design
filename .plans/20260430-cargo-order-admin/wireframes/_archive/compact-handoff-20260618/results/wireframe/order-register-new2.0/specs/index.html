@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>명세서 / 영수증 — 인덱스</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#efece2;color:#1a1a1a;font-family:"Noto Sans KR",sans-serif}
+  body{padding:48px 24px 80px}
+  .wrap{max-width:1080px;margin:0 auto}
+  h1{font-family:"Noto Serif KR",serif;font-size:32px;letter-spacing:6px;margin:0 0 4px}
+  .sub{color:#777;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:2px;margin-bottom:32px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    background:#fbfaf3;border:1.5px solid #1a1a1a;padding:18px 18px 16px;
+    box-shadow:4px 6px 0 rgba(0,0,0,.12);text-decoration:none;color:inherit;
+    display:flex;flex-direction:column;gap:8px;min-height:220px;
+  }
+  .card .num{font-family:"IBM Plex Mono",monospace;font-size:11px;color:#a91d1d;letter-spacing:3px}
+  .card h3{font-family:"Noto Serif KR",serif;font-size:18px;margin:0;letter-spacing:2px}
+  .card .en{font-family:"IBM Plex Mono",monospace;font-size:10px;color:#888;letter-spacing:2px}
+  .card p{margin:6px 0 0;font-size:13px;color:#444;line-height:1.55}
+  .card .tag{margin-top:auto;display:flex;gap:6px;flex-wrap:wrap}
+  .tag span{font-size:10px;border:1px solid #1a1a1a;padding:1px 6px;letter-spacing:1px;background:#fff}
+  .card:hover{transform:translate(-1px,-2px);box-shadow:6px 8px 0 rgba(0,0,0,.16)}
+  .back{font-family:"IBM Plex Mono",monospace;font-size:12px;color:#777;text-decoration:none}
+  .back:hover{color:#1a1a1a}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="back" href="../Cargo Order Wireframe.html">← 와이어프레임으로 돌아가기</a>
+  <h1>명 세 서 / 영 수 증</h1>
+  <div class="sub">SPEC · RECEIPT · ORDER SHEET — 3 VARIATIONS</div>
+
+  <div class="grid">
+    <a class="card" href="01 Trade Specification.html">
+      <span class="num">01 / SPEC</span>
+      <h3>거래명세서</h3>
+      <span class="en">TRADE SPECIFICATION · A4</span>
+      <p>화주 · 운송사 양 당사자 정식 문서. 이중선 박스, 직인, 부가세·할증 분리 정산표.</p>
+      <div class="tag"><span>A4</span><span>FORMAL</span><span>STAMP</span></div>
+    </a>
+    <a class="card" href="02 Driver Receipt.html">
+      <span class="num">02 / RCPT</span>
+      <h3>인수증 / 취소증</h3>
+      <span class="en">DRIVER RECEIPT · DUAL</span>
+      <p>POS·서명 단말 영수증. 인수 완료본과 취소(VOID) 듀얼. QR/바코드 검증.</p>
+      <div class="tag"><span>POS</span><span>OTP</span><span>QR</span><span>VOID</span></div>
+    </a>
+    <a class="card" href="03 Order Spec Sheet.html">
+      <span class="num">03 / FORM</span>
+      <h3>운송 오더 시트</h3>
+      <span class="en">CARBONLESS NCR · 3-PART</span>
+      <p>3매 1조 NCR 폼 스타일. 번호 필드, 펀치홀, 4자 서명. 화주·운송사·차주·감사.</p>
+      <div class="tag"><span>NCR</span><span>3-PART</span><span>FORM</span></div>
+    </a>
+  </div>
+</div>
+</body>
+</html>

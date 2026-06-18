@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=920" />
+<title>운송 오더 시트 — Order Spec Sheet</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=Special+Elite&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#fef9e7;       /* carbon-copy yellow */
+    --paper-edge:#e7dfb5;
+    --ink:#1a1f4a;          /* navy ink */
+    --muted:#6c6a55;
+    --rule:#a39e7c;
+    --line:#1a1f4a;
+    --red:#a91d1d;
+    --kraft:#dcd4ad;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#cbc6ad;color:var(--ink);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;line-height:1.4}
+  body{padding:30px 0 80px}
+
+  .sheet{
+    width:920px;margin:0 auto;background:var(--paper);
+    box-shadow:0 8px 26px rgba(0,0,0,.22);
+    position:relative;padding:24px 28px 30px;
+    border:1.5px solid var(--ink);
+    background-image:
+      repeating-linear-gradient(0deg,transparent 0 22px,rgba(26,31,74,.06) 22px 23px);
+  }
+  .sheet::before{
+    content:"";position:absolute;left:14px;top:14px;bottom:14px;
+    width:0;border-left:2px solid var(--red);
+  }
+  .sheet::after{
+    content:"NCR · COPY 1 / 3 · 화주용";
+    position:absolute;top:8px;right:18px;
+    font-family:"Special Elite",monospace;font-size:11px;
+    color:var(--red);letter-spacing:2px;
+  }
+
+  .formhead{display:grid;grid-template-columns:1fr 200px;gap:16px;align-items:flex-end;
+    border-bottom:3px double var(--ink);padding-bottom:10px;margin-bottom:14px}
+  .formhead h1{
+    font-family:"Special Elite",monospace;font-size:30px;letter-spacing:6px;margin:0;
+    color:var(--ink);
+  }
+  .formhead .en{font-family:"IBM Plex Mono";font-size:11px;letter-spacing:5px;color:var(--muted);margin-top:2px}
+  .formhead .formno{
+    text-align:right;font-family:"Special Elite",monospace;font-size:14px;color:var(--ink);
+    line-height:1.5;
+  }
+  .formhead .formno .lbl{font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:2px}
+
+  /* Numbered fields, like a paper form */
+  .field{
+    border:1.2px solid var(--ink);padding:3px 8px 4px;background:rgba(255,255,255,.55);
+    position:relative;min-height:42px;
+  }
+  .field .num{
+    position:absolute;top:-1px;left:-1px;background:var(--ink);color:var(--paper);
+    font-family:"Noto Sans KR";font-weight:700;font-size:10px;
+    padding:1px 5px;letter-spacing:1px;
+  }
+  .field .lbl{
+    font-family:"Noto Sans KR";font-size:9.5px;letter-spacing:2px;color:var(--muted);
+    margin-left:18px;text-transform:uppercase;
+  }
+  .field .val{
+    font-family:"Special Elite",monospace;font-size:14px;color:var(--ink);
+    margin-top:2px;letter-spacing:.5px;line-height:1.2;
+    word-break:break-all;
+  }
+  .field .val.lg{font-size:18px}
+  .field .val small{font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:400}
+
+  .grid{display:grid;gap:6px}
+  .g-12{grid-template-columns:repeat(12,1fr)}
+  .g-6{grid-template-columns:repeat(6,1fr)}
+  .span-2{grid-column:span 2}
+  .span-3{grid-column:span 3}
+  .span-4{grid-column:span 4}
+  .span-5{grid-column:span 5}
+  .span-6{grid-column:span 6}
+  .span-7{grid-column:span 7}
+  .span-8{grid-column:span 8}
+  .span-12{grid-column:span 12}
+
+  .section{margin-top:14px}
+  .section-title{
+    display:flex;align-items:center;gap:8px;margin-bottom:6px;
+    font-family:"Special Elite",monospace;font-size:14px;letter-spacing:3px;
+    border-bottom:1px dashed var(--rule);padding-bottom:3px;
+  }
+  .section-title .ord{
+    background:var(--ink);color:var(--paper);font-family:"Noto Sans KR";font-weight:700;
+    font-size:11px;padding:1px 7px;letter-spacing:2px;
+  }
+  .section-title .en{margin-left:auto;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:2px}
+
+  /* Checkbox cluster */
+  .checks{display:flex;flex-wrap:wrap;gap:8px 12px;font-family:"Noto Sans KR";font-size:12px}
+  .checks .ck{display:inline-flex;align-items:center;gap:4px}
+  .checks .ck::before{
+    content:"";width:13px;height:13px;border:1.3px solid var(--ink);background:#fff;
+    display:inline-block;
+  }
+  .checks .ck.on::before{
+    background:#fff;
+    background-image:linear-gradient(45deg,transparent 40%,var(--ink) 40% 60%,transparent 60%),
+                     linear-gradient(-45deg,transparent 40%,var(--ink) 40% 60%,transparent 60%);
+  }
+
+  /* Itinerary table */
+  table.legs{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono";font-size:11.5px;background:rgba(255,255,255,.5)}
+  table.legs th, table.legs td{border:1px solid var(--ink);padding:4px 6px;text-align:left;vertical-align:top}
+  table.legs th{background:var(--kraft);font-family:"Noto Sans KR";font-weight:700;font-size:11px;letter-spacing:1px}
+  table.legs .pin{font-family:"Special Elite";font-size:13px;color:var(--red)}
+
+  /* Cargo manifest */
+  table.cargo{width:100%;border-collapse:collapse;background:rgba(255,255,255,.55)}
+  table.cargo th, table.cargo td{border:1px solid var(--ink);padding:4px 6px;
+    font-family:"IBM Plex Mono";font-size:11px;text-align:right;vertical-align:middle}
+  table.cargo th{background:var(--kraft);font-family:"Noto Sans KR";font-weight:700;font-size:10.5px;letter-spacing:1px;text-align:center}
+  table.cargo td.l{text-align:left}
+  table.cargo .empty td{color:#bbb;background:#fcf6dc}
+  table.cargo tfoot td{background:var(--kraft);font-weight:700;border-top:2px solid var(--ink)}
+  table.cargo tfoot td.label{text-align:right;font-family:"Noto Sans KR"}
+
+  /* Settlement strip */
+  .settle{
+    display:grid;grid-template-columns:1.6fr 1fr;gap:10px;margin-top:10px;
+  }
+  .settle .conditions{
+    border:1.2px solid var(--ink);background:var(--kraft);padding:8px 10px;font-size:11px;line-height:1.6;
+  }
+  .settle .conditions h4{margin:0 0 4px;font-family:"Special Elite",monospace;font-size:13px;letter-spacing:3px;
+    border-bottom:1px solid var(--ink);padding-bottom:2px}
+  .settle .conditions ol{margin:0;padding-left:16px;font-family:"Noto Sans KR"}
+  .settle table{width:100%;border-collapse:collapse;border:1.2px solid var(--ink);background:rgba(255,255,255,.6)}
+  .settle table td, .settle table th{
+    border-bottom:1px solid var(--rule);padding:5px 8px;font-family:"IBM Plex Mono";font-size:11.5px;text-align:right
+  }
+  .settle table th{
+    text-align:left;background:var(--kraft);font-family:"Noto Sans KR";font-weight:500;letter-spacing:1px;
+  }
+  .settle table tr.grand th, .settle table tr.grand td{
+    background:var(--ink);color:var(--paper);font-family:"Special Elite",monospace;
+    font-size:14px;letter-spacing:2px;border:0
+  }
+
+  /* Sign rows */
+  .signs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+  .sig{border:1.2px solid var(--ink);background:#fff;height:96px;position:relative;padding:5px 8px}
+  .sig .role{font-family:"Noto Sans KR";font-weight:700;font-size:11px;letter-spacing:2px}
+  .sig .role .en{font-family:"IBM Plex Mono";font-weight:400;color:var(--muted);font-size:9px;letter-spacing:1px;margin-left:4px}
+  .sig .who{font-family:"IBM Plex Mono";font-size:10.5px;color:var(--muted);margin-top:2px}
+  .sig .line{
+    position:absolute;left:8px;right:8px;bottom:24px;
+    border-bottom:1px solid var(--ink);
+  }
+  .sig .when{
+    position:absolute;left:8px;bottom:5px;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted)
+  }
+  .sig .stamp{
+    position:absolute;right:8px;top:24px;
+    width:50px;height:50px;border:2px solid var(--red);border-radius:50%;
+    color:var(--red);font-family:"Noto Sans KR";font-weight:700;font-size:11px;letter-spacing:1px;
+    display:flex;align-items:center;justify-content:center;
+    transform:rotate(-7deg);opacity:.85;
+  }
+  .sig .stamp.draft{border-color:#999;color:#999;border-style:dashed}
+  .sig .ink{position:absolute;bottom:26px;left:14px;font-family:"Special Elite";font-size:18px;color:#3a3a8a}
+
+  .footnote{
+    margin-top:14px;border-top:1px dashed var(--ink);padding-top:6px;
+    display:flex;justify-content:space-between;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:1px;
+  }
+
+  .barcode-row{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+  .barcode{font-family:"VT323",monospace;font-size:32px;line-height:1;color:#000;background:#fff;padding:4px 10px;border:1px solid var(--ink)}
+  .punchhole{
+    position:absolute;left:-7px;top:60px;display:flex;flex-direction:column;gap:60px
+  }
+  .punchhole span{display:block;width:14px;height:14px;border-radius:50%;background:#cbc6ad;border:1.5px solid var(--ink)}
+
+  .corner-stamp{
+    position:absolute;top:18px;right:200px;
+    width:96px;height:96px;border:3px solid var(--red);border-radius:50%;
+    color:var(--red);font-family:"Special Elite",monospace;font-weight:700;font-size:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    letter-spacing:3px;line-height:1.1;transform:rotate(-9deg);opacity:.9;z-index:2;
+    background:rgba(255,255,255,.45);
+  }
+  .corner-stamp small{font-size:9px;letter-spacing:1px;margin-top:2px;font-family:"IBM Plex Mono";font-weight:400}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .sheet{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="punchhole"><span></span><span></span><span></span></div>
+  <div class="corner-stamp">접 수<br/>완 료<small>RECEIVED</small></div>
+
+  <div class="formhead">
+    <div>
+      <h1>화 물 운 송 오 더 시 트</h1>
+      <div class="en">CARGO TRANSPORTATION ORDER · SPEC SHEET</div>
+    </div>
+    <div class="formno">
+      <div class="lbl">FORM NO.</div>
+      TMS-OR-001 / R.4
+      <div class="lbl" style="margin-top:6px">DOC ID</div>
+      OS-2604-0142-A
+    </div>
+  </div>
+
+  <!-- Top metadata strip -->
+  <div class="grid g-12">
+    <div class="field span-3">
+      <span class="num">01</span>
+      <div class="lbl">오더번호 ORDER NO.</div>
+      <div class="val lg">OR-2604-0142</div>
+    </div>
+    <div class="field span-2">
+      <span class="num">02</span>
+      <div class="lbl">접수일시</div>
+      <div class="val">2026-04-30<br/><small>09:10:42</small></div>
+    </div>
+    <div class="field span-2">
+      <span class="num">03</span>
+      <div class="lbl">상태</div>
+      <div class="val" style="color:var(--red)">■ 접수</div>
+    </div>
+    <div class="field span-2">
+      <span class="num">04</span>
+      <div class="lbl">긴급도</div>
+      <div class="val">우 선</div>
+    </div>
+    <div class="field span-3">
+      <span class="num">05</span>
+      <div class="lbl">담당 / 단말</div>
+      <div class="val">김배차 과장<br/><small>TMS-PC-77 · 어드민</small></div>
+    </div>
+  </div>
+
+  <!-- 화주 / 차주 / 차량 -->
+  <div class="section">
+    <div class="section-title"><span class="ord">A</span>당 사 자 <span class="en">SHIPPER · CARRIER · DRIVER</span></div>
+    <div class="grid g-12">
+      <div class="field span-4">
+        <span class="num">06</span>
+        <div class="lbl">화주 SHIPPER</div>
+        <div class="val">(주) 가나물류</div>
+        <div class="val" style="font-size:11px"><small>123-45-67890 · 이화주 부장 02-555-1234</small></div>
+      </div>
+      <div class="field span-4">
+        <span class="num">07</span>
+        <div class="lbl">운송사 CARRIER</div>
+        <div class="val">(주) 로지스마스터</div>
+        <div class="val" style="font-size:11px"><small>506-81-22345 · 김배차 과장 031-777-0102</small></div>
+      </div>
+      <div class="field span-4">
+        <span class="num">08</span>
+        <div class="lbl">차주 DRIVER &amp; VEHICLE</div>
+        <div class="val">김 기 사 · 경기 81바 1234</div>
+        <div class="val" style="font-size:11px"><small>카고 5톤 · 축차 · 010-2222-3333</small></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 운송구간 -->
+  <div class="section">
+    <div class="section-title"><span class="ord">B</span>운 송 구 간 <span class="en">ITINERARY · 168.4 km / 2h 40m</span></div>
+    <table class="legs">
+      <thead>
+        <tr><th style="width:42px">#</th><th style="width:64px">구분</th><th>주소 / 상세</th><th style="width:120px">일시</th><th style="width:120px">방법</th><th style="width:160px">담당자</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="pin">①</td>
+          <td>상차</td>
+          <td>경기 화성시 동탄첨단산업1로 27 · A동 도크 3</td>
+          <td>04-30 09:00<br/><span style="color:var(--muted)">오전 도착</span></td>
+          <td>지게차 · 도크</td>
+          <td>김상차 010-1234-5678</td>
+        </tr>
+        <tr>
+          <td class="pin">②</td>
+          <td>하차</td>
+          <td>충북 청주시 흥덕구 송정로 41 · B1 하차장 (천장고 2.4m)</td>
+          <td>04-30 16:00<br/><span style="color:var(--muted)">오후 도착</span></td>
+          <td>수작업 · 인수</td>
+          <td>박하차 010-9876-5432</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 화물 명세 -->
+  <div class="section">
+    <div class="section-title"><span class="ord">C</span>화 물 명 세 <span class="en">CARGO MANIFEST</span></div>
+    <table class="cargo">
+      <thead>
+        <tr><th style="width:32px">No.</th><th class="l" style="width:30%">품 목</th><th>포장</th><th>수량</th><th>중량(kg)</th><th>CBM</th><th>단가</th><th>금액</th><th class="l" style="width:18%">비고</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td class="l">자동차 부품 (브래킷)</td><td>팔레트</td><td>12 EA</td><td>2,400</td><td>3.60</td><td>36,667</td><td>440,000</td><td class="l">손상주의</td></tr>
+        <tr><td>02</td><td class="l">유류 할증</td><td>—</td><td>1식</td><td>—</td><td>—</td><td>20,000</td><td>20,000</td><td class="l">장거리</td></tr>
+        <tr><td>03</td><td class="l">대기 할증 (60분 초과)</td><td>—</td><td>1식</td><td>—</td><td>—</td><td>20,000</td><td>20,000</td><td class="l">하차지</td></tr>
+        <tr class="empty"><td>04</td><td class="l">— 이하 여백 —</td><td colspan="7"></td></tr>
+      </tbody>
+      <tfoot>
+        <tr><td class="label" colspan="4">소 계 SUBTOTAL</td><td>2,400</td><td>3.60</td><td>—</td><td>480,000</td><td></td></tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- 옵션·증빙 -->
+  <div class="section">
+    <div class="section-title"><span class="ord">D</span>옵 션 · 증 빙 <span class="en">OPTIONS · DOCS</span></div>
+    <div class="grid g-12">
+      <div class="field span-6">
+        <span class="num">09</span>
+        <div class="lbl">차량 옵션 / 화물 속성</div>
+        <div class="checks" style="margin-top:4px">
+          <span class="ck">윙바디</span><span class="ck on">축차</span>
+          <span class="ck">냉장</span><span class="ck">냉동</span>
+          <span class="ck">위험물</span><span class="ck on">파렛트</span>
+          <span class="ck on">손상주의</span><span class="ck">고가품</span>
+        </div>
+      </div>
+      <div class="field span-6">
+        <span class="num">10</span>
+        <div class="lbl">발행 문서 / 증빙</div>
+        <div class="checks" style="margin-top:4px">
+          <span class="ck on">거래명세서</span>
+          <span class="ck on">인수증</span>
+          <span class="ck">세금계산서</span>
+          <span class="ck">현금영수증</span>
+          <span class="ck on">적재 사진(2)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 정산 -->
+  <div class="section">
+    <div class="section-title"><span class="ord">E</span>정 산 <span class="en">SETTLEMENT</span></div>
+    <div class="settle">
+      <div class="conditions">
+        <h4>조 건 TERMS</h4>
+        <ol>
+          <li>본 시트는 화주 · 운송사 · 차주 3자 운송계약의 증빙으로서 효력을 가진다.</li>
+          <li>실 중량 / 거리 / 대기시간이 표기와 다를 경우 정산 시 재산출한다.</li>
+          <li>차주 지급은 운송 완료 후 D+7 이내, 화주 청구는 익월 5일 세금계산서 발행한다.</li>
+          <li>오더 취소는 배차 전: 위약금 면제, 배차 후: 청구액의 20% 위약금 발생.</li>
+          <li>지급 계좌: 국민은행 123456-04-567890 (예금주: (주)로지스마스터)</li>
+        </ol>
+      </div>
+      <table>
+        <tr><th>기준 운송료</th><td>450,000</td></tr>
+        <tr><th>유류·대기 할증</th><td>+ 30,000</td></tr>
+        <tr><th>공급가액</th><td>480,000</td></tr>
+        <tr><th>부가세 (10%)</th><td>48,000</td></tr>
+        <tr><th>차주 지급</th><td>420,000</td></tr>
+        <tr><th>중개 수수료 12.5%</th><td>60,000</td></tr>
+        <tr class="grand"><th>총 청구액</th><td>₩ 528,000</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Signatures -->
+  <div class="signs">
+    <div class="sig">
+      <div class="role">발 행<span class="en">ISSUER</span></div>
+      <div class="who">로지스마스터 · 김배차</div>
+      <div class="ink">김배차</div>
+      <div class="line"></div>
+      <div class="when">2026.04.30 09:10</div>
+      <div class="stamp">발행</div>
+    </div>
+    <div class="sig">
+      <div class="role">화 주<span class="en">SHIPPER</span></div>
+      <div class="who">(주) 가나물류 · 이화주</div>
+      <div class="ink" style="color:#3a3a8a">이화주</div>
+      <div class="line"></div>
+      <div class="when">2026.04.30 09:18</div>
+      <div class="stamp draft">확인</div>
+    </div>
+    <div class="sig">
+      <div class="role">차 주<span class="en">DRIVER</span></div>
+      <div class="who">김기사 · 경기 81바 1234</div>
+      <div class="ink" style="color:#3a3a8a">김기사</div>
+      <div class="line"></div>
+      <div class="when">______ . __ . __</div>
+      <div class="stamp draft">서명</div>
+    </div>
+    <div class="sig">
+      <div class="role">감 사<span class="en">AUDIT</span></div>
+      <div class="who">정산팀 / 익월 5일 검증</div>
+      <div class="line"></div>
+      <div class="when">______ . __ . __</div>
+      <div class="stamp draft">검토</div>
+    </div>
+  </div>
+
+  <div class="barcode-row">
+    <div class="barcode">*OS2604014212340430*</div>
+    <div style="font-family:'IBM Plex Mono';font-size:10px;color:var(--muted);text-align:right;line-height:1.5">
+      OS-2604-0142-A · sheet 1/1<br/>
+      printed 2026-04-30 09:10:42 · TMS-PC-77<br/>
+      verify: tms.logismaster.kr/v/OS2604142
+    </div>
+  </div>
+
+  <div class="footnote">
+    <span>3매 1조 (① 화주용 ② 운송사 보관 ③ 차주용) · NCR carbonless</span>
+    <span>FORM TMS-OR-001 R.4 · ⓒ LOGIS MASTER 2026</span>
+  </div>
+</div>
+
+</body>
+</html>

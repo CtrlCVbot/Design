@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=1280" />
+<title>화물 오더 접수/수정 — 명세서 형식 Wireframe</title>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&family=IBM+Plex+Mono:wght@400;500;700&family=Special+Elite&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#1a1f4a;
+    --ink-soft:#3a3f55;
+    --muted:#7c7660;
+    --line:#1a1f4a;
+    --rule:#a39e7c;
+    --paper:#fdf8e3;
+    --paper-2:#f1e9c2;
+    --kraft:#dcd4ad;
+    --red:#a91d1d;
+    --hl:#fff3a8;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#cbc6ad;color:var(--ink);
+    font-family:"Gaegu","IBM Plex Mono",monospace;font-size:13px;line-height:1.3}
+  body{padding:30px 0 80px}
+
+  .sheet{
+    width:1240px;margin:0 auto;background:var(--paper);
+    box-shadow:0 8px 28px rgba(0,0,0,.22);
+    padding:26px 32px 30px;position:relative;
+    border:1.5px solid var(--ink);
+    background-image:
+      repeating-linear-gradient(0deg,transparent 0 23px,rgba(26,31,74,.05) 23px 24px);
+  }
+  .sheet::before{content:"";position:absolute;left:14px;top:14px;bottom:14px;border-left:2px solid var(--red);width:0}
+  .sheet::after{
+    content:"WIREFRAME · SPEC FORM · COPY 1/3";
+    position:absolute;top:8px;right:24px;
+    font-family:"Special Elite",monospace;font-size:11px;
+    color:var(--red);letter-spacing:3px;
+  }
+  .punchhole{position:absolute;left:-7px;top:80px;display:flex;flex-direction:column;gap:80px}
+  .punchhole span{display:block;width:14px;height:14px;border-radius:50%;background:#cbc6ad;border:1.5px solid var(--ink)}
+
+  .corner-stamp{
+    position:absolute;top:18px;right:230px;
+    width:96px;height:96px;border:3px solid var(--red);border-radius:50%;
+    color:var(--red);font-family:"Special Elite",monospace;font-weight:700;font-size:14px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    letter-spacing:3px;line-height:1.1;transform:rotate(-9deg);opacity:.9;z-index:2;
+    background:rgba(255,255,255,.45);
+  }
+  .corner-stamp small{font-size:9px;letter-spacing:1px;margin-top:2px;font-family:"IBM Plex Mono"}
+
+  .formhead{display:grid;grid-template-columns:1fr 240px;gap:18px;align-items:flex-end;
+    border-bottom:3px double var(--ink);padding-bottom:10px;margin-bottom:14px}
+  .formhead h1{
+    font-family:"Special Elite",monospace;font-size:32px;letter-spacing:8px;margin:0;color:var(--ink);
+  }
+  .formhead .en{font-family:"IBM Plex Mono";font-size:11px;letter-spacing:5px;color:var(--muted);margin-top:2px}
+  .formhead .breadcrumbs{font-family:"Gaegu";font-size:14px;color:var(--ink-soft);margin-top:6px}
+  .formhead .breadcrumbs span+span::before{content:" ▸ ";color:var(--muted)}
+  .formhead .formno{
+    text-align:right;font-family:"Special Elite",monospace;font-size:14px;color:var(--ink);line-height:1.55
+  }
+  .formhead .formno .lbl{font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:2px}
+
+  /* Top numbered metadata strip */
+  .grid{display:grid;gap:6px}
+  .g-12{grid-template-columns:repeat(12,1fr)}
+  .g-6{grid-template-columns:repeat(6,1fr)}
+  .span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}
+  .span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}
+  .span-8{grid-column:span 8}.span-12{grid-column:span 12}
+
+  .field{
+    border:1.2px solid var(--ink);padding:3px 8px 4px;background:rgba(255,255,255,.55);
+    position:relative;min-height:46px;
+  }
+  .field.empty{background:repeating-linear-gradient(0deg,rgba(255,255,255,.55) 0 18px,transparent 18px 19px,rgba(255,255,255,.55) 19px 36px)}
+  .field .num{
+    position:absolute;top:-1px;left:-1px;background:var(--ink);color:var(--paper);
+    font-family:"Noto Sans KR";font-weight:700;font-size:10px;
+    padding:1px 5px;letter-spacing:1px;
+  }
+  .field .lbl{
+    font-family:"Gaegu";font-size:10px;letter-spacing:2px;color:var(--muted);
+    margin-left:18px;text-transform:uppercase;
+  }
+  .field .val{
+    font-family:"Special Elite",monospace;font-size:14px;color:var(--ink);
+    margin-top:2px;letter-spacing:.5px;line-height:1.2;word-break:break-all;
+  }
+  .field .val.lg{font-size:18px}
+  .field .val small{font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:1px;font-weight:400}
+  .field .ph{
+    margin-top:4px;border-bottom:1px dashed var(--rule);height:14px;
+    font-family:"Caveat";color:#bcb697;font-size:13px;
+  }
+
+  /* Section title strip */
+  .section{margin-top:14px}
+  .section-title{
+    display:flex;align-items:center;gap:8px;margin-bottom:6px;
+    font-family:"Special Elite",monospace;font-size:14px;letter-spacing:3px;
+    border-bottom:1px dashed var(--rule);padding-bottom:3px;
+  }
+  .section-title .ord{
+    background:var(--ink);color:var(--paper);font-family:"Noto Sans KR";font-weight:700;
+    font-size:11px;padding:1px 7px;letter-spacing:2px;
+  }
+  .section-title .en{margin-left:auto;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:2px}
+
+  /* Two columns */
+  .work{display:grid;grid-template-columns:1.05fr 1fr;gap:14px;margin-top:6px}
+
+  /* Itinerary */
+  table.legs{width:100%;border-collapse:collapse;font-family:"IBM Plex Mono";font-size:11.5px;background:rgba(255,255,255,.5)}
+  table.legs th, table.legs td{border:1px solid var(--ink);padding:5px 6px;text-align:left;vertical-align:top}
+  table.legs th{background:var(--kraft);font-family:"Gaegu";font-weight:700;font-size:11px;letter-spacing:1px}
+  table.legs .pin{font-family:"Special Elite";font-size:13px;color:var(--red);text-align:center}
+  table.legs td .ph{border-bottom:1px dashed var(--rule);height:12px;display:block;font-family:"Caveat";color:#bcb697;font-size:12px}
+
+  /* Cargo manifest */
+  table.cargo{width:100%;border-collapse:collapse;background:rgba(255,255,255,.55)}
+  table.cargo th, table.cargo td{border:1px solid var(--ink);padding:4px 6px;
+    font-family:"IBM Plex Mono";font-size:11px;text-align:right;vertical-align:middle;height:24px}
+  table.cargo th{background:var(--kraft);font-family:"Gaegu";font-weight:700;font-size:11px;letter-spacing:1px;text-align:center}
+  table.cargo td.l{text-align:left}
+  table.cargo .empty td{color:#bbb;background:#fcf6dc}
+  table.cargo tfoot td{background:var(--kraft);font-weight:700;border-top:2px solid var(--ink)}
+  table.cargo tfoot td.label{text-align:right;font-family:"Gaegu"}
+
+  /* Checks cluster */
+  .checks{display:flex;flex-wrap:wrap;gap:6px 10px;font-family:"Gaegu";font-size:12px;margin-top:4px}
+  .checks .ck{display:inline-flex;align-items:center;gap:4px}
+  .checks .ck::before{
+    content:"";width:13px;height:13px;border:1.3px solid var(--ink);background:#fff;display:inline-block;
+  }
+  .checks .ck.on::before{
+    background-image:linear-gradient(45deg,transparent 40%,var(--ink) 40% 60%,transparent 60%),
+                     linear-gradient(-45deg,transparent 40%,var(--ink) 40% 60%,transparent 60%);
+  }
+
+  /* Settle */
+  .settle{display:grid;grid-template-columns:1.5fr 1fr;gap:10px;margin-top:6px}
+  .settle .conditions{
+    border:1.2px solid var(--ink);background:var(--kraft);padding:8px 10px;font-size:11.5px;line-height:1.6;
+  }
+  .settle .conditions h4{margin:0 0 4px;font-family:"Special Elite",monospace;font-size:13px;letter-spacing:3px;
+    border-bottom:1px solid var(--ink);padding-bottom:2px}
+  .settle .conditions ol{margin:0;padding-left:16px;font-family:"Gaegu"}
+  .settle table{width:100%;border-collapse:collapse;border:1.2px solid var(--ink);background:rgba(255,255,255,.6)}
+  .settle table td, .settle table th{border-bottom:1px solid var(--rule);padding:5px 8px;
+    font-family:"IBM Plex Mono";font-size:11.5px;text-align:right}
+  .settle table th{text-align:left;background:var(--kraft);font-family:"Gaegu";font-weight:500;letter-spacing:1px}
+  .settle table tr.grand th, .settle table tr.grand td{
+    background:var(--ink);color:var(--paper);font-family:"Special Elite",monospace;
+    font-size:14px;letter-spacing:2px;border:0
+  }
+
+  /* Action stamp bar = like form-action stamps */
+  .actionbar{
+    margin-top:14px;border:1.2px solid var(--ink);background:var(--kraft);
+    padding:10px 12px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:14px;align-items:center;
+  }
+  .actionbar .gset{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+  .actionbar .gset .gtitle{
+    width:100%;font-family:"Special Elite",monospace;font-size:11px;color:var(--muted);
+    letter-spacing:3px;margin-bottom:2px;
+  }
+  .stamp-btn{
+    border:1.4px solid var(--ink);background:#fff;padding:4px 11px;
+    font-family:"Gaegu";font-size:13px;color:var(--ink);
+    box-shadow:1.5px 2px 0 rgba(0,0,0,.18);
+    cursor:pointer;letter-spacing:1px;
+  }
+  .stamp-btn .kbd{font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);margin-left:4px}
+  .stamp-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .stamp-btn.danger{background:#fff;color:var(--red);border-color:var(--red)}
+  .stamp-btn.disabled{background:#e8e2c0;color:#aba38a;box-shadow:none;text-decoration:line-through}
+
+  /* List as register-book / ledger */
+  .listctl{margin-top:14px;border:1.2px solid var(--ink);background:rgba(255,255,255,.5);
+    padding:8px 10px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;font-size:12.5px}
+  .listctl .tabs{display:inline-flex;border:1.2px solid var(--ink);overflow:hidden;background:#fff}
+  .listctl .tabs > span{padding:3px 12px;border-right:1px solid var(--ink);font-family:"Gaegu"}
+  .listctl .tabs > span:last-child{border-right:0}
+  .listctl .tabs > span.on{background:var(--ink);color:var(--paper)}
+  .listctl .pill{
+    border:1.2px solid var(--ink);padding:1px 10px;background:#fff;font-family:"Gaegu";font-size:12px
+  }
+  .listctl .grow{flex:1}
+  .listctl .meta{font-family:"IBM Plex Mono";color:var(--muted);font-size:11px;letter-spacing:1px}
+
+  table.ledger{width:100%;border-collapse:collapse;background:rgba(255,255,255,.6);margin-top:6px;
+    font-family:"IBM Plex Mono";font-size:11px}
+  table.ledger th, table.ledger td{border:1px solid var(--ink);padding:3px 6px;text-align:left;white-space:nowrap;height:22px}
+  table.ledger thead th{background:var(--kraft);font-family:"Gaegu";font-weight:700;font-size:11px;letter-spacing:1px;text-align:center}
+  table.ledger thead th.core{background:#f1d970}
+  table.ledger td.num{text-align:right}
+  table.ledger tbody tr.sel td{background:var(--hl)}
+  table.ledger tbody tr.cancel td{color:var(--red)}
+  table.ledger tbody tr.cancel td.id{text-decoration:line-through}
+  .badge{display:inline-block;padding:0 6px;font-size:10px;border:1px solid var(--ink);font-family:"Gaegu";letter-spacing:1px}
+  .badge.b-ac{color:#1a4a8a;border-color:#1a4a8a;background:#e3edfa}
+  .badge.b-dn{color:#444;border-color:#444;background:#ececec}
+  .badge.b-cx{color:var(--red);border-color:var(--red);background:#fbe6e4}
+
+  /* Signatures */
+  .signs{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+  .sig{border:1.2px solid var(--ink);background:#fff;height:100px;position:relative;padding:5px 8px}
+  .sig .role{font-family:"Gaegu";font-weight:700;font-size:12px;letter-spacing:2px}
+  .sig .role .en{font-family:"IBM Plex Mono";font-weight:400;color:var(--muted);font-size:9px;letter-spacing:1px;margin-left:4px}
+  .sig .who{font-family:"IBM Plex Mono";font-size:10.5px;color:var(--muted);margin-top:2px}
+  .sig .line{position:absolute;left:8px;right:8px;bottom:24px;border-bottom:1px solid var(--ink)}
+  .sig .when{position:absolute;left:8px;bottom:5px;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted)}
+  .sig .stamp{
+    position:absolute;right:8px;top:24px;width:54px;height:54px;border:2px solid var(--red);border-radius:50%;
+    color:var(--red);font-family:"Gaegu";font-weight:700;font-size:12px;letter-spacing:1px;
+    display:flex;align-items:center;justify-content:center;transform:rotate(-7deg);opacity:.85;
+  }
+  .sig .stamp.draft{border-color:#999;color:#999;border-style:dashed}
+  .sig .ink{position:absolute;bottom:26px;left:14px;font-family:"Special Elite";font-size:18px;color:#3a3a8a}
+
+  .footnote{margin-top:14px;border-top:1px dashed var(--ink);padding-top:6px;
+    display:flex;justify-content:space-between;font-family:"IBM Plex Mono";font-size:10px;color:var(--muted);letter-spacing:1px}
+  .barcode{font-family:"VT323",monospace;font-size:30px;line-height:1;color:#000;background:#fff;padding:4px 10px;border:1px solid var(--ink)}
+
+  .scribble{font-family:"Caveat",cursive;color:#9a4a00;font-size:14px}
+  .scribble::before{content:"✎ ";opacity:.7}
+
+  @media print{body{background:#fff;padding:0}.sheet{box-shadow:none}}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <div class="punchhole"><span></span><span></span><span></span></div>
+  <div class="corner-stamp">접 수<br/>WIRE<small>FRAME</small></div>
+
+  <div class="formhead">
+    <div>
+      <h1>화 물 오 더 접 수 / 수 정</h1>
+      <div class="en">CARGO ORDER · RECEIPT &amp; EDIT FORM (WIREFRAME)</div>
+      <div class="breadcrumbs"><span>운송관리</span><span>오더관리</span><span>접수·수정</span></div>
+    </div>
+    <div class="formno">
+      <div class="lbl">FORM NO.</div>TMS-OR-001 / R.4
+      <div class="lbl" style="margin-top:6px">SCREEN ID</div>OS-WIRE-SPEC-A
+    </div>
+  </div>
+
+  <!-- Top metadata strip -->
+  <div class="grid g-12">
+    <div class="field span-3">
+      <span class="num">01</span><div class="lbl">오더번호 ORDER NO.</div>
+      <div class="val lg">OR- ____ - ____</div>
+    </div>
+    <div class="field span-2">
+      <span class="num">02</span><div class="lbl">접수일시</div>
+      <div class="val">____-__-__<br/><small>__:__:__</small></div>
+    </div>
+    <div class="field span-2">
+      <span class="num">03</span><div class="lbl">상태 STATUS</div>
+      <div class="val">□ 접수  □ 완료  □ 취소</div>
+    </div>
+    <div class="field span-2">
+      <span class="num">04</span><div class="lbl">긴급도</div>
+      <div class="val">□ 일반  □ 우선  □ 긴급</div>
+    </div>
+    <div class="field span-3">
+      <span class="num">05</span><div class="lbl">담당 / 단말</div>
+      <div class="val">________ ________<br/><small>TMS-PC-__ · ROLE</small></div>
+    </div>
+  </div>
+
+  <!-- Two-column form -->
+  <div class="work">
+    <!-- LEFT -->
+    <div>
+      <!-- A. 운송 구간 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">A</span>운 송 구 간 <span class="en">ITINERARY</span></div>
+        <table class="legs">
+          <thead>
+            <tr><th style="width:36px">#</th><th style="width:64px">구분</th><th>주소 / 상세</th><th style="width:108px">일시</th><th style="width:120px">방법</th><th style="width:140px">담당자</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="pin">①</td><td>상차</td>
+              <td><span class="ph"></span><span class="ph" style="margin-top:3px"></span></td>
+              <td><span class="ph"></span></td><td><span class="ph"></span></td><td><span class="ph"></span></td></tr>
+            <tr><td class="pin">②</td><td>하차</td>
+              <td><span class="ph"></span><span class="ph" style="margin-top:3px"></span></td>
+              <td><span class="ph"></span></td><td><span class="ph"></span></td><td><span class="ph"></span></td></tr>
+            <tr><td class="pin">+</td><td>경유</td><td colspan="4" style="color:var(--muted);font-family:Gaegu">경유지 추가 (최대 3) — 빈 줄</td></tr>
+          </tbody>
+        </table>
+        <div class="grid g-12" style="margin-top:6px">
+          <div class="field span-4"><span class="num">06</span><div class="lbl">총 거리</div><div class="val">___ km</div></div>
+          <div class="field span-4"><span class="num">07</span><div class="lbl">소요시간</div><div class="val">__ h __ m</div></div>
+          <div class="field span-4"><span class="num">08</span><div class="lbl">기준 운송료(자동)</div><div class="val">₩ ____,___</div></div>
+        </div>
+      </div>
+
+      <!-- B. 화물 운송정보 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">B</span>화 물 운 송 정 보 <span class="en">SHIPMENT INFO</span></div>
+        <div class="grid g-12">
+          <div class="field span-3"><span class="num">09</span><div class="lbl">상차일시</div><div class="val">____-__-__ __:__</div></div>
+          <div class="field span-3"><span class="num">10</span><div class="lbl">상차 시간대</div>
+            <div class="checks"><span class="ck">오전</span><span class="ck">오후</span><span class="ck">야간</span><span class="ck">당일</span></div>
+          </div>
+          <div class="field span-3"><span class="num">11</span><div class="lbl">하차일시</div><div class="val">____-__-__ __:__</div></div>
+          <div class="field span-3"><span class="num">12</span><div class="lbl">하차 시간대</div>
+            <div class="checks"><span class="ck">오전</span><span class="ck">오후</span><span class="ck">야간</span><span class="ck">익일</span></div>
+          </div>
+          <div class="field span-6"><span class="num">13</span><div class="lbl">배차 유형 DISPATCH TYPE</div>
+            <div class="checks"><span class="ck">일반</span><span class="ck">왕복</span><span class="ck">혼적</span><span class="ck">릴레이</span><span class="ck">긴급</span></div>
+          </div>
+          <div class="field span-3"><span class="num">14</span><div class="lbl">차량 톤수</div><div class="val">___ 톤</div></div>
+          <div class="field span-3"><span class="num">15</span><div class="lbl">차량 종류</div><div class="val">_______</div></div>
+        </div>
+      </div>
+
+      <!-- C. 화물 명세 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">C</span>화 물 명 세 <span class="en">CARGO MANIFEST</span></div>
+        <table class="cargo">
+          <thead>
+            <tr><th style="width:30px">No.</th><th class="l" style="width:28%">품 목</th><th>포장</th><th>수량</th><th>중량(kg)</th><th>CBM</th><th>단가</th><th>금액</th><th class="l" style="width:18%">비고</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>01</td><td class="l"></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="l"></td></tr>
+            <tr><td>02</td><td class="l"></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="l"></td></tr>
+            <tr><td>03</td><td class="l"></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="l"></td></tr>
+            <tr class="empty"><td>04</td><td class="l">— 이하 여백 —</td><td colspan="7"></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td class="label" colspan="4">소 계 SUBTOTAL</td><td>___</td><td>___</td><td>—</td><td>____,___</td><td></td></tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- D. 차주 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">D</span>차 주 / 차 량 <span class="en">DRIVER &amp; VEHICLE</span></div>
+        <div class="grid g-12">
+          <div class="field span-3"><span class="num">16</span><div class="lbl">차주 검색</div><div class="ph">이름 / 차량번호 검색…</div></div>
+          <div class="field span-3"><span class="num">17</span><div class="lbl">성명</div><div class="ph"></div></div>
+          <div class="field span-3"><span class="num">18</span><div class="lbl">연락처</div><div class="ph"></div></div>
+          <div class="field span-3"><span class="num">19</span><div class="lbl">차량번호</div><div class="ph"></div></div>
+          <div class="field span-4"><span class="num">20</span><div class="lbl">소속 / 사업자</div><div class="ph"></div></div>
+          <div class="field span-4"><span class="num">21</span><div class="lbl">정산 계좌</div><div class="ph"></div></div>
+          <div class="field span-4"><span class="num">22</span><div class="lbl">평점 / 운송 보험</div><div class="ph"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div>
+      <!-- E. 상차 / 하차 조건 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">E</span>상 차 · 하 차 조 건 <span class="en">LOAD &amp; UNLOAD</span></div>
+        <div class="grid g-12">
+          <div class="field span-12"><span class="num">23</span><div class="lbl">상차 방법</div>
+            <div class="checks"><span class="ck">지게차</span><span class="ck">크레인</span><span class="ck">수작업</span><span class="ck">도크</span><span class="ck">호이스트</span></div>
+          </div>
+          <div class="field span-6"><span class="num">24</span><div class="lbl">상차 담당</div><div class="ph">성명 / 연락처</div></div>
+          <div class="field span-6"><span class="num">25</span><div class="lbl">상차 대기시간</div>
+            <div class="val">__ 분 이내 &nbsp; <span class="checks" style="display:inline-flex"><span class="ck">무료</span><span class="ck">유료</span></span></div>
+          </div>
+          <div class="field span-12"><span class="num">26</span><div class="lbl">상차 특이사항</div><div class="ph"></div></div>
+
+          <div class="field span-12"><span class="num">27</span><div class="lbl">하차 방법</div>
+            <div class="checks"><span class="ck">지게차</span><span class="ck">크레인</span><span class="ck">수작업</span><span class="ck">도크</span><span class="ck">호이스트</span></div>
+          </div>
+          <div class="field span-6"><span class="num">28</span><div class="lbl">하차 담당</div><div class="ph">성명 / 연락처</div></div>
+          <div class="field span-6"><span class="num">29</span><div class="lbl">하차 대기시간</div>
+            <div class="val">__ 분 이내 &nbsp; <span class="checks" style="display:inline-flex"><span class="ck">무료</span><span class="ck">유료</span></span></div>
+          </div>
+          <div class="field span-6"><span class="num">30</span><div class="lbl">인수 확인</div>
+            <div class="checks"><span class="ck">서명</span><span class="ck">사진</span><span class="ck">OTP</span></div>
+          </div>
+          <div class="field span-6"><span class="num">31</span><div class="lbl">하차 특이사항</div><div class="ph"></div></div>
+        </div>
+      </div>
+
+      <!-- F. 화주 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">F</span>화 주 정 보 <span class="en">SHIPPER</span></div>
+        <div class="grid g-12">
+          <div class="field span-6"><span class="num">32</span><div class="lbl">화주 검색</div><div class="ph">상호 / 사업자번호…</div></div>
+          <div class="field span-3"><span class="num">33</span><div class="lbl">담당자</div><div class="ph"></div></div>
+          <div class="field span-3"><span class="num">34</span><div class="lbl">연락처</div><div class="ph"></div></div>
+          <div class="field span-6"><span class="num">35</span><div class="lbl">상호 / 사업자번호</div><div class="ph"></div></div>
+          <div class="field span-3"><span class="num">36</span><div class="lbl">계약 구분</div>
+            <div class="checks"><span class="ck">스팟</span><span class="ck">정기</span></div>
+          </div>
+          <div class="field span-3"><span class="num">37</span><div class="lbl">결제 주기</div>
+            <div class="checks"><span class="ck">선불</span><span class="ck">후불</span><span class="ck">월말</span></div>
+          </div>
+          <div class="field span-4"><span class="num">38</span><div class="lbl">여신 한도</div><div class="ph"></div></div>
+          <div class="field span-4"><span class="num">39</span><div class="lbl">미수 잔액</div><div class="ph"></div></div>
+          <div class="field span-4"><span class="num">40</span><div class="lbl">신용 등급</div><div class="ph"></div></div>
+        </div>
+      </div>
+
+      <!-- G. 옵션 / 증빙 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">G</span>옵 션 · 증 빙 <span class="en">OPTIONS · DOCS</span></div>
+        <div class="grid g-12">
+          <div class="field span-6"><span class="num">41</span><div class="lbl">차량 옵션 / 화물 속성</div>
+            <div class="checks"><span class="ck">윙바디</span><span class="ck">축차</span><span class="ck">냉장</span><span class="ck">냉동</span><span class="ck">위험물</span><span class="ck">파렛트</span><span class="ck">손상주의</span><span class="ck">고가품</span></div>
+          </div>
+          <div class="field span-6"><span class="num">42</span><div class="lbl">발행 문서 / 증빙</div>
+            <div class="checks"><span class="ck">거래명세서</span><span class="ck">인수증</span><span class="ck">세금계산서</span><span class="ck">현금영수증</span><span class="ck">적재 사진</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- H. 정산 -->
+      <div class="section">
+        <div class="section-title"><span class="ord">H</span>정 산 / 수 수 료 <span class="en">SETTLEMENT</span></div>
+        <div class="settle">
+          <div class="conditions">
+            <h4>조 건 TERMS</h4>
+            <ol>
+              <li>본 시트는 화주·운송사·차주 3자 운송계약의 증빙 효력을 가진다.</li>
+              <li>실 중량 / 거리 / 대기시간이 표기와 다를 경우 정산 시 재산출한다.</li>
+              <li>차주 지급 D+7, 화주 청구 익월 5일 세금계산서 발행.</li>
+              <li>오더 취소: 배차 전 면제 / 배차 후 청구액 20% 위약금.</li>
+            </ol>
+          </div>
+          <table>
+            <tr><th>기준 운송료</th><td>____,___</td></tr>
+            <tr><th>유류·할증</th><td>+ ____</td></tr>
+            <tr><th>공급가액</th><td>____,___</td></tr>
+            <tr><th>부가세 (10%)</th><td>____</td></tr>
+            <tr><th>차주 지급</th><td>____,___</td></tr>
+            <tr><th>중개 수수료</th><td>____ (___%)</td></tr>
+            <tr class="grand"><th>총 청 구 액</th><td>₩ ____,___</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action stamp bar -->
+  <div class="actionbar">
+    <div class="gset">
+      <div class="gtitle">기 본 작 업 BASIC</div>
+      <button class="stamp-btn primary">✚ 신규접수<span class="kbd">F2</span></button>
+      <button class="stamp-btn">💾 저장<span class="kbd">Ctrl+S</span></button>
+      <button class="stamp-btn">📋 복제</button>
+      <button class="stamp-btn">↺ 초기화</button>
+      <button class="stamp-btn">🔍 조회<span class="kbd">F5</span></button>
+    </div>
+    <div class="gset">
+      <div class="gtitle">상 태 변 경 STATE</div>
+      <button class="stamp-btn">▶ 배차요청</button>
+      <button class="stamp-btn disabled">완료처리</button>
+      <button class="stamp-btn danger">✕ 오더취소</button>
+    </div>
+    <div class="gset">
+      <div class="gtitle">출 력 · 전 송 OUTPUT</div>
+      <button class="stamp-btn">🖨 인쇄</button>
+      <button class="stamp-btn">⤓ 엑셀</button>
+      <button class="stamp-btn">📤 SMS / 카톡</button>
+      <button class="stamp-btn">📑 거래명세서</button>
+    </div>
+  </div>
+
+  <!-- Signatures -->
+  <div class="signs">
+    <div class="sig">
+      <div class="role">발 행<span class="en">ISSUER</span></div>
+      <div class="who">운송사 · 담당자</div>
+      <div class="line"></div><div class="when">____ . __ . __</div>
+      <div class="stamp draft">발행</div>
+    </div>
+    <div class="sig">
+      <div class="role">화 주<span class="en">SHIPPER</span></div>
+      <div class="who">상호 · 담당자</div>
+      <div class="line"></div><div class="when">____ . __ . __</div>
+      <div class="stamp draft">확인</div>
+    </div>
+    <div class="sig">
+      <div class="role">차 주<span class="en">DRIVER</span></div>
+      <div class="who">성명 · 차량번호</div>
+      <div class="line"></div><div class="when">____ . __ . __</div>
+      <div class="stamp draft">서명</div>
+    </div>
+    <div class="sig">
+      <div class="role">감 사<span class="en">AUDIT</span></div>
+      <div class="who">정산팀 · 익월 5일 검증</div>
+      <div class="line"></div><div class="when">____ . __ . __</div>
+      <div class="stamp draft">검토</div>
+    </div>
+  </div>
+
+  <!-- Ledger / list section -->
+  <div class="section" style="margin-top:18px">
+    <div class="section-title"><span class="ord">L</span>오 더 원 장 <span class="en">ORDER LEDGER · 최근 접수 / 수정 이력</span></div>
+    <div class="listctl">
+      <div class="tabs">
+        <span class="on">전체</span><span>접수</span><span>배차중</span><span>운송중</span><span>완료</span><span>취소</span>
+      </div>
+      <span class="pill">🔍 오더번호 / 화주 / 차주 / 차량번호…</span>
+      <span class="pill">기간: 오늘</span>
+      <span class="pill">정렬 ▾ 접수일시</span>
+      <span class="grow"></span>
+      <span class="meta">2026-05-07 09:14 기준 · 표시 50행 · 컬럼 ▾</span>
+    </div>
+    <table class="ledger">
+      <thead>
+        <tr>
+          <th style="width:22px">☑</th><th class="core">오더번호</th><th class="core">상태</th>
+          <th>접수일</th><th>상차/하차</th><th class="core">상차지 ▶ 하차지</th>
+          <th>거리</th><th>차종/톤</th><th>품목</th><th>중량</th>
+          <th>화주</th><th>차주</th><th>차량번호</th>
+          <th>청구액</th><th>지급액</th><th>마진</th><th>결제</th><th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="sel">
+          <td>☑</td><td>OR-2604-0142</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-30 09:10</td><td>04-30 09:00 / 16:00</td><td>화성 ▶ 청주</td>
+          <td class="num">168km</td><td>카고/5t</td><td>자동차부품</td><td class="num">2,400</td>
+          <td>(주)가나물류</td><td>—</td><td>—</td>
+          <td class="num">480,000</td><td class="num">420,000</td><td class="num">60,000</td>
+          <td>후불</td><td>축차/우선</td>
+        </tr>
+        <tr>
+          <td>☐</td><td>OR-2604-0141</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-30 08:42</td><td>04-30 13:00 / 18:30</td><td>인천 ▶ 대전</td>
+          <td class="num">184km</td><td>윙/11t</td><td>일반잡화</td><td class="num">7,800</td>
+          <td>한라상사</td><td>—</td><td>—</td>
+          <td class="num">620,000</td><td class="num">550,000</td><td class="num">70,000</td>
+          <td>선불</td><td>야간상차</td>
+        </tr>
+        <tr>
+          <td>☐</td><td>OR-2604-0140</td><td><span class="badge b-dn">완료</span></td>
+          <td>04-29 17:20</td><td>04-30 06:00 / 11:30</td><td>안산 ▶ 광주</td>
+          <td class="num">312km</td><td>카고/8t</td><td>식품</td><td class="num">5,200</td>
+          <td>대성식품</td><td>김기사</td><td>경기81바1234</td>
+          <td class="num">780,000</td><td class="num">700,000</td><td class="num">80,000</td>
+          <td>월말</td><td>—</td>
+        </tr>
+        <tr class="cancel">
+          <td>☐</td><td class="id">OR-2604-0138</td><td><span class="badge b-cx">취소</span></td>
+          <td>04-29 14:11</td><td>04-30 09:00 / 15:00</td><td>수원 ▶ 천안</td>
+          <td class="num">92km</td><td>카고/2.5t</td><td>일반잡화</td><td class="num">800</td>
+          <td>한라상사</td><td>—</td><td>—</td>
+          <td class="num">220,000</td><td class="num">—</td><td class="num">—</td>
+          <td>—</td><td>화주취소</td>
+        </tr>
+        <tr>
+          <td>☐</td><td>OR-2604-0137</td><td><span class="badge b-ac">접수</span></td>
+          <td>04-29 11:30</td><td>04-30 10:00 / 17:00</td><td>부산 ▶ 서울</td>
+          <td class="num">403km</td><td>윙/25t</td><td>철강(코일)</td><td class="num">22,000</td>
+          <td>한국철강</td><td>—</td><td>—</td>
+          <td class="num">1,250,000</td><td class="num">1,120,000</td><td class="num">130,000</td>
+          <td>월말</td><td>긴급</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:10px">
+    <div class="scribble">설계 메모 ─ 입력 폼 대신 '폼 시트' 형식으로 골격을 유지: 좌측 A·B·C·D / 우측 E·F·G·H. 각 필드는 번호+라벨+빈 칸으로 표기되어 인쇄·출력 시 그대로 사용 가능.</div>
+    <div class="scribble">상태(접수/완료/취소) 색상은 영수증 양식과 동일하게 청·회·적 3단계로 통일. 취소 행은 취소선 처리.</div>
+  </div>
+
+  <div class="footnote" style="margin-top:14px">
+    <span>3매 1조 (① 화주용 ② 운송사 보관 ③ 차주용) · NCR carbonless wireframe</span>
+    <span>FORM TMS-OR-001 R.4 — wireframe v2 · ⓒ 2026</span>
+  </div>
+
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px">
+    <div class="barcode">*WIRE-OR-2604-0142-FORM*</div>
+    <a href="../Cargo Order Wireframe.html" style="font-family:'IBM Plex Mono';font-size:11px;color:var(--muted);text-decoration:none">← 기본 와이어프레임</a>
+  </div>
+</div>
+
+</body>
+</html>

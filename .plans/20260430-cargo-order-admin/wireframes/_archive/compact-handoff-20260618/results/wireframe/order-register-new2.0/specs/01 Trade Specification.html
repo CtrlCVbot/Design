@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=900" />
+<title>거래명세서 — 화물 운송</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#101418;
+    --ink-soft:#3a3f44;
+    --muted:#7c8085;
+    --line:#101418;
+    --rule:#d2cfc6;
+    --paper:#fbfaf3;
+    --paper-2:#f1ede0;
+    --stamp:#a91d1d;
+    --kraft:#e9e3cd;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#dbd6c4;color:var(--ink);
+    font-family:"Noto Sans KR",system-ui,sans-serif;font-size:13px;}
+  body{padding:30px 0 80px;}
+  .doc{
+    width:900px;margin:0 auto;background:var(--paper);
+    box-shadow:0 4px 18px rgba(0,0,0,.18);
+    padding:30px 40px 40px;position:relative;
+    border:1px solid var(--line);
+  }
+  .doc::before{
+    content:"";position:absolute;inset:14px;border:1px solid var(--line);pointer-events:none;
+  }
+  .doc::after{
+    content:"";position:absolute;inset:18px;border:1px dashed #b9b4a3;pointer-events:none;
+  }
+
+  .head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;
+    border-bottom:3px double var(--line);padding-bottom:14px;margin-bottom:22px;position:relative;z-index:1}
+  .head h1{font-family:"Noto Serif KR",serif;font-size:36px;letter-spacing:18px;
+    margin:0 0 4px 0;text-indent:18px;font-weight:700}
+  .head .sub{font-family:"Noto Serif KR",serif;font-size:13px;color:var(--ink-soft);letter-spacing:6px}
+  .head .meta{text-align:right;font-size:12px;color:var(--ink-soft);line-height:1.6;
+    font-family:"IBM Plex Mono",monospace}
+  .head .meta b{color:var(--ink);font-family:"Noto Sans KR";letter-spacing:1px}
+  .head .meta .docno{font-size:14px;color:var(--ink);}
+
+  .parties{display:grid;grid-template-columns:1fr 36px 1fr;gap:0;margin-bottom:18px;position:relative;z-index:1}
+  .party{border:1.5px solid var(--line);background:#fff;}
+  .party .role{
+    background:var(--paper-2);border-bottom:1.5px solid var(--line);
+    padding:6px 10px;font-family:"Noto Serif KR",serif;font-weight:700;font-size:13px;
+    display:flex;justify-content:space-between;align-items:center;
+  }
+  .party .role .tag{font-size:11px;color:var(--muted);font-family:"Noto Sans KR";font-weight:400}
+  .party table{width:100%;border-collapse:collapse}
+  .party th,.party td{padding:5px 9px;border-bottom:1px dotted var(--rule);
+    font-size:12px;text-align:left;vertical-align:middle}
+  .party th{width:80px;background:#faf6e9;color:var(--ink-soft);font-weight:500}
+  .party tr:last-child th,.party tr:last-child td{border-bottom:none}
+  .vs{display:flex;align-items:center;justify-content:center;font-family:"Noto Serif KR",serif;
+    font-size:22px;color:var(--muted)}
+
+  .summary-bar{display:grid;grid-template-columns:repeat(4,1fr);
+    border:1.5px solid var(--line);margin-bottom:18px;background:#fff}
+  .summary-bar .cell{padding:8px 10px;border-right:1px solid var(--rule);}
+  .summary-bar .cell:last-child{border-right:none}
+  .summary-bar .lbl{font-size:11px;color:var(--muted);letter-spacing:2px}
+  .summary-bar .val{font-family:"Noto Serif KR",serif;font-size:16px;font-weight:600;margin-top:2px}
+  .summary-bar .val.amount{font-family:"IBM Plex Mono",monospace;letter-spacing:.5px}
+
+  table.spec{width:100%;border-collapse:collapse;margin-bottom:14px;
+    border-top:2px solid var(--line);border-bottom:2px solid var(--line);background:#fff}
+  table.spec thead th{
+    background:var(--paper-2);border-bottom:1.5px solid var(--line);
+    border-right:1px solid var(--rule);
+    padding:6px 8px;font-size:12px;font-family:"Noto Serif KR",serif;font-weight:600;
+    text-align:center;letter-spacing:1px;
+  }
+  table.spec thead th:last-child{border-right:none}
+  table.spec tbody td{
+    border-right:1px solid var(--rule);border-bottom:1px dotted var(--rule);
+    padding:6px 8px;font-size:12px;text-align:center;height:30px;
+  }
+  table.spec tbody td:last-child{border-right:none}
+  table.spec tbody td.l{text-align:left}
+  table.spec tbody td.r{text-align:right;font-family:"IBM Plex Mono",monospace}
+  table.spec tbody tr.empty td{color:#bbb;background:#fdfcf6}
+  table.spec .rownum{width:32px;color:var(--muted);font-family:"IBM Plex Mono",monospace;font-size:11px}
+
+  .leg{display:grid;grid-template-columns:1.4fr 1fr;gap:0;border:1.5px solid var(--line);margin-bottom:16px;background:#fff}
+  .leg .l-head{
+    padding:5px 10px;background:var(--paper-2);font-family:"Noto Serif KR",serif;font-weight:600;
+    border-bottom:1px solid var(--line);font-size:12px;letter-spacing:2px;
+  }
+  .leg > div{border-right:1px solid var(--rule)}
+  .leg > div:last-child{border-right:none}
+  .leg table{width:100%;border-collapse:collapse}
+  .leg th,.leg td{padding:5px 9px;font-size:12px;border-bottom:1px dotted var(--rule);text-align:left}
+  .leg th{width:90px;color:var(--ink-soft);font-weight:500;background:#fbf7e8}
+  .leg .arrow{
+    text-align:center;font-family:"Noto Serif KR",serif;font-size:13px;letter-spacing:1px;color:var(--ink-soft);
+    padding:6px 0;border-top:1px dashed var(--rule);border-bottom:1px dashed var(--rule);background:#fdfbf3
+  }
+  .leg .row2{display:grid;grid-template-columns:1fr 1fr}
+  .leg .row2 > div{padding:8px 10px;border-right:1px dashed var(--rule)}
+  .leg .row2 > div:last-child{border-right:none}
+  .leg .role-tag{display:inline-block;font-size:10px;background:#222;color:#fff;
+    padding:1px 6px;letter-spacing:2px;margin-bottom:3px}
+
+  .totals{display:grid;grid-template-columns:1fr 320px;gap:0;margin-bottom:14px}
+  .totals .left-note{
+    border:1.5px solid var(--line);background:var(--kraft);padding:10px 12px;
+    font-size:12px;color:var(--ink-soft);line-height:1.7;
+  }
+  .totals .left-note h4{margin:0 0 4px;font-family:"Noto Serif KR",serif;font-size:13px;
+    border-bottom:1px solid var(--ink);padding-bottom:3px;letter-spacing:2px}
+  .totals .left-note ol{margin:0;padding-left:18px}
+  .totals table{width:100%;border-collapse:collapse;border:1.5px solid var(--line);background:#fff}
+  .totals td,.totals th{padding:6px 10px;border-bottom:1px dotted var(--rule);
+    font-size:12px;font-family:"IBM Plex Mono",monospace;text-align:right}
+  .totals th{text-align:left;font-family:"Noto Sans KR";font-weight:500;color:var(--ink-soft);background:#faf6e9}
+  .totals tr.grand th, .totals tr.grand td{
+    background:#1a1a1a;color:#fff;font-size:14px;border-top:2px solid #000;font-weight:700;
+    font-family:"Noto Serif KR",serif;letter-spacing:1px
+  }
+  .totals tr.grand td{font-family:"IBM Plex Mono",monospace}
+
+  .signs{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px;position:relative;z-index:1}
+  .sign{border:1.5px solid var(--line);background:#fff;padding:10px 12px;height:118px;position:relative}
+  .sign h5{margin:0 0 4px;font-family:"Noto Serif KR",serif;font-size:13px;letter-spacing:3px;
+    border-bottom:1px solid var(--line);padding-bottom:3px;font-weight:600}
+  .sign .meta{font-size:11px;color:var(--muted);margin-bottom:6px}
+  .sign .name-line{
+    position:absolute;bottom:14px;left:12px;right:12px;
+    border-bottom:1px solid var(--ink);padding-bottom:2px;font-size:12px;color:var(--ink-soft);
+    display:flex;justify-content:space-between;align-items:flex-end;
+  }
+  .sign .stamp{
+    position:absolute;right:14px;top:32px;
+    width:64px;height:64px;border:2.5px solid var(--stamp);border-radius:50%;
+    color:var(--stamp);font-family:"Noto Serif KR",serif;font-weight:700;
+    display:flex;align-items:center;justify-content:center;font-size:14px;letter-spacing:2px;
+    transform:rotate(-7deg);opacity:.85;
+  }
+  .sign .stamp.draft{
+    border-color:#777;color:#777;border-style:dashed;
+  }
+
+  .footer{margin-top:22px;display:flex;justify-content:space-between;
+    border-top:1px solid var(--rule);padding-top:8px;
+    font-size:11px;color:var(--muted);font-family:"IBM Plex Mono",monospace;position:relative;z-index:1}
+  .barcode{font-family:"Libre Barcode 39",monospace;letter-spacing:0;font-size:30px;line-height:1;color:#111}
+
+  .perforated{
+    position:absolute;left:0;right:0;height:1px;
+    background:repeating-linear-gradient(to right,#111 0 4px,transparent 4px 8px);
+  }
+  .badge{display:inline-block;border:1px solid var(--ink);padding:1px 7px;font-size:10px;
+    letter-spacing:2px;font-family:"Noto Sans KR";font-weight:500;background:#fff}
+
+  .stamp-corner{
+    position:absolute;top:24px;right:34px;
+    border:2.5px solid var(--stamp);border-radius:50%;width:88px;height:88px;
+    color:var(--stamp);font-family:"Noto Serif KR",serif;font-weight:700;font-size:13px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    letter-spacing:3px;line-height:1.1;transform:rotate(8deg);opacity:.92;z-index:2;
+  }
+  .stamp-corner small{font-size:9px;letter-spacing:1px;margin-top:2px;font-family:"Noto Sans KR";font-weight:500}
+
+  @media print{
+    body{background:#fff;padding:0}
+    .doc{box-shadow:none;border:none;}
+  }
+</style>
+</head>
+<body>
+<div class="doc">
+
+  <div class="stamp-corner">거래<br/>명세서<small>SPECIFICATION</small></div>
+
+  <div class="head">
+    <div>
+      <h1>거 래 명 세 서</h1>
+      <div class="sub">CARGO TRANSPORTATION SPECIFICATION</div>
+    </div>
+    <div class="meta">
+      <div class="docno"><b>문서번호 ·</b> SPEC-2026-0501-0142</div>
+      <div><b>발행일 ·</b> 2026. 05. 01.</div>
+      <div><b>오더번호 ·</b> OR-2604-0142</div>
+      <div><b>운송일자 ·</b> 2026. 04. 30.</div>
+    </div>
+  </div>
+
+  <div class="parties">
+    <div class="party">
+      <div class="role">공급받는자 (화주) <span class="tag">PURCHASER</span></div>
+      <table>
+        <tr><th>등록번호</th><td>123-45-67890</td></tr>
+        <tr><th>상호</th><td>(주) 가나물류</td></tr>
+        <tr><th>대표자</th><td>이 화 주 &nbsp;&nbsp;<span class="badge">대표</span></td></tr>
+        <tr><th>사업장</th><td>서울특별시 강남구 테헤란로 152, 5층</td></tr>
+        <tr><th>업태 / 종목</th><td>도소매 / 일반화물</td></tr>
+        <tr><th>담당자</th><td>이화주 부장 · 02-555-1234</td></tr>
+      </table>
+    </div>
+    <div class="vs">↔</div>
+    <div class="party">
+      <div class="role">공급자 (운송자) <span class="tag">CARRIER</span></div>
+      <table>
+        <tr><th>등록번호</th><td>506-81-22345</td></tr>
+        <tr><th>상호</th><td>(주) 로지스마스터</td></tr>
+        <tr><th>대표자</th><td>홍 길 동</td></tr>
+        <tr><th>사업장</th><td>경기도 성남시 분당구 정자일로 95</td></tr>
+        <tr><th>업태 / 종목</th><td>운수업 / 화물자동차운송</td></tr>
+        <tr><th>담당자</th><td>김배차 과장 · 031-777-0102</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="summary-bar">
+    <div class="cell"><div class="lbl">운송 구간</div><div class="val">화성 ▶ 청주</div></div>
+    <div class="cell"><div class="lbl">총 거리</div><div class="val amount">168.4 km</div></div>
+    <div class="cell"><div class="lbl">차량</div><div class="val">카고 5톤 · 축차</div></div>
+    <div class="cell"><div class="lbl">청구 합계 (VAT 별도)</div><div class="val amount">₩ 480,000</div></div>
+  </div>
+
+  <table class="spec">
+    <thead>
+      <tr>
+        <th style="width:32px">No.</th>
+        <th style="width:96px">품목</th>
+        <th style="width:90px">규격 / 포장</th>
+        <th style="width:60px">수량</th>
+        <th style="width:80px">중량(kg)</th>
+        <th style="width:70px">CBM</th>
+        <th style="width:90px">단가</th>
+        <th style="width:100px">공급가액</th>
+        <th style="width:90px">세액</th>
+        <th>비고</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="rownum">01</td>
+        <td class="l">자동차 부품 (브래킷)</td>
+        <td>팔레트 / 박스</td>
+        <td>12 EA</td>
+        <td class="r">2,400</td>
+        <td class="r">3.60</td>
+        <td class="r">36,667</td>
+        <td class="r">440,000</td>
+        <td class="r">44,000</td>
+        <td class="l">손상주의 · 축차</td>
+      </tr>
+      <tr>
+        <td class="rownum">02</td>
+        <td class="l">유류 할증 (장거리)</td>
+        <td>—</td><td>1식</td><td class="r">—</td><td class="r">—</td>
+        <td class="r">20,000</td><td class="r">20,000</td><td class="r">2,000</td>
+        <td class="l">유가 1,710원/L 기준</td>
+      </tr>
+      <tr>
+        <td class="rownum">03</td>
+        <td class="l">대기 할증 (하차 60분 초과)</td>
+        <td>—</td><td>1식</td><td class="r">—</td><td class="r">—</td>
+        <td class="r">20,000</td><td class="r">20,000</td><td class="r">2,000</td>
+        <td class="l">초과 30분 적용</td>
+      </tr>
+      <tr class="empty"><td class="rownum">04</td><td colspan="9">— 이하 여백 —</td></tr>
+      <tr class="empty"><td class="rownum">05</td><td colspan="9"></td></tr>
+    </tbody>
+  </table>
+
+  <div class="leg">
+    <div>
+      <div class="l-head">상 차 지 &nbsp;LOADING</div>
+      <table>
+        <tr><th>주소</th><td>경기 화성시 동탄첨단산업1로 27 · A동 도크 3</td></tr>
+        <tr><th>일시</th><td>2026-04-30 (목) <b>09:00</b> · 오전 도착</td></tr>
+        <tr><th>방법</th><td>지게차 · 도크 진입</td></tr>
+        <tr><th>담당</th><td>김상차 010-1234-5678</td></tr>
+      </table>
+      <div class="arrow">━━━━━━━━━━ 168.4 km · 약 2시간 40분 ━━━━━━━━━━</div>
+      <div class="l-head" style="border-top:1px solid var(--line)">하 차 지 &nbsp;UNLOADING</div>
+      <table>
+        <tr><th>주소</th><td>충북 청주시 흥덕구 송정로 41 · 지하 1층 하차장</td></tr>
+        <tr><th>일시</th><td>2026-04-30 (목) <b>16:00</b> · 오후 도착</td></tr>
+        <tr><th>방법</th><td>수작업 · 천장고 2.4m</td></tr>
+        <tr><th>담당</th><td>박하차 010-9876-5432</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="l-head">차 주 &nbsp;DRIVER &amp; VEHICLE</div>
+      <table>
+        <tr><th>차량번호</th><td>경기 81바 1234</td></tr>
+        <tr><th>차종 / 톤수</th><td>카고 / 5톤 · 축차 옵션</td></tr>
+        <tr><th>운전자</th><td>김 기 사 · 010-2222-3333</td></tr>
+        <tr><th>소속</th><td>개인 사업자 (12-34-56789)</td></tr>
+        <tr><th>운송 보험</th><td>기본 가입 · 가입증명 #INS-2026-0331-77</td></tr>
+        <tr><th>평점</th><td>★★★★☆ (4.6 / 미수 0건)</td></tr>
+      </table>
+      <div class="row2" style="border-top:1px solid var(--line)">
+        <div>
+          <span class="role-tag">증빙</span>
+          <div style="font-size:12px">인수증 1매 · 적재 사진 2매</div>
+          <div style="font-size:11px;color:var(--muted)">파일: rcpt-0142.pdf, ph01~02.jpg</div>
+        </div>
+        <div>
+          <span class="role-tag">결제</span>
+          <div style="font-size:12px">월말 정산 · 후불</div>
+          <div style="font-size:11px;color:var(--muted)">계산서: 2026-05-31 발행 예정</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="totals">
+    <div class="left-note">
+      <h4>거래 조건 ANNOTATIONS</h4>
+      <ol>
+        <li>본 명세서는 화물자동차 운수사업법에 의한 운송계약의 증빙으로서 효력을 가진다.</li>
+        <li>실 중량 · 거리 · 대기시간이 표기와 다를 경우 정산 시 재산출한다.</li>
+        <li>위 금액은 부가세 별도 금액이며, 세금계산서는 익월 5일 이내 발행한다.</li>
+        <li>지급 계좌: 국민은행 123456-04-567890 (예금주: (주)로지스마스터)</li>
+      </ol>
+    </div>
+    <table>
+      <tr><th>공급가액 합계</th><td>480,000</td></tr>
+      <tr><th>유류·기타 할증</th><td>40,000 (포함)</td></tr>
+      <tr><th>부가세 (10%)</th><td>48,000</td></tr>
+      <tr><th>차주 지급액</th><td>420,000</td></tr>
+      <tr><th>중개 수수료 (12.5%)</th><td>60,000</td></tr>
+      <tr class="grand"><th>총 청 구 액</th><td>₩ 528,000</td></tr>
+    </table>
+  </div>
+
+  <div class="signs">
+    <div class="sign">
+      <h5>발 행 인 ISSUER</h5>
+      <div class="meta">(주) 로지스마스터 · 김배차 과장</div>
+      <div class="stamp">로지스</div>
+      <div class="name-line"><span>인 / 서명</span><span>2026.05.01</span></div>
+    </div>
+    <div class="sign">
+      <h5>화 주 확 인 PURCHASER</h5>
+      <div class="meta">(주) 가나물류 · 이화주 부장</div>
+      <div class="stamp draft">확인</div>
+      <div class="name-line"><span>인 / 서명</span><span>____.__.__</span></div>
+    </div>
+    <div class="sign">
+      <h5>차 주 인 수 DRIVER</h5>
+      <div class="meta">김 기 사 · 경기 81바 1234</div>
+      <div class="stamp draft">인수</div>
+      <div class="name-line"><span>서 명</span><span>____.__.__</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <span>FORM TMS-SPEC-001 / Rev.3 · 본 문서는 전자적으로 발행되어 인장이 없는 경우에도 유효합니다.</span>
+    <span>page 1 / 1 · *SPEC2026050100142*</span>
+  </div>
+</div>
+</body>
+</html>

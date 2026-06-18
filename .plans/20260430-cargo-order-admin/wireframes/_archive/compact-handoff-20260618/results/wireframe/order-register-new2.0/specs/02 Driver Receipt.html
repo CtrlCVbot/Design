@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=520" />
+<title>인수증 / 운송 영수증</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@400;500;700&family=VT323&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#fdfbf2;
+    --ink:#1a1a1a;
+    --muted:#777;
+    --line:#1a1a1a;
+    --rule:#9c9c9c;
+    --stamp:#a91d1d;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#cfcabb;color:var(--ink);
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;line-height:1.4}
+  body{padding:36px 0 80px;display:flex;justify-content:center;align-items:flex-start;gap:30px;flex-wrap:wrap}
+
+  .receipt{
+    width:380px;background:var(--paper);
+    padding:18px 20px 24px;
+    box-shadow:0 6px 22px rgba(0,0,0,.22);
+    position:relative;
+    background-image:
+      repeating-linear-gradient(0deg,transparent 0 23px,rgba(0,0,0,.03) 23px 24px);
+  }
+  .receipt::before, .receipt::after{
+    content:"";position:absolute;left:0;right:0;height:14px;
+    background:
+      radial-gradient(circle at 10px 0, transparent 6px, var(--paper) 6.5px) repeat-x;
+    background-size:20px 14px;
+  }
+  .receipt::before{top:-1px;transform:scaleY(-1)}
+  .receipt::after{bottom:-1px}
+
+  .brand{
+    text-align:center;font-family:"Noto Sans KR",sans-serif;font-weight:700;
+    font-size:13px;letter-spacing:6px;border-bottom:1px dashed var(--rule);
+    padding-bottom:6px;margin-bottom:8px;
+  }
+  .brand .sub{font-family:"IBM Plex Mono",monospace;font-weight:400;
+    font-size:10px;letter-spacing:2px;color:var(--muted);margin-top:2px}
+
+  .title{
+    text-align:center;font-family:"Noto Sans KR",sans-serif;font-weight:700;
+    font-size:22px;letter-spacing:14px;text-indent:14px;margin:8px 0 4px;
+  }
+  .title-en{text-align:center;font-size:10px;letter-spacing:5px;color:var(--muted);margin-bottom:10px}
+
+  .meta-row{display:flex;justify-content:space-between;font-size:11px;margin:2px 0}
+  .meta-row .lbl{color:var(--muted)}
+  .hr{border:0;border-top:1px dashed var(--rule);margin:8px 0}
+  .hr.solid{border-top:1px solid var(--ink)}
+  .hr.double{border-top:2px solid var(--ink);position:relative;margin:10px 0}
+  .hr.double::after{content:"";display:block;border-top:1px solid var(--ink);margin-top:2px}
+
+  .section-title{
+    font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:11px;
+    letter-spacing:3px;background:var(--ink);color:var(--paper);
+    padding:2px 6px;display:inline-block;margin:6px 0 4px;
+  }
+
+  table.kv{width:100%;border-collapse:collapse;font-size:11.5px}
+  table.kv td{padding:2px 0;vertical-align:top}
+  table.kv td.k{width:80px;color:var(--muted)}
+  table.kv td.v{text-align:right;font-weight:500}
+  table.kv td.v.l{text-align:left}
+
+  .leg{
+    border:1px dashed var(--rule);padding:6px 8px;margin:4px 0;
+    background:rgba(255,247,214,.5);
+  }
+  .leg .pin{font-weight:700;letter-spacing:3px;font-size:11px}
+  .leg .addr{font-size:11.5px;margin:2px 0}
+  .leg .meta{font-size:10.5px;color:var(--muted)}
+  .arrow-down{text-align:center;font-size:18px;color:var(--muted);line-height:1;margin:2px 0}
+
+  table.items{width:100%;border-collapse:collapse;font-size:11px;margin-top:4px}
+  table.items th, table.items td{padding:3px 2px;text-align:right}
+  table.items th{border-bottom:1px solid var(--ink);font-weight:500;color:var(--muted);font-size:10px;letter-spacing:1px}
+  table.items td.l, table.items th.l{text-align:left}
+  table.items tr.divider td{border-top:1px dashed var(--rule);padding-top:4px}
+
+  .totals{margin-top:6px}
+  .totals .row{display:flex;justify-content:space-between;font-size:11.5px;padding:1px 0}
+  .totals .row.grand{
+    font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;
+    border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);
+    padding:6px 0;margin-top:6px;background:#fff7d6
+  }
+  .totals .row.grand .amount::before{content:"₩ ";font-size:13px;color:var(--muted)}
+
+  .stamp-box{
+    margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:8px;
+  }
+  .stamp-box .sig{
+    border:1px solid var(--ink);height:74px;position:relative;padding:4px 6px;
+    background:#fff;
+  }
+  .stamp-box .sig .lab{font-size:10px;color:var(--muted);letter-spacing:2px}
+  .stamp-box .sig .name{position:absolute;bottom:4px;left:6px;font-size:11px}
+  .stamp-box .sig .stamp{
+    position:absolute;right:6px;top:18px;width:46px;height:46px;border:2px solid var(--stamp);
+    border-radius:50%;color:var(--stamp);font-family:"Noto Sans KR";font-weight:700;
+    font-size:11px;letter-spacing:1px;display:flex;align-items:center;justify-content:center;
+    transform:rotate(-8deg);opacity:.85;
+  }
+  .stamp-box .sig .stamp.dot{border-style:dashed;border-color:#888;color:#888}
+  .signature-line{
+    height:18px;border-bottom:1px solid var(--ink);margin-top:8px;
+    font-family:"VT323",monospace;font-size:18px;color:#3a3a8a;
+    padding-left:6px;line-height:1;
+  }
+
+  .barcode{
+    margin-top:10px;background:#fff;text-align:center;padding:6px 0 4px;
+    font-family:"VT323",monospace;font-size:38px;letter-spacing:0;line-height:1;color:#000;
+  }
+  .barcode .num{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:2px;color:var(--muted)}
+  .qr{
+    width:60px;height:60px;
+    background:
+      conic-gradient(from 90deg at 16px 16px, #000 0 25%, transparent 0 50%, #000 0 75%, transparent 0) 0 0/16px 16px,
+      linear-gradient(#000,#000) 0 0/12px 12px no-repeat,
+      linear-gradient(#000,#000) 100% 0/12px 12px no-repeat,
+      linear-gradient(#000,#000) 0 100%/12px 12px no-repeat,
+      #fff;
+    border:2px solid #000;
+    image-rendering:pixelated;
+  }
+  .qr-row{display:flex;gap:10px;align-items:center;margin-top:8px}
+  .qr-row .info{font-size:10px;line-height:1.5;color:var(--muted)}
+  .qr-row .info b{color:var(--ink);font-weight:500}
+
+  .footer-note{
+    text-align:center;font-size:10px;color:var(--muted);margin-top:10px;
+    border-top:1px dashed var(--rule);padding-top:6px;letter-spacing:1px;
+  }
+  .stamp-corner{
+    position:absolute;top:90px;right:18px;
+    width:78px;height:78px;border:2.5px solid var(--stamp);border-radius:50%;
+    color:var(--stamp);font-family:"Noto Sans KR",sans-serif;font-weight:700;font-size:11px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    letter-spacing:2px;line-height:1.2;transform:rotate(8deg);opacity:.92;
+    background:rgba(255,255,255,.4);
+  }
+  .stamp-corner small{font-size:8px;letter-spacing:1px;margin-top:2px;font-family:"IBM Plex Mono"}
+
+  /* Variant: cancellation */
+  .receipt.cancel .title{color:var(--stamp)}
+  .receipt.cancel .stamp-corner{transform:rotate(-12deg);font-size:13px;letter-spacing:3px}
+  .receipt.cancel::after{filter:hue-rotate(-20deg)}
+  .receipt.cancel .voided{
+    position:absolute;left:50%;top:46%;transform:translate(-50%,-50%) rotate(-14deg);
+    font-family:"Noto Sans KR";font-weight:700;font-size:64px;letter-spacing:14px;
+    color:rgba(169,29,29,.18);pointer-events:none;border:6px solid rgba(169,29,29,.22);
+    padding:6px 16px;border-radius:6px;
+  }
+
+  @media print{
+    body{background:#fff;padding:0}
+    .receipt{box-shadow:none}
+  }
+</style>
+</head>
+<body>
+
+  <!-- Receipt 1: 인수증 -->
+  <div class="receipt">
+    <div class="stamp-corner">인수<br/>완료<small>DELIVERED</small></div>
+    <div class="brand">
+      LOGIS · MASTER<div class="sub">CARGO TMS · RECEIPT TERMINAL</div>
+    </div>
+    <div class="title">인 수 증</div>
+    <div class="title-en">CARGO DELIVERY RECEIPT</div>
+
+    <div class="meta-row"><span class="lbl">오더번호</span><span>OR-2604-0142</span></div>
+    <div class="meta-row"><span class="lbl">발행일시</span><span>2026-04-30 16:42:08</span></div>
+    <div class="meta-row"><span class="lbl">단말</span><span>POS-DRV-77 / Driver App v3.4</span></div>
+
+    <hr class="hr">
+
+    <div class="section-title">화 주 / 차 주</div>
+    <table class="kv">
+      <tr><td class="k">화주</td><td class="v l">(주) 가나물류 · 이화주</td></tr>
+      <tr><td class="k">차주</td><td class="v l">김 기 사 · 010-2222-3333</td></tr>
+      <tr><td class="k">차량</td><td class="v l">경기 81바 1234 · 카고 5톤</td></tr>
+    </table>
+
+    <hr class="hr">
+
+    <div class="section-title">운 송 구 간</div>
+    <div class="leg">
+      <div class="pin">▶ 상차</div>
+      <div class="addr">경기 화성시 동탄첨단산업1로 27 A동 도크 3</div>
+      <div class="meta">04-30 09:00 · 지게차 · 김상차 010-1234-5678</div>
+    </div>
+    <div class="arrow-down">⇣ 168.4 km / 2h 40m</div>
+    <div class="leg">
+      <div class="pin">■ 하차</div>
+      <div class="addr">충북 청주시 흥덕구 송정로 41 B1 하차장</div>
+      <div class="meta">04-30 16:00 · 수작업 · 박하차 010-9876-5432</div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section-title">운 송 내 역</div>
+    <table class="items">
+      <thead><tr><th class="l">품목 / 항목</th><th>수량</th><th>중량</th><th>금액</th></tr></thead>
+      <tbody>
+        <tr><td class="l">자동차 부품 (브래킷)</td><td>12 EA</td><td>2,400kg</td><td>440,000</td></tr>
+        <tr><td class="l">유류 할증</td><td>1식</td><td>—</td><td>20,000</td></tr>
+        <tr><td class="l">대기 할증 (60분 초과)</td><td>1식</td><td>—</td><td>20,000</td></tr>
+        <tr class="divider"><td class="l" colspan="3">소계</td><td>480,000</td></tr>
+      </tbody>
+    </table>
+
+    <div class="totals">
+      <div class="row"><span>공급가액</span><span class="amount">480,000</span></div>
+      <div class="row"><span>부가세 (10%)</span><span class="amount">48,000</span></div>
+      <div class="row" style="color:var(--muted)"><span>차주 지급액</span><span class="amount">420,000</span></div>
+      <div class="row grand"><span>합 계 청구액</span><span class="amount">528,000</span></div>
+    </div>
+
+    <div class="stamp-box">
+      <div class="sig">
+        <div class="lab">화주 확인 RECEIVER</div>
+        <div class="signature-line">박하차</div>
+        <div class="name-line"></div>
+        <div class="name" style="margin-top:8px">박 하 차 · 04-30 16:32</div>
+        <div class="stamp">확인</div>
+      </div>
+      <div class="sig">
+        <div class="lab">차주 인계 DRIVER</div>
+        <div class="signature-line">김기사</div>
+        <div class="name" style="margin-top:8px">김 기 사 · 04-30 16:32</div>
+        <div class="stamp dot">서명</div>
+      </div>
+    </div>
+
+    <div class="qr-row">
+      <div class="qr"></div>
+      <div class="info">
+        <b>전자 인수확인 OTP</b><br/>
+        9 4 7 - 2 0 1 (60s)<br/>
+        * 본 영수증은 모바일 앱에서<br/>
+        &nbsp;&nbsp;실시간 검증할 수 있습니다.
+      </div>
+    </div>
+
+    <div class="barcode">
+      *OR2604014212340430*
+      <div class="num">OR-2604-0142 · 2026.04.30</div>
+    </div>
+
+    <div class="footer-note">— 감사합니다. SAFE TRANSPORTATION —<br/>고객센터 1588-0102 / help@logismaster.kr</div>
+  </div>
+
+  <!-- Receipt 2: 취소 -->
+  <div class="receipt cancel">
+    <div class="voided">VOID</div>
+    <div class="stamp-corner">취소<br/>처리<small>CANCELED</small></div>
+    <div class="brand">
+      LOGIS · MASTER<div class="sub">CARGO TMS · CANCEL SLIP</div>
+    </div>
+    <div class="title">취 소 증</div>
+    <div class="title-en">ORDER CANCELLATION RECEIPT</div>
+
+    <div class="meta-row"><span class="lbl">원 오더번호</span><span>OR-2604-0138</span></div>
+    <div class="meta-row"><span class="lbl">취소일시</span><span>2026-04-29 14:11:42</span></div>
+    <div class="meta-row"><span class="lbl">사유 코드</span><span>SHIP-CXL-02 · 화주취소</span></div>
+
+    <hr class="hr">
+
+    <div class="section-title">취 소 사 유</div>
+    <div class="leg" style="background:rgba(251,230,228,.6);border-color:#a91d1d">
+      <div class="pin" style="color:var(--stamp)">! 화주 자진 취소</div>
+      <div class="addr">출고 일정 1일 연기 요청 (재예약 예정)</div>
+      <div class="meta">처리자: 김배차 과장 · 메모: 차주 미배차 상태</div>
+    </div>
+
+    <hr class="hr">
+
+    <div class="section-title">정 산 처 리</div>
+    <table class="kv">
+      <tr><td class="k">기 청구액</td><td class="v">220,000</td></tr>
+      <tr><td class="k">위약 수수료</td><td class="v">— (배차전 면제)</td></tr>
+      <tr><td class="k">차주 지급</td><td class="v">— (미발생)</td></tr>
+      <tr><td class="k">환불 금액</td><td class="v" style="color:var(--stamp);font-weight:700">▼ 220,000</td></tr>
+      <tr><td class="k">환불 수단</td><td class="v">월말 정산 차감</td></tr>
+    </table>
+
+    <hr class="hr double">
+
+    <div class="totals">
+      <div class="row grand" style="background:#fbe6e4;color:var(--stamp);border-color:var(--stamp)">
+        <span>최 종 정산</span><span class="amount">0</span>
+      </div>
+    </div>
+
+    <div class="stamp-box">
+      <div class="sig">
+        <div class="lab">처리자 OPERATOR</div>
+        <div class="signature-line" style="color:#a91d1d">김배차</div>
+        <div class="name" style="margin-top:8px">김 배 차 · 04-29 14:11</div>
+        <div class="stamp">취소</div>
+      </div>
+      <div class="sig">
+        <div class="lab">화주 확인</div>
+        <div class="signature-line" style="color:#3a3a8a">이화주</div>
+        <div class="name" style="margin-top:8px">이 화 주 · 04-29 14:14</div>
+        <div class="stamp dot">확인</div>
+      </div>
+    </div>
+
+    <div class="barcode">
+      *OR2604013800CXL*
+      <div class="num">OR-2604-0138 · CANCELED</div>
+    </div>
+
+    <div class="footer-note">— 본 슬립은 취소 사실의 증빙으로만 효력이 있습니다 —</div>
+  </div>
+
+</body>
+</html>
