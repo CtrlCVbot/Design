@@ -1,0 +1,340 @@
+﻿{
+  "version": "2026-06-18",
+  "title": "Cargo Order Admin Visual Handoff Hub",
+  "pathBase": "relative-to-visual-handoff-hub-index",
+  "baseline": {
+    "masterHtml": "../baseline/html/cargo-order-admin-hifi-master.html",
+    "sourceMap": "../source-snapshot/artifact-audit/source-of-truth-map.md",
+    "handoffRoot": ".."
+  },
+  "mvpScope": [
+    "screen-map-user-flow-preview",
+    "section-component-data-validation-api-qa-links",
+    "implementation-handoff-checklist"
+  ],
+  "flows": [
+    {
+      "id": "new-order-registration",
+      "label": "신규 접수",
+      "nodes": [
+        "new-order.start",
+        "new-order.shipper",
+        "new-order.load-address",
+        "new-order.unload-address",
+        "new-order.cargo-item",
+        "new-order.amount",
+        "new-order.driver",
+        "new-order.pre-api-submit",
+        "new-order.submit"
+      ]
+    },
+    {
+      "id": "supporting-panels",
+      "label": "보조 정보",
+      "nodes": [
+        "aside.memo",
+        "aside.amount-log",
+        "aside.route-map"
+      ]
+    },
+    {
+      "id": "recent-dialogs",
+      "label": "최근 사용 다이얼로그",
+      "nodes": [
+        "dialog.address-recent",
+        "dialog.cargo-recent"
+      ]
+    },
+    {
+      "id": "header-status",
+      "label": "Header 상태",
+      "nodes": [
+        "header.status-metrics",
+        "header.dispatch-manager",
+        "header.label-toggle"
+      ]
+    }
+  ],
+  "screenNodes": [
+    {
+      "id": "new-order.start",
+      "label": "신규 접수 시작",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "master-state",
+        "howToOpen": "master HTML에서 `신규(F3)` 클릭",
+        "state": "new-reset"
+      },
+      "rightDetail": {
+        "summary": "`신규(F3)` 클릭 후 전체 입력 상태를 초기화하고 화주 정보 입력으로 focus를 이동합니다.",
+        "dataContracts": ["CargoOrder", "Requester", "Location", "Pricing", "DriverAssignment"],
+        "states": ["idle-edit", "new-reset"],
+        "validation": ["reset 범위", "focus 1회 이동"],
+        "handoffChecklist": ["기존 신규 버튼 handler 위치 확인", "전체 form reset 범위 확인", "draft id 생성 위치 확인"]
+      }
+    },
+    {
+      "id": "new-order.shipper",
+      "label": "화주 정보",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "wizard-step",
+        "howToOpen": "`new-reset` 후 화주 정보 입력 시작",
+        "state": "new-wizard-active"
+      },
+      "rightDetail": {
+        "summary": "신규 접수 첫 입력 단계이며 화주 선택 후 보조 정보 메모 mock 표시 조건과 연결됩니다.",
+        "dataContracts": ["Requester", "CargoMemo"],
+        "states": ["new-wizard-active"],
+        "validation": ["화주 식별 정보", "담당자 또는 연락처"],
+        "handoffChecklist": ["화주 조회/선택 dialog 확인", "의뢰자/화주 용어 매핑", "사업자번호 조건부 필수 확인"]
+      }
+    },
+    {
+      "id": "new-order.load-address",
+      "label": "상차지",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "dialog-preview",
+        "howToOpen": "상차지 주소 검색 다이얼로그 열기",
+        "state": "address-recent-load"
+      },
+      "rightDetail": {
+        "summary": "상차 주소를 확정합니다. 최근 장소는 검색 결과 영역의 초기 상태로만 표시됩니다.",
+        "dataContracts": ["Location", "RecentLocation", "RoutePreview"],
+        "states": ["new-wizard-active"],
+        "validation": ["주소", "상세주소 또는 장소명", "상차 정책"],
+        "handoffChecklist": ["주소 검색 component 확인", "최근 장소 scope 확인", "연락처 row 마스킹 확인"]
+      }
+    },
+    {
+      "id": "new-order.unload-address",
+      "label": "하차지",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "dialog-preview",
+        "howToOpen": "하차지 주소 검색 다이얼로그 열기",
+        "state": "address-recent-unload"
+      },
+      "rightDetail": {
+        "summary": "하차 주소를 확정합니다. 상차지와 하차지가 모두 적용되면 보조 정보 지도 mock이 표시됩니다.",
+        "dataContracts": ["Location", "RecentLocation", "RoutePreview"],
+        "states": ["new-wizard-active"],
+        "validation": ["주소", "상세주소 또는 장소명", "하차 정책"],
+        "handoffChecklist": ["하차지 검색 handler 확인", "지도/거리 계산 data source 확인"]
+      }
+    },
+    {
+      "id": "new-order.cargo-item",
+      "label": "운송+품목",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "dialog-preview",
+        "howToOpen": "운송+품목 입력 다이얼로그 열기",
+        "state": "cargo-recent"
+      },
+      "rightDetail": {
+        "summary": "톤수, 차종, 대수, 실중량, 품목을 입력합니다. 최근 조합 클릭은 입력폼만 채웁니다.",
+        "dataContracts": ["VehicleRequirement", "CargoDetail", "RecentCargoCombo"],
+        "states": ["new-wizard-active"],
+        "validation": ["톤수", "차종", "대수", "실중량", "품목"],
+        "handoffChecklist": ["운송+품목 dialog 확인", "조합 중복 제거 key 확인", "금액 조건 미포함 확인"]
+      }
+    },
+    {
+      "id": "new-order.amount",
+      "label": "금액",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "wizard-step",
+        "howToOpen": "금액 입력 단계 완료",
+        "state": "new-required-complete"
+      },
+      "rightDetail": {
+        "summary": "금액까지 필수 입력이 끝나면 `화물 등록 완료` 또는 `차주 정보로 이동`을 선택합니다.",
+        "dataContracts": ["Pricing", "PricingAdjustment"],
+        "states": ["new-required-complete"],
+        "validation": ["결제방법", "청구비용", "운송비용"],
+        "handoffChecklist": ["금액 입력 component 확인", "조정금 사유/대상 확인", "정산 권한 확인"]
+      }
+    },
+    {
+      "id": "new-order.driver",
+      "label": "차주 정보 선택",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "wizard-step",
+        "howToOpen": "금액 완료 후 `차주 정보로 이동` 선택",
+        "state": "new-driver-optional"
+      },
+      "rightDetail": {
+        "summary": "차주 정보는 선택 단계입니다. 선택하거나 건너뛸 수 있습니다.",
+        "dataContracts": ["DriverAssignment"],
+        "states": ["new-driver-optional"],
+        "validation": ["선택 사항"],
+        "handoffChecklist": ["차주 조회 dialog 확인", "화물맨 연동 포함 여부 확인", "건너뛰기 상태 확인"]
+      }
+    },
+    {
+      "id": "new-order.pre-api-submit",
+      "label": "메인 적용 후 최종 등록",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "master-state",
+        "howToOpen": "`화물 등록 완료` 선택 후 메인 화면 확인",
+        "state": "new-submitted"
+      },
+      "rightDetail": {
+        "summary": "wizard 데이터가 API 없이 메인 화면에 적용된 pre-API 상태입니다.",
+        "dataContracts": ["CargoOrder"],
+        "states": ["new-submitted"],
+        "validation": ["최신 메인 화면 데이터 기준"],
+        "api": ["메인 `화물 등록`만 실제 저장"],
+        "handoffChecklist": ["메인 CTA 위치 확인", "wizard 재개 방지", "개별 수정 후 payloadVersion 증가"]
+      }
+    },
+    {
+      "id": "new-order.submit",
+      "label": "실제 API 등록",
+      "leftGroup": "신규 접수",
+      "centerPreview": {
+        "type": "state-machine",
+        "howToOpen": "메인 `화물 등록` 클릭",
+        "state": "submit-validating -> submit-pending"
+      },
+      "rightDetail": {
+        "summary": "최종 validation 후 실제 API 요청을 보냅니다.",
+        "dataContracts": ["CargoOrder"],
+        "states": ["submit-validating", "submit-pending", "submit-failed", "submit-complete"],
+        "api": ["endpoint 보류", "payload schema 보류", "idempotency key 필요"],
+        "handoffChecklist": ["저장 API 확인", "server validation code 매핑", "중복 클릭 방지"]
+      }
+    },
+    {
+      "id": "aside.memo",
+      "label": "보조 정보: 메모",
+      "leftGroup": "보조 정보",
+      "centerPreview": {
+        "type": "aside-tab",
+        "howToOpen": "보조 정보 `메모` 탭",
+        "state": "memo"
+      },
+      "rightDetail": {
+        "summary": "운영자 메모, 고객 요청, 배차 특이사항을 리스트 중심으로 확인합니다.",
+        "dataContracts": ["CargoMemo"],
+        "policy": ["작성/수정/삭제 권한 보류", "보존 기간 보류"],
+        "handoffChecklist": ["메모 API 확인", "권한별 button 표시 확인"]
+      }
+    },
+    {
+      "id": "aside.amount-log",
+      "label": "보조 정보: 금액 로그",
+      "leftGroup": "보조 정보",
+      "centerPreview": {
+        "type": "aside-tab",
+        "howToOpen": "보조 정보 `금액 로그` 탭",
+        "state": "amount"
+      },
+      "rightDetail": {
+        "summary": "기준 청구금/배차금, 조정금, 합계, 수익을 금액 명세로 확인합니다.",
+        "dataContracts": ["Pricing", "PricingAdjustment"],
+        "policy": ["금액 권한 보류", "정산 후 수정 정책 보류", "조정금 저장 단위 보류"],
+        "handoffChecklist": ["금액 로그 API 확인", "민감 금액 마스킹 확인"]
+      }
+    },
+    {
+      "id": "aside.route-map",
+      "label": "보조 정보: 운송 구간 지도",
+      "leftGroup": "보조 정보",
+      "centerPreview": {
+        "type": "aside-tab",
+        "howToOpen": "보조 정보 `운송 구간 지도` 탭",
+        "state": "map"
+      },
+      "rightDetail": {
+        "summary": "상차지와 하차지의 경로, 거리, 예상 시간, 경유 여부를 확인합니다.",
+        "dataContracts": ["RoutePreview", "Location"],
+        "policy": ["지도 provider 보류", "좌표 저장 방식 보류"],
+        "handoffChecklist": ["지도 provider 확인", "fallback empty/error 상태 확인"]
+      }
+    },
+    {
+      "id": "dialog.address-recent",
+      "label": "주소 최근 사용",
+      "leftGroup": "최근 사용 다이얼로그",
+      "centerPreview": {
+        "type": "dialog-preview",
+        "howToOpen": "주소 검색 다이얼로그 열기",
+        "state": "recent-before-search"
+      },
+      "rightDetail": {
+        "summary": "최근 장소 row는 선택 미리보기만 갱신하고 적용 버튼이 확정 책임을 가집니다.",
+        "dataContracts": ["RecentLocation"],
+        "policy": ["scope 보류", "저장 시점 보류", "개인정보 마스킹 보류"],
+        "handoffChecklist": ["최근 row click handler 확인", "검색 결과 전환 확인"]
+      }
+    },
+    {
+      "id": "dialog.cargo-recent",
+      "label": "운송+품목 최근 사용",
+      "leftGroup": "최근 사용 다이얼로그",
+      "centerPreview": {
+        "type": "dialog-preview",
+        "howToOpen": "운송+품목 입력 다이얼로그 열기",
+        "state": "recent-combo"
+      },
+      "rightDetail": {
+        "summary": "최근 조합 row는 톤수, 차종, 대수, 실중량, 품목 입력폼만 채웁니다.",
+        "dataContracts": ["RecentCargoCombo"],
+        "policy": ["조합 key 보류", "개별 추천은 후속"],
+        "handoffChecklist": ["적용 전 row 미반영 확인", "금액 조건 미포함 확인"]
+      }
+    },
+    {
+      "id": "header.status-metrics",
+      "label": "Header 상태/거리/기준금액",
+      "leftGroup": "Header 상태",
+      "centerPreview": {
+        "type": "header",
+        "howToOpen": "master 상단 header 확인",
+        "state": "header-metrics"
+      },
+      "rightDetail": {
+        "summary": "거리와 기준금액은 운송 구간 내부 중복 메타가 아니라 header와 지도 탭으로 역할을 분리합니다.",
+        "dataContracts": ["CargoOrder", "RoutePreview", "Pricing"],
+        "handoffChecklist": ["운송 구간 내부 중복 메타 제거 확인", "header wrap 확인"]
+      }
+    },
+    {
+      "id": "header.dispatch-manager",
+      "label": "배차 담당자",
+      "leftGroup": "Header 상태",
+      "centerPreview": {
+        "type": "header",
+        "howToOpen": "header 상태 chip 옆 `배차 김민지` 확인",
+        "state": "dispatch-manager-chip"
+      },
+      "rightDetail": {
+        "summary": "현재는 표시 전용 chip입니다. 배정/변경/이력 UX는 후속 기획입니다.",
+        "dataContracts": ["DispatchManager"],
+        "policy": ["데이터 모델 보류", "변경 권한 보류"],
+        "handoffChecklist": ["담당자 source 확인", "미지정 상태 문구 결정"]
+      }
+    },
+    {
+      "id": "header.label-toggle",
+      "label": "라벨 표시 토글",
+      "leftGroup": "Header 상태",
+      "centerPreview": {
+        "type": "header",
+        "howToOpen": "header `Aa` icon button 확인",
+        "state": "label-toggle"
+      },
+      "rightDetail": {
+        "summary": "본문 라벨 표시/숨김을 header 상태 흐름 안에서 제어합니다.",
+        "dataContracts": [],
+        "handoffChecklist": ["tooltip 한글 확인", "좁은 화면 wrap 확인", "버튼 접근성 확인"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,125 @@
+﻿{
+  "version": "2026-06-18",
+  "pathBase": "relative-to-visual-handoff-hub-index",
+  "qaGroups": [
+    {
+      "id": "qa-new-order",
+      "label": "신규 접수 flow",
+      "source": "../source-snapshot/sections/new-order-registration-flow/06-acceptance-criteria.md",
+      "nodes": [
+        {
+          "nodeId": "new-order.start",
+          "criteria": ["AC-A1", "AC-A2", "AC-A3", "AC-A4", "AC-A5"]
+        },
+        {
+          "nodeId": "new-order.shipper",
+          "criteria": ["AC-C1", "AC-C2", "AC-C3", "AC-C5"]
+        },
+        {
+          "nodeId": "new-order.amount",
+          "criteria": ["AC-D1", "AC-D2", "AC-D3", "AC-D4", "AC-D5", "AC-D6"]
+        },
+        {
+          "nodeId": "new-order.driver",
+          "criteria": ["AC-E1", "AC-E2", "AC-E3", "AC-E4"]
+        },
+        {
+          "nodeId": "new-order.pre-api-submit",
+          "criteria": ["AC-F1", "AC-F2", "AC-F3", "AC-F4", "AC-F5", "AC-H4"]
+        },
+        {
+          "nodeId": "new-order.submit",
+          "criteria": ["AC-I1", "AC-I2", "AC-I3", "AC-I4", "AC-I5", "AC-I6", "AC-I7", "AC-I8", "AC-I9", "AC-I10"]
+        }
+      ]
+    },
+    {
+      "id": "qa-recent-dialogs",
+      "label": "최근 사용 다이얼로그",
+      "source": "../source-snapshot/sections/transport-dialog-recent-lists/05-acceptance-criteria.md",
+      "nodes": [
+        {
+          "nodeId": "dialog.address-recent",
+          "criteria": ["AC-ADDR-001", "AC-ADDR-002", "AC-ADDR-003", "AC-ADDR-004", "AC-ADDR-005", "AC-ADDR-006", "AC-ADDR-007", "AC-ADDR-008", "AC-REG-001", "AC-REG-005"]
+        },
+        {
+          "nodeId": "dialog.cargo-recent",
+          "criteria": ["AC-CARGO-001", "AC-CARGO-002", "AC-CARGO-003", "AC-CARGO-004", "AC-CARGO-005", "AC-CARGO-006", "AC-CARGO-007", "AC-REG-002"]
+        }
+      ]
+    },
+    {
+      "id": "qa-reservation-tabs",
+      "label": "보조 정보",
+      "source": "../source-snapshot/sections/reservation-area-tabs/09-planning-closure.md",
+      "nodes": [
+        {
+          "nodeId": "aside.memo",
+          "checks": ["기본 탭이 메모인지 확인", "메모 추가 dialog 진입 확인", "권한 정책 보류 표시"]
+        },
+        {
+          "nodeId": "aside.amount-log",
+          "checks": ["조정금 용어와 +/- 표기 확인", "상세 항목 펼침 확인", "금액 권한/정산 후 수정 보류 표시"]
+        },
+        {
+          "nodeId": "aside.route-map",
+          "checks": ["좌측 운송 구간 주소 반복 표시 없음", "주소 미입력 empty 상태 확인", "지도 provider 보류 표시"]
+        }
+      ]
+    },
+    {
+      "id": "qa-header",
+      "label": "Header 상태",
+      "source": "../source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md",
+      "nodes": [
+        {
+          "nodeId": "header.status-metrics",
+          "checks": ["운송 구간 내부 중복 계산 메타 제거", "거리/기준금액 chip 유지"]
+        },
+        {
+          "nodeId": "header.dispatch-manager",
+          "checks": ["`dispatch-manager-chip` marker 확인", "`김민지` 고정 예시인지 확인", "미지정 상태 후속 결정 필요"]
+        },
+        {
+          "nodeId": "header.label-toggle",
+          "checks": ["`label-toggle-wrap` marker 확인", "`라벨 표시`/`라벨 숨김` tooltip 확인"]
+        }
+      ]
+    },
+    {
+      "id": "qa-pre-implementation-risks",
+      "label": "구현 전 리스크",
+      "source": "../source-snapshot/root-docs/05-self-review.md",
+      "risks": [
+        {
+          "id": "risk-api-endpoint",
+          "severity": "high",
+          "confidence": "likely",
+          "action": "needs-verification",
+          "memo": "실제 신규 접수 API endpoint, payload schema, server validation code 확정 필요"
+        },
+        {
+          "id": "risk-validation",
+          "severity": "high",
+          "confidence": "likely",
+          "action": "needs-verification",
+          "memo": "필수/조건부 필수 규칙과 드롭다운 옵션 확인 필요"
+        },
+        {
+          "id": "risk-recent-privacy",
+          "severity": "high",
+          "confidence": "likely",
+          "action": "queued",
+          "memo": "최근 사용 scope, 저장 시점, 개인정보 마스킹 정책 확인 필요"
+        },
+        {
+          "id": "risk-amount-permission",
+          "severity": "high",
+          "confidence": "likely",
+          "action": "queued",
+          "memo": "금액 로그 조회/입력 권한과 정산 후 수정 정책 확인 필요"
+        }
+      ]
+    }
+  ]
+}

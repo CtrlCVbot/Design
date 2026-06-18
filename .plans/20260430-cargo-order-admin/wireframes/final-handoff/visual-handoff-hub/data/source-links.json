@@ -1,0 +1,152 @@
+﻿{
+  "version": "2026-06-18",
+  "pathBase": "relative-to-visual-handoff-hub-index",
+  "links": [
+    {
+      "nodeId": "global.baseline",
+      "sources": [
+        "../source-snapshot/root-docs/README.md",
+        "../baseline/html/results-html-README.md",
+        "../source-snapshot/artifact-audit/source-of-truth-map.md",
+        "../baseline/html/cargo-order-admin-hifi-master.html"
+      ]
+    },
+    {
+      "nodeId": "new-order.start",
+      "sources": [
+        "../source-snapshot/root-docs/01-screen-map.md",
+        "../source-snapshot/root-docs/03-wireframe.md",
+        "../source-snapshot/sections/new-order-registration-flow/01-new-order-flow-overview.md",
+        "../source-snapshot/sections/new-order-registration-flow/05-state-and-interaction-matrix.md",
+        "../source-snapshot/sections/new-order-registration-flow/06-acceptance-criteria.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.shipper",
+      "sources": [
+        "../source-snapshot/sections/new-order-registration-flow/04-dialog-wizard-flow.md",
+        "../source-snapshot/sections/shipper-info/README.md",
+        "../source-snapshot/root-docs/02-field-inventory.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.load-address",
+      "sources": [
+        "../source-snapshot/sections/transport-route/README.md",
+        "../source-snapshot/sections/transport-route/address-apply-layouts/02-wireframe-address-apply-layouts.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/02-address-dialog-recent-list.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.unload-address",
+      "sources": [
+        "../source-snapshot/sections/transport-route/README.md",
+        "../source-snapshot/sections/transport-route/address-apply-layouts/02-wireframe-address-apply-layouts.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/02-address-dialog-recent-list.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.cargo-item",
+      "sources": [
+        "../source-snapshot/sections/cargo-transport/README.md",
+        "../source-snapshot/sections/cargo-transport/09-f-transport-item-money-dialog-plan.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/03-cargo-item-dialog-recent-list.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.amount",
+      "sources": [
+        "../source-snapshot/sections/new-order-registration-flow/04-dialog-wizard-flow.md",
+        "../source-snapshot/sections/new-order-registration-flow/08-main-submit-api-policy.md",
+        "../source-snapshot/sections/reservation-area-tabs/04-tab-amount-log-section.md",
+        "../source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.driver",
+      "sources": [
+        "../source-snapshot/sections/driver-info/README.md",
+        "../source-snapshot/sections/driver-info/05-b-integration-guide.md",
+        "../source-snapshot/sections/new-order-registration-flow/04-dialog-wizard-flow.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.pre-api-submit",
+      "sources": [
+        "../source-snapshot/sections/new-order-registration-flow/05-state-and-interaction-matrix.md",
+        "../source-snapshot/sections/new-order-registration-flow/07-main-submit-cta-visibility.md",
+        "../source-snapshot/sections/new-order-registration-flow/08-main-submit-api-policy.md"
+      ]
+    },
+    {
+      "nodeId": "new-order.submit",
+      "sources": [
+        "../source-snapshot/sections/new-order-registration-flow/08-main-submit-api-policy.md",
+        "../source-snapshot/sections/new-order-registration-flow/06-acceptance-criteria.md"
+      ]
+    },
+    {
+      "nodeId": "aside.memo",
+      "sources": [
+        "../source-snapshot/sections/reservation-area-tabs/03-tab-memo-section.md",
+        "../source-snapshot/sections/reservation-area-tabs/05-state-and-interaction-matrix.md",
+        "../source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md"
+      ]
+    },
+    {
+      "nodeId": "aside.amount-log",
+      "sources": [
+        "../source-snapshot/sections/reservation-area-tabs/04-tab-amount-log-section.md",
+        "../source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md",
+        "../source-snapshot/sections/reservation-area-tabs/09-planning-closure.md"
+      ]
+    },
+    {
+      "nodeId": "aside.route-map",
+      "sources": [
+        "../source-snapshot/sections/reservation-area-tabs/02-tab-map-section.md",
+        "../source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md",
+        "../source-snapshot/sections/reservation-area-tabs/09-planning-closure.md"
+      ]
+    },
+    {
+      "nodeId": "dialog.address-recent",
+      "sources": [
+        "../source-snapshot/sections/transport-dialog-recent-lists/02-address-dialog-recent-list.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/04-state-and-interaction-matrix.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/05-acceptance-criteria.md"
+      ]
+    },
+    {
+      "nodeId": "dialog.cargo-recent",
+      "sources": [
+        "../source-snapshot/sections/transport-dialog-recent-lists/03-cargo-item-dialog-recent-list.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/04-state-and-interaction-matrix.md",
+        "../source-snapshot/sections/transport-dialog-recent-lists/05-acceptance-criteria.md"
+      ]
+    },
+    {
+      "nodeId": "header.status-metrics",
+      "sources": [
+        "../source-snapshot/root-docs/01-screen-map.md",
+        "../source-snapshot/root-docs/03-wireframe.md",
+        "../source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md"
+      ]
+    },
+    {
+      "nodeId": "header.dispatch-manager",
+      "sources": [
+        "../source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md",
+        "../source-snapshot/root-docs/02-field-inventory.md",
+        "../source-snapshot/root-docs/04-modernization-brief.md"
+      ]
+    },
+    {
+      "nodeId": "header.label-toggle",
+      "sources": [
+        "../source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md",
+        "../baseline/html/results-html-README.md"
+      ]
+    }
+  ]
+}
