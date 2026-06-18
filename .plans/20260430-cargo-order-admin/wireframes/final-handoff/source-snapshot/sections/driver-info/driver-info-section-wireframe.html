@@ -1,0 +1,1423 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>차주 정보 섹션 와이어프레임</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #858b93;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+    --warn: #a45f00;
+    --warn-bg: #fff1cf;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  .sheet {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 22px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, .08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 34px;
+    line-height: 1;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+
+  .chips,
+  .meta-row,
+  .filter-row,
+  .dialog-actions,
+  .role-choice-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .chip,
+  .badge,
+  .role-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 8px;
+    border: 1.1px solid var(--line);
+    border-radius: 999px;
+    background: #fffefb;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on,
+  .role-chip.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .chip.wait,
+  .badge.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .scrid {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 16px;
+    color: var(--ink-mute);
+  }
+
+  .state-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper-2);
+  }
+
+  .state-tab,
+  .row-action,
+  .ghost-button,
+  .plain-button,
+  .primary-button,
+  .activation-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 2px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .state-tab.on,
+  .primary-button,
+  .activation-button {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .section {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1.5px solid var(--line);
+  }
+
+  .section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0 0 8px;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 27px;
+    font-weight: 700;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .driver-panel {
+    display: grid;
+    gap: 8px;
+  }
+
+  .driver-card,
+  .lookup-dialog,
+  .result-card,
+  .preview-card,
+  .note-card,
+  .motion-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .driver-card {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .driver-row {
+    display: grid;
+    grid-template-columns: 58px minmax(120px, .9fr) 150px 150px 76px 94px 126px;
+    gap: 7px;
+    align-items: center;
+    min-width: 940px;
+    padding: 5px 8px;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cell {
+    min-width: 0;
+    padding: 3px 4px;
+    border-bottom: 1px dotted transparent;
+    border-radius: 3px;
+  }
+
+  .cell-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cell-value {
+    min-height: 22px;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 19px;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .cell-value.placeholder {
+    color: var(--ink-mute);
+  }
+
+  .applied-editable {
+    position: relative;
+    cursor: text;
+    border-radius: 3px;
+  }
+
+  .applied-editable[data-driver-inline-edit="tonnage"],
+  .applied-editable[data-driver-inline-edit="truckType"] {
+    cursor: pointer;
+  }
+
+  .applied-editable::after {
+    content: "수정";
+    position: absolute;
+    right: 2px;
+    top: -18px;
+    display: inline-flex;
+    min-height: 17px;
+    padding: 0 5px;
+    border: 1px solid var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Gaegu", sans-serif;
+    font-size: 11px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+  }
+
+  .applied-editable[data-driver-inline-edit="tonnage"]::after,
+  .applied-editable[data-driver-inline-edit="truckType"]::after {
+    content: "선택";
+  }
+
+  .applied-editable:hover,
+  .applied-editable:focus {
+    outline: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .applied-editable:hover::after,
+  .applied-editable:focus::after {
+    opacity: 1;
+  }
+
+  .row-action:hover,
+  .row-action:focus,
+  .plain-button:hover,
+  .plain-button:focus,
+  .ghost-button:hover,
+  .ghost-button:focus,
+  .state-tab:hover,
+  .state-tab:focus,
+  .activation-button:hover,
+  .activation-button:focus {
+    outline: 1px dashed var(--note);
+    outline-offset: -2px;
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .driver-row.change-absorbing {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .driver-row.change-absorbing .row-action {
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  @keyframes absorbToLabel {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+    80% {
+      opacity: .18;
+      transform: translateX(var(--absorb-x, -120px)) scale(.9);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(var(--absorb-x, -120px)) scale(.86);
+    }
+  }
+
+  @keyframes motionSoftHighlight {
+    0%,
+    100% {
+      background: #fffefb;
+    }
+    45% {
+      background: var(--ok-bg);
+    }
+  }
+
+  .activation-demo {
+    position: relative;
+    display: grid;
+    gap: 7px;
+  }
+
+  .empty-row {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) auto;
+    gap: 7px;
+    align-items: center;
+    min-width: 720px;
+    padding: 6px 8px;
+  }
+
+  .empty-line {
+    min-height: 1px;
+    border-top: 1.25px dashed var(--line-soft);
+  }
+
+  .activation-demo.activating .activation-button {
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  .activation-demo.activating .empty-row {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .activated-card {
+    display: none;
+  }
+
+  .activation-demo.activated .empty-row {
+    display: none;
+  }
+
+  .activation-demo.activated .activated-card {
+    display: block;
+  }
+
+  .reset-line {
+    margin-top: 8px;
+  }
+
+  .dialog-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: block;
+    padding: 0;
+    background: rgba(31, 35, 40, .24);
+  }
+
+  .lookup-dialog {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: min(1040px, calc(100vw - 40px));
+    max-height: calc(100vh - 40px);
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    background: var(--paper);
+    box-shadow: 8px 10px 0 rgba(0, 0, 0, .12);
+  }
+
+  .dialog-head,
+  .dialog-foot {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px;
+    border-bottom: 1.25px solid var(--line);
+  }
+
+  .dialog-foot {
+    border-top: 1.25px solid var(--line);
+    border-bottom: 0;
+    align-items: center;
+  }
+
+  .dialog-title {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 27px;
+    line-height: 32px;
+  }
+
+  .dialog-status {
+    color: var(--ink-mute);
+    font-size: 13px;
+    line-height: 16px;
+  }
+
+  .dialog-body {
+    display: grid;
+    gap: 8px;
+    padding: 10px;
+    overflow: auto;
+  }
+
+  .lookup-search {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 6px;
+  }
+
+  .dialog-mode-strip {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+    min-height: 34px;
+    padding: 5px 7px;
+    border: 1px solid var(--line-soft);
+    background: #fffdf5;
+  }
+
+  .lookup-input,
+  .mini-input,
+  .mini-select {
+    min-height: 30px;
+    padding: 4px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  .lookup-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 8px;
+    min-height: 310px;
+  }
+
+  .result-card {
+    position: relative;
+    overflow: auto;
+  }
+
+  .presearch {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    min-height: 230px;
+    padding: 22px;
+    border: 1px dashed var(--line-soft);
+    background: #fffdf5;
+    text-align: center;
+  }
+
+  .presearch[hidden],
+  .floating-register[hidden],
+  .result-head[hidden],
+  .result-list[hidden] {
+    display: none;
+  }
+
+  .presearch-title {
+    font-weight: 800;
+  }
+
+  .presearch-copy {
+    max-width: 420px;
+    color: var(--ink-mute);
+    font-size: 13px;
+  }
+
+  .floating-register {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+  }
+
+  .result-head,
+  .result-row {
+    display: grid;
+    grid-template-columns: 28px 150px 118px 118px 62px 82px 150px;
+    gap: 5px;
+    align-items: start;
+    min-width: 760px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .result-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 7px 8px;
+    background: #efe6c2;
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+  }
+
+  .result-row {
+    min-height: 36px;
+    padding: 8px 8px;
+    cursor: pointer;
+  }
+
+  .result-row:hover,
+  .result-row:focus,
+  .result-row.selected {
+    outline: 1px dashed var(--note);
+    outline-offset: -2px;
+    background: var(--note-bg);
+  }
+
+  .select-marker {
+    align-self: start;
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .result-row.selected .select-marker {
+    background: var(--ok);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  .result-main,
+  .result-pen,
+  .preview-value {
+    display: block;
+    overflow: hidden;
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .preview-card {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .preview-title,
+  .register-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .side-guide {
+    display: grid;
+    gap: 8px;
+    padding: 8px;
+    border: 1px dashed var(--line-soft);
+    background: #fffdf5;
+  }
+
+  .preview-list {
+    display: grid;
+    gap: 5px;
+  }
+
+  .preview-item {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 6px;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dotted var(--line-soft);
+  }
+
+  .preview-label,
+  .mini-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .register-card {
+    display: grid;
+    gap: 7px;
+    padding: 7px;
+    border: 1px dashed var(--line-soft);
+    background: #fffdf5;
+  }
+
+  .register-body {
+    display: grid;
+    gap: 7px;
+  }
+
+  .mini-grid {
+    display: grid;
+    gap: 6px;
+  }
+
+  .mini-field {
+    display: grid;
+    gap: 2px;
+  }
+
+  .grid-two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .note-card,
+  .motion-card {
+    padding: 9px;
+  }
+
+  .review-table {
+    width: 100%;
+    margin-top: 8px;
+    border-collapse: collapse;
+    background: #fffefb;
+  }
+
+  .review-table th,
+  .review-table td {
+    padding: 6px 7px;
+    border: 1px solid var(--line-soft);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .motion-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .motion-card .driver-row {
+    min-width: 0;
+    grid-template-columns: 58px minmax(0, 1fr) 126px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 860px) {
+    body {
+      padding: 12px 8px 60px;
+    }
+
+    .sheet {
+      width: calc(100vw - 16px);
+      padding: 12px;
+    }
+
+    .lookup-layout,
+    .grid-two,
+    .motion-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="mast">
+    <div>
+      <h1>차주 정보 섹션 와이어프레임</h1>
+      <div class="subtitle">화주 정보 섹션과 동일한 디자인/기능 패턴 적용안</div>
+      <div class="chips" aria-label="설계 기준">
+        <span class="chip on">값 있음 요약 row</span>
+        <span class="chip on">차주/차량 통합 조회</span>
+        <span class="chip">inline edit</span>
+        <span class="chip wait">차주 등록</span>
+      </div>
+    </div>
+    <div class="scrid">SCR-DI-001 / SCR-DI-002 / SCR-DI-003</div>
+  </header>
+
+  <nav class="state-tabs" aria-label="차주 정보 상태 보기">
+    <button class="state-tab on" type="button" data-state-tab="summary" aria-pressed="true">적용 후 row</button>
+    <button class="state-tab" type="button" data-state-tab="empty" aria-pressed="false">입력 전/조회</button>
+    <button class="state-tab" type="button" data-state-tab="rules" aria-pressed="false">수정 기준</button>
+    <button class="state-tab" type="button" data-state-tab="motion" aria-pressed="false">변경 애니메이션</button>
+  </nav>
+
+  <section class="section state-panel" aria-labelledby="driver-data-title" data-state-panel="summary">
+    <div class="section-title" id="driver-data-title"><span class="num">4</span>차주 정보</div>
+    <div class="section-note">값 있음 - 한 줄 요약 row</div>
+    <div class="driver-panel">
+      <div class="driver-card" aria-label="차주 정보 값 있음 요약">
+        <div class="driver-row" data-driver-row>
+          <span class="kind">차주</span>
+          <div class="cell" data-driver-cell="name">
+            <div class="cell-label">차주명</div>
+            <div class="cell-value" data-driver-value="name">임동진</div>
+          </div>
+          <div class="cell" data-driver-cell="vehicle">
+            <div class="cell-label">차량번호</div>
+            <div class="cell-value" data-driver-value="vehicle">경기92바7283</div>
+          </div>
+          <div class="cell" data-driver-cell="phone">
+            <div class="cell-label">차주 연락처</div>
+            <div class="cell-value applied-editable" data-driver-value="phone" data-driver-inline-edit="phone" tabindex="0">010-5241-1461</div>
+          </div>
+          <div class="cell" data-driver-cell="tonnage">
+            <div class="cell-label">톤수</div>
+            <div class="cell-value applied-editable" data-driver-value="tonnage" data-driver-inline-edit="tonnage" tabindex="0">5톤</div>
+          </div>
+          <div class="cell" data-driver-cell="truckType">
+            <div class="cell-label">차종</div>
+            <div class="cell-value applied-editable" data-driver-value="truckType" data-driver-inline-edit="truckType" tabindex="0">축차</div>
+          </div>
+          <button class="row-action" type="button" data-change-driver>차주/차량 변경</button>
+        </div>
+      </div>
+      <div class="meta-row" aria-label="차주 정보 보조 상태">
+        <span class="badge on">배차 확인</span>
+        <span class="badge">연락 가능</span>
+        <span class="badge warn">차량번호 검증 대기</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" aria-labelledby="driver-empty-title" data-state-panel="empty" hidden>
+    <div class="section-title" id="driver-empty-title"><span class="num">4</span>차주 정보</div>
+    <div class="section-note">값 없음 - CTA 흡수 전환</div>
+    <div class="driver-card activation-demo" data-activation-demo>
+      <div class="empty-row">
+        <span class="kind" data-activation-target>차주</span>
+        <span class="empty-line" aria-hidden="true"></span>
+        <button class="activation-button" type="button" data-activation-button>차주 정보 입력</button>
+      </div>
+      <div class="activated-card">
+        <div class="driver-row">
+          <span class="kind">차주</span>
+          <div class="cell">
+            <div class="cell-label">차주명</div>
+            <div class="cell-value" data-applied-field="name">차주명 입력</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">차량번호</div>
+            <div class="cell-value" data-applied-field="vehicle">차량번호 입력</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">차주 연락처</div>
+            <div class="cell-value applied-editable" data-applied-field="phone" data-driver-inline-edit="phone" tabindex="0">010-0000-0000</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">톤수</div>
+            <div class="cell-value applied-editable" data-applied-field="tonnage" data-driver-inline-edit="tonnage" tabindex="0">톤수 선택</div>
+          </div>
+          <div class="cell">
+            <div class="cell-label">차종</div>
+            <div class="cell-value applied-editable" data-applied-field="truckType" data-driver-inline-edit="truckType" tabindex="0">차종 선택</div>
+          </div>
+          <button class="row-action" type="button" data-change-driver data-apply-state>조회중</button>
+        </div>
+      </div>
+    </div>
+    <div class="reset-line">
+      <button class="ghost-button" type="button" data-activation-reset>전환 초기화</button>
+    </div>
+  </section>
+
+  <div class="dialog-backdrop" data-driver-dialog hidden>
+    <section class="lookup-dialog" role="dialog" aria-modal="true" aria-labelledby="driver-dialog-title">
+      <div class="dialog-head">
+        <div>
+          <h2 class="dialog-title" id="driver-dialog-title">차주/차량 통합 조회</h2>
+          <div class="dialog-status">행을 선택한 뒤 차주 정보에 적용하세요. 연락처는 입력, 톤수와 차종은 선택으로 변경합니다.</div>
+        </div>
+        <button class="plain-button" type="button" data-dialog-close>닫기</button>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-mode-strip">
+          <span class="badge">내부 DB</span>
+          <span class="dialog-status" data-driver-dialog-status>검색 전에는 결과 목록을 숨기고, 조회 후 차주를 선택하거나 신규 차주를 등록합니다.</span>
+          <button class="plain-button" type="button" data-driver-internal-reveal>내부 DB 조회</button>
+        </div>
+        <div class="lookup-search">
+          <input class="lookup-input" placeholder="차주명, 차량번호, 연락처, 톤수, 차종 검색" aria-label="차주 차량 통합 검색" data-driver-search-input />
+          <button class="primary-button" type="button" data-driver-search>조회</button>
+          <button class="plain-button" type="button" data-driver-search-reset>검색 초기화</button>
+        </div>
+        <div class="filter-row" aria-label="검색 기준">
+          <span class="badge on">통합검색</span>
+          <span class="badge">차주명</span>
+          <span class="badge">차량번호</span>
+          <span class="badge">연락처</span>
+          <span class="badge">톤수</span>
+          <span class="badge">차종</span>
+        </div>
+
+        <div class="lookup-layout">
+          <div class="result-card" aria-label="차주 차량 조회 결과">
+            <div class="presearch" data-driver-presearch>
+              <div class="presearch-title">차주를 먼저 조회하세요</div>
+              <div class="presearch-copy">검색 전에는 결과 목록을 표시하지 않습니다. 등록되지 않은 차주라면 바로 새 차주를 등록할 수 있습니다.</div>
+              <button class="primary-button" type="button" data-driver-register-open>차주 등록</button>
+            </div>
+            <button class="plain-button floating-register" type="button" data-driver-register-open data-driver-floating-register hidden>차주 등록</button>
+            <div class="result-head" data-driver-result-head hidden>
+              <span>선택</span>
+              <span>차주명</span>
+              <span>차량번호</span>
+              <span>연락처</span>
+              <span>톤수</span>
+              <span>차종</span>
+              <span>최근 운행</span>
+            </div>
+            <div class="result-list" data-driver-result-list hidden>
+              <div class="result-row" role="button" tabindex="0" data-driver-result-row data-name="임동진" data-tonnage="5톤" data-truck-type="축차" data-vehicle="경기92바7283" data-phone="010-5241-1461" data-history="완료 12건">
+                <span class="select-marker" aria-hidden="true"></span>
+                <span class="result-main">임동진</span>
+                <span class="result-pen">경기92바7283</span>
+                <span class="result-pen">010-5241-1461</span>
+                <span class="result-pen">5톤</span>
+                <span class="result-pen">축차</span>
+                <span class="result-pen">완료 12건</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-driver-result-row data-name="박운송" data-tonnage="17톤" data-truck-type="플러스윙" data-vehicle="경기80바7964" data-phone="010-8319-7061" data-history="최근 배차 가능">
+                <span class="select-marker" aria-hidden="true"></span>
+                <span class="result-main">박운송</span>
+                <span class="result-pen">경기80바7964</span>
+                <span class="result-pen">010-8319-7061</span>
+                <span class="result-pen">17톤</span>
+                <span class="result-pen">플러스윙</span>
+                <span class="result-pen">최근 배차 가능</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-driver-result-row data-name="오태한" data-tonnage="3.5톤" data-truck-type="윙바디" data-vehicle="서울84사7069" data-phone="010-4159-4636" data-history="익일 가능">
+                <span class="select-marker" aria-hidden="true"></span>
+                <span class="result-main">오태한</span>
+                <span class="result-pen">서울84사7069</span>
+                <span class="result-pen">010-4159-4636</span>
+                <span class="result-pen">3.5톤</span>
+                <span class="result-pen">윙바디</span>
+                <span class="result-pen">익일 가능</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-driver-result-row data-name="김상차" data-tonnage="1톤" data-truck-type="카고" data-vehicle="경기70아2263" data-phone="010-3372-0042" data-history="상차지 근처">
+                <span class="select-marker" aria-hidden="true"></span>
+                <span class="result-main">김상차</span>
+                <span class="result-pen">경기70아2263</span>
+                <span class="result-pen">010-3372-0042</span>
+                <span class="result-pen">1톤</span>
+                <span class="result-pen">카고</span>
+                <span class="result-pen">상차지 근처</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="preview-card" aria-label="차주 선택 및 등록 패널">
+            <div class="side-guide" data-dialog-guide>
+              <strong>차주 선택 또는 등록</strong>
+              <div class="dialog-status">조회 목록에서 차주를 선택하면 미리보기가 표시됩니다. 신규 차주는 `차주 등록`으로 추가합니다.</div>
+            </div>
+
+            <div class="preview-panel" data-preview-panel hidden>
+              <div class="preview-title">
+                <span>선택 미리보기</span>
+                <span class="badge warn" data-preview-state>미선택</span>
+              </div>
+              <div class="preview-list">
+                <div class="preview-item"><span class="preview-label">차주명</span><span class="preview-value" data-preview-field="name">-</span></div>
+                <div class="preview-item"><span class="preview-label">차량번호</span><span class="preview-value" data-preview-field="vehicle">-</span></div>
+                <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value" data-preview-field="phone">-</span></div>
+                <div class="preview-item"><span class="preview-label">톤수</span><span class="preview-value" data-preview-field="tonnage">-</span></div>
+                <div class="preview-item"><span class="preview-label">차종</span><span class="preview-value" data-preview-field="truckType">-</span></div>
+                <div class="preview-item"><span class="preview-label">최근 운행</span><span class="preview-value" data-preview-field="history">-</span></div>
+              </div>
+            </div>
+
+            <div class="register-card" data-driver-register-panel hidden>
+              <div class="register-title">
+                <span>차주 등록</span>
+                <span class="badge warn">신규</span>
+              </div>
+              <div class="register-body">
+                <div class="dialog-status">신규 차주명과 차량 정보를 함께 등록합니다.</div>
+                <div class="mini-grid">
+                  <label class="mini-field">
+                    <span class="mini-label">차주명</span>
+                    <input class="mini-input" value="신규차주" data-driver-register="name" />
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">차량번호</span>
+                    <input class="mini-input" value="경기00바0000" data-driver-register="vehicle" />
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">차주 연락처</span>
+                    <input class="mini-input" value="010-0000-0000" data-driver-register="phone" />
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">톤수</span>
+                    <select class="mini-select" data-driver-register="tonnage">
+                      <option>1톤</option>
+                      <option>1.4톤</option>
+                      <option>2.5톤</option>
+                      <option>3.5톤</option>
+                      <option selected>5톤</option>
+                      <option>8톤</option>
+                      <option>11톤</option>
+                      <option>17톤</option>
+                      <option>25톤</option>
+                    </select>
+                  </label>
+                  <label class="mini-field">
+                    <span class="mini-label">차종</span>
+                    <select class="mini-select" data-driver-register="truckType">
+                      <option>카고</option>
+                      <option>윙바디</option>
+                      <option selected>축차</option>
+                      <option>탑차</option>
+                      <option>냉동</option>
+                      <option>리프트</option>
+                      <option>플러스윙</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="dialog-actions">
+                  <button class="plain-button" type="button" data-driver-register-cancel>취소</button>
+                  <button class="primary-button" type="button" data-driver-register-save>차주 등록</button>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+      <div class="dialog-foot">
+        <div class="dialog-status">취소 시 입력 전 상태로 돌아갑니다.</div>
+        <div class="dialog-actions">
+          <button class="plain-button" type="button" data-dialog-cancel>취소</button>
+          <button class="primary-button" type="button" data-driver-apply disabled>차주 정보에 적용</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="section state-panel" aria-labelledby="driver-edit-title" data-state-panel="rules" hidden>
+    <div class="section-title" id="driver-edit-title"><span class="num">4</span>차주 정보</div>
+    <div class="section-note">수정 기준 - 연락처는 input, 톤수/차종은 select 전환</div>
+    <div class="grid-two">
+      <div class="note-card">
+        <strong>기본 원칙</strong>
+        값이 있으면 라벨형 요약으로 보여주고, 연락처는 텍스트 입력, 톤수와 차종은 선택 변경으로 현재 오더 기준 보정이 가능합니다.
+      </div>
+      <div class="note-card">
+        <strong>후속 분리</strong>
+        차주명과 차량번호 변경은 `차주/차량 변경`으로 다시 조회해 선택합니다.
+      </div>
+    </div>
+    <table class="review-table" aria-label="차주 정보 필드 상태">
+      <thead>
+        <tr>
+          <th>필드</th>
+          <th>표시</th>
+          <th>수정 방식</th>
+          <th>비고</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>차주명</td><td>row value</td><td>차주/차량 변경</td><td>수행자 식별</td></tr>
+        <tr><td>차량번호</td><td>row value</td><td>차주/차량 변경</td><td>등록 차량 식별값</td></tr>
+        <tr><td>차주 연락처</td><td>inline editable</td><td>같은 위치 input</td><td>현재 오더 기준 임시 수정</td></tr>
+        <tr><td>톤수</td><td>select editable</td><td>같은 위치 select</td><td>현재 오더 기준 스펙 선택</td></tr>
+        <tr><td>차종</td><td>select editable</td><td>같은 위치 select</td><td>현재 오더 기준 스펙 선택</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section state-panel" aria-labelledby="driver-motion-title" data-state-panel="motion" hidden>
+    <div class="section-title" id="driver-motion-title"><span class="num">4</span>차주 정보</div>
+    <div class="section-note">화주 정보 A안과 동일한 변경 애니메이션</div>
+    <div class="motion-grid">
+      <div class="motion-card">
+        <strong>A안 - 버튼 흡수</strong>
+        <p>버튼이 차주 row 방향으로 흡수된 뒤 조회 다이얼로그가 열립니다.</p>
+        <div class="driver-card">
+          <div class="driver-row">
+            <span class="kind">차주</span>
+            <div class="cell">
+              <div class="cell-label">차주명</div>
+              <div class="cell-value">임동진</div>
+            </div>
+            <button class="row-action" type="button" data-change-driver>차주/차량 변경</button>
+          </div>
+        </div>
+      </div>
+      <div class="motion-card">
+        <strong>적용 기준</strong>
+        <p>화주 정보와 같은 경험을 유지하기 위해 A안을 기본값으로 고정합니다.</p>
+        <span class="badge on">적용 예정</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+  const sampleDrivers = [
+    { name: "임동진", vehicle: "경기92바7283", phone: "010-5241-1461", tonnage: "5톤", truckType: "축차", history: "완료 12건" },
+    { name: "박운송", vehicle: "경기80바7964", phone: "010-8319-7061", tonnage: "17톤", truckType: "플러스윙", history: "최근 배차 가능" },
+    { name: "오태한", vehicle: "서울84사7069", phone: "010-4159-4636", tonnage: "3.5톤", truckType: "윙바디", history: "익일 가능" },
+    { name: "김상차", vehicle: "경기70아2263", phone: "010-3372-0042", tonnage: "1톤", truckType: "카고", history: "상차지 근처" }
+  ];
+
+  const selectOptionMap = {
+    tonnage: ["1톤", "1.4톤", "2.5톤", "3.5톤", "5톤", "8톤", "11톤", "17톤", "25톤"],
+    truckType: ["카고", "윙바디", "축차", "탑차", "냉동", "리프트", "플러스윙"]
+  };
+
+  let selectedDriver = null;
+
+  const dialog = document.querySelector("[data-driver-dialog]");
+  const applyButton = document.querySelector("[data-driver-apply]");
+  const previewState = document.querySelector("[data-preview-state]");
+  const dialogGuide = document.querySelector("[data-dialog-guide]");
+  const previewPanel = document.querySelector("[data-preview-panel]");
+  const registerPanel = document.querySelector("[data-driver-register-panel]");
+  const resultList = document.querySelector("[data-driver-result-list]");
+  const resultHead = document.querySelector("[data-driver-result-head]");
+  const presearch = document.querySelector("[data-driver-presearch]");
+  const floatingRegister = document.querySelector("[data-driver-floating-register]");
+  const dialogStatus = document.querySelector("[data-driver-dialog-status]");
+  const searchInput = document.querySelector("[data-driver-search-input]");
+
+  const setPanel = (target) => {
+    document.querySelectorAll("[data-state-tab]").forEach((tab) => {
+      const isActive = tab.dataset.stateTab === target;
+      tab.classList.toggle("on", isActive);
+      tab.setAttribute("aria-pressed", String(isActive));
+    });
+
+    document.querySelectorAll("[data-state-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.statePanel !== target;
+    });
+  };
+
+  const snapDialogPanel = () => {
+    const panel = dialog?.querySelector(".lookup-dialog");
+    if (!panel) return;
+    const left = Math.max(20, Math.round((window.innerWidth - panel.offsetWidth) / 2));
+    const top = Math.max(20, Math.round((window.innerHeight - panel.offsetHeight) / 2));
+    panel.style.left = `${left}px`;
+    panel.style.top = `${top}px`;
+  };
+
+  const openDialog = () => {
+    dialog.hidden = false;
+    resetDialogLookup();
+    snapDialogPanel();
+  };
+
+  const closeDialog = () => {
+    dialog.hidden = true;
+  };
+
+  const setSideMode = (mode) => {
+    dialogGuide.hidden = mode !== "guide";
+    previewPanel.hidden = mode !== "preview";
+    registerPanel.hidden = mode !== "register";
+    if (floatingRegister) floatingRegister.hidden = mode === "register" || resultList.hidden;
+  };
+
+  const setLookupResultsVisible = (visible) => {
+    resultHead.hidden = !visible;
+    resultList.hidden = !visible;
+    presearch.hidden = visible;
+    if (floatingRegister) floatingRegister.hidden = !visible || !registerPanel.hidden;
+    if (dialogStatus) {
+      dialogStatus.textContent = visible
+        ? "내부 DB 차주 목록을 보기용으로 펼친 상태입니다. 적용할 차주 행을 선택하세요."
+        : "검색 전에는 결과 목록을 숨기고, 조회 후 차주를 선택하거나 신규 차주를 등록합니다.";
+    }
+    snapDialogPanel();
+  };
+
+  const resetDialogLookup = () => {
+    resetPreview();
+    setSideMode("guide");
+    setLookupResultsVisible(false);
+    if (searchInput) searchInput.value = "";
+  };
+
+  const resetPreview = () => {
+    selectedDriver = null;
+    document.querySelectorAll("[data-driver-result-row]").forEach((row) => row.classList.remove("selected"));
+    document.querySelectorAll("[data-preview-field]").forEach((field) => {
+      field.textContent = "-";
+    });
+    previewState.textContent = "미선택";
+    previewState.classList.add("warn");
+    previewState.classList.remove("on");
+    applyButton.disabled = true;
+  };
+
+  const setPreview = (driver) => {
+    selectedDriver = driver;
+    document.querySelectorAll("[data-preview-field]").forEach((field) => {
+      field.textContent = driver[field.dataset.previewField] ?? "-";
+    });
+    previewState.textContent = "선택됨";
+    previewState.classList.remove("warn");
+    previewState.classList.add("on");
+    applyButton.disabled = false;
+    setSideMode("preview");
+  };
+
+  const applyDriver = () => {
+    if (!selectedDriver) return;
+    document.querySelectorAll("[data-driver-value]").forEach((field) => {
+      const key = field.dataset.driverValue;
+      field.textContent = selectedDriver[key] ?? field.textContent;
+      field.classList.remove("placeholder");
+    });
+    closeDialog();
+    setPanel("summary");
+  };
+
+  const startInlineEdit = (valueEl) => {
+    if (valueEl.querySelector("input, select")) return;
+    const current = valueEl.textContent.trim();
+    const editType = valueEl.dataset.driverInlineEdit;
+    valueEl.textContent = "";
+
+    if (selectOptionMap[editType]) {
+      const select = document.createElement("select");
+      select.className = "mini-select";
+      select.setAttribute("aria-label", `${valueEl.previousElementSibling?.textContent ?? "차주 정보"} 선택 변경`);
+      selectOptionMap[editType].forEach((optionValue) => {
+        const option = document.createElement("option");
+        option.value = optionValue;
+        option.textContent = optionValue;
+        option.selected = optionValue === current;
+        select.append(option);
+      });
+      valueEl.append(select);
+      select.focus();
+
+      const finishSelect = () => {
+        valueEl.textContent = select.value || current;
+      };
+
+      select.addEventListener("blur", finishSelect, { once: true });
+      select.addEventListener("change", () => select.blur());
+      select.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          valueEl.textContent = current;
+        }
+      });
+      return;
+    }
+
+    const input = document.createElement("input");
+    input.className = "mini-input";
+    input.value = current;
+    input.setAttribute("aria-label", "차주 정보 임시 수정");
+    valueEl.append(input);
+    input.focus();
+    input.select();
+
+    const finishInput = () => {
+      valueEl.textContent = input.value.trim() || current;
+    };
+
+    input.addEventListener("blur", finishInput, { once: true });
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        input.blur();
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        valueEl.textContent = current;
+      }
+    });
+  };
+
+  document.querySelectorAll("[data-state-tab]").forEach((tab) => {
+    tab.addEventListener("click", () => setPanel(tab.dataset.stateTab));
+  });
+
+  document.querySelector("[data-activation-button]")?.addEventListener("click", (event) => {
+    const demo = event.currentTarget.closest("[data-activation-demo]");
+    demo.classList.add("activating");
+    window.setTimeout(() => {
+      demo.classList.remove("activating");
+      demo.classList.add("activated");
+      openDialog();
+    }, 430);
+  });
+
+  document.querySelector("[data-activation-reset]")?.addEventListener("click", () => {
+    const demo = document.querySelector("[data-activation-demo]");
+    demo.classList.remove("activating", "activated");
+  });
+
+  document.querySelectorAll("[data-change-driver]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const row = button.closest(".driver-row");
+      row?.classList.add("change-absorbing");
+      window.setTimeout(() => {
+        row?.classList.remove("change-absorbing");
+        openDialog();
+      }, 420);
+    });
+  });
+
+  const getDriverFromRow = (row) => ({
+    name: row.dataset.name,
+    vehicle: row.dataset.vehicle,
+    phone: row.dataset.phone,
+    tonnage: row.dataset.tonnage,
+    truckType: row.dataset.truckType,
+    history: row.dataset.history
+  });
+
+  const selectResultRow = (row) => {
+    document.querySelectorAll("[data-driver-result-row]").forEach((item) => item.classList.toggle("selected", item === row));
+    setPreview(getDriverFromRow(row));
+  };
+
+  const bindResultRow = (row) => {
+    row.addEventListener("click", () => {
+      selectResultRow(row);
+    });
+
+    row.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      row.click();
+    });
+  };
+
+  const createResultRow = (driver) => {
+    const row = document.createElement("div");
+    row.className = "result-row";
+    row.setAttribute("role", "button");
+    row.tabIndex = 0;
+    row.setAttribute("data-driver-result-row", "");
+    row.dataset.name = driver.name;
+    row.dataset.vehicle = driver.vehicle;
+    row.dataset.phone = driver.phone;
+    row.dataset.tonnage = driver.tonnage;
+    row.dataset.truckType = driver.truckType;
+    row.dataset.history = driver.history;
+
+    const marker = document.createElement("span");
+    marker.className = "select-marker";
+    marker.setAttribute("aria-hidden", "true");
+    row.append(marker);
+
+    [
+      ["result-main", driver.name],
+      ["result-pen", driver.vehicle],
+      ["result-pen", driver.phone],
+      ["result-pen", driver.tonnage],
+      ["result-pen", driver.truckType],
+      ["result-pen", driver.history]
+    ].forEach(([className, value]) => {
+      const span = document.createElement("span");
+      span.className = className;
+      span.textContent = value;
+      row.append(span);
+    });
+
+    bindResultRow(row);
+    return row;
+  };
+
+  document.querySelectorAll("[data-driver-result-row]").forEach(bindResultRow);
+
+  document.querySelectorAll("[data-dialog-close], [data-dialog-cancel]").forEach((button) => {
+    button.addEventListener("click", closeDialog);
+  });
+
+  applyButton.addEventListener("click", applyDriver);
+
+  document.querySelector("[data-driver-internal-reveal]")?.addEventListener("click", () => {
+    resetPreview();
+    setSideMode("guide");
+    setLookupResultsVisible(true);
+  });
+
+  document.querySelector("[data-driver-search]")?.addEventListener("click", () => {
+    resetPreview();
+    setSideMode("guide");
+    setLookupResultsVisible(true);
+    if (dialogStatus) dialogStatus.textContent = "조회 결과가 표시되었습니다. 적용할 차주 행을 선택하세요.";
+  });
+
+  document.querySelector("[data-driver-search-reset]")?.addEventListener("click", resetDialogLookup);
+
+  document.querySelectorAll("[data-driver-register-open]").forEach((button) => {
+    button.addEventListener("click", () => {
+      resetPreview();
+      setSideMode("register");
+    });
+  });
+
+  document.querySelector("[data-driver-register-cancel]")?.addEventListener("click", () => {
+    resetPreview();
+    setSideMode("guide");
+  });
+
+  document.querySelector("[data-driver-register-save]")?.addEventListener("click", () => {
+    const getRegisterValue = (key, fallback) => document.querySelector(`[data-driver-register='${key}']`).value.trim() || fallback;
+    const registeredDriver = {
+      name: getRegisterValue("name", "신규차주"),
+      vehicle: getRegisterValue("vehicle", "경기00바0000"),
+      phone: getRegisterValue("phone", "010-0000-0000"),
+      tonnage: getRegisterValue("tonnage", "5톤"),
+      truckType: getRegisterValue("truckType", "축차"),
+      history: "신규 등록"
+    };
+    const newRow = createResultRow(registeredDriver);
+    setLookupResultsVisible(true);
+    resultList.prepend(newRow);
+    selectResultRow(newRow);
+  });
+
+  document.querySelectorAll("[data-driver-inline-edit]").forEach((valueEl) => {
+    valueEl.addEventListener("click", () => startInlineEdit(valueEl));
+    valueEl.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter") return;
+      event.preventDefault();
+      startInlineEdit(valueEl);
+    });
+  });
+
+  window.addEventListener("resize", () => {
+    if (!dialog.hidden) snapDialogPanel();
+  });
+</script>
+</body>
+</html>

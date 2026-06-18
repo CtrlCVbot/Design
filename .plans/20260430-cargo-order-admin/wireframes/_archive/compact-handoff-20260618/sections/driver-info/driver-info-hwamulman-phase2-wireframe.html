@@ -1,0 +1,2761 @@
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>차주 정보 화물맨 Phase 2 와이어프레임</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #858b93;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+    --warn: #a45f00;
+    --warn-bg: #fff1cf;
+    --danger: #b42318;
+    --danger-bg: #ffe4df;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  .sheet {
+    width: min(1220px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 24px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, .08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    line-height: 1;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    color: var(--ink-mute);
+    font-size: 14px;
+  }
+
+  .chips,
+  .meta-row,
+  .filter-row,
+  .dialog-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .chip,
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 8px;
+    border: 1.1px solid var(--line);
+    border-radius: 999px;
+    background: #fffefb;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .chip.wait,
+  .badge.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .badge.danger {
+    border-color: var(--danger);
+    background: var(--danger-bg);
+    color: var(--danger);
+  }
+
+  .scrid {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 16px;
+    color: var(--ink-mute);
+  }
+
+  .state-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 16px;
+    padding: 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper-2);
+  }
+
+  .state-tab,
+  .row-action,
+  .plain-button,
+  .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 2px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .state-tab.on,
+  .primary-button {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .primary-button:disabled,
+  .plain-button:disabled {
+    border-color: var(--line-soft);
+    background: #f1f1ee;
+    color: var(--ink-mute);
+    cursor: not-allowed;
+  }
+
+  .section {
+    margin-top: 14px;
+    padding-top: 10px;
+    border-top: 1.5px solid var(--line);
+  }
+
+  .section-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 27px;
+    font-weight: 700;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .compare-grid,
+  .workflow-grid,
+  .lookup-layout,
+  .status-grid {
+    display: grid;
+    gap: 10px;
+  }
+
+  .compare-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .workflow-grid,
+  .status-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lookup-layout {
+    grid-template-columns: minmax(0, 1fr) 310px;
+  }
+
+  .driver-card,
+  .panel-card,
+  .result-card,
+  .preview-card,
+  .status-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .driver-card {
+    overflow-x: auto;
+  }
+
+  .driver-row {
+    display: grid;
+    grid-template-columns: 58px minmax(120px, .9fr) 150px 150px 76px 94px 132px;
+    gap: 7px;
+    align-items: center;
+    min-width: 960px;
+    padding: 5px 8px;
+  }
+
+  .driver-row[data-placement-driver-row] {
+    transition: background 180ms ease, border-color 180ms ease;
+  }
+
+  .driver-row[data-placement-driver-row].is-empty,
+  .driver-row[data-placement-driver-row].is-linking,
+  .driver-row[data-placement-driver-row].is-dispatched,
+  .driver-row[data-placement-driver-row].is-cancel-failed {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .driver-row[data-placement-driver-row].is-applied {
+    grid-template-columns: 58px minmax(120px, .9fr) 150px 150px 76px 94px 94px 132px;
+  }
+
+  .driver-row[data-placement-driver-row].is-applied.has-linked-cancel {
+    grid-template-columns: 58px minmax(120px, .9fr) 150px 150px 76px 94px 94px 118px 92px;
+  }
+
+  .driver-row.flow-empty,
+  .driver-row.flow-linking,
+  .driver-row.flow-dispatched {
+    grid-template-columns: 58px minmax(0, 1fr);
+  }
+
+  .driver-row.flow-applied {
+    grid-template-columns: 58px minmax(120px, .9fr) 150px 150px 76px 94px 94px 132px;
+  }
+
+  .placement-empty-line {
+    display: grid;
+    grid-template-columns: auto minmax(120px, 1fr) auto;
+    gap: 8px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .placement-empty-line.is-status,
+  .placement-empty-line.is-dispatched {
+    grid-template-columns: minmax(120px, 1fr) auto auto auto;
+  }
+
+  .placement-empty-line.is-cancel-failed {
+    grid-template-columns: minmax(160px, 1fr) auto auto;
+  }
+
+  .placement-spacer {
+    position: relative;
+    min-width: 0;
+    min-height: 18px;
+    border-bottom: 1px dashed var(--line-soft);
+  }
+
+  .placement-spacer[data-placeholder]::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .placement-status {
+    justify-self: end;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .placement-alert {
+    justify-self: end;
+    padding: 3px 7px;
+    border: 1px solid var(--danger);
+    border-radius: 3px;
+    background: var(--danger-bg);
+    color: var(--danger);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .placement-left-action {
+    animation: slideFromLabel 380ms ease both;
+  }
+
+  .placement-right-action {
+    animation: slideFromRight 380ms ease both;
+  }
+
+  .placement-hm-status {
+    animation: statusSettle 360ms ease both;
+  }
+
+  @keyframes slideFromLabel {
+    0% {
+      opacity: .25;
+      transform: translateX(-16px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideFromRight {
+    0% {
+      opacity: .25;
+      transform: translateX(18px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes statusSettle {
+    0% {
+      opacity: .2;
+      transform: translateX(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .driver-row.change-absorbing {
+    animation: motionSoftHighlight 620ms ease forwards;
+  }
+
+  .driver-row.change-absorbing .row-action {
+    animation: absorbToLabel 420ms ease-in forwards;
+  }
+
+  .driver-row.is-applied {
+    background: #f7fbff;
+  }
+
+  .cell-value.placeholder {
+    color: var(--ink-mute);
+  }
+
+  @keyframes absorbToLabel {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+    70% {
+      opacity: .18;
+      transform: translateX(-18px) scale(.94);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes motionSoftHighlight {
+    0% {
+      background: #fffefb;
+    }
+    45% {
+      background: var(--note-bg);
+    }
+    100% {
+      background: #fffefb;
+    }
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .cell {
+    min-width: 0;
+    padding: 3px 4px;
+  }
+
+  .cell-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .cell-value,
+  .result-pen,
+  .preview-value {
+    display: block;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 20px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  [data-placement-driver-row] .cell-value,
+  .flow-applied .cell-value {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: keep-all;
+    line-height: 1.15;
+  }
+
+  .panel-card,
+  .status-card {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .status-card {
+    min-height: 116px;
+  }
+
+  .status-card strong {
+    font-size: 15px;
+  }
+
+  .status-card p,
+  .panel-card p {
+    margin: 0;
+    color: var(--ink-soft);
+  }
+
+  .status-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    margin-top: 8px;
+    padding: 6px 8px;
+    border: 1px dashed var(--line-soft);
+    border-radius: 4px;
+    background: #fffdf5;
+  }
+
+  .flow-summary {
+    margin-top: 12px;
+  }
+
+  .flow-dialog {
+    position: fixed;
+    width: min(1080px, calc(100vw - 32px));
+    max-height: min(88vh, 760px);
+    margin: 0;
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 8px 10px 0 rgba(0, 0, 0, .16);
+  }
+
+  .flow-dialog::backdrop {
+    background: rgba(31, 35, 40, .38);
+  }
+
+  .flow-confirm-dialog {
+    width: min(420px, calc(100vw - 32px));
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 8px 10px 0 rgba(0, 0, 0, .12);
+  }
+
+  .flow-confirm-dialog::backdrop {
+    background: rgba(31, 35, 40, .28);
+  }
+
+  .confirm-body {
+    display: grid;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .dialog-helper {
+    margin-top: 4px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .dialog-shell {
+    display: grid;
+    gap: 10px;
+    padding: 12px;
+    line-height: 20px;
+  }
+
+  .dialog-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .flow-dialog .dialog-head h2 {
+    line-height: 32px;
+  }
+
+  .flow-dialog .dialog-head .subtitle,
+  .flow-dialog .status-strip,
+  .flow-dialog .badge,
+  .flow-dialog .plain-button,
+  .flow-dialog .primary-button {
+    line-height: 16px;
+  }
+
+  .dialog-body {
+    overflow: auto;
+    max-height: calc(88vh - 120px);
+  }
+
+  .dialog-close {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    padding: 0;
+    border-radius: 50%;
+    font-size: 18px;
+  }
+
+  .dialog-mode-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .full-flow-board {
+    margin-top: 14px;
+  }
+
+  .full-flow-stack {
+    display: grid;
+    gap: 10px;
+  }
+
+  .flow-stage {
+    display: grid;
+    gap: 8px;
+    padding: 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .flow-stage.is-waiting {
+    border-color: var(--note);
+    background: #fffdf5;
+  }
+
+  .flow-stage.is-done {
+    border-color: var(--ok);
+    background: #f7fbff;
+  }
+
+  .flow-stage-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .flow-stage-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .flow-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #efe6c2;
+    font-family: "Caveat", "Gaegu", cursive;
+    font-weight: 700;
+  }
+
+  .flow-arrow {
+    justify-self: center;
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .flow-case-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .flow-mini-dialog {
+    display: grid;
+    gap: 8px;
+    padding: 8px;
+    border: 1px dashed var(--line-soft);
+    border-radius: 4px;
+    background: var(--paper);
+  }
+
+  .flow-mini-dialog .lookup-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .flow-mini-dialog .result-head,
+  .flow-mini-dialog .result-row {
+    min-width: 760px;
+    grid-template-columns: 28px minmax(86px, .9fr) 112px 116px 58px 76px minmax(104px, 1fr);
+  }
+
+  .cta-option-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .cta-option {
+    display: grid;
+    gap: 6px;
+    padding: 8px;
+    border: 1px dashed var(--line-soft);
+    border-radius: 4px;
+    background: #fffdf5;
+  }
+
+  .cta-option.is-picked {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+  }
+
+  .live-board {
+    margin-top: 14px;
+  }
+
+  .live-table {
+    display: grid;
+    gap: 8px;
+  }
+
+  .live-row {
+    display: grid;
+    grid-template-columns: 64px minmax(96px, .85fr) minmax(118px, 1fr) minmax(200px, 1.35fr) minmax(184px, 1.15fr) minmax(118px, .8fr);
+    gap: 6px;
+    align-items: stretch;
+    padding: 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .live-row.is-active {
+    border-color: var(--note);
+    background: #fffdf5;
+  }
+
+  .live-row.is-applied {
+    border-color: var(--ok);
+    background: #f7fbff;
+  }
+
+  .live-cell {
+    display: grid;
+    align-content: start;
+    gap: 3px;
+    min-width: 0;
+    padding: 4px 5px;
+    border-right: 1px dotted var(--line-soft);
+  }
+
+  .live-cell:last-child {
+    border-right: 0;
+  }
+
+  .live-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .live-value {
+    min-width: 0;
+    overflow: hidden;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .live-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-content: start;
+    align-items: center;
+  }
+
+  .live-actions .plain-button,
+  .live-actions .primary-button {
+    min-width: 0;
+    padding: 2px 6px;
+    white-space: normal;
+    line-height: 1.15;
+  }
+
+  .lookup-search {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto auto;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .lookup-input,
+  .mini-input,
+  .mini-select {
+    min-height: 30px;
+    padding: 4px 8px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+  }
+
+  .result-card {
+    position: relative;
+    overflow: auto;
+  }
+
+  .presearch {
+    display: grid;
+    place-items: center;
+    gap: 8px;
+    min-height: 230px;
+    padding: 22px;
+    border: 1px dashed var(--line-soft);
+    background: #fffdf5;
+    text-align: center;
+  }
+
+  .presearch[hidden],
+  .floating-register[hidden],
+  .result-head[hidden],
+  [data-dialog-db-result-list][hidden] {
+    display: none;
+  }
+
+  .presearch-title {
+    font-weight: 800;
+  }
+
+  .presearch-copy {
+    max-width: 440px;
+    color: var(--ink-mute);
+    font-size: 13px;
+  }
+
+  .floating-register {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 2;
+  }
+
+  .result-head,
+  .result-row {
+    display: grid;
+    grid-template-columns: 28px 150px 118px 118px 62px 82px 150px;
+    gap: 5px;
+    align-items: start;
+    min-width: 760px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .result-head {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 7px 8px;
+    background: #efe6c2;
+    color: var(--ink-soft);
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 14px;
+  }
+
+  .result-row {
+    min-height: 36px;
+    padding: 8px 8px;
+    cursor: pointer;
+  }
+
+  .result-row:hover,
+  .result-row:focus,
+  .result-row.selected {
+    outline: 1px dashed var(--note);
+    outline-offset: -2px;
+    background: var(--note-bg);
+  }
+
+  .result-row.external {
+    background: #fff7d6;
+  }
+
+  .result-group-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 6px 8px;
+    border-bottom: 1px solid var(--line-soft);
+    background: #fffdf5;
+    font-weight: 700;
+  }
+
+  .select-marker {
+    align-self: start;
+    width: 12px;
+    height: 12px;
+    margin-top: 4px;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: #fff;
+  }
+
+  .result-row.selected .select-marker {
+    background: var(--ok);
+    box-shadow: inset 0 0 0 3px #fff;
+  }
+
+  .preview-card {
+    display: grid;
+    align-content: start;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .preview-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-weight: 700;
+  }
+
+  .preview-list,
+  .mini-grid {
+    display: grid;
+    gap: 5px;
+  }
+
+  .preview-item {
+    display: grid;
+    grid-template-columns: 78px minmax(0, 1fr);
+    gap: 6px;
+    align-items: center;
+    padding: 4px 0;
+    border-bottom: 1px dotted var(--line-soft);
+  }
+
+  .preview-label,
+  .mini-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .duplicate-box {
+    display: grid;
+    gap: 6px;
+    padding: 8px;
+    border: 1px dashed var(--note);
+    background: var(--note-bg);
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 7px;
+  }
+
+  .step {
+    min-height: 78px;
+    padding: 8px;
+    border: 1.15px solid var(--line-soft);
+    border-radius: 4px;
+    background: #fffefb;
+  }
+
+  .step.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+  }
+
+  .step.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+  }
+
+  .step strong {
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  @media (max-width: 980px) {
+    body {
+      padding: 12px 8px 60px;
+    }
+
+    .sheet {
+      width: calc(100vw - 16px);
+      padding: 12px;
+    }
+
+    .compare-grid,
+    .workflow-grid,
+    .lookup-layout,
+    .flow-case-grid,
+    .live-row,
+    .cta-option-grid,
+    .status-grid,
+    .timeline {
+      grid-template-columns: 1fr;
+    }
+
+    .live-cell {
+      border-right: 0;
+      border-bottom: 1px dotted var(--line-soft);
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet">
+  <header class="mast">
+    <div>
+      <h1>차주 정보 - 화물맨 Phase 2 비교 시안</h1>
+      <div class="subtitle">Phase 1 내부 DB 배차와 Phase 2 화물맨 연동 배차를 같은 톤으로 비교</div>
+      <div class="chips" aria-label="설계 기준">
+        <span class="chip on">Phase 1 유지</span>
+        <span class="chip on">차주/차량 입력 유지</span>
+        <span class="chip wait">화물맨 연동 CTA</span>
+        <span class="chip wait">신규 등록 후 적용</span>
+        <span class="chip">출처 컬럼</span>
+      </div>
+    </div>
+    <div class="scrid">SCR-DI-HM-001 / Phase 2 Draft</div>
+  </header>
+
+  <nav class="state-tabs" aria-label="Phase 2 상태 보기">
+    <button class="state-tab on" type="button" data-state-tab="compare" aria-pressed="true">Phase 비교</button>
+    <button class="state-tab" type="button" data-state-tab="share" aria-pressed="false">연동 전/연동중</button>
+    <button class="state-tab" type="button" data-state-tab="dispatch" aria-pressed="false">배차완료</button>
+    <button class="state-tab" type="button" data-state-tab="lookup" aria-pressed="false">기존 차주 다이얼로그</button>
+    <button class="state-tab" type="button" data-state-tab="save" aria-pressed="false">신규 차주 등록</button>
+    <button class="state-tab" type="button" data-state-tab="duplicate" aria-pressed="false">중복 안내</button>
+  </nav>
+
+  <div class="status-strip flow-summary" data-flow-status>
+    <span class="badge">실제 플로우</span>
+    <span data-flow-status-text>버튼을 눌러 실제 다이얼로그 흐름을 확인하세요.</span>
+    <button class="plain-button" type="button" data-open-lookup>차주/차량 입력</button>
+    <button class="plain-button" type="button" data-dispatch-complete>화물맨 차주 적용</button>
+    <button class="plain-button" type="button" data-open-new-dispatch>신규 차주 등록 흐름</button>
+  </div>
+
+  <div class="status-strip flow-summary" data-applied-summary hidden>
+    <span class="badge on">적용 완료</span>
+    <span class="result-pen" data-applied-name></span>
+    <span data-applied-vehicle></span>
+    <span data-applied-phone></span>
+    <span data-applied-spec></span>
+    <span class="badge warn" data-applied-source></span>
+  </div>
+
+  <section class="section actual-board" data-placement-driver-section>
+    <div class="section-head">
+      <div class="section-title"><span class="num">4</span>차주 정보 실제 배치 컴포넌트</div>
+      <div class="section-note">`driver-info-section-wireframe.html`의 입력 전/조회 row를 기준으로, 실제 배치될 차주 row와 조회 다이얼로그 적용 흐름만 구현</div>
+    </div>
+
+    <div class="driver-panel">
+      <div class="driver-card" aria-label="실제 배치형 차주 정보 row">
+        <div class="driver-row" data-placement-driver-row>
+          <span class="kind">차주</span>
+          <div class="placement-empty-line" data-placement-empty-line>
+            <button class="row-action placement-left-action" type="button" data-placement-hm-link>화물맨 연동</button>
+            <span class="placement-spacer" data-placeholder="차주를 선택하거나 화물맨에 공유하세요" aria-label="차주 정보 입력 대기"></span>
+            <button class="row-action placement-right-action" type="button" data-placement-change-driver>차주/차량 입력</button>
+          </div>
+          <div class="cell" data-placement-driver-cell="name">
+            <div class="cell-label">차주명</div>
+            <div class="cell-value placeholder" data-placement-driver-value="name">차주명 입력</div>
+          </div>
+          <div class="cell" data-placement-driver-cell="vehicle">
+            <div class="cell-label">차량번호</div>
+            <div class="cell-value placeholder" data-placement-driver-value="vehicle">차량번호 입력</div>
+          </div>
+          <div class="cell" data-placement-driver-cell="phone">
+            <div class="cell-label">차주 연락처</div>
+            <div class="cell-value placeholder" data-placement-driver-value="phone">연락처 입력</div>
+          </div>
+          <div class="cell" data-placement-driver-cell="tonnage">
+            <div class="cell-label">톤수</div>
+            <div class="cell-value placeholder" data-placement-driver-value="tonnage">톤수 선택</div>
+          </div>
+          <div class="cell" data-placement-driver-cell="type">
+            <div class="cell-label">차종</div>
+            <div class="cell-value placeholder" data-placement-driver-value="type">차종 선택</div>
+          </div>
+          <div class="cell" data-placement-driver-cell="source">
+            <div class="cell-label">출처</div>
+            <div class="cell-value placeholder" data-placement-driver-value="source">미적용</div>
+          </div>
+          <button class="row-action placement-right-action" type="button" data-placement-change-driver data-placement-change-applied>차주/차량 변경</button>
+          <button class="row-action" type="button" data-placement-linked-cancel data-placement-hm-cancel hidden>연동 취소</button>
+        </div>
+      </div>
+      <div class="meta-row" aria-label="실제 배치형 차주 정보 상태">
+        <span class="badge" data-placement-driver-status>입력 전</span>
+        <span class="badge" data-placement-driver-source>미적용</span>
+        <span class="badge warn">다이얼로그 조회</span>
+        <span data-placement-driver-result>차주/차량 입력을 눌러 차주를 조회하고 적용합니다.</span>
+        <button class="plain-button" type="button" data-placement-hm-complete hidden>배차완료 수신</button>
+        <button class="plain-button" type="button" data-placement-hm-cancel-fail hidden>취소실패 수신</button>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="flow-confirm-dialog" data-hm-share-confirm aria-labelledby="hm-share-confirm-title">
+    <div class="confirm-body">
+      <div>
+        <h2 class="dialog-title" id="hm-share-confirm-title">화물맨 연동</h2>
+        <div class="dialog-status">화물맨에 화물을 공유하시겠습니까?</div>
+      </div>
+      <div class="dialog-actions">
+        <button class="primary-button" type="button" data-hm-share-yes>YES</button>
+        <button class="plain-button" type="button" data-hm-share-no>NO</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="flow-confirm-dialog" data-hm-cancel-confirm aria-labelledby="hm-cancel-confirm-title">
+    <div class="confirm-body">
+      <div>
+        <h2 class="dialog-title" id="hm-cancel-confirm-title">화물맨 연동 취소</h2>
+        <div class="dialog-status">화물맨 연동을 취소하시겠습니까?</div>
+        <div class="dialog-helper">YES 선택 시 화물맨 API 취소 요청 후 입력 전 상태로 돌아갑니다.</div>
+      </div>
+      <div class="dialog-actions">
+        <button class="primary-button" type="button" data-hm-cancel-yes>YES</button>
+        <button class="plain-button" type="button" data-hm-cancel-no>NO</button>
+      </div>
+    </div>
+  </dialog>
+
+  <section class="section full-flow-board" data-full-flow-board>
+    <div class="section-head">
+      <div class="section-title"><span class="num">0</span>전체 플로우 한번에 보기</div>
+      <div class="section-note">상단 실제 배치 컴포넌트와 같은 row 구조로 연동 전부터 적용 완료까지 연결</div>
+    </div>
+
+    <div class="full-flow-stack">
+      <div class="flow-stage">
+        <div class="flow-stage-head">
+          <div class="flow-stage-title"><span class="flow-num">1</span>연동 전 / 입력 전 row</div>
+          <span class="badge">실제 배치 row 기준</span>
+        </div>
+        <div class="driver-card">
+          <div class="driver-row flow-empty">
+            <span class="kind">차주</span>
+            <div class="placement-empty-line">
+              <button class="row-action placement-left-action" type="button" data-share-start>화물맨 연동</button>
+              <span class="placement-spacer" aria-hidden="true"></span>
+              <button class="row-action placement-right-action" type="button" data-open-lookup>차주/차량 입력</button>
+            </div>
+          </div>
+        </div>
+        <div class="meta-row">
+          <span class="badge">입력 전</span>
+          <span class="badge">내부 DB 조회 가능</span>
+          <span class="badge warn">화물맨 연동 대기</span>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-stage is-waiting">
+        <div class="flow-stage-head">
+          <div class="flow-stage-title"><span class="flow-num">2</span>화물맨 화물 연동중</div>
+          <span class="badge warn">내부 DB 조회 가능</span>
+        </div>
+        <div class="driver-card">
+          <div class="driver-row flow-linking">
+            <span class="kind">차주</span>
+            <div class="placement-empty-line is-status">
+              <span class="placement-spacer" aria-hidden="true"></span>
+              <span class="placement-status placement-hm-status">화물맨 화물 연동중</span>
+              <button class="row-action" type="button">연동 취소</button>
+              <button class="row-action placement-right-action" type="button" data-open-lookup>차주/차량 입력</button>
+            </div>
+          </div>
+        </div>
+        <div class="meta-row">
+          <span class="badge warn">배차 결과 대기</span>
+          <span>연동 중에도 우측 `차주/차량 입력`으로 내부 DB 배차를 병행 검토할 수 있습니다.</span>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-stage is-waiting">
+        <div class="flow-stage-head">
+          <div class="flow-stage-title"><span class="flow-num">3</span>화물맨 화물 배차완료</div>
+          <span class="badge warn">화물맨 차주 적용 CTA</span>
+        </div>
+        <div class="driver-card">
+          <div class="driver-row flow-dispatched">
+            <span class="kind">차주</span>
+            <div class="placement-empty-line is-dispatched">
+              <span class="placement-spacer" aria-hidden="true"></span>
+              <span class="placement-status placement-hm-status">화물맨 화물 배차완료</span>
+              <button class="row-action" type="button">연동 취소</button>
+              <button class="row-action placement-right-action" type="button" data-dispatch-complete>화물맨 차주 적용</button>
+            </div>
+          </div>
+        </div>
+        <div class="meta-row">
+          <span class="badge on">차주 정보 수신</span>
+          <span class="badge warn">신규 차주면 다이얼로그 하단 CTA에서 차주 등록 선행</span>
+          <button class="plain-button" type="button" data-open-new-dispatch>신규 차주 등록 흐름 보기</button>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-stage">
+        <div class="flow-stage-head">
+          <div class="flow-stage-title"><span class="flow-num">4</span>다이얼로그 분기</div>
+          <span class="badge">레이아웃 유지</span>
+        </div>
+        <div class="flow-case-grid">
+          <div class="flow-mini-dialog">
+            <div class="preview-title">
+              <span>기존 등록 차주</span>
+              <span class="badge on">바로 적용</span>
+            </div>
+            <div class="lookup-layout">
+              <div class="result-card">
+                <div class="result-group-title"><span>화물맨 배차 결과</span><span class="badge warn">상단 고정</span></div>
+                <div class="result-head">
+                  <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+                </div>
+                <div class="result-row external selected">
+                  <span class="select-marker"></span>
+                  <span class="result-pen">임동진</span>
+                  <span class="result-pen">경기92바7283</span>
+                  <span class="result-pen">010-5241-1461</span>
+                  <span class="result-pen">5톤</span>
+                  <span class="result-pen">축차</span>
+                  <span><span class="badge on">기존 등록</span></span>
+                </div>
+              </div>
+              <aside class="preview-card">
+                <div class="preview-title"><span>선택 미리보기</span><span class="badge warn">화물맨</span></div>
+                <div class="preview-list">
+                  <div class="preview-item"><span class="preview-label">차주명</span><span class="preview-value">임동진</span></div>
+                  <div class="preview-item"><span class="preview-label">차량번호</span><span class="preview-value">경기92바7283</span></div>
+                  <div class="preview-item"><span class="preview-label">출처</span><span class="preview-value">화물맨 배차</span></div>
+                </div>
+                <div class="dialog-actions">
+                  <button class="primary-button" type="button" data-dispatch-complete>차주 정보에 적용</button>
+                  <span class="badge on">차주 등록 불필요</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+
+          <div class="flow-mini-dialog">
+            <div class="preview-title">
+              <span>신규 차주</span>
+              <span class="badge warn">등록 후 적용</span>
+            </div>
+            <div class="lookup-layout">
+              <div class="result-card">
+                <div class="result-group-title"><span>화물맨 배차 결과</span><span class="badge warn">상단 고정</span></div>
+                <div class="result-head">
+                  <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+                </div>
+                <div class="result-row external selected">
+                  <span class="select-marker"></span>
+                  <span class="result-pen">문화물</span>
+                  <span class="result-pen">인천88아4021</span>
+                  <span class="result-pen">010-7744-9210</span>
+                  <span class="result-pen">11톤</span>
+                  <span class="result-pen">윙바디</span>
+                  <span><span class="badge warn">신규 차주</span></span>
+                </div>
+              </div>
+              <aside class="preview-card">
+                <div class="preview-title"><span>차주 등록</span><span class="badge warn">하단 CTA 유지안</span></div>
+                <div class="mini-grid">
+                  <input class="mini-input" value="문화물" aria-label="차주명" />
+                  <input class="mini-input" value="인천88아4021" aria-label="차량번호" />
+                  <input class="mini-input" value="010-7744-9210" aria-label="차주 연락처" />
+                  <select class="mini-select" aria-label="톤수"><option selected>11톤</option></select>
+                  <select class="mini-select" aria-label="차종"><option selected>윙바디</option></select>
+                </div>
+                <div class="dialog-actions">
+                  <button class="primary-button" type="button" data-open-new-dispatch>차주 등록</button>
+                  <button class="primary-button" type="button" disabled>차주 정보에 적용</button>
+                  <span class="badge warn">등록 전 적용 불가</span>
+                </div>
+              </aside>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flow-arrow">↓</div>
+
+      <div class="flow-stage is-done">
+        <div class="flow-stage-head">
+          <div class="flow-stage-title"><span class="flow-num">5</span>배차 적용 완료</div>
+          <span class="badge on">차주 정보 row 반영</span>
+        </div>
+        <div class="driver-card">
+          <div class="driver-row flow-applied">
+            <span class="kind">차주</span>
+            <div class="cell"><div class="cell-label">차주명</div><div class="cell-value">임동진</div></div>
+            <div class="cell"><div class="cell-label">차량번호</div><div class="cell-value">경기92바7283</div></div>
+            <div class="cell"><div class="cell-label">차주 연락처</div><div class="cell-value">010-5241-1461</div></div>
+            <div class="cell"><div class="cell-label">톤수</div><div class="cell-value">5톤</div></div>
+            <div class="cell"><div class="cell-label">차종</div><div class="cell-value">축차</div></div>
+            <div class="cell"><div class="cell-label">출처</div><div class="cell-value">화물맨</div></div>
+            <div class="dialog-actions">
+              <button class="row-action" type="button" data-open-lookup>차주/차량 변경</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="compare">
+    <div class="section-head">
+      <div class="section-title"><span class="num">1</span>Phase 1 / Phase 2 범위</div>
+      <div class="section-note">두 Phase 모두 같은 차주 row 구조를 사용하고 출처 컬럼으로 구분</div>
+    </div>
+    <div class="compare-grid">
+      <div class="panel-card">
+        <h2>Phase 1</h2>
+        <div class="chips">
+          <span class="badge on">내부 DB 차주</span>
+          <span class="badge">차주 등록</span>
+          <span class="badge">연락처 input</span>
+          <span class="badge">톤수/차종 select</span>
+        </div>
+        <p>등록된 차주를 조회하고 선택하여 같은 차주 row에 적용합니다.</p>
+        <div class="driver-card">
+          <div class="driver-row flow-applied">
+            <span class="kind">차주</span>
+            <div class="cell"><div class="cell-label">차주명</div><div class="cell-value">임동진</div></div>
+            <div class="cell"><div class="cell-label">차량번호</div><div class="cell-value">경기92바7283</div></div>
+            <div class="cell"><div class="cell-label">차주 연락처</div><div class="cell-value">010-5241-1461</div></div>
+            <div class="cell"><div class="cell-label">톤수</div><div class="cell-value">5톤</div></div>
+            <div class="cell"><div class="cell-label">차종</div><div class="cell-value">축차</div></div>
+            <div class="cell"><div class="cell-label">출처</div><div class="cell-value">내부 DB</div></div>
+            <button class="row-action" type="button">차주/차량 변경</button>
+          </div>
+        </div>
+        <div class="status-strip">
+          <span class="badge on">기존 등록 차주</span>
+          <span class="badge">차주 등록은 신규 등록 케이스에서만 사용</span>
+        </div>
+      </div>
+
+      <div class="panel-card">
+        <h2>Phase 2</h2>
+        <div class="chips">
+          <span class="badge warn">화물맨 연동</span>
+          <span class="badge warn">외부 배차</span>
+          <span class="badge warn">저장 필요</span>
+          <span class="badge on">수동 등록</span>
+        </div>
+        <p>같은 입력 전 row에서 `화물맨 연동`과 `차주/차량 입력`을 함께 제공합니다.</p>
+        <div class="driver-card">
+          <div class="driver-row flow-empty">
+            <span class="kind">차주</span>
+            <div class="placement-empty-line">
+              <button class="row-action placement-left-action" type="button" data-share-start>화물맨 연동</button>
+              <span class="placement-spacer" aria-hidden="true"></span>
+              <button class="row-action placement-right-action" type="button" data-open-lookup>차주/차량 입력</button>
+            </div>
+          </div>
+        </div>
+        <div class="status-strip">
+          <span class="badge warn">연동중: row 중앙 상태 문구</span>
+          <span class="badge warn">배차완료: 화물맨 차주 적용 CTA</span>
+          <span class="badge on">적용 후 출처 / 화물맨</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="share" hidden>
+    <div class="section-head">
+    <div class="section-title"><span class="num">2</span>연동 전 / 연동중</div>
+    <div class="section-note">기존 차주/차량 입력은 유지하고, 화물맨 액션만 연동 상태로 전환</div>
+  </div>
+  <div class="timeline" aria-label="화물맨 연동 상태 흐름">
+    <div class="step on"><strong>연동 전</strong><span class="badge">내부 DB 조회 가능</span></div>
+    <div class="step warn"><strong>연동 확인</strong><span class="badge warn">YES 후 연동</span></div>
+    <div class="step warn"><strong>연동중</strong><span class="badge warn">화물맨 화물 연동중</span></div>
+    <div class="step"><strong>배차완료</strong><span class="badge">외부 차주 수신</span></div>
+    <div class="step"><strong>수동 저장</strong><span class="badge">DB 저장됨</span></div>
+  </div>
+    <div class="full-flow-stack">
+      <div class="driver-card">
+        <div class="driver-row flow-empty">
+          <span class="kind">차주</span>
+          <div class="placement-empty-line">
+            <button class="row-action placement-left-action" type="button" data-share-demo>화물맨 연동</button>
+            <span class="placement-spacer" data-placeholder="차주를 선택하거나 화물맨에 공유하세요" aria-label="차주 정보 입력 대기"></span>
+            <button class="row-action placement-right-action" type="button" data-open-lookup>차주/차량 입력</button>
+          </div>
+        </div>
+      </div>
+      <div class="driver-card">
+        <div class="driver-row flow-linking">
+          <span class="kind">차주</span>
+          <div class="placement-empty-line is-status">
+            <span class="placement-spacer" aria-hidden="true"></span>
+            <span class="placement-status placement-hm-status">화물맨 화물 연동중</span>
+            <button class="row-action" type="button">연동 취소</button>
+            <button class="row-action placement-right-action" type="button" data-open-lookup>차주/차량 입력</button>
+          </div>
+        </div>
+      </div>
+      <div class="driver-card">
+        <div class="driver-row flow-dispatched">
+          <span class="kind">차주</span>
+          <div class="placement-empty-line is-dispatched">
+            <span class="placement-spacer" aria-hidden="true"></span>
+            <span class="placement-status placement-hm-status">화물맨 화물 배차완료</span>
+            <button class="row-action" type="button">연동 취소</button>
+            <button class="row-action placement-right-action" type="button" data-dispatch-complete>화물맨 차주 적용</button>
+          </div>
+        </div>
+      </div>
+      <div class="status-strip">
+        <span class="badge danger">배차 실패</span>
+        <span>실패 시에도 내부 DB 조회는 유지하고, 화물맨은 다시 연동합니다.</span>
+        <button class="plain-button" type="button">다시 연동</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="dispatch" hidden>
+    <div class="section-head">
+    <div class="section-title"><span class="num">3</span>화물맨 배차완료</div>
+    <div class="section-note">입력 전 상태에서 화물맨 배차완료를 알리고, `화물맨 차주 적용` 클릭 시 기존 통합 조회 다이얼로그로 이동</div>
+    </div>
+    <div class="driver-card">
+      <div class="driver-row flow-dispatched">
+        <span class="kind">차주</span>
+        <div class="placement-empty-line is-dispatched">
+          <span class="placement-spacer" aria-hidden="true"></span>
+          <span class="placement-status placement-hm-status">화물맨 화물 배차완료</span>
+          <button class="row-action" type="button">연동 취소</button>
+          <button class="row-action placement-right-action" type="button" data-dispatch-complete>화물맨 차주 적용</button>
+        </div>
+      </div>
+    </div>
+    <div class="meta-row" style="margin-top:8px">
+    <span class="badge warn">화물맨 화물 배차완료</span>
+      <span class="badge">기존 다이얼로그 오픈</span>
+      <span class="badge warn">신규 차주는 등록 후 적용</span>
+      <span class="badge">외부 배차 ID HM-20260430-0182</span>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="lookup" hidden>
+    <div class="section-head">
+      <div class="section-title"><span class="num">4</span>기존 등록 차주 다이얼로그</div>
+      <div class="section-note">기존 통합 조회 다이얼로그 구조를 유지하고, 화물맨 배차 행만 최상단에 기본 선택</div>
+    </div>
+    <div class="lookup-search">
+      <input class="lookup-input" value="" placeholder="예: 김상차, 서울, 1톤" data-search-input aria-label="차주 검색어" />
+      <button class="primary-button" type="button" data-filter-button>조회</button>
+      <button class="plain-button" type="button">차주 등록</button>
+      <button class="plain-button" type="button" data-reset-search>검색 초기화</button>
+    </div>
+    <div class="lookup-layout">
+      <div class="result-card" aria-label="화물맨 우선 행 포함 차주 조회 결과">
+        <div class="result-group-title">
+          <span>화물맨 배차 결과</span>
+          <span class="badge warn">검색어와 무관하게 고정</span>
+        </div>
+        <div class="result-head">
+          <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+        </div>
+        <div class="result-row external selected" role="button" tabindex="0" data-external-row>
+          <span class="select-marker"></span>
+          <span class="result-pen">임동진</span>
+          <span class="result-pen">경기92바7283</span>
+          <span class="result-pen">010-5241-1461</span>
+          <span class="result-pen">5톤</span>
+          <span class="result-pen">축차</span>
+          <span><span class="badge on">기존 등록</span></span>
+        </div>
+        <div class="result-group-title">
+          <span>내부 DB 차주 결과</span>
+          <span class="badge" data-filter-count>4건</span>
+        </div>
+        <div data-db-result-list>
+          <div class="result-row" role="button" tabindex="0" data-search-text="임동진 경기92바7283 010-5241-1461 5톤 축차">
+            <span class="select-marker"></span><span class="result-pen">임동진</span><span class="result-pen">경기92바7283</span><span class="result-pen">010-5241-1461</span><span class="result-pen">5톤</span><span class="result-pen">축차</span><span>완료 12건</span>
+          </div>
+          <div class="result-row" role="button" tabindex="0" data-search-text="박운송 경기80바7964 010-8319-7061 17톤 플러스윙">
+            <span class="select-marker"></span><span class="result-pen">박운송</span><span class="result-pen">경기80바7964</span><span class="result-pen">010-8319-7061</span><span class="result-pen">17톤</span><span class="result-pen">플러스윙</span><span>최근 배차 가능</span>
+          </div>
+          <div class="result-row" role="button" tabindex="0" data-search-text="오태한 서울84사7069 010-4159-4636 3.5톤 윙바디">
+            <span class="select-marker"></span><span class="result-pen">오태한</span><span class="result-pen">서울84사7069</span><span class="result-pen">010-4159-4636</span><span class="result-pen">3.5톤</span><span class="result-pen">윙바디</span><span>익일 가능</span>
+          </div>
+          <div class="result-row" role="button" tabindex="0" data-search-text="김상차 경기70아2263 010-3372-0042 1톤 카고">
+            <span class="select-marker"></span><span class="result-pen">김상차</span><span class="result-pen">경기70아2263</span><span class="result-pen">010-3372-0042</span><span class="result-pen">1톤</span><span class="result-pen">카고</span><span>상차지 근처</span>
+          </div>
+        </div>
+      </div>
+      <aside class="preview-card" aria-label="선택 미리보기">
+        <div class="preview-title">
+          <span>선택 미리보기</span>
+          <span class="badge warn">화물맨 배차</span>
+        </div>
+        <div class="preview-list">
+          <div class="preview-item"><span class="preview-label">차주명</span><span class="preview-value">임동진</span></div>
+          <div class="preview-item"><span class="preview-label">차량번호</span><span class="preview-value">경기92바7283</span></div>
+          <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value">010-5241-1461</span></div>
+          <div class="preview-item"><span class="preview-label">톤수</span><span class="preview-value">5톤</span></div>
+          <div class="preview-item"><span class="preview-label">차종</span><span class="preview-value">축차</span></div>
+          <div class="preview-item"><span class="preview-label">출처</span><span class="preview-value">화물맨 배차</span></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="primary-button" type="button">차주 정보에 적용</button>
+          <span class="badge on">기존 등록 차주</span>
+        </div>
+      </aside>
+    </div>
+    <div class="driver-card" style="margin-top:8px">
+      <div class="driver-row flow-applied">
+        <span class="kind">차주</span>
+        <div class="cell"><div class="cell-label">차주명</div><div class="cell-value">임동진</div></div>
+        <div class="cell"><div class="cell-label">차량번호</div><div class="cell-value">경기92바7283</div></div>
+        <div class="cell"><div class="cell-label">차주 연락처</div><div class="cell-value">010-5241-1461</div></div>
+        <div class="cell"><div class="cell-label">톤수</div><div class="cell-value">5톤</div></div>
+        <div class="cell"><div class="cell-label">차종</div><div class="cell-value">축차</div></div>
+        <div class="cell"><div class="cell-label">출처</div><div class="cell-value">화물맨</div></div>
+        <button class="row-action" type="button">차주/차량 변경</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="save" hidden>
+    <div class="section-head">
+      <div class="section-title"><span class="num">5</span>신규 차주 등록 후 적용</div>
+      <div class="section-note">기존 다이얼로그 레이아웃은 유지하고, 등록 폼에 화물맨 수신값을 자동 입력</div>
+    </div>
+    <div class="status-strip">
+      <span class="badge warn">신규 차주 케이스</span>
+      <span>등록 전에는 적용 불가, 등록 후 적용 가능 흐름을 다이얼로그로 확인합니다.</span>
+      <button class="primary-button" type="button" data-open-new-dispatch>신규 차주 다이얼로그 열기</button>
+    </div>
+    <div class="cta-option-grid" style="margin:8px 0">
+      <div class="cta-option is-picked">
+        <strong>A. 하단 CTA 유지</strong>
+        <span class="badge on">적용안</span>
+        <p>신규 차주 등록 폼 하단에 `차주 등록`을 primary로 두고, `차주 정보에 적용`은 등록 전 비활성화합니다.</p>
+      </div>
+      <div class="cta-option">
+        <strong>B. 상단 상태바 배치</strong>
+        <span class="badge">보류</span>
+        <p>상태는 잘 보이지만 검색/선택 흐름과 CTA가 멀어져 손 이동이 늘어납니다.</p>
+      </div>
+      <div class="cta-option">
+        <strong>C. 조회 행 내부 배치</strong>
+        <span class="badge">보류</span>
+        <p>발견성은 좋지만 결과 행과 등록 폼의 책임이 섞여 기존 다이얼로그 패턴이 흐려집니다.</p>
+      </div>
+    </div>
+    <div class="lookup-search">
+      <input class="lookup-input" value="" placeholder="예: 문화물, 인천, 11톤" aria-label="신규 차주 조회 검색어" />
+      <button class="primary-button" type="button">조회</button>
+      <button class="plain-button" type="button">검색 초기화</button>
+    </div>
+    <div class="lookup-layout">
+      <div class="result-card" aria-label="신규 차주 화물맨 배차 결과">
+        <div class="result-group-title">
+          <span>화물맨 배차 결과</span>
+          <span class="badge warn">기본 선택</span>
+        </div>
+        <div class="result-head">
+          <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+        </div>
+        <div class="result-row external selected" role="button" tabindex="0">
+          <span class="select-marker"></span>
+          <span class="result-pen">문화물</span>
+          <span class="result-pen">인천88아4021</span>
+          <span class="result-pen">010-7744-9210</span>
+          <span class="result-pen">11톤</span>
+          <span class="result-pen">윙바디</span>
+          <span><span class="badge warn" data-save-state>신규 차주</span></span>
+        </div>
+        <div class="result-group-title">
+          <span>내부 DB 차주 결과</span>
+          <span class="badge">중복 없음</span>
+        </div>
+        <div class="result-row" role="button" tabindex="0">
+          <span class="select-marker"></span>
+          <span style="grid-column: 2 / -1;">차량번호/연락처가 일치하는 기존 차주가 없습니다.</span>
+        </div>
+      </div>
+      <aside class="preview-card" aria-label="차주 등록 폼">
+        <div class="preview-title">
+          <span>차주 등록</span>
+          <span class="badge warn" data-new-register-state>등록 후 배차 가능</span>
+        </div>
+        <div class="mini-grid">
+          <label class="mini-label" for="new-driver-name">차주명</label>
+          <input id="new-driver-name" class="mini-input" value="문화물" />
+          <label class="mini-label" for="new-driver-vehicle">차량번호</label>
+          <input id="new-driver-vehicle" class="mini-input" value="인천88아4021" />
+          <label class="mini-label" for="new-driver-phone">차주 연락처</label>
+          <input id="new-driver-phone" class="mini-input" value="010-7744-9210" />
+          <label class="mini-label" for="new-driver-tonnage">톤수</label>
+          <select id="new-driver-tonnage" class="mini-select">
+            <option selected>11톤</option>
+            <option>5톤</option>
+            <option>1톤</option>
+          </select>
+          <label class="mini-label" for="new-driver-type">차종</label>
+          <select id="new-driver-type" class="mini-select">
+            <option selected>윙바디</option>
+            <option>카고</option>
+            <option>축차</option>
+          </select>
+          <div class="preview-item"><span class="preview-label">출처</span><span class="preview-value">화물맨 배차</span></div>
+          <div class="preview-item"><span class="preview-label">저장</span><span class="preview-value" data-preview-save>등록 전</span></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="primary-button" type="button" data-save-external>차주 등록</button>
+          <button class="primary-button" type="button" data-new-apply disabled>차주 정보에 적용</button>
+        </div>
+        <div class="section-note" data-new-apply-note>신규 차주는 차주 등록 완료 후 배차 적용이 가능합니다.</div>
+      </aside>
+    </div>
+    <div class="driver-card" style="margin-top:8px">
+      <div class="driver-row flow-applied">
+        <span class="kind">차주</span>
+        <div class="cell"><div class="cell-label">차주명</div><div class="cell-value">문화물</div></div>
+        <div class="cell"><div class="cell-label">차량번호</div><div class="cell-value">인천88아4021</div></div>
+        <div class="cell"><div class="cell-label">차주 연락처</div><div class="cell-value">010-7744-9210</div></div>
+        <div class="cell"><div class="cell-label">톤수</div><div class="cell-value">11톤</div></div>
+        <div class="cell"><div class="cell-label">차종</div><div class="cell-value">윙바디</div></div>
+        <div class="cell"><div class="cell-label">출처</div><div class="cell-value">화물맨</div></div>
+        <button class="row-action" type="button">차주/차량 변경</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section state-panel" data-state-panel="duplicate" hidden>
+    <div class="section-head">
+      <div class="section-title"><span class="num">6</span>중복 차주/차량 발견</div>
+      <div class="section-note">수동 저장 전에 차량번호와 연락처 기준으로 중복 후보를 안내</div>
+    </div>
+    <div class="compare-grid">
+      <div class="panel-card">
+        <h2>화물맨 배차 정보</h2>
+        <div class="preview-list">
+          <div class="preview-item"><span class="preview-label">차주명</span><span class="preview-value">문화물</span></div>
+          <div class="preview-item"><span class="preview-label">차량번호</span><span class="preview-value">인천88아4021</span></div>
+          <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value">010-7744-9210</span></div>
+          <div class="preview-item"><span class="preview-label">상태</span><span class="preview-value">저장 필요</span></div>
+        </div>
+      </div>
+      <div class="duplicate-box">
+        <strong>중복 후보 있음</strong>
+        <span class="badge warn">차량번호 유사</span>
+        <p>내부 DB에 `문화물 / 인천88아4021`과 유사한 차량 정보가 있습니다.</p>
+        <div class="dialog-actions">
+          <button class="primary-button" type="button">기존 차주 연결</button>
+          <button class="plain-button" type="button">신규 저장 보류</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="flow-dialog" data-driver-flow-dialog aria-labelledby="driver-dialog-title">
+    <div class="dialog-shell">
+      <header class="dialog-head">
+        <div>
+          <h2 id="driver-dialog-title" data-dialog-title>차주/차량 통합 조회</h2>
+          <div class="subtitle" data-dialog-subtitle>기존 다이얼로그 레이아웃을 유지한 실제 유저 플로우</div>
+        </div>
+        <button class="plain-button dialog-close" type="button" data-dialog-close aria-label="닫기">×</button>
+      </header>
+
+      <div class="status-strip">
+        <span class="badge" data-dialog-mode-badge>내부 DB</span>
+        <span data-dialog-status-text>검색 후 차주를 선택해 적용합니다.</span>
+        <div class="dialog-mode-tools">
+          <button class="plain-button" type="button" data-dialog-mode="internal">내부 DB 조회</button>
+          <button class="plain-button" type="button" data-dialog-mode="hm-existing">화물맨 기존 차주</button>
+          <button class="plain-button" type="button" data-dialog-mode="hm-new">화물맨 신규 차주</button>
+        </div>
+      </div>
+
+      <div class="dialog-body">
+        <div class="lookup-search">
+          <input class="lookup-input" value="" placeholder="예: 김상차, 서울, 1톤" data-dialog-search aria-label="다이얼로그 차주 검색어" />
+          <button class="primary-button" type="button" data-dialog-filter>조회</button>
+          <button class="plain-button" type="button" data-dialog-reset>검색 초기화</button>
+        </div>
+
+        <div class="lookup-layout">
+          <div class="result-card" aria-label="실제 다이얼로그 조회 결과">
+            <div class="presearch" data-dialog-presearch>
+              <div class="presearch-title">차주를 먼저 조회하세요</div>
+              <div class="presearch-copy">검색 전에는 결과 목록을 표시하지 않습니다. 등록되지 않은 차주라면 바로 새 차주를 등록할 수 있습니다.</div>
+              <button class="primary-button" type="button" data-dialog-register-open>차주 등록</button>
+            </div>
+            <button class="plain-button floating-register" type="button" data-dialog-register-open data-dialog-floating-register hidden>차주 등록</button>
+            <div data-dialog-external-block hidden>
+              <div class="result-group-title">
+                <span>화물맨 배차 결과</span>
+                <span class="badge warn">검색어와 무관하게 고정</span>
+              </div>
+              <div class="result-head">
+                <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+              </div>
+              <div class="result-row external selected" role="button" tabindex="0" data-dialog-external-row>
+                <span class="select-marker"></span>
+                <span class="result-pen" data-dialog-external-name></span>
+                <span class="result-pen" data-dialog-external-vehicle></span>
+                <span class="result-pen" data-dialog-external-phone></span>
+                <span class="result-pen" data-dialog-external-tonnage></span>
+                <span class="result-pen" data-dialog-external-type></span>
+                <span><span class="badge" data-dialog-external-state></span></span>
+              </div>
+            </div>
+
+            <div class="result-group-title" data-dialog-db-title-row>
+              <span data-dialog-db-title>내부 DB 차주 결과</span>
+              <span class="badge" data-dialog-filter-count>4건</span>
+            </div>
+            <div class="result-head" data-dialog-db-head>
+              <span>선택</span><span>차주명</span><span>차량번호</span><span>연락처</span><span>톤수</span><span>차종</span><span>상태</span>
+            </div>
+            <div data-dialog-db-result-list>
+              <div class="result-row selected" role="button" tabindex="0" data-dialog-db-row data-driver-name="임동진" data-driver-vehicle="경기92바7283" data-driver-phone="010-5241-1461" data-driver-tonnage="5톤" data-driver-type="축차" data-search-text="임동진 경기92바7283 010-5241-1461 5톤 축차">
+                <span class="select-marker"></span><span class="result-pen">임동진</span><span class="result-pen">경기92바7283</span><span class="result-pen">010-5241-1461</span><span class="result-pen">5톤</span><span class="result-pen">축차</span><span>완료 12건</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-dialog-db-row data-driver-name="박운송" data-driver-vehicle="경기80바7964" data-driver-phone="010-8319-7061" data-driver-tonnage="17톤" data-driver-type="플러스윙" data-search-text="박운송 경기80바7964 010-8319-7061 17톤 플러스윙">
+                <span class="select-marker"></span><span class="result-pen">박운송</span><span class="result-pen">경기80바7964</span><span class="result-pen">010-8319-7061</span><span class="result-pen">17톤</span><span class="result-pen">플러스윙</span><span>최근 배차 가능</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-dialog-db-row data-driver-name="오태한" data-driver-vehicle="서울84사7069" data-driver-phone="010-4159-4636" data-driver-tonnage="3.5톤" data-driver-type="윙바디" data-search-text="오태한 서울84사7069 010-4159-4636 3.5톤 윙바디">
+                <span class="select-marker"></span><span class="result-pen">오태한</span><span class="result-pen">서울84사7069</span><span class="result-pen">010-4159-4636</span><span class="result-pen">3.5톤</span><span class="result-pen">윙바디</span><span>익일 가능</span>
+              </div>
+              <div class="result-row" role="button" tabindex="0" data-dialog-db-row data-driver-name="김상차" data-driver-vehicle="경기70아2263" data-driver-phone="010-3372-0042" data-driver-tonnage="1톤" data-driver-type="카고" data-search-text="김상차 경기70아2263 010-3372-0042 1톤 카고">
+                <span class="select-marker"></span><span class="result-pen">김상차</span><span class="result-pen">경기70아2263</span><span class="result-pen">010-3372-0042</span><span class="result-pen">1톤</span><span class="result-pen">카고</span><span>상차지 근처</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="preview-card" aria-label="다이얼로그 선택/등록 영역">
+            <div data-dialog-preview-panel>
+              <div class="preview-title">
+                <span>선택 미리보기</span>
+                <span class="badge" data-dialog-preview-badge>내부 DB</span>
+              </div>
+              <div class="preview-list">
+                <div class="preview-item"><span class="preview-label">차주명</span><span class="preview-value" data-dialog-preview-name></span></div>
+                <div class="preview-item"><span class="preview-label">차량번호</span><span class="preview-value" data-dialog-preview-vehicle></span></div>
+                <div class="preview-item"><span class="preview-label">연락처</span><span class="preview-value" data-dialog-preview-phone></span></div>
+                <div class="preview-item"><span class="preview-label">톤수</span><span class="preview-value" data-dialog-preview-tonnage></span></div>
+                <div class="preview-item"><span class="preview-label">차종</span><span class="preview-value" data-dialog-preview-type></span></div>
+                <div class="preview-item"><span class="preview-label">출처</span><span class="preview-value" data-dialog-preview-source></span></div>
+              </div>
+            </div>
+
+            <div data-dialog-register-panel hidden>
+              <div class="preview-title">
+                <span data-dialog-register-title>차주 등록</span>
+                <span class="badge warn" data-dialog-register-state>등록 후 배차 가능</span>
+              </div>
+              <div class="mini-grid">
+                <label class="mini-label" for="dialog-driver-name">차주명</label>
+                <input id="dialog-driver-name" class="mini-input" data-dialog-register-name />
+                <label class="mini-label" for="dialog-driver-vehicle">차량번호</label>
+                <input id="dialog-driver-vehicle" class="mini-input" data-dialog-register-vehicle />
+                <label class="mini-label" for="dialog-driver-phone">차주 연락처</label>
+                <input id="dialog-driver-phone" class="mini-input" data-dialog-register-phone />
+                <label class="mini-label" for="dialog-driver-tonnage">톤수</label>
+                <select id="dialog-driver-tonnage" class="mini-select" data-dialog-register-tonnage>
+                  <option>11톤</option>
+                  <option>5톤</option>
+                  <option>1톤</option>
+                </select>
+                <label class="mini-label" for="dialog-driver-type">차종</label>
+                <select id="dialog-driver-type" class="mini-select" data-dialog-register-type>
+                  <option>윙바디</option>
+                  <option>카고</option>
+                  <option>축차</option>
+                </select>
+                <div class="preview-item"><span class="preview-label">출처</span><span class="preview-value" data-dialog-register-source>내부 DB 신규</span></div>
+              </div>
+            </div>
+
+            <div class="dialog-actions">
+              <button class="primary-button" type="button" data-dialog-register hidden>차주 등록</button>
+              <button class="primary-button" type="button" data-dialog-apply>차주 정보에 적용</button>
+              <button class="plain-button" type="button" data-dialog-close>취소</button>
+            </div>
+            <div class="section-note" data-dialog-action-note>차주 정보를 확인한 뒤 적용합니다.</div>
+          </aside>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</main>
+
+<script>
+  const staticFilterRows = () => {
+    const keyword = document.querySelector("[data-search-input]")?.value.trim().toLowerCase() ?? "";
+    let visibleCount = 0;
+    document.querySelectorAll("[data-db-result-list] .result-row").forEach((row) => {
+      const matched = !keyword || row.dataset.searchText.toLowerCase().includes(keyword);
+      row.hidden = !matched;
+      if (matched) visibleCount += 1;
+    });
+    const counter = document.querySelector("[data-filter-count]");
+    if (counter) counter.textContent = `${visibleCount}건`;
+  };
+
+  const setPanel = (target) => {
+    document.querySelectorAll("[data-state-tab]").forEach((tab) => {
+      const isActive = tab.dataset.stateTab === target;
+      tab.classList.toggle("on", isActive);
+      tab.setAttribute("aria-pressed", String(isActive));
+    });
+    document.querySelectorAll("[data-state-panel]").forEach((panel) => {
+      panel.hidden = panel.dataset.statePanel !== target;
+    });
+  };
+
+  const setText = (selector, value) => {
+    const node = document.querySelector(selector);
+    if (node) node.textContent = value;
+  };
+
+  const setValue = (selector, value) => {
+    const node = document.querySelector(selector);
+    if (node) node.value = value;
+  };
+
+  const driverModes = {
+    internal: {
+      title: "차주/차량 통합 조회",
+      subtitle: "기존 Phase 1 내부 DB 차주 조회 흐름",
+      modeBadge: "내부 DB",
+      status: "검색 후 차주를 선택해 바로 적용합니다.",
+      external: null,
+      preview: {
+        name: "임동진",
+        vehicle: "경기92바7283",
+        phone: "010-5241-1461",
+        tonnage: "5톤",
+        type: "축차",
+        source: "내부 DB",
+      },
+    },
+    "hm-existing": {
+      title: "차주/차량 통합 조회",
+    subtitle: "화물맨 차주 적용에서 진입한 기존 등록 차주 케이스",
+      modeBadge: "화물맨 배차",
+      status: "화물맨 배차 행이 최상단에 기본 선택되어 있고, 기존 등록 차주는 바로 적용 가능합니다.",
+      external: {
+        name: "임동진",
+        vehicle: "경기92바7283",
+        phone: "010-5241-1461",
+        tonnage: "5톤",
+        type: "축차",
+        state: "기존 등록",
+        stateClass: "on",
+      },
+      preview: {
+        name: "임동진",
+        vehicle: "경기92바7283",
+        phone: "010-5241-1461",
+        tonnage: "5톤",
+        type: "축차",
+        source: "화물맨 배차",
+      },
+    },
+    "hm-new": {
+      title: "차주/차량 통합 조회",
+    subtitle: "화물맨 차주 적용에서 진입한 신규 차주 등록 케이스",
+      modeBadge: "화물맨 신규",
+      status: "신규 차주는 차주 등록을 완료해야 배차 적용이 가능합니다.",
+      external: {
+        name: "문화물",
+        vehicle: "인천88아4021",
+        phone: "010-7744-9210",
+        tonnage: "11톤",
+        type: "윙바디",
+        state: "신규 차주",
+        stateClass: "warn",
+      },
+      preview: {
+        name: "문화물",
+        vehicle: "인천88아4021",
+        phone: "010-7744-9210",
+        tonnage: "11톤",
+        type: "윙바디",
+        source: "화물맨 배차",
+      },
+    },
+  };
+
+  const manualRegisterTemplate = {
+    name: "신규차주",
+    vehicle: "경기00바0000",
+    phone: "010-0000-0000",
+    tonnage: "5톤",
+    type: "축차",
+    source: "내부 DB",
+  };
+
+  const dialogState = {
+    mode: "internal",
+    registerContext: "internal",
+    registered: true,
+    selected: { ...driverModes.internal.preview },
+    applyTarget: "summary",
+  };
+
+  const liveState = {
+    phase1: {
+      status: "입력 전",
+      driver: null,
+      source: "미적용",
+      result: "조회 후 적용",
+    },
+    phase2: {
+      status: "입력 전",
+      driver: null,
+      source: "미연동",
+      result: "연동 전",
+    },
+  };
+
+  const placementDriverState = {
+    driver: null,
+    source: "미적용",
+    status: "입력 전",
+    hmStatus: "idle",
+    cancelReturnStatus: "linking",
+    cancelContext: "empty",
+    externalLinkActive: false,
+    result: "차주/차량 입력을 눌러 차주를 조회하고 적용합니다.",
+  };
+  let placementCancelTimer = null;
+
+  const driverDialog = document.querySelector("[data-driver-flow-dialog]");
+  const hmShareConfirm = document.querySelector("[data-hm-share-confirm]");
+  const hmCancelConfirm = document.querySelector("[data-hm-cancel-confirm]");
+
+  const updateFlowStatus = (message) => {
+    setText("[data-flow-status-text]", message);
+  };
+
+  const setBadgeTone = (selector, tone) => {
+    const badge = document.querySelector(selector);
+    if (!badge) return;
+    badge.classList.remove("warn", "on", "danger");
+    if (tone) badge.classList.add(tone);
+  };
+
+  const renderLiveBoard = () => {
+    const phase1 = liveState.phase1;
+    const phase2 = liveState.phase2;
+    const phase1DriverText = phase1.driver
+      ? `${phase1.driver.name} / ${phase1.driver.vehicle} / ${phase1.driver.tonnage} ${phase1.driver.type}`
+      : "차주 데이터 없음";
+    const phase2DriverText = phase2.driver
+      ? `${phase2.driver.name} / ${phase2.driver.vehicle} / ${phase2.driver.tonnage} ${phase2.driver.type}`
+      : "차주 데이터 없음";
+
+    setText("[data-live-phase1-status]", phase1.status);
+    setText("[data-live-phase1-driver]", phase1DriverText);
+    setText("[data-live-phase1-source]", phase1.source);
+    setText("[data-live-phase1-result]", phase1.result);
+
+    setText("[data-live-phase2-status]", phase2.status);
+    setText("[data-live-phase2-driver]", phase2DriverText);
+    setText("[data-live-phase2-source]", phase2.source);
+    setText("[data-live-phase2-result]", phase2.result);
+
+    setBadgeTone("[data-live-phase1-status]", phase1.driver ? "on" : "");
+    setBadgeTone("[data-live-phase1-source]", phase1.driver ? "on" : "");
+
+    const phase2Tone = phase2.status.includes("완료") || phase2.driver ? "on" : phase2.status.includes("연동중") ? "warn" : "";
+    setBadgeTone("[data-live-phase2-status]", phase2Tone);
+    setBadgeTone("[data-live-phase2-source]", phase2.source.includes("화물맨") ? "warn" : phase2.driver ? "on" : "");
+
+    document.querySelector("[data-live-row='phase1']")?.classList.toggle("is-applied", !!phase1.driver);
+    document.querySelector("[data-live-row='phase2']")?.classList.toggle("is-active", phase2.status === "화물맨 연동중" || phase2.status === "화물맨 배차완료");
+    document.querySelector("[data-live-row='phase2']")?.classList.toggle("is-applied", !!phase2.driver);
+
+    const dispatchEnabled = phase2.status === "화물맨 연동중" || phase2.status === "화물맨 배차완료";
+    document.querySelectorAll("[data-live-dispatch-existing], [data-live-dispatch-new]").forEach((button) => {
+      button.disabled = !dispatchEnabled;
+    });
+  };
+
+  const applyLiveDriver = (target, driver) => {
+    if (target === "phase1") {
+      liveState.phase1.status = "차주 적용 완료";
+      liveState.phase1.driver = { ...driver };
+      liveState.phase1.source = driver.source?.includes("화물맨") ? "화물맨" : "내부 DB";
+      liveState.phase1.result = "내부 DB 차주 적용";
+    }
+
+    if (target === "phase2") {
+      liveState.phase2.status = "배차 적용 완료";
+      liveState.phase2.driver = { ...driver };
+      liveState.phase2.source = driver.source?.includes("화물맨") ? "화물맨" : "내부 DB";
+      liveState.phase2.result = driver.source?.includes("화물맨") ? "화물맨 배차 적용" : "내부 DB 차주 적용";
+    }
+
+    renderLiveBoard();
+  };
+
+  const resetLivePhase2 = () => {
+    liveState.phase2.status = "입력 전";
+    liveState.phase2.driver = null;
+    liveState.phase2.source = "미연동";
+    liveState.phase2.result = "연동 전";
+    renderLiveBoard();
+    updateFlowStatus("Phase 2가 입력 전 상태로 초기화되었습니다.");
+  };
+
+  const renderPlacementDriver = () => {
+    const driver = placementDriverState.driver;
+    const row = document.querySelector("[data-placement-driver-row]");
+  const emptyLine = document.querySelector("[data-placement-empty-line]");
+  const cells = document.querySelectorAll("[data-placement-driver-cell]");
+  const appliedChangeButton = document.querySelector("[data-placement-change-applied]");
+  const linkedCancelButton = document.querySelector("[data-placement-linked-cancel]");
+  const hmCompleteButton = document.querySelector("[data-placement-hm-complete]");
+  const hmCancelFailButton = document.querySelector("[data-placement-hm-cancel-fail]");
+    const placeholders = {
+      name: "차주명 입력",
+      vehicle: "차량번호 입력",
+      phone: "연락처 입력",
+      tonnage: "톤수 선택",
+      type: "차종 선택",
+      source: "미적용",
+    };
+
+    Object.entries(placeholders).forEach(([key, fallback]) => {
+      const field = document.querySelector(`[data-placement-driver-value='${key}']`);
+      if (!field) return;
+      field.textContent = key === "source" && driver ? placementDriverState.source : driver?.[key] ?? fallback;
+      field.classList.toggle("placeholder", !driver);
+    });
+
+    const emptyMarkup = {
+      idle: `
+        <button class="row-action placement-left-action" type="button" data-placement-hm-link>화물맨 연동</button>
+        <span class="placement-spacer" aria-hidden="true"></span>
+        <button class="row-action placement-right-action" type="button" data-placement-change-driver>차주/차량 입력</button>
+      `,
+      linking: `
+        <span class="placement-spacer" aria-hidden="true"></span>
+        <span class="placement-status placement-hm-status">화물맨 화물 연동중</span>
+        <button class="row-action" type="button" data-placement-hm-cancel>연동 취소</button>
+        <button class="row-action placement-right-action" type="button" data-placement-change-driver>차주/차량 입력</button>
+      `,
+      dispatched: `
+        <span class="placement-spacer" aria-hidden="true"></span>
+        <span class="placement-status placement-hm-status">화물맨 화물 배차완료</span>
+        <button class="row-action" type="button" data-placement-hm-cancel>연동 취소</button>
+        <button class="row-action placement-right-action" type="button" data-placement-hm-apply>화물맨 차주 적용</button>
+      `,
+      canceling: `
+        <span class="placement-spacer" aria-hidden="true"></span>
+        <span class="placement-status placement-hm-status">화물맨 API 취소 요청중</span>
+      `,
+      cancelFailed: `
+        <span class="placement-alert" role="alert">화물맨 취소 실패 · 다시 시도해주세요</span>
+        <button class="row-action" type="button" data-placement-hm-cancel>연동 취소</button>
+        ${placementDriverState.cancelReturnStatus === "dispatched"
+          ? '<button class="row-action placement-right-action" type="button" data-placement-hm-apply>화물맨 차주 적용</button>'
+          : '<button class="row-action placement-right-action" type="button" data-placement-change-driver>차주/차량 입력</button>'}
+      `,
+    };
+
+    if (driver) {
+      if (emptyLine) emptyLine.hidden = true;
+      cells.forEach((cell) => { cell.hidden = false; });
+      if (appliedChangeButton) appliedChangeButton.hidden = false;
+      if (linkedCancelButton) {
+        linkedCancelButton.hidden = !placementDriverState.externalLinkActive || placementDriverState.hmStatus === "canceling";
+      }
+      if (hmCompleteButton) hmCompleteButton.hidden = true;
+      if (hmCancelFailButton) hmCancelFailButton.hidden = placementDriverState.hmStatus !== "canceling";
+    } else {
+      if (emptyLine) {
+        emptyLine.hidden = false;
+      emptyLine.className = `placement-empty-line ${["linking", "canceling"].includes(placementDriverState.hmStatus) ? "is-status" : ""} ${placementDriverState.hmStatus === "dispatched" ? "is-dispatched" : ""} ${placementDriverState.hmStatus === "cancelFailed" ? "is-cancel-failed" : ""}`.trim();
+        emptyLine.innerHTML = emptyMarkup[placementDriverState.hmStatus] ?? emptyMarkup.idle;
+      }
+      cells.forEach((cell) => { cell.hidden = true; });
+      if (appliedChangeButton) appliedChangeButton.hidden = true;
+      if (hmCompleteButton) hmCompleteButton.hidden = placementDriverState.hmStatus !== "linking";
+      if (hmCancelFailButton) hmCancelFailButton.hidden = placementDriverState.hmStatus !== "canceling";
+    }
+
+    setText("[data-placement-driver-status]", placementDriverState.status);
+    setText("[data-placement-driver-source]", placementDriverState.source);
+    setText("[data-placement-driver-result]", placementDriverState.result);
+
+    const statusBadge = document.querySelector("[data-placement-driver-status]");
+    const sourceBadge = document.querySelector("[data-placement-driver-source]");
+    statusBadge?.classList.remove("on", "warn", "danger");
+    sourceBadge?.classList.remove("on", "warn", "danger");
+
+  if (driver || placementDriverState.hmStatus === "dispatched") statusBadge?.classList.add("on");
+  if (["linking", "canceling"].includes(placementDriverState.hmStatus)) statusBadge?.classList.add("warn");
+  if (["cancelFailed", "manualAppliedCancelFailed"].includes(placementDriverState.hmStatus)) statusBadge?.classList.add("danger");
+    if (placementDriverState.source === "내부 DB") sourceBadge?.classList.add("on");
+    if (placementDriverState.source.includes("실패")) sourceBadge?.classList.add("danger");
+    else if (placementDriverState.source === "화물맨" || placementDriverState.source.includes("화물맨")) sourceBadge?.classList.add("warn");
+
+    row?.classList.toggle("is-empty", !driver && placementDriverState.hmStatus === "idle");
+  row?.classList.toggle("is-linking", !driver && ["linking", "canceling"].includes(placementDriverState.hmStatus));
+    row?.classList.toggle("is-dispatched", !driver && placementDriverState.hmStatus === "dispatched");
+    row?.classList.toggle("is-cancel-failed", !driver && placementDriverState.hmStatus === "cancelFailed");
+    row?.classList.toggle("is-applied", !!driver);
+    row?.classList.toggle("has-linked-cancel", !!driver && placementDriverState.externalLinkActive && placementDriverState.hmStatus !== "canceling");
+  };
+
+  const applyPlacementDriver = (driver) => {
+    const appliedFromHwamulman = driver.source?.includes("화물맨");
+    const hadActiveHwamulmanLink = placementDriverState.externalLinkActive || ["linking", "dispatched", "cancelFailed"].includes(placementDriverState.hmStatus);
+    placementDriverState.driver = { ...driver };
+    placementDriverState.source = appliedFromHwamulman ? "화물맨" : "내부 DB";
+    placementDriverState.status = appliedFromHwamulman || !hadActiveHwamulmanLink ? "배차 적용" : "배차 적용 · 화물맨 연동중";
+    placementDriverState.hmStatus = appliedFromHwamulman ? "applied" : hadActiveHwamulmanLink ? "manualAppliedWithHmLink" : "applied";
+    placementDriverState.externalLinkActive = hadActiveHwamulmanLink && !appliedFromHwamulman;
+    placementDriverState.result = placementDriverState.externalLinkActive
+      ? `${driver.name} / ${driver.vehicle} 배차 정보가 row에 적용되었습니다. 화물맨 연동은 별도로 취소할 수 있습니다.`
+      : `${driver.name} / ${driver.vehicle} 배차 정보가 row에 적용되었습니다.`;
+    renderPlacementDriver();
+  };
+
+const resetPlacementHwamulman = (resultMessage = "차주/차량 입력을 눌러 차주를 조회하고 적용합니다.") => {
+  if (placementCancelTimer) {
+    window.clearTimeout(placementCancelTimer);
+    placementCancelTimer = null;
+  }
+  placementDriverState.driver = null;
+  placementDriverState.source = "미적용";
+  placementDriverState.status = "입력 전";
+  placementDriverState.hmStatus = "idle";
+  placementDriverState.cancelReturnStatus = "linking";
+  placementDriverState.cancelContext = "empty";
+  placementDriverState.externalLinkActive = false;
+  placementDriverState.result = resultMessage;
+  renderPlacementDriver();
+};
+
+const startPlacementHwamulman = () => {
+    placementDriverState.driver = null;
+    placementDriverState.source = "화물맨 연동중";
+    placementDriverState.status = "화물맨 연동중";
+    placementDriverState.hmStatus = "linking";
+    placementDriverState.externalLinkActive = true;
+    placementDriverState.result = "화물맨에 화물을 공유했고 배차 완료 이벤트를 기다립니다.";
+    renderPlacementDriver();
+  };
+
+const completePlacementHwamulman = () => {
+  placementDriverState.driver = null;
+  placementDriverState.source = "화물맨";
+  placementDriverState.status = "화물맨 배차완료";
+  placementDriverState.hmStatus = "dispatched";
+  placementDriverState.externalLinkActive = true;
+  placementDriverState.result = "화물맨에서 배차가 완료되었습니다. 화물맨 차주를 적용할 수 있습니다.";
+  renderPlacementDriver();
+};
+
+const completePlacementHwamulmanCancel = () => {
+  if (placementDriverState.cancelContext === "applied" && placementDriverState.driver) {
+    placementDriverState.externalLinkActive = false;
+    placementDriverState.status = "배차 적용";
+    placementDriverState.hmStatus = "applied";
+    placementDriverState.source = placementDriverState.driver.source?.includes("화물맨") ? "화물맨" : "내부 DB";
+    placementDriverState.result = "화물맨 API 취소가 완료되었습니다. 현재 차주 배차 정보는 유지됩니다.";
+    renderPlacementDriver();
+    return;
+  }
+
+  resetPlacementHwamulman("화물맨 API 취소가 완료되어 입력 전 상태로 돌아왔습니다.");
+};
+
+const requestPlacementHwamulmanCancel = () => {
+  if (placementCancelTimer) window.clearTimeout(placementCancelTimer);
+  placementDriverState.cancelContext = placementDriverState.driver && placementDriverState.externalLinkActive ? "applied" : "empty";
+  if (placementDriverState.hmStatus !== "cancelFailed") {
+    placementDriverState.cancelReturnStatus = placementDriverState.hmStatus === "dispatched" ? "dispatched" : "linking";
+  }
+  if (placementDriverState.cancelContext !== "applied") {
+    placementDriverState.driver = null;
+  }
+  placementDriverState.source = placementDriverState.cancelContext === "applied" ? placementDriverState.source : "화물맨 취소 요청중";
+  placementDriverState.status = "화물맨 취소 요청중";
+  placementDriverState.hmStatus = "canceling";
+  placementDriverState.result = "화물맨 API에 연동 취소 요청을 보내는 중입니다.";
+  renderPlacementDriver();
+  placementCancelTimer = window.setTimeout(() => {
+    placementCancelTimer = null;
+    completePlacementHwamulmanCancel();
+  }, 520);
+};
+
+const failPlacementHwamulmanCancel = () => {
+  if (placementCancelTimer) {
+    window.clearTimeout(placementCancelTimer);
+    placementCancelTimer = null;
+  }
+  if (placementDriverState.cancelContext !== "applied") {
+    placementDriverState.driver = null;
+  }
+  placementDriverState.source = placementDriverState.cancelContext === "applied" ? placementDriverState.source : "화물맨 취소 실패";
+  placementDriverState.status = "화물맨 취소 실패";
+  placementDriverState.hmStatus = placementDriverState.cancelContext === "applied" ? "manualAppliedCancelFailed" : "cancelFailed";
+  placementDriverState.externalLinkActive = true;
+  placementDriverState.result = placementDriverState.cancelContext === "applied"
+    ? "화물맨 API 취소 요청이 실패했습니다. 차주 배차는 유지되며, 차주/차량 변경 옆 연동 취소로 다시 시도할 수 있습니다."
+    : "화물맨 API 취소 요청이 실패했습니다. 알림 확인 후 연동 취소를 다시 시도할 수 있습니다.";
+  renderPlacementDriver();
+};
+
+  const setPreview = (driver, badgeText = "내부 DB") => {
+    dialogState.selected = { ...driver };
+    setText("[data-dialog-preview-name]", driver.name);
+    setText("[data-dialog-preview-vehicle]", driver.vehicle);
+    setText("[data-dialog-preview-phone]", driver.phone);
+    setText("[data-dialog-preview-tonnage]", driver.tonnage);
+    setText("[data-dialog-preview-type]", driver.type);
+    setText("[data-dialog-preview-source]", driver.source);
+    setText("[data-dialog-preview-badge]", badgeText);
+    const badge = document.querySelector("[data-dialog-preview-badge]");
+    badge?.classList.toggle("warn", badgeText.includes("화물맨"));
+    badge?.classList.toggle("on", !badgeText.includes("화물맨"));
+  };
+
+  const setRegisterForm = (driver, sourceLabel = driver.source ?? "내부 DB") => {
+    setValue("[data-dialog-register-name]", driver.name);
+    setValue("[data-dialog-register-vehicle]", driver.vehicle);
+    setValue("[data-dialog-register-phone]", driver.phone);
+    setValue("[data-dialog-register-tonnage]", driver.tonnage);
+    setValue("[data-dialog-register-type]", driver.type);
+    setText("[data-dialog-register-source]", sourceLabel);
+  };
+
+  const setDialogExternal = (external) => {
+    const block = document.querySelector("[data-dialog-external-block]");
+    if (!block) return;
+    block.hidden = !external;
+    if (!external) return;
+
+    setText("[data-dialog-external-name]", external.name);
+    setText("[data-dialog-external-vehicle]", external.vehicle);
+    setText("[data-dialog-external-phone]", external.phone);
+    setText("[data-dialog-external-tonnage]", external.tonnage);
+    setText("[data-dialog-external-type]", external.type);
+    setText("[data-dialog-external-state]", external.state);
+
+    const badge = document.querySelector("[data-dialog-external-state]");
+    badge?.classList.remove("warn", "on");
+    badge?.classList.add(external.stateClass);
+  };
+
+  const resetDialogSearch = () => {
+    setValue("[data-dialog-search]", "");
+    let visibleCount = 0;
+    document.querySelectorAll("[data-dialog-db-row]").forEach((row) => {
+      row.hidden = false;
+      visibleCount += 1;
+    });
+    setText("[data-dialog-filter-count]", `${visibleCount}건`);
+  };
+
+  const filterDialogRows = () => {
+    const keyword = document.querySelector("[data-dialog-search]")?.value.trim().toLowerCase() ?? "";
+    let visibleCount = 0;
+    document.querySelectorAll("[data-dialog-db-row]").forEach((row) => {
+      const matched = !keyword || row.dataset.searchText.toLowerCase().includes(keyword);
+      row.hidden = !matched;
+      if (matched) visibleCount += 1;
+    });
+    setText("[data-dialog-filter-count]", `${visibleCount}건`);
+  };
+
+  const snapDriverDialog = () => {
+    if (!driverDialog?.open) return;
+    const left = Math.max(16, Math.round((window.innerWidth - driverDialog.offsetWidth) / 2));
+    const top = Math.max(16, Math.round((window.innerHeight - driverDialog.offsetHeight) / 2));
+    driverDialog.style.left = `${left}px`;
+    driverDialog.style.top = `${top}px`;
+  };
+
+  const setDialogDbResultsVisible = (visible) => {
+    document.querySelector("[data-dialog-presearch]").hidden = visible;
+    document.querySelector("[data-dialog-db-title-row]").hidden = !visible;
+    document.querySelector("[data-dialog-db-head]").hidden = !visible;
+    document.querySelector("[data-dialog-db-result-list]").hidden = !visible;
+    const registerPanelVisible = document.querySelector("[data-dialog-register-panel]")?.hidden === false;
+    const floatingRegister = document.querySelector("[data-dialog-floating-register]");
+    if (floatingRegister) floatingRegister.hidden = !visible || registerPanelVisible;
+    snapDriverDialog();
+  };
+
+  const showPreviewPanel = () => {
+    document.querySelector("[data-dialog-preview-panel]").hidden = false;
+    document.querySelector("[data-dialog-register-panel]").hidden = true;
+    document.querySelector("[data-dialog-register]").hidden = true;
+    const floatingRegister = document.querySelector("[data-dialog-floating-register]");
+    if (floatingRegister && !document.querySelector("[data-dialog-db-result-list]")?.hidden) floatingRegister.hidden = false;
+  };
+
+  const showRegisterPanel = () => {
+    document.querySelector("[data-dialog-preview-panel]").hidden = true;
+    document.querySelector("[data-dialog-register-panel]").hidden = false;
+    document.querySelector("[data-dialog-register]").hidden = false;
+    const floatingRegister = document.querySelector("[data-dialog-floating-register]");
+    if (floatingRegister) floatingRegister.hidden = true;
+  };
+
+  const setRegisterPanelMeta = ({ title, state, tone = "warn", source, applyDisabled, note }) => {
+    setText("[data-dialog-register-title]", title);
+    setText("[data-dialog-register-state]", state);
+    setText("[data-dialog-register-source]", source);
+    setText("[data-dialog-action-note]", note);
+    const stateBadge = document.querySelector("[data-dialog-register-state]");
+    stateBadge?.classList.remove("warn", "on", "danger");
+    stateBadge?.classList.add(tone);
+    document.querySelector("[data-dialog-apply]").disabled = applyDisabled;
+    document.querySelector("[data-dialog-register]").hidden = false;
+  };
+
+  const openDriverDialog = (mode, applyTarget = "summary") => {
+    const config = driverModes[mode] ?? driverModes.internal;
+    dialogState.mode = mode;
+    dialogState.registerContext = mode === "hm-new" ? "hm-new" : "internal";
+    dialogState.registered = mode !== "hm-new";
+    dialogState.selected = { ...config.preview };
+    dialogState.applyTarget = applyTarget;
+
+    setText("[data-dialog-title]", config.title);
+    setText("[data-dialog-subtitle]", config.subtitle);
+    setText("[data-dialog-mode-badge]", config.modeBadge);
+    setText("[data-dialog-status-text]", config.status);
+    setDialogExternal(config.external);
+    resetDialogSearch();
+    setDialogDbResultsVisible(mode !== "internal");
+
+    document.querySelectorAll("[data-dialog-db-row]").forEach((row, index) => {
+      row.classList.toggle("selected", mode === "internal" && index === 0);
+    });
+    document.querySelector("[data-dialog-external-row]")?.classList.toggle("selected", mode !== "internal");
+
+    if (mode === "hm-new") {
+      showRegisterPanel();
+      setRegisterForm(config.preview, "화물맨 배차");
+      setRegisterPanelMeta({
+        title: "화물맨 수신값으로 차주 등록",
+        state: "등록 후 배차 가능",
+        source: "화물맨 배차",
+        applyDisabled: true,
+        note: "화물맨에서 받은 신규 차주는 차주 등록 완료 후 차주 정보에 적용할 수 있습니다.",
+      });
+    } else {
+      showPreviewPanel();
+      setPreview(config.preview, mode === "hm-existing" ? "화물맨 배차" : "내부 DB");
+      document.querySelector("[data-dialog-apply]").disabled = false;
+      setText("[data-dialog-action-note]", "기존 등록 차주는 차주 등록 없이 바로 적용합니다.");
+    }
+
+    if (driverDialog && !driverDialog.open) driverDialog.showModal();
+    snapDriverDialog();
+  };
+
+  const getDialogRegisterDriver = (source) => ({
+    name: document.querySelector("[data-dialog-register-name]")?.value.trim() || "신규차주",
+    vehicle: document.querySelector("[data-dialog-register-vehicle]")?.value.trim() || "경기00바0000",
+    phone: document.querySelector("[data-dialog-register-phone]")?.value.trim() || "010-0000-0000",
+    tonnage: document.querySelector("[data-dialog-register-tonnage]")?.value || "5톤",
+    type: document.querySelector("[data-dialog-register-type]")?.value || "축차",
+    source,
+  });
+
+  const selectDialogDbRow = (row) => {
+    document.querySelector("[data-dialog-external-row]")?.classList.remove("selected");
+    document.querySelectorAll("[data-dialog-db-row]").forEach((item) => item.classList.toggle("selected", item === row));
+    dialogState.mode = "internal";
+    dialogState.registerContext = "internal";
+    dialogState.registered = true;
+    showPreviewPanel();
+    setPreview({
+      name: row.dataset.driverName,
+      vehicle: row.dataset.driverVehicle,
+      phone: row.dataset.driverPhone,
+      tonnage: row.dataset.driverTonnage,
+      type: row.dataset.driverType,
+      source: "내부 DB",
+    }, "내부 DB");
+    document.querySelector("[data-dialog-apply]").disabled = false;
+    setText("[data-dialog-action-note]", row.dataset.driverStatus === "신규 등록" ? "차주 등록이 완료되어 새 행이 자동 선택되었습니다." : "내부 DB 차주를 선택했습니다.");
+  };
+
+  const bindDialogDbRow = (row) => {
+    if (row.dataset.dialogRowBound === "true") return;
+    row.dataset.dialogRowBound = "true";
+    row.addEventListener("click", () => selectDialogDbRow(row));
+    row.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      selectDialogDbRow(row);
+    });
+  };
+
+  const createDialogDbRow = (driver) => {
+    const row = document.createElement("div");
+    row.className = "result-row selected";
+    row.setAttribute("role", "button");
+    row.tabIndex = 0;
+    row.setAttribute("data-dialog-db-row", "");
+    row.dataset.driverName = driver.name;
+    row.dataset.driverVehicle = driver.vehicle;
+    row.dataset.driverPhone = driver.phone;
+    row.dataset.driverTonnage = driver.tonnage;
+    row.dataset.driverType = driver.type;
+    row.dataset.driverStatus = "신규 등록";
+    row.dataset.searchText = `${driver.name} ${driver.vehicle} ${driver.phone} ${driver.tonnage} ${driver.type}`.toLowerCase();
+    row.innerHTML = `
+      <span class="select-marker"></span>
+      <span class="result-pen">${driver.name}</span>
+      <span class="result-pen">${driver.vehicle}</span>
+      <span class="result-pen">${driver.phone}</span>
+      <span class="result-pen">${driver.tonnage}</span>
+      <span class="result-pen">${driver.type}</span>
+      <span>신규 등록</span>
+    `;
+    bindDialogDbRow(row);
+    return row;
+  };
+
+  const openManualRegister = () => {
+    dialogState.mode = "manual-new";
+    dialogState.registerContext = "manual";
+    dialogState.registered = false;
+    dialogState.selected = { ...manualRegisterTemplate };
+    setDialogExternal(null);
+    document.querySelectorAll("[data-dialog-db-row]").forEach((row) => row.classList.remove("selected"));
+    setText("[data-dialog-mode-badge]", "내부 DB 신규");
+    setText("[data-dialog-status-text]", "검색 결과에 없는 차주를 수동으로 등록합니다.");
+    showRegisterPanel();
+    setRegisterForm(manualRegisterTemplate, "내부 DB 신규");
+    setRegisterPanelMeta({
+      title: "차주 등록",
+      state: "신규",
+      source: "내부 DB 신규",
+      applyDisabled: true,
+      note: "차주 등록을 완료하면 조회 목록에 새 행이 추가되고 자동 선택됩니다.",
+    });
+  };
+
+  const registerDialogDriver = () => {
+    if (dialogState.registerContext === "manual") {
+      const registeredDriver = getDialogRegisterDriver("내부 DB");
+      const newRow = createDialogDbRow(registeredDriver);
+      document.querySelector("[data-dialog-db-result-list]")?.prepend(newRow);
+      selectDialogDbRow(newRow);
+      resetDialogSearch();
+      setText("[data-dialog-filter-count]", `${document.querySelectorAll("[data-dialog-db-row]").length}건`);
+      return;
+    }
+
+    dialogState.registered = true;
+    dialogState.selected = getDialogRegisterDriver("화물맨 배차");
+    setText("[data-dialog-register-state]", "DB 저장됨");
+    const stateBadge = document.querySelector("[data-dialog-register-state]");
+    stateBadge?.classList.remove("warn");
+    stateBadge?.classList.add("on");
+    document.querySelector("[data-dialog-register]").hidden = true;
+    document.querySelector("[data-dialog-apply]").disabled = false;
+    setText("[data-dialog-action-note]", "차주 등록이 완료되어 차주 정보에 적용할 수 있습니다.");
+  };
+
+  const applyDialogDriver = () => {
+    if (dialogState.mode === "hm-new" && !dialogState.registered) {
+      setText("[data-dialog-action-note]", "먼저 차주 등록을 완료해야 배차 적용이 가능합니다.");
+      return;
+    }
+
+    const driver = dialogState.selected;
+    setText("[data-applied-name]", driver.name);
+    setText("[data-applied-vehicle]", driver.vehicle);
+    setText("[data-applied-phone]", driver.phone);
+    setText("[data-applied-spec]", `${driver.tonnage} / ${driver.type}`);
+    setText("[data-applied-source]", driver.source?.includes("화물맨") ? "화물맨" : "내부 DB");
+    document.querySelector("[data-applied-summary]").hidden = false;
+    if (dialogState.applyTarget === "placement") {
+      applyPlacementDriver(driver);
+    } else {
+      applyLiveDriver(dialogState.applyTarget, driver);
+    }
+    updateFlowStatus(`${driver.name} 차주 정보가 적용되었습니다.`);
+    driverDialog?.close();
+  };
+
+  document.querySelectorAll("[data-state-tab]").forEach((tab) => {
+    tab.addEventListener("click", () => setPanel(tab.dataset.stateTab));
+  });
+
+  document.querySelectorAll("[data-share-start], [data-share-demo]").forEach((button) => {
+    button.addEventListener("click", () => {
+      setPanel("share");
+      updateFlowStatus("화물맨 연동중입니다. 배차완료 이벤트가 오면 화물맨 차주 적용으로 확인합니다.");
+    });
+  });
+
+  document.querySelectorAll("[data-open-lookup]").forEach((button) => {
+    button.addEventListener("click", () => openDriverDialog("internal"));
+  });
+
+  document.querySelectorAll("[data-dispatch-complete]").forEach((button) => {
+    button.addEventListener("click", () => openDriverDialog("hm-existing"));
+  });
+
+  document.querySelectorAll("[data-open-new-dispatch]").forEach((button) => {
+    button.addEventListener("click", () => openDriverDialog("hm-new"));
+  });
+
+  document.querySelectorAll("[data-live-open-internal]").forEach((button) => {
+    button.addEventListener("click", () => openDriverDialog("internal", button.dataset.liveOpenInternal));
+  });
+
+  document.querySelector("[data-placement-driver-section]")?.addEventListener("click", (event) => {
+    const button = event.target.closest("button");
+    if (!button) return;
+
+    if (button.matches("[data-placement-hm-link]")) {
+      hmShareConfirm?.showModal();
+      return;
+    }
+
+    if (button.matches("[data-placement-hm-cancel]")) {
+      hmCancelConfirm?.showModal();
+      return;
+    }
+
+    if (button.matches("[data-placement-hm-cancel-fail]")) {
+      failPlacementHwamulmanCancel();
+      return;
+    }
+
+    if (button.matches("[data-placement-hm-complete]")) {
+      completePlacementHwamulman();
+      return;
+    }
+
+    if (button.matches("[data-placement-hm-apply]")) {
+      openDriverDialog("hm-existing", "placement");
+      return;
+    }
+
+    if (button.matches("[data-placement-change-driver]")) {
+      const row = button.closest("[data-placement-driver-row]");
+      row?.classList.add("change-absorbing");
+      window.setTimeout(() => {
+        row?.classList.remove("change-absorbing");
+        openDriverDialog("internal", "placement");
+      }, 420);
+    }
+  });
+
+  document.querySelector("[data-hm-share-yes]")?.addEventListener("click", () => {
+    hmShareConfirm?.close();
+    startPlacementHwamulman();
+  });
+
+  document.querySelector("[data-hm-share-no]")?.addEventListener("click", () => {
+    hmShareConfirm?.close();
+  });
+
+document.querySelector("[data-hm-cancel-yes]")?.addEventListener("click", () => {
+  hmCancelConfirm?.close();
+  requestPlacementHwamulmanCancel();
+});
+
+  document.querySelector("[data-hm-cancel-no]")?.addEventListener("click", () => {
+    hmCancelConfirm?.close();
+  });
+
+  document.querySelector("[data-live-share]")?.addEventListener("click", () => {
+    liveState.phase2.status = "화물맨 연동중";
+    liveState.phase2.driver = null;
+    liveState.phase2.source = "화물맨 연동중";
+    liveState.phase2.result = "배차 결과 대기";
+    renderLiveBoard();
+    updateFlowStatus("Phase 2가 화물맨 연동중 상태로 전환되었습니다.");
+  });
+
+  document.querySelector("[data-live-dispatch-existing]")?.addEventListener("click", () => {
+    liveState.phase2.status = "화물맨 배차완료";
+    liveState.phase2.source = "화물맨 배차";
+    liveState.phase2.result = "기존 등록 차주 확인";
+    renderLiveBoard();
+    openDriverDialog("hm-existing", "phase2");
+  });
+
+  document.querySelector("[data-live-dispatch-new]")?.addEventListener("click", () => {
+    liveState.phase2.status = "화물맨 배차완료";
+    liveState.phase2.source = "화물맨 배차";
+    liveState.phase2.result = "신규 차주 등록 필요";
+    renderLiveBoard();
+    openDriverDialog("hm-new", "phase2");
+  });
+
+  document.querySelector("[data-live-reset]")?.addEventListener("click", resetLivePhase2);
+
+  document.querySelectorAll("[data-dialog-mode]").forEach((button) => {
+    button.addEventListener("click", () => openDriverDialog(button.dataset.dialogMode, dialogState.applyTarget));
+  });
+
+  document.querySelectorAll("[data-dialog-close]").forEach((button) => {
+    button.addEventListener("click", () => driverDialog?.close());
+  });
+
+  document.querySelectorAll("[data-dialog-register-open]").forEach((button) => {
+    button.addEventListener("click", openManualRegister);
+  });
+
+  document.querySelector("[data-dialog-filter]")?.addEventListener("click", () => {
+    setDialogDbResultsVisible(true);
+    filterDialogRows();
+  });
+
+  document.querySelector("[data-dialog-search]")?.addEventListener("input", () => {
+    if (!document.querySelector("[data-dialog-db-result-list]")?.hidden) filterDialogRows();
+  });
+
+  document.querySelector("[data-dialog-reset]")?.addEventListener("click", () => {
+    resetDialogSearch();
+    setDialogDbResultsVisible(dialogState.mode !== "internal");
+  });
+
+  document.querySelector("[data-dialog-external-row]")?.addEventListener("click", () => {
+    const config = driverModes[dialogState.mode] ?? driverModes["hm-existing"];
+    document.querySelectorAll("[data-dialog-db-row]").forEach((row) => row.classList.remove("selected"));
+    document.querySelector("[data-dialog-external-row]")?.classList.add("selected");
+    if (dialogState.mode === "hm-new") {
+      dialogState.registerContext = "hm-new";
+      showRegisterPanel();
+      setRegisterForm(config.preview, "화물맨 배차");
+      document.querySelector("[data-dialog-apply]").disabled = !dialogState.registered;
+      if (dialogState.registered) {
+        setText("[data-dialog-register-state]", "DB 저장됨");
+        const stateBadge = document.querySelector("[data-dialog-register-state]");
+        stateBadge?.classList.remove("warn");
+        stateBadge?.classList.add("on");
+        document.querySelector("[data-dialog-register]").hidden = true;
+      } else {
+        setText("[data-dialog-register-state]", "등록 후 배차 가능");
+        const stateBadge = document.querySelector("[data-dialog-register-state]");
+        stateBadge?.classList.add("warn");
+        stateBadge?.classList.remove("on");
+        document.querySelector("[data-dialog-register]").hidden = false;
+      }
+      setText("[data-dialog-action-note]", dialogState.registered ? "차주 등록이 완료되어 차주 정보에 적용할 수 있습니다." : "신규 차주는 하단의 차주 등록 완료 후 차주 정보에 적용할 수 있습니다.");
+    } else {
+      showPreviewPanel();
+      setPreview(config.preview, "화물맨 배차");
+      document.querySelector("[data-dialog-apply]").disabled = false;
+      setText("[data-dialog-action-note]", "기존 등록 차주는 차주 등록 없이 바로 적용합니다.");
+    }
+  });
+
+  document.querySelectorAll("[data-dialog-db-row]").forEach(bindDialogDbRow);
+
+  document.querySelector("[data-dialog-register]")?.addEventListener("click", registerDialogDriver);
+  document.querySelector("[data-dialog-apply]")?.addEventListener("click", applyDialogDriver);
+
+  document.querySelector("[data-filter-button]")?.addEventListener("click", staticFilterRows);
+  document.querySelector("[data-search-input]")?.addEventListener("input", staticFilterRows);
+  document.querySelector("[data-reset-search]")?.addEventListener("click", () => {
+    document.querySelector("[data-search-input]").value = "";
+    staticFilterRows();
+  });
+
+  const saveExternal = () => {
+    document.querySelectorAll("[data-save-state]").forEach((badge) => {
+      badge.textContent = "DB 저장됨";
+      badge.classList.remove("warn");
+      badge.classList.add("on");
+    });
+    document.querySelectorAll("[data-preview-save]").forEach((value) => {
+      value.textContent = "DB 저장됨";
+    });
+    document.querySelectorAll("[data-new-register-state]").forEach((badge) => {
+      badge.textContent = "DB 저장됨";
+      badge.classList.remove("warn");
+      badge.classList.add("on");
+    });
+    document.querySelectorAll("[data-new-apply]").forEach((button) => {
+      button.disabled = false;
+    });
+    document.querySelectorAll("[data-new-apply-note]").forEach((note) => {
+      note.textContent = "차주 등록이 완료되어 차주 정보에 적용할 수 있습니다.";
+    });
+  };
+
+  document.querySelectorAll("[data-save-external], [data-save-external-alt]").forEach((button) => {
+    button.addEventListener("click", saveExternal);
+  });
+
+  document.querySelectorAll(".state-panel .result-row").forEach((row) => {
+    row.addEventListener("click", () => {
+      row.closest(".state-panel")?.querySelectorAll(".result-row").forEach((item) => item.classList.toggle("selected", item === row));
+    });
+  });
+
+  renderLiveBoard();
+  renderPlacementDriver();
+  window.addEventListener("resize", snapDriverDialog);
+</script>
+</body>
+</html>
