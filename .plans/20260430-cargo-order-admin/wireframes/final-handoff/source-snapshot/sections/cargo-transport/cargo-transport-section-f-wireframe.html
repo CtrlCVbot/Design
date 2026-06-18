@@ -1,0 +1,1498 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>화물 운송정보 F안 와이어프레임</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #8a8f96;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --rule: #d8d4c6;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button,
+  input,
+  select {
+    font: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .sheet {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 22px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, .08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    line-height: 1;
+  }
+
+  h1 {
+    font-size: 34px;
+    font-weight: 400;
+  }
+
+  h2 {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .scrid {
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .chips,
+  .meta-row,
+  .dialog-actions,
+  .preview-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .chips {
+    margin: 12px 0 4px;
+  }
+
+  .chip,
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .chip.wait,
+  .badge.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .section {
+    position: relative;
+    min-width: 0;
+    margin-top: 22px;
+    padding: 16px 12px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .section-title {
+    position: absolute;
+    top: -14px;
+    left: 12px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 23px;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .meta-label,
+  .detail-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .empty-grid,
+  .live-panel,
+  .combined-component,
+  .combined-block,
+  .dialog-shell,
+  .form-grid,
+  .dialog-preview {
+    display: grid;
+    gap: 8px;
+  }
+
+  .empty-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 10px;
+  }
+
+  .activation-card,
+  .summary-card {
+    position: relative;
+    display: grid;
+    gap: 7px;
+    padding: 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow: hidden;
+  }
+
+  .activation-row {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr) auto;
+    gap: 7px;
+    align-items: center;
+  }
+
+.ph {
+  display: block;
+  position: relative;
+  min-height: 18px;
+  border-bottom: 1.5px dashed #b9a974;
+}
+
+.ph[data-placeholder]::before {
+  content: attr(data-placeholder);
+  position: absolute;
+  left: 0;
+  bottom: 2px;
+  color: var(--ink-mute);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+  .activation-button,
+  .plain-button,
+  .primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 2px 9px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .activation-button {
+    min-height: 24px;
+    border-radius: 999px;
+    background: #efe6c2;
+  }
+
+  .primary-button {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .activation-card.is-activating .activation-button {
+    animation: absorb-to-kind 420ms cubic-bezier(.2, .8, .2, 1) forwards;
+  }
+
+  @keyframes absorb-to-kind {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    72% {
+      opacity: 1;
+      transform: translateX(var(--absorb-x, -520px)) scale(.97);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(var(--absorb-x, -520px)) scale(.78);
+    }
+  }
+
+  @keyframes reveal-row {
+    0% {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .activation-card.is-activating .activation-button,
+    .summary-card.just-applied {
+      animation: none;
+    }
+  }
+
+  .live-panel {
+    margin-top: 10px;
+  }
+
+  .combined-component {
+    margin-top: 10px;
+  }
+
+  .combined-block {
+    gap: 7px;
+  }
+
+  .summary-card {
+    overflow-x: auto;
+  }
+
+  .summary-card.just-applied {
+    animation: reveal-row 180ms ease-out forwards;
+  }
+
+  .two-row {
+    display: grid;
+    gap: 5px;
+    min-width: 900px;
+  }
+
+  .summary-row {
+    display: grid;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .summary-row.transport-main {
+    width: max-content;
+    max-width: 100%;
+    grid-template-columns: 86px 96px 120px 64px 118px;
+  }
+
+  .summary-row.item-sub {
+    grid-template-columns: 86px minmax(420px, 1fr);
+    border-top: 1px dashed var(--rule);
+    padding-top: 5px;
+  }
+
+  .summary-row.money-main {
+    grid-template-columns: 86px 106px 132px 132px 112px 132px 96px;
+    min-width: 900px;
+  }
+
+  .edit-cell {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    min-height: 39px;
+    position: relative;
+    padding: 2px 38px 2px 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background 140ms ease, border-color 140ms ease, outline-color 140ms ease;
+  }
+
+  .edit-cell::after {
+    content: "수정";
+    position: absolute;
+    top: 3px;
+    right: 3px;
+    min-height: 16px;
+    padding: 0 5px;
+    border: 1px dashed var(--note);
+    border-radius: 999px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 16px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease;
+  }
+
+  .edit-cell:hover,
+  .edit-cell:focus {
+    border-color: transparent;
+    background: var(--note-bg);
+    outline: 1px dashed var(--note);
+  }
+
+  .edit-cell:hover::after,
+  .edit-cell:focus::after {
+    opacity: 1;
+  }
+
+  .edit-cell.editing {
+    border-color: var(--rule);
+    background: #fffaf0;
+    outline: none;
+    padding-right: 5px;
+  }
+
+  .edit-cell.editing::after,
+  .edit-cell.readonly::after {
+    content: none;
+  }
+
+  .edit-cell.readonly {
+    cursor: default;
+    padding-right: 5px;
+  }
+
+  .edit-cell.readonly:hover,
+  .edit-cell.readonly:focus {
+    border-color: transparent;
+    background: transparent;
+    outline: none;
+  }
+
+  .read-value {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+  }
+
+  .value-main {
+    font-weight: 700;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .cell-hint {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  .summary-row.transport-main .edit-cell {
+    padding-right: 34px;
+  }
+
+  .summary-row.transport-main .edit-cell::after {
+    right: 2px;
+    padding: 0 4px;
+  }
+
+  .summary-row.transport-main .edit-cell[data-field="weight"] {
+    padding-right: 5px;
+  }
+
+  .summary-row.transport-main .edit-cell.editing {
+    padding-right: 5px;
+  }
+
+  .summary-row.transport-main .edit-cell[data-field="weight"] .cell-hint {
+    font-size: 10px;
+  }
+
+  .value-pen {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .item-value {
+    overflow: visible;
+    text-overflow: clip;
+    white-space: normal;
+    word-break: keep-all;
+  }
+
+  .edit-control {
+    display: none;
+    width: 100%;
+    min-height: 24px;
+    padding: 1px 5px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .edit-control.money,
+  .edit-control.number {
+    text-align: right;
+  }
+
+  .edit-cell.editing .read-value {
+    display: none;
+  }
+
+  .edit-cell.editing .cell-hint {
+    display: none;
+  }
+
+  .edit-cell.editing .edit-control {
+    display: block;
+  }
+
+  .formula {
+    display: inline-flex;
+    width: fit-content;
+    padding: 2px 7px;
+    border: 1px dashed var(--ok);
+    border-radius: 3px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 17px;
+  }
+
+  .dialog {
+    width: min(760px, calc(100vw - 32px));
+    max-height: min(88vh, 720px);
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, .12);
+  }
+
+  .dialog::backdrop {
+    background: rgba(31, 35, 40, .32);
+  }
+
+  .dialog-shell {
+    padding: 12px;
+  }
+
+  .dialog-head,
+  .dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .dialog-head h2 {
+    font-size: 27px;
+  }
+
+  .dialog-subtitle {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .form-field {
+    display: grid;
+    gap: 3px;
+  }
+
+  .form-field.wide {
+    grid-column: 1 / -1;
+  }
+
+  .input,
+  .select {
+    min-height: 30px;
+    width: 100%;
+    padding: 3px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .input.money,
+  .input.number {
+    text-align: right;
+  }
+
+  .dialog-preview {
+    padding: 8px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    background: #fffaf0;
+  }
+
+  .dialog-actions {
+    justify-content: flex-end;
+    padding-top: 4px;
+  }
+
+  .review-note {
+    margin-top: 14px;
+    padding: 8px 10px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 16px;
+  }
+
+  .workflow-note {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    background: #fffaf0;
+  }
+
+  @media (max-width: 900px) {
+    .empty-grid,
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 680px) {
+    body {
+      padding: 10px;
+    }
+
+    .sheet {
+      width: calc(100vw - 20px);
+      padding: 12px 10px 18px;
+    }
+
+    .activation-row {
+      grid-template-columns: 86px minmax(0, 1fr);
+    }
+
+    .activation-row .activation-button {
+      grid-column: 2;
+      width: fit-content;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet" aria-label="화물 운송정보 F안 단독 와이어프레임">
+  <header class="mast">
+    <div>
+      <h1>화물 운송정보 F안</h1>
+      <div class="subtitle">운송+품목은 하나의 박스 안 2행으로 묶고, 금액은 별도 정산 박스로 분리한 단독 확인용 HTML</div>
+    </div>
+    <div class="scrid">SCR-CT-F · separated wireframe</div>
+  </header>
+
+  <div class="chips" aria-label="F안 특징">
+    <span class="chip on">F안 단독</span>
+    <span class="chip">운송+품목 2행</span>
+    <span class="chip">금액 별도</span>
+    <span class="chip">슬라이딩 후 다이얼로그</span>
+    <span class="chip wait">적용 후 inline edit</span>
+  </div>
+
+  <section class="section" aria-labelledby="empty-title">
+    <div class="section-title" id="empty-title"><span class="num">1</span>입력 전: CTA + 다이얼로그</div>
+    <div class="section-note">버튼이 라벨 방향으로 슬라이딩된 뒤 입력 다이얼로그가 열림</div>
+
+    <div class="empty-grid" aria-label="F안 입력 전 버튼">
+      <article class="activation-card" data-activation="transport">
+        <div class="activation-row">
+          <span class="kind" data-activation-target>운송+품목</span>
+        <span class="ph" data-placeholder="톤수, 차종, 대수, 실중량, 품목을 입력하세요" aria-label="운송 조건과 품목 입력 대기"></span>
+          <button class="activation-button" type="button" data-open-dialog="transport">운송+품목 입력</button>
+        </div>
+        <div class="meta-row">
+          <span class="chip">톤수</span>
+          <span class="chip">차종</span>
+          <span class="chip">대수</span>
+          <span class="chip">실중량</span>
+          <span class="chip">품목</span>
+        </div>
+      </article>
+
+      <article class="activation-card" data-activation="money">
+        <div class="activation-row">
+          <span class="kind" data-activation-target>금액</span>
+        <span class="ph" data-placeholder="결제방법과 청구/운송 비용을 입력하세요" aria-label="금액 조건 입력 대기"></span>
+          <button class="activation-button" type="button" data-open-dialog="money">금액 조건 선택</button>
+        </div>
+        <div class="meta-row">
+          <span class="chip">결제방법</span>
+          <span class="chip">청구비용</span>
+          <span class="chip">운송비용</span>
+          <span class="chip">수수료</span>
+          <span class="chip">수익/차주운임</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="workflow-note">
+      <div class="meta-row">
+        <span class="meta-label">확인 순서</span>
+        <span class="chip on">1 버튼 클릭</span>
+        <span class="chip on">2 다이얼로그 입력</span>
+        <span class="chip on">3 적용 후 row 반영</span>
+        <span class="chip wait">4 row 값 클릭 수정</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-f-section data-render-scope="example" aria-labelledby="result-title">
+    <div class="section-title" id="result-title"><span class="num">2</span>데이터 있음: F안 실제 배치</div>
+    <div class="section-note">단독 확인용이라 예시값을 기본 노출, 값 클릭 시 D안처럼 같은 자리에서 select/input으로 변경</div>
+
+    <div class="live-panel" aria-label="F안 적용 후 row">
+      <article class="summary-card" data-result-card="transport">
+        <div class="two-row">
+          <div class="summary-row transport-main">
+            <span class="kind">운송</span>
+            <span class="edit-cell" data-edit-cell data-field="ton">
+              <span class="detail-label">톤수</span>
+              <span class="read-value value-main" data-read>5톤</span>
+              <select class="edit-control" data-control aria-label="톤수 수정">
+                <option value="1">1톤</option>
+                <option value="1.4">1.4톤</option>
+                <option value="2.5">2.5톤</option>
+                <option value="3.5">3.5톤</option>
+                <option value="5" selected>5톤</option>
+                <option value="11">11톤</option>
+                <option value="25">25톤</option>
+              </select>
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="vehicle">
+              <span class="detail-label">차종</span>
+              <span class="read-value value-main" data-read>축카고</span>
+              <select class="edit-control" data-control aria-label="차종 수정">
+                <option>카고</option>
+                <option selected>축카고</option>
+                <option>윙바디</option>
+                <option>탑차</option>
+              </select>
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="count">
+              <span class="detail-label">대수</span>
+              <span class="read-value value-main" data-read>1대</span>
+              <input class="edit-control number" data-control type="number" min="1" step="1" value="1" aria-label="대수 수정" />
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="weight">
+              <span class="detail-label">실중량</span>
+              <span class="read-value value-main" data-read>5.50톤</span>
+              <span class="cell-hint" title="화물중량 110% 이하">110% 이하</span>
+              <input class="edit-control number" data-control type="number" min="0" step="0.01" value="5.50" aria-label="실중량 수정" />
+            </span>
+          </div>
+
+        <div class="summary-row item-sub">
+          <span class="kind">품목</span>
+          <span class="edit-cell" data-edit-cell data-field="item">
+            <span class="detail-label">품목</span>
+            <span class="read-value value-main item-value" data-read title="장비 운송">장비 운송</span>
+            <input class="edit-control" data-control type="text" value="장비 운송" aria-label="품목 수정" />
+          </span>
+        </div>
+        </div>
+      </article>
+
+      <article class="summary-card" data-result-card="money">
+        <div class="summary-row money-main">
+          <span class="kind">금액</span>
+          <span class="edit-cell" data-edit-cell data-field="payment">
+            <span class="detail-label">결제방법</span>
+            <span class="read-value value-main" data-read>인수증</span>
+            <select class="edit-control" data-control aria-label="결제방법 수정">
+              <option selected>인수증</option>
+              <option>선불</option>
+              <option>착불</option>
+              <option>선착불</option>
+            </select>
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="charge">
+            <span class="detail-label">청구비용</span>
+            <span class="read-value value-pen" data-read>140,000</span>
+            <input class="edit-control money" data-control inputmode="numeric" value="140,000" aria-label="청구비용 수정" />
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="carrier">
+            <span class="detail-label">운송비용</span>
+            <span class="read-value value-pen" data-read>100,000</span>
+            <input class="edit-control money" data-control inputmode="numeric" value="100,000" aria-label="운송비용 수정" />
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="fee">
+            <span class="detail-label">수수료</span>
+            <span class="read-value badge" data-read>미표시</span>
+            <input class="edit-control money" data-control inputmode="numeric" value="" aria-label="수수료 수정" />
+          </span>
+          <span class="edit-cell readonly" data-result-cell>
+            <span class="detail-label" data-result-label>수익</span>
+            <span class="read-value value-pen" data-result-value>40,000</span>
+          </span>
+          <span class="formula" data-formula>청구-운송</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" data-combined-section data-render-scope="complete" aria-labelledby="combined-title">
+    <div class="section-title" id="combined-title"><span class="num">3</span>완성 컴포넌트: 입력부터 수정까지</div>
+    <div class="section-note">입력 전 버튼과 적용 후 row가 같은 컴포넌트 안에서 전환됨</div>
+
+    <div class="combined-component" aria-label="F안 통합 동작 컴포넌트">
+      <div class="combined-block" data-combined-block="transport">
+        <article class="activation-card" data-activation="transport">
+          <div class="activation-row">
+            <span class="kind" data-activation-target>운송+품목</span>
+          <span class="ph" data-placeholder="톤수, 차종, 대수, 실중량, 품목을 입력하세요" aria-label="운송 조건과 품목 입력 대기"></span>
+            <button class="activation-button" type="button" data-open-dialog="transport">운송+품목 입력</button>
+          </div>
+          <div class="meta-row">
+            <span class="chip">톤수</span>
+            <span class="chip">차종</span>
+            <span class="chip">대수</span>
+            <span class="chip">실중량</span>
+            <span class="chip">품목</span>
+          </div>
+        </article>
+
+        <article class="summary-card" data-result-card="transport" hidden>
+          <div class="two-row">
+            <div class="summary-row transport-main">
+              <span class="kind">운송</span>
+              <span class="edit-cell" data-edit-cell data-field="ton">
+                <span class="detail-label">톤수</span>
+                <span class="read-value value-main" data-read>5톤</span>
+                <select class="edit-control" data-control aria-label="톤수 수정">
+                  <option value="1">1톤</option>
+                  <option value="1.4">1.4톤</option>
+                  <option value="2.5">2.5톤</option>
+                  <option value="3.5">3.5톤</option>
+                  <option value="5" selected>5톤</option>
+                  <option value="11">11톤</option>
+                  <option value="25">25톤</option>
+                </select>
+              </span>
+              <span class="edit-cell" data-edit-cell data-field="vehicle">
+                <span class="detail-label">차종</span>
+                <span class="read-value value-main" data-read>축카고</span>
+                <select class="edit-control" data-control aria-label="차종 수정">
+                  <option>카고</option>
+                  <option selected>축카고</option>
+                  <option>윙바디</option>
+                  <option>탑차</option>
+                </select>
+              </span>
+              <span class="edit-cell" data-edit-cell data-field="count">
+                <span class="detail-label">대수</span>
+                <span class="read-value value-main" data-read>1대</span>
+                <input class="edit-control number" data-control type="number" min="1" step="1" value="1" aria-label="대수 수정" />
+              </span>
+              <span class="edit-cell" data-edit-cell data-field="weight">
+                <span class="detail-label">실중량</span>
+                <span class="read-value value-main" data-read>5.50톤</span>
+                <span class="cell-hint" title="화물중량 110% 이하">110% 이하</span>
+                <input class="edit-control number" data-control type="number" min="0" step="0.01" value="5.50" aria-label="실중량 수정" />
+              </span>
+            </div>
+
+            <div class="summary-row item-sub">
+              <span class="kind">품목</span>
+              <span class="edit-cell" data-edit-cell data-field="item">
+                <span class="detail-label">품목</span>
+                <span class="read-value value-main item-value" data-read title="장비 운송">장비 운송</span>
+                <input class="edit-control" data-control type="text" value="장비 운송" aria-label="품목 수정" />
+              </span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="combined-block" data-combined-block="money">
+        <article class="activation-card" data-activation="money">
+          <div class="activation-row">
+            <span class="kind" data-activation-target>금액</span>
+          <span class="ph" data-placeholder="결제방법과 청구/운송 비용을 입력하세요" aria-label="금액 조건 입력 대기"></span>
+            <button class="activation-button" type="button" data-open-dialog="money">금액 조건 선택</button>
+          </div>
+          <div class="meta-row">
+            <span class="chip">결제방법</span>
+            <span class="chip">청구비용</span>
+            <span class="chip">운송비용</span>
+            <span class="chip">수수료</span>
+            <span class="chip">수익/차주운임</span>
+          </div>
+        </article>
+
+        <article class="summary-card" data-result-card="money" hidden>
+          <div class="summary-row money-main">
+            <span class="kind">금액</span>
+            <span class="edit-cell" data-edit-cell data-field="payment">
+              <span class="detail-label">결제방법</span>
+              <span class="read-value value-main" data-read>인수증</span>
+              <select class="edit-control" data-control aria-label="결제방법 수정">
+                <option selected>인수증</option>
+                <option>선불</option>
+                <option>착불</option>
+                <option>선착불</option>
+              </select>
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="charge">
+              <span class="detail-label">청구비용</span>
+              <span class="read-value value-pen" data-read>140,000</span>
+              <input class="edit-control money" data-control inputmode="numeric" value="140,000" aria-label="청구비용 수정" />
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="carrier">
+              <span class="detail-label">운송비용</span>
+              <span class="read-value value-pen" data-read>100,000</span>
+              <input class="edit-control money" data-control inputmode="numeric" value="100,000" aria-label="운송비용 수정" />
+            </span>
+            <span class="edit-cell" data-edit-cell data-field="fee">
+              <span class="detail-label">수수료</span>
+              <span class="read-value badge" data-read>미표시</span>
+              <input class="edit-control money" data-control inputmode="numeric" value="" aria-label="수수료 수정" />
+            </span>
+            <span class="edit-cell readonly" data-result-cell>
+              <span class="detail-label" data-result-label>수익</span>
+              <span class="read-value value-pen" data-result-value>40,000</span>
+            </span>
+            <span class="formula" data-formula>청구-운송</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="review-note">
+    이 파일은 F안만 따로 비교하기 위한 단독 HTML입니다. 기존 `cargo-transport-section-variants.html`은 여러 안을 함께 보는 비교용으로 유지합니다.
+  </div>
+</main>
+
+<dialog class="dialog" data-dialog="transport" aria-labelledby="transport-dialog-title">
+  <div class="dialog-shell">
+    <div class="dialog-head">
+      <div>
+        <h2 id="transport-dialog-title">운송+품목 입력</h2>
+        <div class="dialog-subtitle">톤수 선택 시 실중량은 110% 기준으로 자동 계산됩니다.</div>
+      </div>
+      <button class="plain-button" type="button" data-dialog-close>닫기</button>
+    </div>
+
+    <div class="form-grid">
+      <label class="form-field">
+        <span class="detail-label">톤수</span>
+        <select class="select" data-dialog-ton>
+          <option value="1">1톤</option>
+          <option value="1.4">1.4톤</option>
+          <option value="2.5">2.5톤</option>
+          <option value="3.5">3.5톤</option>
+          <option value="5" selected>5톤</option>
+          <option value="11">11톤</option>
+          <option value="25">25톤</option>
+        </select>
+      </label>
+      <label class="form-field">
+        <span class="detail-label">차종</span>
+        <select class="select" data-dialog-vehicle>
+          <option>카고</option>
+          <option selected>축카고</option>
+          <option>윙바디</option>
+          <option>탑차</option>
+        </select>
+      </label>
+      <label class="form-field">
+        <span class="detail-label">대수</span>
+        <input class="input number" data-dialog-count type="number" min="1" step="1" value="1" />
+      </label>
+      <label class="form-field">
+        <span class="detail-label">실중량</span>
+        <input class="input number" data-dialog-weight type="number" min="0" step="0.01" value="5.50" />
+      </label>
+      <label class="form-field wide">
+        <span class="detail-label">품목</span>
+        <input class="input" data-dialog-item type="text" value="장비 운송" />
+      </label>
+    </div>
+
+    <div class="dialog-preview">
+      <div class="preview-line">
+        <span class="meta-label">적용 후</span>
+        <span class="chip on">운송 1행</span>
+        <span class="chip on">품목 2행</span>
+        <span class="chip">실중량 110% 자동</span>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="plain-button" type="button" data-dialog-close>취소</button>
+      <button class="primary-button" type="button" data-apply-dialog="transport">운송+품목 적용</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="dialog" data-dialog="money" aria-labelledby="money-dialog-title">
+  <div class="dialog-shell">
+    <div class="dialog-head">
+      <div>
+        <h2 id="money-dialog-title">금액 조건 선택</h2>
+        <div class="dialog-subtitle">청구비용과 운송비용을 분리하고, 결제방법에 따라 결과 라벨을 바꿉니다.</div>
+      </div>
+      <button class="plain-button" type="button" data-dialog-close>닫기</button>
+    </div>
+
+    <div class="form-grid">
+      <label class="form-field">
+        <span class="detail-label">결제방법</span>
+        <select class="select" data-dialog-payment>
+          <option selected>인수증</option>
+          <option>선불</option>
+          <option>착불</option>
+          <option>선착불</option>
+        </select>
+      </label>
+      <label class="form-field">
+        <span class="detail-label">청구비용</span>
+        <input class="input money" data-dialog-charge inputmode="numeric" value="140,000" />
+      </label>
+      <label class="form-field">
+        <span class="detail-label">운송비용</span>
+        <input class="input money" data-dialog-carrier inputmode="numeric" value="100,000" />
+      </label>
+      <label class="form-field">
+        <span class="detail-label">수수료</span>
+        <input class="input money" data-dialog-fee inputmode="numeric" value="" placeholder="인수증이면 미표시" />
+      </label>
+    </div>
+
+    <div class="dialog-preview">
+      <div class="preview-line">
+        <span class="meta-label">계산</span>
+        <span class="formula" data-dialog-formula>청구비용 - 운송비용 = 수익</span>
+        <span class="chip on" data-dialog-result>수익 40,000</span>
+      </div>
+    </div>
+
+    <div class="dialog-actions">
+      <button class="plain-button" type="button" data-dialog-close>취소</button>
+      <button class="primary-button" type="button" data-apply-dialog="money">금액 조건 적용</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const previewSection = document.querySelector("[data-f-section]");
+  let pendingRevealScope = previewSection;
+  const tonLabels = {
+    "1": "1톤",
+    "1.4": "1.4톤",
+    "2.5": "2.5톤",
+    "3.5": "3.5톤",
+    "5": "5톤",
+    "11": "11톤",
+    "25": "25톤",
+  };
+
+  const state = {
+    transport: {
+      tonValue: "5",
+      ton: "5톤",
+      vehicle: "축카고",
+      count: "1",
+      weight: "5.50",
+      item: "장비 운송",
+    },
+    money: {
+      payment: "인수증",
+      charge: "140,000",
+      carrier: "100,000",
+      fee: "",
+    },
+  };
+
+  const toNumber = (value) => {
+    const parsed = Number(String(value ?? "").replace(/[^\d.-]/g, ""));
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const formatMoney = (value) => toNumber(value).toLocaleString("ko-KR");
+
+  const renderScopes = () => [...document.querySelectorAll("[data-render-scope]")];
+
+  const cells = (field, scope) => {
+    const root = scope ?? document;
+    const selector = scope ? `[data-field="${field}"]` : `[data-render-scope] [data-field="${field}"]`;
+    return [...root.querySelectorAll(selector)];
+  };
+
+  const cell = (field, scope = previewSection) => scope?.querySelector(`[data-field="${field}"]`);
+  const controls = (field, scope) => cells(field, scope).map((targetCell) => targetCell.querySelector("[data-control]")).filter(Boolean);
+
+  const setRead = (field, value) => {
+    cells(field).forEach((targetCell) => {
+      const read = targetCell.querySelector("[data-read]");
+      if (!read) return;
+      read.textContent = value;
+      if (field === "item") read.title = value;
+    });
+  };
+
+  const setSelectValue = (target, value) => {
+    if (!target) return;
+    [...target.options].some((option) => {
+      const matched = option.value === value || option.textContent === value;
+      if (matched) target.value = option.value || option.textContent;
+      return matched;
+    });
+  };
+
+  const resultMeta = () => {
+    const payment = state.money.payment;
+    const charge = toNumber(state.money.charge);
+    const carrier = toNumber(state.money.carrier);
+    const fee = toNumber(state.money.fee);
+
+    if (payment === "인수증") {
+      return {
+        label: "수익",
+        value: formatMoney(charge - carrier),
+        formula: "청구-운송",
+        fullFormula: "청구비용 - 운송비용 = 수익",
+      };
+    }
+
+    return {
+      label: "차주운임",
+      value: formatMoney(carrier + fee),
+      formula: "운송+수수료",
+      fullFormula: "운송비용 + 수수료 = 차주운임",
+    };
+  };
+
+  const revealCard = (type, scope = previewSection) => {
+    const cards = [...(scope ?? document).querySelectorAll(`[data-result-card="${type}"]`)];
+    cards.forEach((card) => {
+      card.hidden = false;
+      card.classList.remove("just-applied");
+      const block = card.closest("[data-combined-block]");
+      block?.querySelector("[data-activation]")?.setAttribute("hidden", "");
+      block?.classList.add("is-applied");
+      void card.offsetWidth;
+      card.classList.add("just-applied");
+    });
+  };
+
+  const renderTransport = (options = {}) => {
+    setRead("ton", state.transport.ton);
+    setRead("vehicle", state.transport.vehicle);
+    setRead("count", `${Math.max(1, toNumber(state.transport.count))}대`);
+    setRead("weight", `${toNumber(state.transport.weight).toFixed(2)}톤`);
+    setRead("item", state.transport.item || "미입력");
+
+    controls("ton").forEach((targetControl) => setSelectValue(targetControl, state.transport.tonValue));
+    controls("vehicle").forEach((targetControl) => setSelectValue(targetControl, state.transport.vehicle));
+    controls("count").forEach((targetControl) => {
+      targetControl.value = Math.max(1, toNumber(state.transport.count));
+    });
+    controls("weight").forEach((targetControl) => {
+      targetControl.value = toNumber(state.transport.weight).toFixed(2);
+    });
+    controls("item").forEach((targetControl) => {
+      targetControl.value = state.transport.item;
+    });
+
+    if (options.revealScope) revealCard("transport", options.revealScope);
+  };
+
+  const renderMoney = (options = {}) => {
+    const result = resultMeta();
+    setRead("payment", state.money.payment);
+    setRead("charge", formatMoney(state.money.charge));
+    setRead("carrier", formatMoney(state.money.carrier));
+    setRead("fee", toNumber(state.money.fee) > 0 ? formatMoney(state.money.fee) : "미표시");
+
+    controls("payment").forEach((targetControl) => setSelectValue(targetControl, state.money.payment));
+    controls("charge").forEach((targetControl) => {
+      targetControl.value = formatMoney(state.money.charge);
+    });
+    controls("carrier").forEach((targetControl) => {
+      targetControl.value = formatMoney(state.money.carrier);
+    });
+    controls("fee").forEach((targetControl) => {
+      targetControl.value = toNumber(state.money.fee) > 0 ? formatMoney(state.money.fee) : "";
+    });
+
+    renderScopes().forEach((scope) => {
+      const resultLabel = scope.querySelector("[data-result-label]");
+      const resultValue = scope.querySelector("[data-result-value]");
+      const formula = scope.querySelector("[data-formula]");
+      if (resultLabel) resultLabel.textContent = result.label;
+      if (resultValue) resultValue.textContent = result.value;
+      if (formula) formula.textContent = result.formula;
+    });
+
+    if (options.revealScope) revealCard("money", options.revealScope);
+  };
+
+  const syncDialogWeight = () => {
+    const ton = document.querySelector("[data-dialog-ton]");
+    const weight = document.querySelector("[data-dialog-weight]");
+    const value = Number(ton?.value);
+    if (!weight || !Number.isFinite(value)) return;
+    weight.value = (value * 1.1).toFixed(2);
+  };
+
+  const updateDialogMoneyPreview = () => {
+    const payment = document.querySelector("[data-dialog-payment]")?.value ?? "인수증";
+    const charge = toNumber(document.querySelector("[data-dialog-charge]")?.value);
+    const carrier = toNumber(document.querySelector("[data-dialog-carrier]")?.value);
+    const fee = toNumber(document.querySelector("[data-dialog-fee]")?.value);
+    const formula = document.querySelector("[data-dialog-formula]");
+    const result = document.querySelector("[data-dialog-result]");
+
+    if (payment === "인수증") {
+      if (formula) formula.textContent = "청구비용 - 운송비용 = 수익";
+      if (result) result.textContent = `수익 ${formatMoney(charge - carrier)}`;
+      return;
+    }
+
+    if (formula) formula.textContent = "운송비용 + 수수료 = 차주운임";
+    if (result) result.textContent = `차주운임 ${formatMoney(carrier + fee)}`;
+  };
+
+  const populateTransportDialog = () => {
+    setSelectValue(document.querySelector("[data-dialog-ton]"), state.transport.tonValue);
+    setSelectValue(document.querySelector("[data-dialog-vehicle]"), state.transport.vehicle);
+    const count = document.querySelector("[data-dialog-count]");
+    const weight = document.querySelector("[data-dialog-weight]");
+    const item = document.querySelector("[data-dialog-item]");
+    if (count) count.value = Math.max(1, toNumber(state.transport.count));
+    if (weight) weight.value = toNumber(state.transport.weight).toFixed(2);
+    if (item) item.value = state.transport.item;
+  };
+
+  const populateMoneyDialog = () => {
+    setSelectValue(document.querySelector("[data-dialog-payment]"), state.money.payment);
+    const charge = document.querySelector("[data-dialog-charge]");
+    const carrier = document.querySelector("[data-dialog-carrier]");
+    const fee = document.querySelector("[data-dialog-fee]");
+    if (charge) charge.value = formatMoney(state.money.charge);
+    if (carrier) {
+      carrier.value = formatMoney(state.money.carrier);
+      carrier.dataset.manual = "false";
+    }
+    if (fee) fee.value = toNumber(state.money.fee) > 0 ? formatMoney(state.money.fee) : "";
+    updateDialogMoneyPreview();
+  };
+
+  const openDialog = (type) => {
+    const dialog = document.querySelector(`[data-dialog="${type}"]`);
+    if (!dialog) return;
+    if (type === "transport") populateTransportDialog();
+    if (type === "money") populateMoneyDialog();
+    if (dialog.showModal) dialog.showModal();
+    else dialog.setAttribute("open", "");
+  };
+
+  const closeDialog = (dialog) => {
+    if (!dialog) return;
+    if (dialog.close) dialog.close();
+    else dialog.removeAttribute("open");
+  };
+
+  document.querySelectorAll("[data-open-dialog]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const type = button.dataset.openDialog;
+      const card = button.closest("[data-activation]");
+      const target = card?.querySelector("[data-activation-target]");
+
+      if (!type || !card || !target) return;
+      const buttonRect = button.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      button.style.setProperty("--absorb-x", `${targetRect.right - buttonRect.left + 4}px`);
+      card.classList.add("is-activating");
+
+      const delay = prefersReducedMotion ? 0 : 430;
+      window.setTimeout(() => {
+        card.classList.remove("is-activating");
+        pendingRevealScope = button.closest("[data-combined-section]") || previewSection;
+        openDialog(type);
+      }, delay);
+    });
+  });
+
+  document.querySelectorAll("[data-dialog-close]").forEach((button) => {
+    button.addEventListener("click", () => closeDialog(button.closest("dialog")));
+  });
+
+  document.querySelector("[data-dialog-ton]")?.addEventListener("change", syncDialogWeight);
+
+  document.querySelector("[data-dialog-charge]")?.addEventListener("input", (event) => {
+    const carrier = document.querySelector("[data-dialog-carrier]");
+    if (carrier && carrier.dataset.manual !== "true") carrier.value = event.target.value;
+    updateDialogMoneyPreview();
+  });
+
+  document.querySelector("[data-dialog-carrier]")?.addEventListener("input", (event) => {
+    event.currentTarget.dataset.manual = "true";
+    updateDialogMoneyPreview();
+  });
+
+  document.querySelector("[data-dialog-payment]")?.addEventListener("change", updateDialogMoneyPreview);
+
+  document.querySelector("[data-dialog-fee]")?.addEventListener("change", (event) => {
+    const fee = toNumber(event.target.value);
+    if (fee > 0) {
+      const payment = document.querySelector("[data-dialog-payment]");
+      const charge = document.querySelector("[data-dialog-charge]");
+      const carrier = document.querySelector("[data-dialog-carrier]");
+      if (payment) payment.value = "선착불";
+      if (charge) charge.value = "0";
+      if (carrier) window.setTimeout(() => carrier.focus(), 0);
+    }
+    updateDialogMoneyPreview();
+  });
+
+  document.querySelector("[data-apply-dialog='transport']")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    const revealScope = pendingRevealScope || previewSection;
+    const ton = document.querySelector("[data-dialog-ton]");
+    state.transport.tonValue = ton?.value ?? "5";
+    state.transport.ton = tonLabels[state.transport.tonValue] ?? ton?.selectedOptions?.[0]?.textContent ?? "5톤";
+    state.transport.vehicle = document.querySelector("[data-dialog-vehicle]")?.value ?? "축카고";
+    state.transport.count = document.querySelector("[data-dialog-count]")?.value ?? "1";
+    state.transport.weight = document.querySelector("[data-dialog-weight]")?.value ?? "5.50";
+    state.transport.item = document.querySelector("[data-dialog-item]")?.value.trim() || "미입력";
+    renderTransport({ revealScope });
+    pendingRevealScope = previewSection;
+    closeDialog(event.currentTarget.closest("dialog"));
+  });
+
+  document.querySelector("[data-apply-dialog='money']")?.addEventListener("click", (event) => {
+    event.preventDefault();
+    const revealScope = pendingRevealScope || previewSection;
+    state.money.payment = document.querySelector("[data-dialog-payment]")?.value ?? "인수증";
+    state.money.charge = formatMoney(document.querySelector("[data-dialog-charge]")?.value ?? 0);
+    state.money.carrier = formatMoney(document.querySelector("[data-dialog-carrier]")?.value ?? 0);
+    state.money.fee = document.querySelector("[data-dialog-fee]")?.value
+      ? formatMoney(document.querySelector("[data-dialog-fee]")?.value)
+      : "";
+    renderMoney({ revealScope });
+    pendingRevealScope = previewSection;
+    closeDialog(event.currentTarget.closest("dialog"));
+  });
+
+  const commitCell = (targetCell) => {
+    const targetControl = targetCell?.querySelector("[data-control]");
+    if (!targetCell || !targetControl) return;
+    const field = targetCell.dataset.field;
+    const targetScope = targetCell.closest("[data-render-scope]");
+
+    if (field === "ton") {
+      state.transport.tonValue = targetControl.value;
+      state.transport.ton = targetControl.selectedOptions?.[0]?.textContent ?? tonLabels[targetControl.value] ?? "5톤";
+      state.transport.weight = (Number(targetControl.value) * 1.1).toFixed(2);
+      renderTransport();
+    }
+
+    if (field === "vehicle") {
+      state.transport.vehicle = targetControl.value;
+      renderTransport();
+    }
+
+    if (field === "count") {
+      state.transport.count = String(Math.max(1, toNumber(targetControl.value)));
+      renderTransport();
+    }
+
+    if (field === "weight") {
+      state.transport.weight = toNumber(targetControl.value).toFixed(2);
+      renderTransport();
+    }
+
+    if (field === "item") {
+      state.transport.item = targetControl.value.trim() || "미입력";
+      renderTransport();
+    }
+
+    if (field === "payment") {
+      state.money.payment = targetControl.value;
+      renderMoney();
+    }
+
+    if (field === "charge") {
+      state.money.charge = formatMoney(targetControl.value);
+      state.money.carrier = formatMoney(targetControl.value);
+      renderMoney();
+    }
+
+    if (field === "carrier") {
+      state.money.carrier = formatMoney(targetControl.value);
+      renderMoney();
+    }
+
+    if (field === "fee") {
+      const fee = toNumber(targetControl.value);
+      if (fee > 0) {
+        state.money.fee = formatMoney(fee);
+        state.money.payment = "선착불";
+        state.money.charge = "0";
+        renderMoney();
+        window.setTimeout(() => beginEdit(cell("carrier", targetScope)), 0);
+      } else {
+        state.money.fee = "";
+        renderMoney();
+      }
+    }
+
+    targetCell.classList.remove("editing");
+  };
+
+  const cancelCell = (targetCell) => {
+    const targetControl = targetCell?.querySelector("[data-control]");
+    if (!targetControl) return;
+    targetControl.value = targetControl.dataset.beforeEdit ?? targetControl.value;
+    targetCell.classList.remove("editing");
+  };
+
+  function beginEdit(targetCell) {
+    if (!targetCell || targetCell.classList.contains("readonly")) return;
+    const targetScope = targetCell.closest("[data-render-scope]");
+    targetScope?.querySelectorAll(".edit-cell.editing").forEach((editingCell) => {
+      if (editingCell !== targetCell) commitCell(editingCell);
+    });
+
+    const targetControl = targetCell.querySelector("[data-control]");
+    if (!targetControl) return;
+    targetControl.dataset.beforeEdit = targetControl.value;
+    targetCell.classList.add("editing");
+    targetControl.focus();
+    if (targetControl.select) targetControl.select();
+  }
+
+  document.querySelectorAll("[data-render-scope] [data-edit-cell]").forEach((targetCell) => {
+    const targetControl = targetCell.querySelector("[data-control]");
+    if (!targetControl) return;
+
+    targetCell.tabIndex = 0;
+    targetCell.addEventListener("click", () => {
+      if (!targetCell.classList.contains("editing")) beginEdit(targetCell);
+    });
+    targetCell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !targetCell.classList.contains("editing")) {
+        event.preventDefault();
+        beginEdit(targetCell);
+      }
+    });
+    targetControl.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        commitCell(targetCell);
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        cancelCell(targetCell);
+      }
+    });
+    targetControl.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        if (!targetCell.contains(document.activeElement)) commitCell(targetCell);
+      }, 0);
+    });
+  });
+</script>
+</body>
+</html>

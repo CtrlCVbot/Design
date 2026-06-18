@@ -1,0 +1,2052 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>화물 운송정보 D안 워크플로우</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Nanum+Pen+Script&family=Caveat:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #1f2328;
+    --ink-soft: #44494f;
+    --ink-mute: #8a8f96;
+    --line: #2b2f33;
+    --line-soft: #b9bdc2;
+    --paper: #fbfaf6;
+    --paper-2: #f3f1e9;
+    --rule: #d8d4c6;
+    --note: #b27a00;
+    --note-bg: #fff7d6;
+    --ok: #2b6cb0;
+    --ok-bg: #e6eef7;
+    --danger: #b45309;
+    --danger-bg: #fff3d4;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #efece2;
+    color: var(--ink);
+    font-family: "Gaegu", "Nanum Pen Script", system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.28;
+  }
+
+  body {
+    padding: 24px 16px 80px;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  .sheet {
+    width: min(1180px, calc(100vw - 32px));
+    margin: 0 auto;
+    padding: 16px 18px 22px;
+    background: var(--paper);
+    border: 1.5px solid var(--line);
+    border-radius: 4px;
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, 0.08);
+  }
+
+  .mast {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  h1 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 34px;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+  }
+
+  .subtitle,
+  .scrid {
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .scrid {
+    color: var(--ink-mute);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .chips,
+  .meta-row,
+  .workflow-tabs,
+  .method-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .chips {
+    margin: 12px 0 4px;
+  }
+
+  .chip,
+  .badge,
+  .step-button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .chip.on,
+  .badge.on,
+  .step-button.active {
+    background: #efe6c2;
+    font-weight: 700;
+  }
+
+  .badge.warn,
+  .chip.wait {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+    font-weight: 700;
+  }
+
+  .section {
+    position: relative;
+    min-width: 0;
+    margin-top: 22px;
+    padding: 16px 12px 12px;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: #fff;
+  }
+
+  .section-title {
+    position: absolute;
+    top: -14px;
+    left: 12px;
+    padding: 0 8px;
+    background: var(--paper);
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 23px;
+  }
+
+  .section-title .num {
+    margin-right: 5px;
+    color: var(--ink-mute);
+    font-family: "Gaegu", sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .section-note {
+    margin: 0 0 10px auto;
+    width: fit-content;
+    max-width: 100%;
+    padding: 2px 7px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 15px;
+  }
+
+  .cargo-panel {
+    display: grid;
+    gap: 6px;
+  }
+
+  .cargo-card {
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  .readonly-summary {
+    display: grid;
+    gap: 7px;
+    align-items: center;
+    min-width: 800px;
+    padding: 5px 8px;
+    list-style: none;
+  }
+
+  .cargo-card.transport .readonly-summary {
+    grid-template-columns: 58px 122px 134px 58px 118px minmax(210px, 1fr) 62px;
+  }
+
+  .cargo-card.money .readonly-summary {
+    grid-template-columns: 58px 106px 132px 132px 112px 132px 62px;
+  }
+
+  .cargo-card.item .readonly-summary {
+    grid-template-columns: 58px minmax(360px, 1fr) 170px 62px;
+  }
+
+  .kind {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 1px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #efe6c2;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .value-main {
+    font-weight: 700;
+    font-size: 17px;
+    white-space: nowrap;
+  }
+
+  .value-pen,
+  .detail-value,
+  .metric-value {
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .weight-input {
+    width: 76px;
+    min-height: 25px;
+    padding: 1px 6px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+    text-align: right;
+  }
+
+  .pen-select {
+    width: 78px;
+    min-height: 25px;
+    padding: 1px 4px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .unit {
+    margin-left: 2px;
+    color: var(--ink-soft);
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .detail {
+    display: grid;
+    gap: 8px;
+    min-width: 800px;
+    padding: 6px 8px 8px;
+    border-top: 1px dashed var(--rule);
+    background: #fffaf0;
+  }
+
+  .detail.transport-detail {
+    grid-template-columns: 58px 122px 134px 58px 118px minmax(210px, 1fr) 62px;
+  }
+
+  .detail.money-detail {
+    grid-template-columns: 58px 106px 132px 132px 112px 132px 62px;
+  }
+
+  .detail.item-detail {
+    grid-template-columns: 58px minmax(360px, 1fr) 170px 62px;
+  }
+
+  .detail-label,
+  .meta-label,
+  .workflow-label,
+  .table-label {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .detail-label {
+    display: block;
+  }
+
+  .inline-field {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .edit-cell {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    min-height: 39px;
+    padding: 2px 5px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .edit-cell:hover,
+  .edit-cell:focus,
+  .edit-cell.editing {
+    border-color: var(--rule);
+    background: #fffaf0;
+    outline: none;
+  }
+
+  .edit-cell.readonly {
+    cursor: default;
+  }
+
+  .edit-cell.readonly:hover,
+  .edit-cell.readonly:focus {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .read-value {
+    display: inline-flex;
+    min-height: 24px;
+    align-items: center;
+  }
+
+  .edit-control {
+    display: none;
+    width: 100%;
+    min-height: 24px;
+    padding: 1px 5px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .edit-control.money,
+  .edit-control.number {
+    text-align: right;
+  }
+
+  .edit-cell.editing .read-value {
+    display: none;
+  }
+
+  .edit-cell.editing .edit-control {
+    display: block;
+  }
+
+  .detail-value {
+    display: block;
+    margin-top: 2px;
+    color: var(--ink);
+  }
+
+  .meta-band,
+  .workflow-card,
+  .empty-block,
+  .state-card {
+    display: grid;
+    gap: 7px;
+    margin-top: 10px;
+    padding: 8px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    background: #fffaf0;
+  }
+
+  .meta-row {
+    align-items: center;
+  }
+
+  .meta-label {
+    min-width: 74px;
+  }
+
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .metric {
+    min-height: 52px;
+    padding: 7px 8px;
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: #fff;
+  }
+
+  .metric-title {
+    display: block;
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .workflow-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 12px;
+    align-items: start;
+  }
+
+  .workflow-card {
+    margin-top: 0;
+  }
+
+  .workflow-card h3,
+  .state-card h3 {
+    margin: 0 0 6px;
+    font-size: 18px;
+  }
+
+  .workflow-list {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .workflow-list li {
+    display: grid;
+    grid-template-columns: 22px minmax(0, 1fr);
+    gap: 6px;
+    align-items: start;
+  }
+
+  .dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border: 1.15px solid var(--line);
+    border-radius: 999px;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .placeholder-row {
+    display: grid;
+    grid-template-columns: 58px minmax(0, 1fr) 132px 132px;
+    gap: 7px;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    padding: 5px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+  }
+
+  .activation-demo {
+    display: grid;
+    gap: 6px;
+    --activation-slide-duration: 420ms;
+    --activation-reveal-duration: 180ms;
+  }
+
+  .activation-row {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .activation-button,
+  .mini-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 24px;
+    padding: 2px 9px;
+    border: 1.25px solid var(--line);
+    border-radius: 14px;
+    background: #efe6c2;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .activation-demo.activating .activation-button {
+    animation: absorb-to-kind var(--activation-slide-duration) cubic-bezier(.2, .8, .2, 1) forwards;
+  }
+
+  .activation-result {
+    display: none;
+  }
+
+  .activation-demo.activated .activation-row {
+    display: none;
+  }
+
+  .activation-demo.activated .activation-result {
+    display: block;
+    animation: reveal-transport-row var(--activation-reveal-duration) ease-out forwards;
+  }
+
+  .activation-result-row {
+    display: grid;
+    grid-template-columns: 58px 122px 134px 58px 118px minmax(210px, 1fr) 74px;
+    gap: 7px;
+    align-items: center;
+    min-width: 800px;
+    padding: 5px 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fffefb;
+    overflow-x: auto;
+  }
+
+  .activation-field {
+    display: grid;
+    gap: 1px;
+    min-width: 0;
+    min-height: 39px;
+    padding: 2px 5px;
+    border: 1px dashed var(--rule);
+    border-radius: 3px;
+    background: #fffaf0;
+  }
+
+  @keyframes absorb-to-kind {
+    0% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    72% {
+      opacity: 1;
+      transform: translateX(var(--absorb-x, -520px)) scale(.97);
+    }
+
+    100% {
+      opacity: 0;
+      transform: translateX(var(--absorb-x, -520px)) scale(.78);
+    }
+  }
+
+  @keyframes reveal-transport-row {
+    0% {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .ph {
+    display: block;
+    height: 13px;
+    border-bottom: 1.5px dashed #b9a974;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .activation-demo.activating .activation-button,
+    .activation-demo.activated .activation-result {
+      animation: none;
+    }
+  }
+
+  .state-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .state-card {
+    margin-top: 0;
+  }
+
+  .formula {
+    display: inline-flex;
+    width: fit-content;
+    padding: 2px 7px;
+    border: 1px dashed var(--ok);
+    border-radius: 3px;
+    background: var(--ok-bg);
+    color: var(--ok);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 17px;
+  }
+
+  .formula.warn {
+    border-color: var(--note);
+    background: var(--note-bg);
+    color: var(--note);
+  }
+
+  .mapping-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fffefb;
+  }
+
+  .mapping-table th,
+  .mapping-table td {
+    padding: 7px 8px;
+    border: 1px solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .mapping-table th {
+    color: var(--ink-mute);
+    font-size: 12px;
+    font-weight: 700;
+    background: #fffaf0;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .f-variant {
+    background: #fffefb;
+  }
+
+  .f-note-stack,
+  .f-empty-grid,
+  .f-live-panel,
+  .f-dialog-shell,
+  .f-form-grid,
+  .f-dialog-preview {
+    display: grid;
+    gap: 8px;
+  }
+
+  .f-empty-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 10px;
+  }
+
+  .f-activation-card,
+  .f-summary-card {
+    position: relative;
+    display: grid;
+    gap: 7px;
+    padding: 8px;
+    border: 1.25px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .f-activation-row {
+    display: grid;
+    grid-template-columns: 86px minmax(0, 1fr) auto;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .f-activation-card.is-activating .activation-button {
+    animation: absorb-to-kind 420ms cubic-bezier(.2, .8, .2, 1) forwards;
+  }
+
+  .f-live-panel {
+    margin-top: 10px;
+  }
+
+  .f-summary-card {
+    background: #fffefb;
+    overflow-x: auto;
+  }
+
+  .f-summary-card.just-applied {
+    animation: reveal-transport-row 180ms ease-out forwards;
+  }
+
+  .f-two-row {
+    display: grid;
+    gap: 5px;
+    min-width: 900px;
+  }
+
+  .f-row {
+    display: grid;
+    gap: 7px;
+    align-items: center;
+  }
+
+  .f-row.transport-item-main {
+    grid-template-columns: 86px 116px 132px 68px 128px minmax(140px, 1fr) 78px;
+  }
+
+  .f-row.transport-item-sub {
+    grid-template-columns: 86px minmax(420px, 1fr) 168px 78px;
+    border-top: 1px dashed var(--rule);
+    padding-top: 5px;
+  }
+
+  .f-row.money-main {
+    grid-template-columns: 86px 106px 132px 132px 112px 132px 96px;
+    min-width: 900px;
+  }
+
+  .f-item-value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .f-dialog {
+    width: min(760px, calc(100vw - 32px));
+    max-height: min(88vh, 720px);
+    padding: 0;
+    border: 1.5px solid var(--line);
+    border-radius: 5px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 6px 8px 0 rgba(0, 0, 0, .12);
+  }
+
+  .f-dialog::backdrop {
+    background: rgba(31, 35, 40, .32);
+  }
+
+  .f-dialog-shell {
+    padding: 12px;
+  }
+
+  .f-dialog-head,
+  .f-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .f-dialog-head h2 {
+    margin: 0;
+    font-family: "Nanum Pen Script", "Gaegu", cursive;
+    font-size: 27px;
+    line-height: 1;
+  }
+
+  .f-dialog-subtitle {
+    margin-top: 4px;
+    color: var(--ink-soft);
+    font-size: 13px;
+  }
+
+  .f-form-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .f-form-field {
+    display: grid;
+    gap: 3px;
+  }
+
+  .f-form-field.wide {
+    grid-column: 1 / -1;
+  }
+
+  .f-input,
+  .f-select {
+    min-height: 30px;
+    width: 100%;
+    padding: 3px 7px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 18px;
+  }
+
+  .f-input.money,
+  .f-input.number {
+    text-align: right;
+  }
+
+  .f-dialog-preview {
+    padding: 8px;
+    border: 1px dashed var(--rule);
+    border-radius: 4px;
+    background: #fffaf0;
+  }
+
+  .f-preview-line {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .f-dialog-actions {
+    justify-content: flex-end;
+    padding-top: 4px;
+  }
+
+  .f-primary-button,
+  .f-plain-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 27px;
+    padding: 2px 9px;
+    border: 1.15px solid var(--line);
+    border-radius: 3px;
+    background: #fff;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .f-primary-button {
+    border-color: var(--ok);
+    background: var(--ok-bg);
+    color: var(--ok);
+  }
+
+  .review-note {
+    margin-top: 14px;
+    padding: 8px 10px;
+    border: 1px dashed var(--note);
+    border-radius: 3px;
+    background: var(--note-bg);
+    color: var(--note);
+    font-family: "Caveat", "Gaegu", cursive;
+    font-size: 16px;
+  }
+
+  @media (max-width: 900px) {
+    .workflow-layout,
+    .state-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    body {
+      padding: 10px;
+    }
+
+    .sheet {
+      width: calc(100vw - 20px);
+      padding: 12px 10px 18px;
+    }
+
+    .metric-row {
+      grid-template-columns: 1fr;
+    }
+
+    .placeholder-row {
+      grid-template-columns: 58px minmax(0, 1fr);
+    }
+
+    .f-empty-grid,
+    .f-form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .f-activation-row {
+      grid-template-columns: 86px minmax(0, 1fr);
+    }
+
+    .f-activation-row .activation-button {
+      grid-column: 2;
+      width: fit-content;
+    }
+
+    .placeholder-row .chip {
+      grid-column: 2;
+      width: fit-content;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="sheet" aria-label="화물 운송정보 D안 워크플로우">
+  <header class="mast">
+    <div>
+      <h1>화물 운송정보 D안 워크플로우</h1>
+      <div class="subtitle">운송구간 D안과 같은 종이/펜 와이어프레임 컨셉으로 화물 조건, 금액 조건, 품목 흐름 확인</div>
+    </div>
+    <div class="scrid">SCR-CT-D · cargo transport workflow</div>
+  </header>
+
+  <div class="chips" aria-label="D안 원칙">
+    <span class="chip on">D안: always-visible</span>
+    <span class="chip">항상 노출</span>
+    <span class="chip">핵심값 항상 노출</span>
+    <span class="chip">클릭 시 inline edit</span>
+    <span class="chip">결제방법은 금액 조건 제어값</span>
+    <span class="chip">청구비용 첫 배치</span>
+    <span class="chip">실중량 수정 가능</span>
+    <span class="chip">품목 2행 row</span>
+    <span class="chip wait">광폭/도착 제외</span>
+  </div>
+
+  <section class="section" aria-labelledby="compact-title">
+    <div class="section-title" id="compact-title"><span class="num">1</span>항상 노출: compact 명세 row</div>
+    <div class="section-note">숨김 없이 핵심값과 계산 상태를 같은 행에서 확인, 수정은 클릭 진입</div>
+    <div class="cargo-panel" aria-label="화물 운송정보 항상 노출 상태">
+      <div class="cargo-card transport">
+        <div class="readonly-summary">
+          <span class="kind">운송</span>
+          <span class="edit-cell" data-edit-cell data-field="ton">
+            <span class="detail-label">톤수</span>
+            <span class="read-value value-main" data-read-value>5톤</span>
+            <select class="edit-control" data-control data-ton-select aria-label="톤수 선택">
+              <option value="1">1톤</option>
+              <option value="1.4">1.4톤</option>
+              <option value="2.5">2.5톤</option>
+              <option value="3.5">3.5톤</option>
+              <option value="5" selected>5톤</option>
+              <option value="11">11톤</option>
+              <option value="25">25톤</option>
+            </select>
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="vehicle">
+            <span class="detail-label">차종</span>
+            <span class="read-value value-main" data-read-value>축카고</span>
+            <select class="edit-control" data-control aria-label="차종 선택">
+              <option>카고</option>
+              <option selected>축카고</option>
+              <option>윙바디</option>
+              <option>탑차</option>
+            </select>
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="count">
+            <span class="detail-label">대수</span>
+            <span class="read-value value-main" data-read-value>1대</span>
+            <input class="edit-control number" data-control type="number" min="1" step="1" value="1" aria-label="대수 수정" />
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="weight">
+            <span class="detail-label">실중량</span>
+            <span class="read-value value-main" data-read-value>5.50톤</span>
+            <input class="edit-control number" data-control data-weight-input type="number" min="0" step="0.01" value="5.50" aria-label="실중량 수정" />
+          </span>
+          <span class="badge on">화물중량 110%이하</span>
+          <span class="badge">수정 가능</span>
+        </div>
+      </div>
+
+      <div class="cargo-card money">
+        <div class="readonly-summary">
+          <span class="kind">금액</span>
+          <span class="edit-cell" data-edit-cell data-field="payment">
+            <span class="detail-label">결제방법</span>
+            <span class="read-value value-main" data-read-value>인수증</span>
+            <select class="edit-control" data-control data-payment-method aria-label="결제방법 선택">
+              <option selected>인수증</option>
+              <option>선불</option>
+              <option>착불</option>
+              <option>선착불</option>
+            </select>
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="charge">
+            <span class="detail-label">청구비용</span>
+            <span class="read-value value-pen" data-read-value>140,000</span>
+            <input class="edit-control money" data-control data-charge-cost inputmode="numeric" value="140,000" aria-label="청구비용 수정" />
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="carrier">
+            <span class="detail-label">운송비용</span>
+            <span class="read-value value-pen" data-read-value>100,000</span>
+            <input class="edit-control money" data-control data-carrier-cost inputmode="numeric" value="100,000" aria-label="운송비용 수정" />
+          </span>
+          <span class="edit-cell" data-edit-cell data-field="fee">
+            <span class="detail-label">수수료</span>
+            <span class="read-value badge" data-read-value>미표시</span>
+            <input class="edit-control money" data-control data-fee-cost inputmode="numeric" value="" aria-label="수수료 수정" />
+          </span>
+          <span class="edit-cell readonly" data-result-cell>
+            <span class="detail-label" data-result-label>수익</span>
+            <span class="read-value value-pen" data-result-value>40,000</span>
+          </span>
+          <span class="formula" data-formula>청구-운송</span>
+        </div>
+      </div>
+
+      <div class="cargo-card item">
+        <div class="readonly-summary">
+          <span class="kind">품목</span>
+          <span class="edit-cell" data-edit-cell data-field="item">
+            <span class="detail-label">품목</span>
+            <span class="read-value value-main" data-read-value>장비 운송</span>
+            <input class="edit-control" data-control type="text" value="장비 운송" aria-label="품목 수정" />
+          </span>
+          <span class="badge warn">금액 아래 단독 row</span>
+          <span class="badge">화물정보 요약</span>
+        </div>
+      </div>
+    </div>
+    <div class="meta-band" aria-label="항상 노출 상태 보조 메타">
+      <div class="meta-row">
+        <span class="meta-label">대표 규칙</span>
+        <span class="chip on">톤수/차종/대수/실중량</span>
+        <span class="chip on">결제방법 복구</span>
+        <span class="chip">라벨 클릭 후 같은 자리 입력</span>
+        <span class="chip">톤수 선택 시 실중량 110%</span>
+        <span class="chip">청구비용 입력 시 운송비용 자동 입력</span>
+        <span class="chip wait">수수료 입력 시 선착불 전환</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="empty-title">
+    <div class="section-title" id="empty-title"><span class="num">2</span>값 없음: 입력 전</div>
+    <div class="section-note">Wireframe Spec Form형 빈 값 상태</div>
+    <div class="empty-block" aria-label="값 없음 상태">
+      <div class="activation-demo" data-activation-demo aria-live="polite">
+        <div class="placeholder-row activation-row" data-activation-row>
+          <span class="kind" data-activation-target>운송</span>
+          <span class="ph" aria-label="톤수 차종 대수 실중량 입력 대기"></span>
+          <button class="activation-button" type="button" data-activation-button>운송 조건 선택</button>
+          <span class="chip">실중량 0.00</span>
+        </div>
+        <div class="activation-result" data-activation-result aria-label="운송 조건 항상 노출 전환 결과">
+          <div class="activation-result-row">
+            <span class="kind">운송</span>
+            <span class="activation-field">
+              <span class="detail-label">톤수</span>
+              <span class="read-value value-main">톤수 선택</span>
+            </span>
+            <span class="activation-field">
+              <span class="detail-label">차종</span>
+              <span class="read-value value-main">차종 선택</span>
+            </span>
+            <span class="activation-field">
+              <span class="detail-label">대수</span>
+              <span class="read-value value-main">1대</span>
+            </span>
+            <span class="activation-field">
+              <span class="detail-label">실중량</span>
+              <span class="read-value value-main">0.00톤</span>
+            </span>
+            <span class="badge on">화물중량 110%이하</span>
+            <button class="mini-button" type="button" data-activation-reset>다시 보기</button>
+          </div>
+        </div>
+      </div>
+      <div class="placeholder-row">
+        <span class="kind">금액</span>
+        <span class="ph" aria-label="금액 조건 입력 대기"></span>
+        <span class="chip wait">결제방법 선택</span>
+        <span class="chip">청구비용 입력</span>
+      </div>
+      <div class="placeholder-row">
+        <span class="kind">품목</span>
+        <span class="ph" aria-label="품목 입력 대기"></span>
+        <span class="chip">단독 row</span>
+        <span class="chip">화물 요약 대기</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="state-title">
+    <div class="section-title" id="state-title"><span class="num">3</span>결제방법 상태 비교</div>
+    <div class="section-note">인수증과 선착불의 위치는 유지하고 값/상태만 변경</div>
+    <div class="state-grid">
+      <article class="state-card">
+        <h3>인수증</h3>
+        <div class="method-row" aria-label="인수증 결제방법">
+          <span class="chip on">인수증</span>
+          <span class="chip">선불</span>
+          <span class="chip">착불</span>
+          <span class="chip">선착불</span>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-title">청구비용</span><span class="metric-value">140,000</span></div>
+          <div class="metric"><span class="metric-title">운송비용</span><span class="metric-value">100,000</span></div>
+          <div class="metric"><span class="metric-title">수수료</span><span class="metric-value">숨김/비활성</span></div>
+          <div class="metric"><span class="metric-title">수익</span><span class="metric-value">40,000</span></div>
+        </div>
+        <span class="formula">청구비용 - 운송비용 = 수익</span>
+      </article>
+
+      <article class="state-card">
+        <h3>선착불</h3>
+        <div class="method-row" aria-label="선착불 결제방법">
+          <span class="chip">인수증</span>
+          <span class="chip">선불</span>
+          <span class="chip">착불</span>
+          <span class="chip on">선착불</span>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><span class="metric-title">청구비용</span><span class="metric-value">0원 고정</span></div>
+          <div class="metric"><span class="metric-title">운송비용</span><span class="metric-value">100,000 포커스</span></div>
+          <div class="metric"><span class="metric-title">수수료</span><span class="metric-value">20,000</span></div>
+          <div class="metric"><span class="metric-title">차주운임</span><span class="metric-value">120,000</span></div>
+        </div>
+        <span class="formula warn">운송비용 + 수수료 = 차주운임</span>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="workflow-title">
+    <div class="section-title" id="workflow-title"><span class="num">4</span>입력/수정 워크플로우</div>
+    <div class="section-note">수수료 입력 시 자동 선착불, 청구비용 0원, 운송비용 포커스</div>
+    <div class="workflow-layout">
+      <div class="workflow-card">
+        <h3>운영자 입력 순서</h3>
+        <ol class="workflow-list">
+          <li><span class="dot">1</span><span>톤수, 차종, 대수를 먼저 선택합니다.</span></li>
+          <li><span class="dot">2</span><span>실중량은 톤수 선택 시 110%로 자동 입력되고, 필요하면 0.00 단위로 수정합니다.</span></li>
+          <li><span class="dot">3</span><span>결제방법을 `인수증`, `선불`, `착불`, `선착불` 중 선택합니다.</span></li>
+          <li><span class="dot">4</span><span>청구비용을 입력하면 운송비용에 같은 금액이 자동 입력됩니다.</span></li>
+          <li><span class="dot">5</span><span>운송비용을 수정해도 청구비용은 유지됩니다.</span></li>
+          <li><span class="dot">6</span><span>수수료를 입력하면 선착불로 자동 전환되고 운송비용으로 포커스가 이동합니다.</span></li>
+          <li><span class="dot">7</span><span>품목은 운송+품목 2번째 row에서 화물정보 요약으로 전달됩니다.</span></li>
+        </ol>
+      </div>
+      <aside class="workflow-card">
+        <h3>검토 포인트</h3>
+        <div class="meta-row"><span class="meta-label">우선순위</span><span class="chip on">청구비용 첫 금액</span></div>
+        <div class="meta-row"><span class="meta-label">중량</span><span class="chip on">톤수 110% 자동</span></div>
+        <div class="meta-row"><span class="meta-label">위치</span><span class="chip">상태별 컴포넌트 고정</span></div>
+        <div class="meta-row"><span class="meta-label">품목</span><span class="chip wait">금액 필드로 오해 방지</span></div>
+        <div class="meta-row"><span class="meta-label">수수료</span><span class="chip">조건부 표시</span></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="mapping-title">
+    <div class="section-title" id="mapping-title"><span class="num">5</span>B 통합본 반영 기준</div>
+    <div class="section-note">기존 필드에서 새 D안 구조로 옮길 때의 대응표</div>
+    <table class="mapping-table" aria-label="B 통합본 반영 기준">
+      <thead>
+        <tr>
+          <th>기존 B 통합본</th>
+          <th>새 D안</th>
+          <th>처리</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>톤수 / 광폭 / 차종 / 도착 / 대수 / 품목</td>
+          <td>톤수 / 차종 / 대수 / 실중량 + 운송+품목 2행</td>
+          <td>광폭과 도착은 제외, 실중량은 톤수 110% 자동 입력 후 수정 가능</td>
+        </tr>
+        <tr>
+          <td>운송비구분</td>
+          <td>결제방법</td>
+          <td>인수증, 선불, 착불, 선착불 선택값으로 복구</td>
+        </tr>
+        <tr>
+          <td>운송료</td>
+          <td>청구비용 + 운송비용</td>
+          <td>화주 청구와 차주 운송 금액을 분리</td>
+        </tr>
+        <tr>
+          <td>수수료</td>
+          <td>수수료</td>
+          <td>인수증은 숨김/비활성, 선불/착불/선착불은 표시</td>
+        </tr>
+        <tr>
+          <td>합계</td>
+          <td>수익 / 차주운임</td>
+          <td>인수증은 `수익`, 선착불은 `차주운임` 라벨로 표기</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section f-variant" data-f-variant aria-labelledby="variant-f-title">
+    <div class="section-title" id="variant-f-title"><span class="num">6</span>F안: 운송+품목 / 금액 분리형</div>
+    <div class="section-note">최초 입력은 슬라이딩 후 다이얼로그, 입력 후 수정은 D안 inline edit 유지</div>
+
+    <div class="f-note-stack">
+      <div class="meta-row">
+        <span class="meta-label">구조</span>
+        <span class="chip on">운송+품목 1박스</span>
+        <span class="chip on">운송/품목 2행</span>
+        <span class="chip">금액 별도 박스</span>
+        <span class="chip wait">적용 후 개별 클릭 수정</span>
+      </div>
+    </div>
+
+    <div class="f-empty-grid" aria-label="F안 입력 전 버튼">
+      <article class="f-activation-card" data-f-activation="transport">
+        <div class="f-activation-row">
+          <span class="kind" data-f-activation-target>운송+품목</span>
+          <span class="ph" aria-label="운송 조건과 품목 입력 대기"></span>
+          <button class="activation-button" type="button" data-f-open-dialog="transport">운송+품목 입력</button>
+        </div>
+        <div class="meta-row">
+          <span class="chip">톤수</span>
+          <span class="chip">차종</span>
+          <span class="chip">대수</span>
+          <span class="chip">실중량</span>
+          <span class="chip">품목</span>
+        </div>
+      </article>
+
+      <article class="f-activation-card" data-f-activation="money">
+        <div class="f-activation-row">
+          <span class="kind" data-f-activation-target>금액</span>
+          <span class="ph" aria-label="금액 조건 입력 대기"></span>
+          <button class="activation-button" type="button" data-f-open-dialog="money">금액 조건 선택</button>
+        </div>
+        <div class="meta-row">
+          <span class="chip">결제방법</span>
+          <span class="chip">청구비용</span>
+          <span class="chip">운송비용</span>
+          <span class="chip">수수료</span>
+          <span class="chip">수익/차주운임</span>
+        </div>
+      </article>
+    </div>
+
+    <div class="f-live-panel" aria-label="F안 적용 후 row">
+      <article class="f-summary-card" data-f-result-card="transport" hidden>
+        <div class="f-two-row">
+          <div class="f-row transport-item-main">
+            <span class="kind">운송</span>
+            <span class="edit-cell" data-f-edit-cell data-f-field="ton">
+              <span class="detail-label">톤수</span>
+              <span class="read-value value-main" data-f-read>5톤</span>
+              <select class="edit-control" data-f-control aria-label="F안 톤수 수정">
+                <option value="1">1톤</option>
+                <option value="1.4">1.4톤</option>
+                <option value="2.5">2.5톤</option>
+                <option value="3.5">3.5톤</option>
+                <option value="5" selected>5톤</option>
+                <option value="11">11톤</option>
+                <option value="25">25톤</option>
+              </select>
+            </span>
+            <span class="edit-cell" data-f-edit-cell data-f-field="vehicle">
+              <span class="detail-label">차종</span>
+              <span class="read-value value-main" data-f-read>축카고</span>
+              <select class="edit-control" data-f-control aria-label="F안 차종 수정">
+                <option>카고</option>
+                <option selected>축카고</option>
+                <option>윙바디</option>
+                <option>탑차</option>
+              </select>
+            </span>
+            <span class="edit-cell" data-f-edit-cell data-f-field="count">
+              <span class="detail-label">대수</span>
+              <span class="read-value value-main" data-f-read>1대</span>
+              <input class="edit-control number" data-f-control type="number" min="1" step="1" value="1" aria-label="F안 대수 수정" />
+            </span>
+            <span class="edit-cell" data-f-edit-cell data-f-field="weight">
+              <span class="detail-label">실중량</span>
+              <span class="read-value value-main" data-f-read>5.50톤</span>
+              <input class="edit-control number" data-f-control type="number" min="0" step="0.01" value="5.50" aria-label="F안 실중량 수정" />
+            </span>
+            <span class="badge on">화물중량 110%이하</span>
+            <span class="badge">수정 가능</span>
+          </div>
+
+          <div class="f-row transport-item-sub">
+            <span class="kind">품목</span>
+            <span class="edit-cell" data-f-edit-cell data-f-field="item">
+              <span class="detail-label">품목</span>
+              <span class="read-value value-main f-item-value" data-f-read title="장비 운송">장비 운송</span>
+              <input class="edit-control" data-f-control type="text" value="장비 운송" aria-label="F안 품목 수정" />
+            </span>
+            <span class="badge warn">같은 박스 2행</span>
+            <span class="badge">요약 전달</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="f-summary-card" data-f-result-card="money" hidden>
+        <div class="f-row money-main">
+          <span class="kind">금액</span>
+          <span class="edit-cell" data-f-edit-cell data-f-field="payment">
+            <span class="detail-label">결제방법</span>
+            <span class="read-value value-main" data-f-read>인수증</span>
+            <select class="edit-control" data-f-control aria-label="F안 결제방법 수정">
+              <option selected>인수증</option>
+              <option>선불</option>
+              <option>착불</option>
+              <option>선착불</option>
+            </select>
+          </span>
+          <span class="edit-cell" data-f-edit-cell data-f-field="charge">
+            <span class="detail-label">청구비용</span>
+            <span class="read-value value-pen" data-f-read>140,000</span>
+            <input class="edit-control money" data-f-control inputmode="numeric" value="140,000" aria-label="F안 청구비용 수정" />
+          </span>
+          <span class="edit-cell" data-f-edit-cell data-f-field="carrier">
+            <span class="detail-label">운송비용</span>
+            <span class="read-value value-pen" data-f-read>100,000</span>
+            <input class="edit-control money" data-f-control inputmode="numeric" value="100,000" aria-label="F안 운송비용 수정" />
+          </span>
+          <span class="edit-cell" data-f-edit-cell data-f-field="fee">
+            <span class="detail-label">수수료</span>
+            <span class="read-value badge" data-f-read>미표시</span>
+            <input class="edit-control money" data-f-control inputmode="numeric" value="" aria-label="F안 수수료 수정" />
+          </span>
+          <span class="edit-cell readonly" data-f-result-cell>
+            <span class="detail-label" data-f-result-label>수익</span>
+            <span class="read-value value-pen" data-f-result-value>40,000</span>
+          </span>
+          <span class="formula" data-f-formula>청구-운송</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="review-note">
+    운송구간 D안과 동일하게 종이 배경, 손글씨 계열 폰트, 얇은 검정 라인을 유지하되 화물 운송정보는 항상 보이는 compact 명세 row로 재정렬했습니다.
+  </div>
+</main>
+
+<dialog class="f-dialog" data-f-dialog="transport" aria-labelledby="f-transport-dialog-title">
+  <div class="f-dialog-shell">
+    <div class="f-dialog-head">
+      <div>
+        <h2 id="f-transport-dialog-title">운송+품목 입력</h2>
+        <div class="f-dialog-subtitle">최초 입력은 다이얼로그로 받고, 적용 후에는 각 값을 클릭해 수정합니다.</div>
+      </div>
+      <button class="f-plain-button" type="button" data-f-dialog-close>닫기</button>
+    </div>
+
+    <div class="f-form-grid">
+      <label class="f-form-field">
+        <span class="detail-label">톤수</span>
+        <select class="f-select" data-f-dialog-ton>
+          <option value="1">1톤</option>
+          <option value="1.4">1.4톤</option>
+          <option value="2.5">2.5톤</option>
+          <option value="3.5">3.5톤</option>
+          <option value="5" selected>5톤</option>
+          <option value="11">11톤</option>
+          <option value="25">25톤</option>
+        </select>
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">차종</span>
+        <select class="f-select" data-f-dialog-vehicle>
+          <option>카고</option>
+          <option selected>축카고</option>
+          <option>윙바디</option>
+          <option>탑차</option>
+        </select>
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">대수</span>
+        <input class="f-input number" data-f-dialog-count type="number" min="1" step="1" value="1" />
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">실중량</span>
+        <input class="f-input number" data-f-dialog-weight type="number" min="0" step="0.01" value="5.50" />
+      </label>
+      <label class="f-form-field wide">
+        <span class="detail-label">품목</span>
+        <input class="f-input" data-f-dialog-item type="text" value="장비 운송" />
+      </label>
+    </div>
+
+    <div class="f-dialog-preview">
+      <div class="f-preview-line">
+        <span class="meta-label">적용 후</span>
+        <span class="chip on">운송 1행</span>
+        <span class="chip on">품목 2행</span>
+        <span class="chip">실중량 110% 자동</span>
+      </div>
+    </div>
+
+    <div class="f-dialog-actions">
+      <button class="f-plain-button" type="button" data-f-dialog-close>취소</button>
+      <button class="f-primary-button" type="button" data-f-apply-dialog="transport">운송+품목 적용</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog class="f-dialog" data-f-dialog="money" aria-labelledby="f-money-dialog-title">
+  <div class="f-dialog-shell">
+    <div class="f-dialog-head">
+      <div>
+        <h2 id="f-money-dialog-title">금액 조건 선택</h2>
+        <div class="f-dialog-subtitle">청구비용, 운송비용, 수수료의 정산 의미를 분리해 입력합니다.</div>
+      </div>
+      <button class="f-plain-button" type="button" data-f-dialog-close>닫기</button>
+    </div>
+
+    <div class="f-form-grid">
+      <label class="f-form-field">
+        <span class="detail-label">결제방법</span>
+        <select class="f-select" data-f-dialog-payment>
+          <option selected>인수증</option>
+          <option>선불</option>
+          <option>착불</option>
+          <option>선착불</option>
+        </select>
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">청구비용</span>
+        <input class="f-input money" data-f-dialog-charge inputmode="numeric" value="140,000" />
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">운송비용</span>
+        <input class="f-input money" data-f-dialog-carrier inputmode="numeric" value="100,000" />
+      </label>
+      <label class="f-form-field">
+        <span class="detail-label">수수료</span>
+        <input class="f-input money" data-f-dialog-fee inputmode="numeric" value="" placeholder="인수증이면 미표시" />
+      </label>
+    </div>
+
+    <div class="f-dialog-preview">
+      <div class="f-preview-line">
+        <span class="meta-label">계산</span>
+        <span class="formula" data-f-dialog-formula>청구비용 - 운송비용 = 수익</span>
+        <span class="chip on" data-f-dialog-result>수익 40,000</span>
+      </div>
+    </div>
+
+    <div class="f-dialog-actions">
+      <button class="f-plain-button" type="button" data-f-dialog-close>취소</button>
+      <button class="f-primary-button" type="button" data-f-apply-dialog="money">금액 조건 적용</button>
+    </div>
+  </div>
+</dialog>
+<script>
+  const activationDemo = document.querySelector("[data-activation-demo]");
+  const activationButton = activationDemo?.querySelector("[data-activation-button]");
+  const activationReset = activationDemo?.querySelector("[data-activation-reset]");
+  const activationTarget = activationDemo?.querySelector("[data-activation-target]");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const finishActivation = () => {
+    activationDemo?.classList.remove("activating");
+    activationDemo?.classList.add("activated");
+  };
+
+  activationButton?.addEventListener("click", () => {
+    if (!activationDemo || !activationTarget) return;
+    if (activationDemo.classList.contains("activating")) return;
+
+    const buttonRect = activationButton.getBoundingClientRect();
+    const targetRect = activationTarget.getBoundingClientRect();
+    const distanceToLabel = targetRect.right - buttonRect.left + 4;
+
+    activationButton.style.setProperty("--absorb-x", `${distanceToLabel}px`);
+    activationDemo.classList.remove("activated");
+    activationDemo.classList.add("activating");
+
+    if (prefersReducedMotion) {
+      finishActivation();
+      return;
+    }
+
+    activationButton.addEventListener("animationend", finishActivation, { once: true });
+    window.setTimeout(finishActivation, 560);
+  });
+
+  activationReset?.addEventListener("click", () => {
+    activationDemo?.classList.remove("activated", "activating");
+  });
+
+  const compactSection = document.querySelector("[aria-label='화물 운송정보 항상 노출 상태']");
+
+  const toNumber = (value) => {
+    const parsed = Number(String(value ?? "").replace(/[^\d.-]/g, ""));
+    return Number.isFinite(parsed) ? parsed : 0;
+  };
+
+  const formatMoney = (value) => toNumber(value).toLocaleString("ko-KR");
+
+  const getControl = (field) => compactSection?.querySelector(`[data-field="${field}"] [data-control]`);
+
+  const setReadValue = (cell, value) => {
+    const readValue = cell?.querySelector("[data-read-value]");
+    if (readValue) readValue.textContent = value;
+  };
+
+  const updateProfit = () => {
+    if (!compactSection) return;
+
+    const payment = getControl("payment")?.value ?? "인수증";
+    const charge = toNumber(getControl("charge")?.value);
+    const carrier = toNumber(getControl("carrier")?.value);
+    const fee = toNumber(getControl("fee")?.value);
+    const label = compactSection.querySelector("[data-result-label]");
+    const value = compactSection.querySelector("[data-result-value]");
+    const formula = compactSection.querySelector("[data-formula]");
+    const feeCell = compactSection.querySelector('[data-field="fee"]');
+
+    if (payment === "인수증") {
+      if (label) label.textContent = "수익";
+      if (value) value.textContent = formatMoney(charge - carrier);
+      if (formula) formula.textContent = "청구-운송";
+      setReadValue(feeCell, fee > 0 ? formatMoney(fee) : "미표시");
+      return;
+    }
+
+    if (label) label.textContent = "차주운임";
+    if (value) value.textContent = formatMoney(carrier + fee);
+    if (formula) formula.textContent = "운송+수수료";
+    setReadValue(feeCell, formatMoney(fee));
+  };
+
+  const syncTonWeight = () => {
+    const tonControl = getControl("ton");
+    const weightControl = getControl("weight");
+    const weightCell = compactSection?.querySelector('[data-field="weight"]');
+    const ton = Number(tonControl?.value);
+    if (!Number.isFinite(ton) || !weightControl) return;
+
+    const calculated = (ton * 1.1).toFixed(2);
+    weightControl.value = calculated;
+    setReadValue(weightCell, `${calculated}톤`);
+  };
+
+  const commitCell = (cell) => {
+    const control = cell?.querySelector("[data-control]");
+    if (!cell || !control) return;
+
+    const field = cell.dataset.field;
+
+    if (field === "ton") {
+      setReadValue(cell, control.options[control.selectedIndex]?.text ?? "");
+      syncTonWeight();
+    }
+
+    if (field === "vehicle") setReadValue(cell, control.value);
+    if (field === "count") setReadValue(cell, `${Math.max(1, toNumber(control.value))}대`);
+
+    if (field === "weight") {
+      const weight = toNumber(control.value).toFixed(2);
+      control.value = weight;
+      setReadValue(cell, `${weight}톤`);
+    }
+
+    if (field === "payment") {
+      setReadValue(cell, control.value);
+      updateProfit();
+    }
+
+    if (field === "charge") {
+      const charge = formatMoney(control.value);
+      const carrierCell = compactSection?.querySelector('[data-field="carrier"]');
+      const carrierControl = getControl("carrier");
+      control.value = charge;
+      if (carrierControl) carrierControl.value = charge;
+      setReadValue(cell, charge);
+      setReadValue(carrierCell, charge);
+      updateProfit();
+    }
+
+    if (field === "carrier") {
+      const carrier = formatMoney(control.value);
+      control.value = carrier;
+      setReadValue(cell, carrier);
+      updateProfit();
+    }
+
+    if (field === "fee") {
+      const fee = toNumber(control.value);
+      const paymentControl = getControl("payment");
+      const chargeControl = getControl("charge");
+      const paymentCell = compactSection?.querySelector('[data-field="payment"]');
+      const chargeCell = compactSection?.querySelector('[data-field="charge"]');
+
+      if (fee > 0) {
+        control.value = formatMoney(fee);
+        if (paymentControl) paymentControl.value = "선착불";
+        if (chargeControl) chargeControl.value = "0";
+        setReadValue(paymentCell, "선착불");
+        setReadValue(chargeCell, "0");
+        setReadValue(cell, formatMoney(fee));
+        updateProfit();
+        window.setTimeout(() => beginEdit(compactSection?.querySelector('[data-field="carrier"]')), 0);
+      } else {
+        control.value = "";
+        setReadValue(cell, "미표시");
+        updateProfit();
+      }
+    }
+
+    if (field === "item") setReadValue(cell, control.value || "미입력");
+
+    cell.classList.remove("editing");
+  };
+
+  const cancelCell = (cell) => {
+    const control = cell?.querySelector("[data-control]");
+    if (!control) return;
+    control.value = control.dataset.beforeEdit ?? control.value;
+    cell.classList.remove("editing");
+  };
+
+  function beginEdit(cell) {
+    if (!cell || cell.classList.contains("readonly")) return;
+    compactSection?.querySelectorAll(".edit-cell.editing").forEach((editingCell) => {
+      if (editingCell !== cell) commitCell(editingCell);
+    });
+
+    const control = cell.querySelector("[data-control]");
+    if (!control) return;
+
+    control.dataset.beforeEdit = control.value;
+    cell.classList.add("editing");
+    control.focus();
+    if (control.select) control.select();
+  }
+
+  compactSection?.querySelectorAll("[data-edit-cell]").forEach((cell) => {
+    const control = cell.querySelector("[data-control]");
+    if (!control) return;
+
+    cell.tabIndex = 0;
+    cell.addEventListener("click", () => {
+      if (!cell.classList.contains("editing")) beginEdit(cell);
+    });
+    cell.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" && !cell.classList.contains("editing")) {
+        event.preventDefault();
+        beginEdit(cell);
+      }
+    });
+    control.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        commitCell(cell);
+      }
+      if (event.key === "Escape") {
+        event.preventDefault();
+        cancelCell(cell);
+      }
+    });
+    control.addEventListener("blur", () => {
+      window.setTimeout(() => {
+        if (!cell.contains(document.activeElement)) commitCell(cell);
+      }, 0);
+    });
+  });
+
+  (() => {
+    const fSection = document.querySelector("[data-f-variant]");
+    if (!fSection) return;
+
+    const tonLabels = {
+      "1": "1톤",
+      "1.4": "1.4톤",
+      "2.5": "2.5톤",
+      "3.5": "3.5톤",
+      "5": "5톤",
+      "11": "11톤",
+      "25": "25톤",
+    };
+
+    const fState = {
+      transport: {
+        tonValue: "5",
+        ton: "5톤",
+        vehicle: "축카고",
+        count: "1",
+        weight: "5.50",
+        item: "장비 운송",
+      },
+      money: {
+        payment: "인수증",
+        charge: "140,000",
+        carrier: "100,000",
+        fee: "",
+      },
+    };
+
+    const fToNumber = (value) => {
+      const parsed = Number(String(value ?? "").replace(/[^\d.-]/g, ""));
+      return Number.isFinite(parsed) ? parsed : 0;
+    };
+
+    const fFormatMoney = (value) => fToNumber(value).toLocaleString("ko-KR");
+
+    const fCell = (field) => fSection.querySelector(`[data-f-field="${field}"]`);
+    const fControl = (field) => fCell(field)?.querySelector("[data-f-control]");
+
+    const fSetRead = (field, value) => {
+      const read = fCell(field)?.querySelector("[data-f-read]");
+      if (read) {
+        read.textContent = value;
+        if (field === "item") read.title = value;
+      }
+    };
+
+    const setSelectValue = (control, value) => {
+      if (!control) return;
+      [...control.options].some((option) => {
+        const matched = option.value === value || option.textContent === value;
+        if (matched) control.value = option.value || option.textContent;
+        return matched;
+      });
+    };
+
+    const fResultMeta = () => {
+      const payment = fState.money.payment;
+      const charge = fToNumber(fState.money.charge);
+      const carrier = fToNumber(fState.money.carrier);
+      const fee = fToNumber(fState.money.fee);
+
+      if (payment === "인수증") {
+        return {
+          label: "수익",
+          value: fFormatMoney(charge - carrier),
+          formula: "청구-운송",
+          fullFormula: "청구비용 - 운송비용 = 수익",
+        };
+      }
+
+      return {
+        label: "차주운임",
+        value: fFormatMoney(carrier + fee),
+        formula: "운송+수수료",
+        fullFormula: "운송비용 + 수수료 = 차주운임",
+      };
+    };
+
+    const revealFCard = (type) => {
+      const card = fSection.querySelector(`[data-f-result-card="${type}"]`);
+      if (!card) return;
+      card.hidden = false;
+      card.classList.remove("just-applied");
+      void card.offsetWidth;
+      card.classList.add("just-applied");
+    };
+
+    const renderFTransport = () => {
+      fSetRead("ton", fState.transport.ton);
+      fSetRead("vehicle", fState.transport.vehicle);
+      fSetRead("count", `${Math.max(1, fToNumber(fState.transport.count))}대`);
+      fSetRead("weight", `${fToNumber(fState.transport.weight).toFixed(2)}톤`);
+      fSetRead("item", fState.transport.item || "미입력");
+
+      setSelectValue(fControl("ton"), fState.transport.tonValue);
+      setSelectValue(fControl("vehicle"), fState.transport.vehicle);
+      if (fControl("count")) fControl("count").value = Math.max(1, fToNumber(fState.transport.count));
+      if (fControl("weight")) fControl("weight").value = fToNumber(fState.transport.weight).toFixed(2);
+      if (fControl("item")) fControl("item").value = fState.transport.item;
+
+      revealFCard("transport");
+    };
+
+    const renderFMoney = () => {
+      const result = fResultMeta();
+      fSetRead("payment", fState.money.payment);
+      fSetRead("charge", fFormatMoney(fState.money.charge));
+      fSetRead("carrier", fFormatMoney(fState.money.carrier));
+      fSetRead("fee", fToNumber(fState.money.fee) > 0 ? fFormatMoney(fState.money.fee) : "미표시");
+
+      setSelectValue(fControl("payment"), fState.money.payment);
+      if (fControl("charge")) fControl("charge").value = fFormatMoney(fState.money.charge);
+      if (fControl("carrier")) fControl("carrier").value = fFormatMoney(fState.money.carrier);
+      if (fControl("fee")) fControl("fee").value = fToNumber(fState.money.fee) > 0 ? fFormatMoney(fState.money.fee) : "";
+
+      const resultLabel = fSection.querySelector("[data-f-result-label]");
+      const resultValue = fSection.querySelector("[data-f-result-value]");
+      const formula = fSection.querySelector("[data-f-formula]");
+      if (resultLabel) resultLabel.textContent = result.label;
+      if (resultValue) resultValue.textContent = result.value;
+      if (formula) formula.textContent = result.formula;
+
+      revealFCard("money");
+    };
+
+    const syncFDialogWeight = () => {
+      const ton = document.querySelector("[data-f-dialog-ton]");
+      const weight = document.querySelector("[data-f-dialog-weight]");
+      const value = Number(ton?.value);
+      if (!weight || !Number.isFinite(value)) return;
+      weight.value = (value * 1.1).toFixed(2);
+    };
+
+    const updateFDialogMoneyPreview = () => {
+      const payment = document.querySelector("[data-f-dialog-payment]")?.value ?? "인수증";
+      const charge = fToNumber(document.querySelector("[data-f-dialog-charge]")?.value);
+      const carrier = fToNumber(document.querySelector("[data-f-dialog-carrier]")?.value);
+      const fee = fToNumber(document.querySelector("[data-f-dialog-fee]")?.value);
+      const formula = document.querySelector("[data-f-dialog-formula]");
+      const result = document.querySelector("[data-f-dialog-result]");
+
+      if (payment === "인수증") {
+        if (formula) formula.textContent = "청구비용 - 운송비용 = 수익";
+        if (result) result.textContent = `수익 ${fFormatMoney(charge - carrier)}`;
+        return;
+      }
+
+      if (formula) formula.textContent = "운송비용 + 수수료 = 차주운임";
+      if (result) result.textContent = `차주운임 ${fFormatMoney(carrier + fee)}`;
+    };
+
+    const populateFTransportDialog = () => {
+      setSelectValue(document.querySelector("[data-f-dialog-ton]"), fState.transport.tonValue);
+      setSelectValue(document.querySelector("[data-f-dialog-vehicle]"), fState.transport.vehicle);
+      const count = document.querySelector("[data-f-dialog-count]");
+      const weight = document.querySelector("[data-f-dialog-weight]");
+      const item = document.querySelector("[data-f-dialog-item]");
+      if (count) count.value = Math.max(1, fToNumber(fState.transport.count));
+      if (weight) weight.value = fToNumber(fState.transport.weight).toFixed(2);
+      if (item) item.value = fState.transport.item;
+    };
+
+    const populateFMoneyDialog = () => {
+      setSelectValue(document.querySelector("[data-f-dialog-payment]"), fState.money.payment);
+      const charge = document.querySelector("[data-f-dialog-charge]");
+      const carrier = document.querySelector("[data-f-dialog-carrier]");
+      const fee = document.querySelector("[data-f-dialog-fee]");
+      if (charge) charge.value = fFormatMoney(fState.money.charge);
+      if (carrier) {
+        carrier.value = fFormatMoney(fState.money.carrier);
+        carrier.dataset.manual = "false";
+      }
+      if (fee) fee.value = fToNumber(fState.money.fee) > 0 ? fFormatMoney(fState.money.fee) : "";
+      updateFDialogMoneyPreview();
+    };
+
+    const openFDialog = (type) => {
+      const dialog = document.querySelector(`[data-f-dialog="${type}"]`);
+      if (!dialog) return;
+      if (type === "transport") populateFTransportDialog();
+      if (type === "money") populateFMoneyDialog();
+      if (dialog.showModal) dialog.showModal();
+      else dialog.setAttribute("open", "");
+    };
+
+    const closeFDialog = (dialog) => {
+      if (!dialog) return;
+      if (dialog.close) dialog.close();
+      else dialog.removeAttribute("open");
+    };
+
+    document.querySelectorAll("[data-f-open-dialog]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const type = button.dataset.fOpenDialog;
+        const card = button.closest("[data-f-activation]");
+        const target = card?.querySelector("[data-f-activation-target]");
+
+        if (!type || !card || !target) return;
+        const buttonRect = button.getBoundingClientRect();
+        const targetRect = target.getBoundingClientRect();
+        button.style.setProperty("--absorb-x", `${targetRect.right - buttonRect.left + 4}px`);
+        card.classList.add("is-activating");
+
+        const delay = prefersReducedMotion ? 0 : 430;
+        window.setTimeout(() => {
+          card.classList.remove("is-activating");
+          openFDialog(type);
+        }, delay);
+      });
+    });
+
+    document.querySelectorAll("[data-f-dialog-close]").forEach((button) => {
+      button.addEventListener("click", () => closeFDialog(button.closest("dialog")));
+    });
+
+    document.querySelector("[data-f-dialog-ton]")?.addEventListener("change", syncFDialogWeight);
+
+    document.querySelector("[data-f-dialog-charge]")?.addEventListener("input", (event) => {
+      const carrier = document.querySelector("[data-f-dialog-carrier]");
+      if (carrier && carrier.dataset.manual !== "true") carrier.value = event.target.value;
+      updateFDialogMoneyPreview();
+    });
+
+    document.querySelector("[data-f-dialog-carrier]")?.addEventListener("input", (event) => {
+      event.currentTarget.dataset.manual = "true";
+      updateFDialogMoneyPreview();
+    });
+
+    document.querySelector("[data-f-dialog-payment]")?.addEventListener("change", updateFDialogMoneyPreview);
+
+    document.querySelector("[data-f-dialog-fee]")?.addEventListener("change", (event) => {
+      const fee = fToNumber(event.target.value);
+      if (fee > 0) {
+        const payment = document.querySelector("[data-f-dialog-payment]");
+        const charge = document.querySelector("[data-f-dialog-charge]");
+        const carrier = document.querySelector("[data-f-dialog-carrier]");
+        if (payment) payment.value = "선착불";
+        if (charge) charge.value = "0";
+        if (carrier) window.setTimeout(() => carrier.focus(), 0);
+      }
+      updateFDialogMoneyPreview();
+    });
+
+    document.querySelector("[data-f-apply-dialog='transport']")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      const ton = document.querySelector("[data-f-dialog-ton]");
+      fState.transport.tonValue = ton?.value ?? "5";
+      fState.transport.ton = tonLabels[fState.transport.tonValue] ?? ton?.selectedOptions?.[0]?.textContent ?? "5톤";
+      fState.transport.vehicle = document.querySelector("[data-f-dialog-vehicle]")?.value ?? "축카고";
+      fState.transport.count = document.querySelector("[data-f-dialog-count]")?.value ?? "1";
+      fState.transport.weight = document.querySelector("[data-f-dialog-weight]")?.value ?? "5.50";
+      fState.transport.item = document.querySelector("[data-f-dialog-item]")?.value.trim() || "미입력";
+      renderFTransport();
+      closeFDialog(event.currentTarget.closest("dialog"));
+    });
+
+    document.querySelector("[data-f-apply-dialog='money']")?.addEventListener("click", (event) => {
+      event.preventDefault();
+      fState.money.payment = document.querySelector("[data-f-dialog-payment]")?.value ?? "인수증";
+      fState.money.charge = fFormatMoney(document.querySelector("[data-f-dialog-charge]")?.value ?? 0);
+      fState.money.carrier = fFormatMoney(document.querySelector("[data-f-dialog-carrier]")?.value ?? 0);
+      fState.money.fee = document.querySelector("[data-f-dialog-fee]")?.value
+        ? fFormatMoney(document.querySelector("[data-f-dialog-fee]")?.value)
+        : "";
+      renderFMoney();
+      closeFDialog(event.currentTarget.closest("dialog"));
+    });
+
+    const commitFCell = (cell) => {
+      const control = cell?.querySelector("[data-f-control]");
+      if (!cell || !control) return;
+      const field = cell.dataset.fField;
+
+      if (field === "ton") {
+        fState.transport.tonValue = control.value;
+        fState.transport.ton = control.selectedOptions?.[0]?.textContent ?? tonLabels[control.value] ?? "5톤";
+        fState.transport.weight = (Number(control.value) * 1.1).toFixed(2);
+        renderFTransport();
+      }
+
+      if (field === "vehicle") {
+        fState.transport.vehicle = control.value;
+        renderFTransport();
+      }
+
+      if (field === "count") {
+        fState.transport.count = String(Math.max(1, fToNumber(control.value)));
+        renderFTransport();
+      }
+
+      if (field === "weight") {
+        fState.transport.weight = fToNumber(control.value).toFixed(2);
+        renderFTransport();
+      }
+
+      if (field === "item") {
+        fState.transport.item = control.value.trim() || "미입력";
+        renderFTransport();
+      }
+
+      if (field === "payment") {
+        fState.money.payment = control.value;
+        renderFMoney();
+      }
+
+      if (field === "charge") {
+        fState.money.charge = fFormatMoney(control.value);
+        fState.money.carrier = fFormatMoney(control.value);
+        renderFMoney();
+      }
+
+      if (field === "carrier") {
+        fState.money.carrier = fFormatMoney(control.value);
+        renderFMoney();
+      }
+
+      if (field === "fee") {
+        const fee = fToNumber(control.value);
+        if (fee > 0) {
+          fState.money.fee = fFormatMoney(fee);
+          fState.money.payment = "선착불";
+          fState.money.charge = "0";
+          renderFMoney();
+          window.setTimeout(() => beginFEdit(fCell("carrier")), 0);
+        } else {
+          fState.money.fee = "";
+          renderFMoney();
+        }
+      }
+
+      cell.classList.remove("editing");
+    };
+
+    const cancelFCell = (cell) => {
+      const control = cell?.querySelector("[data-f-control]");
+      if (!control) return;
+      control.value = control.dataset.beforeEdit ?? control.value;
+      cell.classList.remove("editing");
+    };
+
+    function beginFEdit(cell) {
+      if (!cell || cell.classList.contains("readonly")) return;
+      fSection.querySelectorAll(".edit-cell.editing").forEach((editingCell) => {
+        if (editingCell !== cell) commitFCell(editingCell);
+      });
+
+      const control = cell.querySelector("[data-f-control]");
+      if (!control) return;
+      control.dataset.beforeEdit = control.value;
+      cell.classList.add("editing");
+      control.focus();
+      if (control.select) control.select();
+    }
+
+    fSection.querySelectorAll("[data-f-edit-cell]").forEach((cell) => {
+      const control = cell.querySelector("[data-f-control]");
+      if (!control) return;
+
+      cell.tabIndex = 0;
+      cell.addEventListener("click", () => {
+        if (!cell.classList.contains("editing")) beginFEdit(cell);
+      });
+      cell.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && !cell.classList.contains("editing")) {
+          event.preventDefault();
+          beginFEdit(cell);
+        }
+      });
+      control.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          commitFCell(cell);
+        }
+        if (event.key === "Escape") {
+          event.preventDefault();
+          cancelFCell(cell);
+        }
+      });
+      control.addEventListener("blur", () => {
+        window.setTimeout(() => {
+          if (!cell.contains(document.activeElement)) commitFCell(cell);
+        }, 0);
+      });
+    });
+  })();
+
+  updateProfit();
+</script>
+</body>
+</html>
