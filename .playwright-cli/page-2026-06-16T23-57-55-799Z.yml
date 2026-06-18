@@ -1,0 +1,195 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - heading "화물 오더 접수/수정" [level=1] [ref=e4]
+      - generic [ref=e5]: 신규 · 미발번
+      - 'button "⊟ 라벨: 표시" [pressed] [ref=e6] [cursor=pointer]':
+        - text: ⊟
+        - generic [ref=e7]: "라벨: 표시"
+      - generic [ref=e8]:
+        - generic [ref=e9]: 신규
+        - generic [ref=e10]:
+          - generic [ref=e11]: 거리
+          - generic [ref=e12]: —
+        - generic [ref=e13]:
+          - generic [ref=e14]: 기준
+          - generic [ref=e15]: —
+    - generic [ref=e16]:
+      - generic [ref=e20]:
+        - generic [ref=e21]: 화주
+        - generic [ref=e22]: 업체명·사업자번호·담당자를 입력하세요
+        - button "화주 정보 입력" [ref=e23] [cursor=pointer]
+      - generic [ref=e26]:
+        - generic [ref=e27]:
+          - generic [ref=e28]: 상차
+          - generic [ref=e29]: 상차지 주소를 검색하세요
+          - button "주소 검색" [ref=e30] [cursor=pointer]
+        - generic [ref=e31]:
+          - generic [ref=e32]: 하차
+          - generic [ref=e33]: 하차지 주소를 검색하세요
+          - button "주소 검색" [ref=e34] [cursor=pointer]
+      - generic [ref=e35]:
+        - generic [ref=e36]:
+          - generic [ref=e39]:
+            - generic [ref=e40]:
+              - generic [ref=e41]: 운송 + 품목
+              - generic [ref=e43]:
+                - generic [ref=e44]: 톤수, 차종, 대수, 실중량, 품목을 입력하세요
+                - button "운송+품목 입력" [ref=e45] [cursor=pointer]
+            - generic [ref=e46]:
+              - generic [ref=e47]: 금액
+              - generic [ref=e49]:
+                - generic [ref=e50]: 결제방법과 청구/운송 비용을 입력하세요
+                - button "금액 입력" [ref=e51] [cursor=pointer]
+          - generic [ref=e55]:
+            - generic [ref=e56]: 요약
+            - generic [ref=e57]: 운송 정보 입력 후 요약됩니다
+            - button "수정" [disabled] [ref=e58]
+          - generic [ref=e62]:
+            - generic [ref=e63]:
+              - generic [ref=e64]: 차주
+              - button "화물맨 연동" [ref=e65] [cursor=pointer]
+              - generic [ref=e66]: 차주를 선택하거나 화물맨에 공유하세요
+              - button "차주/차량 입력" [ref=e67] [cursor=pointer]
+            - generic [ref=e68]:
+              - generic [ref=e69]: 입력 전
+              - generic [ref=e70]: 미적용
+              - generic [ref=e71]: 입력 대기
+        - complementary "예약 영역" [ref=e72]:
+          - generic [ref=e75]:
+            - tablist "예약 영역 탭" [ref=e77]:
+              - tab "운송 구간 지도" [selected] [ref=e78] [cursor=pointer]
+              - tab "메모" [ref=e79] [cursor=pointer]
+              - tab "금액 로그" [ref=e80] [cursor=pointer]
+            - generic [ref=e81]:
+              - generic [ref=e82]:
+                - generic [ref=e83]: 거리
+                - generic [ref=e84]: 391km
+              - generic [ref=e85]:
+                - generic [ref=e86]: 예상
+                - generic [ref=e87]: 4시간 35분
+              - generic [ref=e88]: 경유 없음
+              - generic [ref=e89]: 정산 전
+            - tabpanel "운송 구간 지도" [ref=e90]:
+              - generic [ref=e91]:
+                - generic "상차지에서 하차지까지의 운송 구간 지도 요약" [ref=e92]:
+                  - generic [ref=e93]:
+                    - generic [ref=e95]:
+                      - generic [ref=e96]: 상
+                      - generic [ref=e97]: 서울 강서
+                    - generic [ref=e98]:
+                      - generic [ref=e99]: 하
+                      - generic [ref=e100]: 부산 강서
+                  - generic [ref=e101]: 예상 시간은 교통 상황과 상하차 대기 시간을 포함하지 않습니다.
+                - generic [ref=e102]:
+                  - generic [ref=e103]:
+                    - generic [ref=e104]: 상차
+                    - generic [ref=e105]:
+                      - generic [ref=e106]: 서울특별시 강서구 마곡동
+                      - generic [ref=e107]:
+                        - generic [ref=e108]: 좌표
+                        - generic [ref=e109]: 확인
+                    - button "주소 확인" [ref=e111] [cursor=pointer]
+                  - generic [ref=e112]:
+                    - generic [ref=e113]: 하차
+                    - generic [ref=e114]:
+                      - generic [ref=e115]: 부산광역시 강서구 녹산동
+                      - generic [ref=e116]:
+                        - generic [ref=e117]: 경유
+                        - generic [ref=e118]: 없음
+                    - button "다시 계산" [ref=e120] [cursor=pointer]
+            - text: ⓘ
+    - generic [ref=e121]:
+      - generic [ref=e122]:
+        - generic [ref=e123]: 기본
+        - button "신규 접수 F3" [ref=e124] [cursor=pointer]:
+          - text: 신규 접수
+          - generic [ref=e125]: F3
+        - button "화물 수정" [ref=e126] [cursor=pointer]
+        - button "화물 복사" [ref=e127] [cursor=pointer]
+        - button "조회" [ref=e128] [cursor=pointer]
+      - generic [ref=e130]:
+        - generic [ref=e131]: 위험
+        - button "화물 취소" [ref=e132] [cursor=pointer]
+        - button "배차 취소" [ref=e133] [cursor=pointer]
+        - button "정산 처리" [ref=e134] [cursor=pointer]
+      - generic [ref=e135]:
+        - generic [ref=e136]: 출력
+        - button "엑셀" [ref=e137] [cursor=pointer]
+        - button "인쇄" [ref=e138] [cursor=pointer]
+        - button "위탁증" [ref=e139] [cursor=pointer]
+    - generic [ref=e140]:
+      - generic [ref=e141]: 오더 목록 (cargo-list)
+      - generic [ref=e142]: 이번 범위에서 제외된 영역입니다. 실제 고밀도 테이블은 별도 작업으로 이 자리에 배치합니다.
+    - generic [ref=e143]:
+      - generic [ref=e144]:
+        - generic [ref=e145]: ≡
+        - generic [ref=e146]: 상태 예시 모음
+        - generic [ref=e148]: shadcn 컴포넌트 상태 (참고용)
+      - generic [ref=e149]:
+        - generic [ref=e150]:
+          - generic [ref=e151]: Button
+          - generic [ref=e152]:
+            - button "Outline" [ref=e153] [cursor=pointer]
+            - button "Secondary" [ref=e154] [cursor=pointer]
+            - button "Ghost" [ref=e155] [cursor=pointer]
+            - button "Primary" [ref=e156] [cursor=pointer]
+            - button "Destructive" [ref=e157] [cursor=pointer]
+            - button "Disabled" [disabled] [ref=e158]
+          - generic [ref=e159]: hover · active · focus(키보드 Tab 시 ring) · disabled 상태 포함
+        - generic [ref=e160]:
+          - generic [ref=e161]: Badge · 상태 (색 + 텍스트 병행)
+          - generic [ref=e162]:
+            - generic [ref=e163]: 접수
+            - generic [ref=e164]: 완료
+            - generic [ref=e165]: 취소
+        - generic [ref=e166]:
+          - generic [ref=e167]: Chip · metric / source / role
+          - generic [ref=e168]:
+            - generic [ref=e169]:
+              - generic [ref=e170]: 거리
+              - generic [ref=e171]: 15.8km
+            - generic [ref=e172]: 화물맨
+            - generic [ref=e173]: 내부 DB
+            - generic [ref=e174]: Kakao
+            - generic [ref=e175] [cursor=pointer]: 배차
+            - generic [ref=e176] [cursor=pointer]: 정산
+            - generic [ref=e177]: 미확정 계산값
+        - generic [ref=e178]:
+          - generic [ref=e179]: 입력 셀 상태
+          - generic [ref=e180]:
+            - generic [ref=e181]:
+              - generic [ref=e182]: 읽기
+              - generic [ref=e183]: 임동진
+            - generic [ref=e184]:
+              - generic [ref=e185]: 편집 가능
+              - generic [ref=e186]: 010-5241-1461
+            - generic [ref=e187]:
+              - generic [ref=e188]: 잠금
+              - generic [ref=e189]: 129-20-29761
+            - generic [ref=e190]:
+              - generic [ref=e191]: 자동입력
+              - generic [ref=e192]: 5.5톤
+            - generic [ref=e193]:
+              - generic [ref=e194]: 에러
+              - generic [ref=e195]: 필수 항목입니다
+        - generic [ref=e196]:
+          - generic [ref=e197]: 선택 행 (강조 배경)
+          - generic [ref=e198]:
+            - generic [ref=e199]: 일반 행 · 임동진 · 경기92바7283
+            - generic [ref=e200]: 선택 행 · 박운송 · 경기80바7964
+        - generic [ref=e201]:
+          - generic [ref=e202]: 화물맨 상태
+          - generic [ref=e203]:
+            - generic [ref=e204]: 입력 전
+            - generic [ref=e205]: 연동중
+            - generic [ref=e206]: 배차완료
+            - generic [ref=e207]: 취소 요청중
+            - generic [ref=e208]: 취소 실패
+        - generic [ref=e209]:
+          - generic [ref=e210]: 알림 (아이콘 + 문구)
+          - generic [ref=e211]:
+            - generic [ref=e212]: ⚠ 사업자 번호 검증 대기
+            - generic [ref=e213]: ⓘ 자동 계산값
+            - generic [ref=e214]: ⛔ 취소 시 복구 불가
+  - status [ref=e215]

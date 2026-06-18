@@ -1,0 +1,69 @@
+- generic [active] [ref=e1]:
+  - main "화물 오더 접수 수정 관리" [ref=e2]:
+    - generic "화면 표시 옵션" [ref=e3]:
+      - generic [ref=e4] [cursor=pointer]:
+        - checkbox "라벨 보기" [ref=e5]
+        - generic [ref=e6]: 라벨 보기
+    - generic [ref=e7]:
+      - region "화주 정보" [ref=e8]:
+        - generic "화주 정보 요약" [ref=e10]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: 화주
+            - generic [ref=e14]: 화주 정보 입력 후 오더 접수를 시작합니다.
+            - button "화주 정보 입력" [ref=e15] [cursor=pointer]
+      - region "운송 구간" [ref=e16]:
+        - generic "운송구간 요약" [ref=e18]:
+          - generic [ref=e19]:
+            - generic [ref=e20]: 상차
+            - button "상차지 변경" [ref=e21] [cursor=pointer]: 상차지명 코덱트 후진입차
+            - button "상차지 변경" [ref=e22] [cursor=pointer]: 상차지 주소 경기 여주시 산북면 후리 변경
+            - generic [ref=e23]: 상차지 상세주소 18-1 코덱트 후진입차 수정
+            - generic [ref=e24]: 상차 담당자 김상차 수정
+            - generic [ref=e25]: 상차 연락처 010-1234-5678 수정
+            - generic [ref=e26]: 상차일시 지금 선택
+            - generic [ref=e27]: 상차방법 상차방법 선택
+            - button "상차지 변경" [ref=e28]
+          - generic [ref=e29]:
+            - generic [ref=e30]: 하차
+            - button "하차지 변경" [ref=e31] [cursor=pointer]: 하차지명 무갑리 현장
+            - button "하차지 변경" [ref=e32] [cursor=pointer]: 하차지 주소 경기 광주시 초월읍 무갑리 변경
+            - generic [ref=e33]: 하차지 상세주소 554-7 수정
+            - generic [ref=e34]: 하차 담당자 박하차 수정
+            - generic [ref=e35]: 하차 연락처 010-9876-5432 수정
+            - generic [ref=e36]: 하차일시 당일 선택
+            - generic [ref=e37]: 하차방법 하차방법 선택
+            - button "하차지 변경" [ref=e38]
+      - generic [ref=e39]:
+        - region "화물 운송정보" [ref=e40]:
+          - generic "화물 운송정보" [ref=e42]:
+            - generic [ref=e43]:
+              - generic [ref=e44]:
+                - generic [ref=e45]: 운송+품목
+                - generic "운송 조건과 품목 입력 대기" [ref=e46]
+                - button "운송+품목 입력" [ref=e47] [cursor=pointer]
+                - generic [ref=e48]: 톤수/차종/품목
+              - text: 수정 수정 수정 수정 수정
+            - generic [ref=e49]:
+              - generic [ref=e50]:
+                - generic [ref=e51]: 금액
+                - generic "결제방법 청구비용 운송비용 수수료 입력 대기" [ref=e52]
+                - button "금액 조건 선택" [ref=e53] [cursor=pointer]
+                - generic [ref=e54]: 인수증 기본
+              - text: 수정 수정 수정 수정
+        - region "화물정보 요약" [ref=e55]:
+          - generic "화물정보 요약" [ref=e57]:
+            - generic [ref=e59]:
+              - generic [ref=e60]: 요약
+              - generic [ref=e61]:
+                - generic: 화물정보 요약
+                - generic [ref=e62]: 지금상 당착 장비 운송 지/지-A. 판넬 12파렛트, 5.5톤 축차, 상하차 지게차 조건.
+        - region "차주 정보" [ref=e63]:
+          - tabpanel [ref=e66]:
+            - generic "화물맨 차주 정보 실제 컴포넌트" [ref=e67]:
+              - generic [ref=e68]:
+                - generic [ref=e69]: 차주
+                - generic [ref=e70]:
+                  - button "화물맨 연동" [ref=e71] [cursor=pointer]
+                  - generic [ref=e72]: 차주/차량 입력 또는 화물맨 연동으로 배차를 시작합니다.
+                  - button "차주/차량 입력" [ref=e73] [cursor=pointer]
+  - text: 선택 선택

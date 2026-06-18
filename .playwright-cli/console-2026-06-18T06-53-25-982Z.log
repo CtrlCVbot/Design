@@ -1,0 +1,36 @@
+[   31810ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:424:8)
+    at <anonymous>:529:17
+[   33846ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:424:8)
+    at <anonymous>:529:17
+[  166392ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:422:8)
+    at <anonymous>:527:17
+[  168434ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:422:8)
+    at <anonymous>:527:17
+[  238949ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:422:8)
+    at <anonymous>:527:17
+[  240984ms] TypeError: Cannot read properties of null (reading 'value')
+    at applyCargo (<anonymous>:630:43)
+    at wrapped (<anonymous>:188:29)
+    at window.applyCargo (file:///C:/Work/Dev/Design/.plans/20260430-cargo-order-admin/wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html?screenmap=1&group=new-order.group-required-inputs&part=group-required-inputs.money-complete:1415:27)
+    at callGlobal (<anonymous>:422:8)
+    at <anonymous>:527:17

@@ -1,0 +1,83 @@
+- generic [ref=e1]:
+  - main "화물 오더 접수 수정 관리" [ref=e2]:
+    - generic "화면 표시 옵션" [ref=e3]:
+      - generic [ref=e4] [cursor=pointer]:
+        - checkbox "라벨 보기" [checked] [active] [ref=e5]
+        - generic [ref=e6]: 라벨 보기
+    - generic [ref=e7]:
+      - region "화주 정보" [ref=e8]:
+        - generic "화주 정보 요약" [ref=e10]:
+          - generic [ref=e12]:
+            - generic [ref=e13]: 화주
+            - generic [ref=e14]:
+              - generic [ref=e83]: 화주 업체명
+              - generic [ref=e15]: 로지스팩토리
+            - generic [ref=e16]:
+              - generic [ref=e84]: 사업자 번호
+              - generic [ref=e17]: 123-45-67890
+            - generic [ref=e18]:
+              - generic [ref=e85]: 담당자명
+              - generic [ref=e19]: 김민수
+            - generic [ref=e20]:
+              - generic [ref=e86]: 담당자 연락처
+              - generic [ref=e21]: 010-1234-5678
+            - generic [ref=e22]:
+              - generic [ref=e87]: 담당자 이메일
+              - generic [ref=e23]: minsu@logis.co.kr
+            - button "화주/담당자 변경" [ref=e24] [cursor=pointer]
+      - region "운송 구간" [ref=e25]:
+        - generic "운송구간 요약" [ref=e27]:
+          - generic [ref=e28]:
+            - generic [ref=e29]: 상차
+            - button "상차지 변경" [ref=e30] [cursor=pointer]: 상차지명 코덱트 후진입차
+            - button "상차지 변경" [ref=e31] [cursor=pointer]: 상차지 주소 경기 여주시 산북면 후리 변경
+            - generic [ref=e32]: 상차지 상세주소 18-1 코덱트 후진입차 수정
+            - generic [ref=e33]: 상차 담당자 김상차 수정
+            - generic [ref=e34]: 상차 연락처 010-1234-5678 수정
+            - generic [ref=e35]: 상차일시 지금 선택
+            - generic [ref=e36]: 상차방법 상차방법 선택
+            - button "상차지 변경" [ref=e37]
+          - generic [ref=e38]:
+            - generic [ref=e39]: 하차
+            - button "하차지 변경" [ref=e40] [cursor=pointer]: 하차지명 무갑리 현장
+            - button "하차지 변경" [ref=e41] [cursor=pointer]: 하차지 주소 경기 광주시 초월읍 무갑리 변경
+            - generic [ref=e42]: 하차지 상세주소 554-7 수정
+            - generic [ref=e43]: 하차 담당자 박하차 수정
+            - generic [ref=e44]: 하차 연락처 010-9876-5432 수정
+            - generic [ref=e45]: 하차일시 당일 선택
+            - generic [ref=e46]: 하차방법 하차방법 선택
+            - button "하차지 변경" [ref=e47]
+      - generic [ref=e48]:
+        - region "화물 운송정보" [ref=e49]:
+          - generic "화물 운송정보" [ref=e51]:
+            - generic [ref=e52]:
+              - generic [ref=e53]:
+                - generic [ref=e54]: 운송+품목
+                - generic "운송 조건과 품목 입력 대기" [ref=e55]
+                - button "운송+품목 입력" [ref=e56] [cursor=pointer]
+                - generic [ref=e57]: 톤수/차종/품목
+              - text: 수정 수정 수정 수정 수정
+            - generic [ref=e58]:
+              - generic [ref=e59]:
+                - generic [ref=e60]: 금액
+                - generic "결제방법 청구비용 운송비용 수수료 입력 대기" [ref=e61]
+                - button "금액 조건 선택" [ref=e62] [cursor=pointer]
+                - generic [ref=e63]: 인수증 기본
+              - text: 수정 수정 수정 수정
+        - region "화물정보 요약" [ref=e64]:
+          - generic "화물정보 요약" [ref=e66]:
+            - generic [ref=e68]:
+              - generic [ref=e69]: 요약
+              - generic [ref=e70]:
+                - generic [ref=e88]: 화물정보 요약
+                - generic [ref=e71]: 지금상 당착 장비 운송 지/지-A. 판넬 12파렛트, 5.5톤 축차, 상하차 지게차 조건.
+        - region "차주 정보" [ref=e72]:
+          - tabpanel [ref=e75]:
+            - generic "화물맨 차주 정보 실제 컴포넌트" [ref=e76]:
+              - generic [ref=e77]:
+                - generic [ref=e78]: 차주
+                - generic [ref=e79]:
+                  - button "화물맨 연동" [ref=e80] [cursor=pointer]
+                  - generic [ref=e81]: 차주/차량 입력 또는 화물맨 연동으로 배차를 시작합니다.
+                  - button "차주/차량 입력" [ref=e82] [cursor=pointer]
+  - text: 선택 선택
