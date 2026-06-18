@@ -1,0 +1,433 @@
+﻿{
+  "version": "2026-06-18",
+  "title": "Cargo Order Admin Final Baseline Data",
+  "scope": "handoff-data-catalog",
+  "sourcePolicy": {
+    "canonicalMasterHtml": "baseline/html/cargo-order-admin-hifi-master.html",
+    "packagedMasterHtml": "baseline/html/cargo-order-admin-hifi-master.html",
+    "packageManifest": "package-manifest.md",
+    "detailedSourcesRemainInPlace": false,
+    "packagedSourcesAvailable": true,
+    "archiveRoot": "../_archive/compact-handoff-20260618/",
+    "thisFilePurpose": "implementation mapping and visual handoff hub input"
+  },
+  "baselineSources": {
+    "packagedRoot": "source-snapshot/",
+    "packagedReferences": "reference-snapshot/",
+    "rootPlanning": [
+      "source-snapshot/root-docs/README.md",
+      "source-snapshot/root-docs/01-screen-map.md",
+      "source-snapshot/root-docs/02-field-inventory.md",
+      "source-snapshot/root-docs/03-wireframe.md",
+      "source-snapshot/root-docs/04-modernization-brief.md",
+      "source-snapshot/root-docs/05-self-review.md"
+    ],
+    "newOrderFlow": "source-snapshot/sections/new-order-registration-flow/",
+    "reservationTabs": "source-snapshot/sections/reservation-area-tabs/",
+    "recentDialogs": "source-snapshot/sections/transport-dialog-recent-lists/",
+    "headerPolish": "source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md",
+    "sourceMap": "source-snapshot/artifact-audit/source-of-truth-map.md"
+  },
+  "screenStates": [
+    {
+      "id": "idle-edit",
+      "label": "기본/화물 수정 상태",
+      "entry": "초기 화면, 기존 화물 선택, 등록 완료 후 일반 상태",
+      "uiPolicy": ["sectionHeadersHidden", "standaloneDialogsEnabled", "wizardHidden"]
+    },
+    {
+      "id": "new-reset",
+      "label": "신규 접수 초기화",
+      "entry": "신규(F3) 클릭",
+      "uiPolicy": ["allDraftFieldsReset", "sectionHeadersVisible", "focusShipper"]
+    },
+    {
+      "id": "new-wizard-active",
+      "label": "신규 접수 wizard 진행",
+      "entry": "화주 정보 입력 시작",
+      "uiPolicy": ["wizardVisible", "processPanelVisible", "standaloneDialogsDisabled"]
+    },
+    {
+      "id": "new-required-complete",
+      "label": "필수 입력 완료",
+      "entry": "금액 단계 validation 통과",
+      "uiPolicy": ["showCompleteOrDriverBranch"]
+    },
+    {
+      "id": "new-driver-optional",
+      "label": "차주 선택 단계",
+      "entry": "차주 정보로 이동 선택",
+      "uiPolicy": ["driverSelectable", "skipAllowed"]
+    },
+    {
+      "id": "new-submitted",
+      "label": "메인 화면 적용 완료, pre-API",
+      "entry": "화물 등록 완료 또는 차주 단계 완료",
+      "uiPolicy": ["sectionHeadersHidden", "mainSubmitVisible", "standaloneDialogsEnabled"],
+      "apiPolicy": "noApiRequestYet"
+    },
+    {
+      "id": "submit-validating",
+      "label": "최종 validation",
+      "entry": "메인 화물 등록 클릭",
+      "uiPolicy": ["mainSubmitDisabled", "validateLatestScreenData"]
+    },
+    {
+      "id": "submit-pending",
+      "label": "API 통신 중",
+      "entry": "validation 통과",
+      "uiPolicy": ["mainSubmitDisabled", "showSubmitting"]
+    },
+    {
+      "id": "submit-failed",
+      "label": "등록 실패",
+      "entry": "API 실패 또는 server validation 실패",
+      "uiPolicy": ["dataPreserved", "retryAllowed", "fieldOrSectionErrorsVisible"]
+    },
+    {
+      "id": "submit-complete",
+      "label": "등록 완료",
+      "entry": "API 성공",
+      "uiPolicy": ["newOrderModeClosed", "mainSubmitHidden", "idleEditCompatible"]
+    }
+  ],
+  "sections": [
+    {
+      "id": "header-status",
+      "label": "Header 상태 영역",
+      "components": ["status-chip", "distance-chip", "base-amount-chip", "dispatch-manager-chip", "label-toggle"],
+      "dataModels": ["CargoOrder", "RoutePreview", "Pricing", "DispatchManager"],
+      "source": "source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md"
+    },
+    {
+      "id": "shipper-info",
+      "label": "화주 정보",
+      "dataModels": ["Requester", "CargoMemo"],
+      "validation": ["requesterIdentity", "contactOrManager"],
+      "source": "source-snapshot/sections/shipper-info/"
+    },
+    {
+      "id": "transport-route",
+      "label": "운송 구간",
+      "dataModels": ["Location", "RecentLocation", "RoutePreview"],
+      "validation": ["loadAddress", "unloadAddress", "schedulePolicy"],
+      "source": "source-snapshot/sections/transport-route/"
+    },
+    {
+      "id": "cargo-info",
+      "label": "화물 정보",
+      "dataModels": ["VehicleRequirement", "CargoDetail", "RecentCargoCombo"],
+      "validation": ["tonnage", "vehicleType", "quantity", "actualWeight", "cargoItem"],
+      "source": "source-snapshot/sections/cargo-transport/"
+    },
+    {
+      "id": "pricing",
+      "label": "정산 정보",
+      "dataModels": ["Pricing", "PricingAdjustment"],
+      "validation": ["paymentMethod", "chargeAmount", "dispatchAmount"],
+      "source": "source-snapshot/sections/cargo-transport/"
+    },
+    {
+      "id": "order-summary",
+      "label": "오더 요약",
+      "dataModels": ["CargoOrder", "CargoDetail", "Pricing"],
+      "uiPolicy": "reviewOnlyNotInputStep",
+      "source": "source-snapshot/root-docs/03-wireframe.md"
+    },
+    {
+      "id": "driver-info",
+      "label": "차주 정보",
+      "dataModels": ["DriverAssignment"],
+      "validation": ["optionalInNewOrder"],
+      "source": "source-snapshot/sections/driver-info/"
+    },
+    {
+      "id": "supporting-info",
+      "label": "보조 정보",
+      "tabs": ["memo", "amount-log", "route-map"],
+      "dataModels": ["CargoMemo", "PricingAdjustment", "RoutePreview"],
+      "source": "source-snapshot/sections/reservation-area-tabs/"
+    },
+    {
+      "id": "cargo-list",
+      "label": "화물 목록",
+      "dataModels": ["CargoOrder", "DriverAssignment", "SettlementDocument"],
+      "source": "source-snapshot/sections/cargo-list/"
+    }
+  ],
+  "dataContracts": [
+    {
+      "id": "CargoOrder",
+      "fields": ["cargoId", "status", "processedAt", "displayPolicy", "urgentFlag", "reservationFlag", "stopoverFlag"],
+      "usedBy": ["header-status", "order-summary", "cargo-list", "main-submit"]
+    },
+    {
+      "id": "Requester",
+      "fields": ["requesterName", "requesterType", "businessNumber", "contactPhone", "managerName"],
+      "usedBy": ["shipper-info", "validation"]
+    },
+    {
+      "id": "Location",
+      "fields": ["side", "region1", "region2", "region3", "detailAddress", "managerName", "contactPhone"],
+      "usedBy": ["transport-route", "dialog.address-recent", "route-map"]
+    },
+    {
+      "id": "VehicleRequirement",
+      "fields": ["tonnage", "vehicleType", "wideOption", "quantity", "exclusiveOrMixed"],
+      "usedBy": ["cargo-info", "dialog.cargo-recent"]
+    },
+    {
+      "id": "CargoDetail",
+      "fields": ["itemName", "actualWeight", "cargoMemo", "extraInfo", "specialNotes"],
+      "usedBy": ["cargo-info", "order-summary"]
+    },
+    {
+      "id": "Pricing",
+      "fields": ["paymentMethod", "baseChargeAmount", "baseDispatchAmount", "feeAmount", "totalAmount", "profitAmount"],
+      "usedBy": ["pricing", "amount-log", "main-submit"]
+    },
+    {
+      "id": "PricingAdjustment",
+      "fields": ["id", "reasonCode", "targetType", "amountSigned", "note", "actorName", "changedAt"],
+      "reasonCodes": ["WAITING_FEE", "STOP_FEE", "DISCOUNT", "MANUAL_ADJUSTMENT"],
+      "targetTypes": ["CHARGE", "DISPATCH", "BOTH"],
+      "usedBy": ["pricing", "amount-log"]
+    },
+    {
+      "id": "RecentLocation",
+      "fields": ["side", "placeName", "address", "detailAddress", "source", "lastUsedAt", "privacyDisplayMode"],
+      "usedBy": ["dialog.address-recent"]
+    },
+    {
+      "id": "RecentCargoCombo",
+      "fields": ["tonnage", "vehicleType", "quantity", "actualWeight", "itemName", "lastUsedAt", "dedupeKey"],
+      "usedBy": ["dialog.cargo-recent"]
+    },
+    {
+      "id": "CargoMemo",
+      "fields": ["id", "orderId", "type", "content", "authorName", "createdAt", "permission"],
+      "usedBy": ["aside.memo"]
+    },
+    {
+      "id": "RoutePreview",
+      "fields": ["loadAddressStatus", "unloadAddressStatus", "loadCoordinate", "unloadCoordinate", "distanceKm", "estimatedMinutes", "hasStopover", "routeStatus"],
+      "usedBy": ["header-status", "aside.route-map"]
+    },
+    {
+      "id": "DispatchManager",
+      "fields": ["managerName", "teamName", "workStatus", "lastCheckedAt", "canChange", "changeHistory"],
+      "usedBy": ["header.dispatch-manager"]
+    },
+    {
+      "id": "DriverAssignment",
+      "fields": ["driverName", "driverPhone", "vehicleNumber", "vehicleType", "vehicleCapacity", "businessNumber"],
+      "usedBy": ["driver-info", "cargo-list"]
+    },
+    {
+      "id": "SettlementDocument",
+      "fields": ["taxInvoiceEnabled", "receiptMailEnabled", "invoiceIssuedAt", "invoiceAmount", "consignmentDocumentStatus"],
+      "usedBy": ["order-summary", "cargo-list"]
+    }
+  ],
+  "validationRules": [
+    {
+      "id": "VAL-SHIPPER-001",
+      "step": "shipper-info",
+      "required": ["requesterIdentity", "contactOrManager"],
+      "onFail": "stayInCurrentStep"
+    },
+    {
+      "id": "VAL-ROUTE-LOAD-001",
+      "step": "load-address",
+      "required": ["address", "detailAddressOrPlaceName"],
+      "conditional": ["loadSchedulePolicy"],
+      "onFail": "blockNextStep"
+    },
+    {
+      "id": "VAL-ROUTE-UNLOAD-001",
+      "step": "unload-address",
+      "required": ["address", "detailAddressOrPlaceName"],
+      "conditional": ["unloadSchedulePolicy"],
+      "onFail": "blockNextStep"
+    },
+    {
+      "id": "VAL-CARGO-001",
+      "step": "cargo-info",
+      "required": ["tonnage", "vehicleType", "quantity", "actualWeight", "itemName"],
+      "onFail": "blockNextStep"
+    },
+    {
+      "id": "VAL-PRICING-001",
+      "step": "pricing",
+      "required": ["paymentMethod", "chargeAmount", "dispatchAmount"],
+      "onFail": "blockRequiredComplete"
+    },
+    {
+      "id": "VAL-MAIN-SUBMIT-001",
+      "step": "main-submit",
+      "required": ["latestScreenDataValid"],
+      "onFail": "noApiRequestAndFocusFirstError"
+    }
+  ],
+  "apiPolicies": [
+    {
+      "id": "API-MAIN-SUBMIT",
+      "trigger": "mainSubmitButtonOnly",
+      "buttonLabel": "화물 등록",
+      "preApiState": "new-submitted",
+      "payloadSource": "latestMainScreenData",
+      "idempotency": "clientDraftId + payloadVersion",
+      "endpointStatus": "pending-confirmation",
+      "source": "source-snapshot/sections/new-order-registration-flow/08-main-submit-api-policy.md"
+    },
+    {
+      "id": "API-RECENT-LOCATION",
+      "trigger": "pending-policy",
+      "scopeStatus": "pending-user-or-shipper-scope",
+      "saveTimingStatus": "pending-apply-or-submit-success",
+      "privacyStatus": "pending-masking-policy",
+      "source": "source-snapshot/sections/transport-dialog-recent-lists/"
+    },
+    {
+      "id": "API-RECENT-CARGO-COMBO",
+      "trigger": "pending-policy",
+      "dedupeKey": "tonnage + vehicleType + quantity + actualWeight + itemName",
+      "saveTimingStatus": "pending",
+      "source": "source-snapshot/sections/transport-dialog-recent-lists/"
+    },
+    {
+      "id": "API-MEMO",
+      "trigger": "memoAddDialog",
+      "permissionStatus": "pending",
+      "source": "source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md"
+    },
+    {
+      "id": "API-PRICING-ADJUSTMENT",
+      "trigger": "pricingAdjustmentInput",
+      "permissionStatus": "pending",
+      "settlementEditStatus": "pending",
+      "source": "source-snapshot/sections/reservation-area-tabs/08-implementation-handoff.md"
+    },
+    {
+      "id": "API-ROUTE-MAP",
+      "trigger": "routePreviewLoad",
+      "providerStatus": "pending",
+      "fallbackRequired": true,
+      "source": "source-snapshot/sections/reservation-area-tabs/02-tab-map-section.md"
+    },
+    {
+      "id": "API-DISPATCH-MANAGER",
+      "trigger": "future-dispatch-manager-change",
+      "currentScope": "displayOnlyChip",
+      "modelStatus": "pending",
+      "source": "source-snapshot/root-docs/10-hifi-design-polish-and-dispatch-manager-integration-log.md"
+    }
+  ],
+  "policyBacklog": [
+    {
+      "id": "P0-SUBMIT-API",
+      "priority": "P0",
+      "area": "new-order-submit",
+      "decisionNeeded": "endpoint, payload schema, server validation code",
+      "impact": "blocks real save implementation"
+    },
+    {
+      "id": "P0-VALIDATION",
+      "priority": "P0",
+      "area": "validation",
+      "decisionNeeded": "actual required fields and dropdown options",
+      "impact": "wizard gate and error messaging"
+    },
+    {
+      "id": "P0-RECENT-SCOPE",
+      "priority": "P0",
+      "area": "recent-list",
+      "decisionNeeded": "shipper/user/org scope and save timing",
+      "impact": "recent API and DB design"
+    },
+    {
+      "id": "P0-PRIVACY",
+      "priority": "P0",
+      "area": "privacy",
+      "decisionNeeded": "contact and manager name masking",
+      "impact": "recent location row and preview"
+    },
+    {
+      "id": "P0-AMOUNT-PERMISSION",
+      "priority": "P0",
+      "area": "amount-log",
+      "decisionNeeded": "amount view/edit/masking roles",
+      "impact": "supporting info amount tab"
+    },
+    {
+      "id": "P0-SETTLEMENT-EDIT",
+      "priority": "P0",
+      "area": "settlement",
+      "decisionNeeded": "whether adjustments can be changed after settlement",
+      "impact": "pricing adjustment API and audit log"
+    },
+    {
+      "id": "P1-MAP-PROVIDER",
+      "priority": "P1",
+      "area": "route-map",
+      "decisionNeeded": "map provider, quota, fallback",
+      "impact": "route map implementation"
+    },
+    {
+      "id": "P1-MEMO-PERMISSION",
+      "priority": "P1",
+      "area": "memo",
+      "decisionNeeded": "create/edit/delete visibility and retention",
+      "impact": "memo dialog and list actions"
+    },
+    {
+      "id": "P1-DISPATCH-MANAGER",
+      "priority": "P1",
+      "area": "dispatch-manager",
+      "decisionNeeded": "assignment/change permission/history and unassigned label",
+      "impact": "header chip future interaction"
+    }
+  ],
+  "qaGates": [
+    {
+      "id": "QA-NEW-START",
+      "label": "신규 접수 시작",
+      "checks": ["clickNewF3", "allDraftFieldsReset", "stateNewReset", "shipperFocus"]
+    },
+    {
+      "id": "QA-WIZARD-STEPS",
+      "label": "wizard 단계",
+      "checks": ["shipper", "loadAddress", "unloadAddress", "cargoItem", "amount", "driverOptional"]
+    },
+    {
+      "id": "QA-API-SEPARATION",
+      "label": "API 책임 분리",
+      "checks": ["completeButtonNoApi", "mainSubmitOnlyApi", "validationBeforeApi"]
+    },
+    {
+      "id": "QA-RECENT-ADDRESS",
+      "label": "주소 최근 사용",
+      "checks": ["recentBeforeSearch", "rowClickPreviewOnly", "applyButtonCommits", "searchSwitchesToResults"]
+    },
+    {
+      "id": "QA-RECENT-CARGO",
+      "label": "운송+품목 최근 사용",
+      "checks": ["comboClickFillsFormOnly", "applyButtonCommits", "noAmountInRecentCombo"]
+    },
+    {
+      "id": "QA-SUPPORTING-INFO",
+      "label": "보조 정보",
+      "checks": ["memoDefaultTab", "amountLogTerminology", "routeMapNoDuplicateAddress", "emptyPartialDataStates"]
+    },
+    {
+      "id": "QA-HEADER",
+      "label": "Header",
+      "checks": ["dispatchManagerChip", "labelToggle", "distanceAndBaseAmountChip", "responsiveWrap"]
+    },
+    {
+      "id": "QA-REGRESSION-IDLE-EDIT",
+      "label": "기존 조회/수정 회귀",
+      "checks": ["noWizardInIdleEdit", "standaloneDialogsInEdit", "existingListSelectionFlowPreserved"]
+    }
+  ]
+}
