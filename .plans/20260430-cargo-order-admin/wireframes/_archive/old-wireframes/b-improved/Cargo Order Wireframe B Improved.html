@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>화물 오더 접수/수정 관리 - B안 개선 Wireframe</title>
+<style>
+  :root {
+    --bg: #eef1f4;
+    --surface: #ffffff;
+    --surface-soft: #f7f9fb;
+    --line: #c9d1dc;
+    --line-strong: #8fa0b3;
+    --ink: #172033;
+    --muted: #667084;
+    --accent: #1f64d6;
+    --accent-soft: #e9f1ff;
+    --success: #256c3a;
+    --success-soft: #eaf6ee;
+    --danger: #c8372d;
+    --danger-soft: #fff0ee;
+    --warn: #a65f00;
+    --warn-soft: #fff7e5;
+    --focus: #dbeafe;
+    --selected: #fff7cc;
+    --shadow: 0 8px 24px rgba(23, 32, 51, 0.08);
+    --radius: 6px;
+    --font: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", Arial, sans-serif;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  body {
+    padding: 16px;
+  }
+
+  .app {
+    max-width: 1500px;
+    margin: 0 auto;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+
+  .titlebar {
+    display: grid;
+    grid-template-columns: minmax(320px, 1fr) auto;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, #fff, #f7f9fc);
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 20px;
+    letter-spacing: 0;
+  }
+
+  .subtitle {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .status-pack {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .status-chip,
+  .metric-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 26px;
+    padding: 4px 8px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+    white-space: nowrap;
+  }
+
+  .metric-chip strong {
+    color: var(--accent);
+  }
+
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    min-height: 38px;
+    padding: 0 12px;
+    border-bottom: 1px solid var(--line);
+    background: #f5f7fa;
+    overflow-x: auto;
+  }
+
+  .nav button {
+    height: 28px;
+    padding: 0 12px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ink);
+    font: inherit;
+    white-space: nowrap;
+  }
+
+  .nav button.active {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .subbar {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(160px, 1fr));
+    gap: 8px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+    background: var(--surface-soft);
+  }
+
+  .subitem {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 8px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #fff;
+  }
+
+  .subitem .label,
+  .field label,
+  .row-label {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .subitem .value {
+    text-align: right;
+    font-weight: 700;
+  }
+
+  .subitem.warning {
+    border-color: #f0c36a;
+    background: var(--warn-soft);
+  }
+
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(420px, 0.92fr);
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  .section {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    min-height: 34px;
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--line);
+    background: #f7f9fc;
+  }
+
+  .section-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 800;
+  }
+
+  .section-title .num {
+    display: inline-grid;
+    place-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 11px;
+  }
+
+  .section-note {
+    color: var(--muted);
+    font-size: 11px;
+    white-space: nowrap;
+  }
+
+  .section-body {
+    padding: 10px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  .grid.cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid.cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid.cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .grid.cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .grid.cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+
+  .span-2 { grid-column: span 2; }
+  .span-3 { grid-column: span 3; }
+  .span-4 { grid-column: span 4; }
+  .span-5 { grid-column: span 5; }
+  .span-6 { grid-column: span 6; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .control,
+  .memo,
+  .select-like {
+    min-height: 32px;
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .memo {
+    min-height: 68px;
+    white-space: normal;
+  }
+
+  .control.placeholder,
+  .memo.placeholder {
+    color: #7c8798;
+    font-weight: 500;
+  }
+
+  .select-like::after {
+    content: "▾";
+    float: right;
+    color: var(--muted);
+  }
+
+  .button-like {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: #f8fafc;
+    font-weight: 700;
+  }
+
+  .seg,
+  .checks,
+  .inline-set {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+  }
+
+  .pill-option,
+  .check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    padding: 4px 9px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: #fff;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .pill-option.on,
+  .check.on {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .check::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    border: 1px solid var(--line-strong);
+    border-radius: 2px;
+    background: #fff;
+  }
+
+  .check.on::before {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--accent) 0 50%, #fff 51% 58%, var(--accent) 59%);
+  }
+
+  .alert {
+    min-height: 28px;
+    padding: 6px 8px;
+    border: 1px solid #efc56c;
+    border-radius: 4px;
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-weight: 700;
+  }
+
+  .money-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .money-row .control {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .total .control {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .rate-table,
+  .cargo-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .rate-table th,
+  .rate-table td,
+  .cargo-table th,
+  .cargo-table td {
+    border: 1px solid var(--line);
+    padding: 6px 7px;
+    text-align: left;
+    white-space: nowrap;
+  }
+
+  .rate-table th,
+  .cargo-table th {
+    background: #f2f5f9;
+    color: #344054;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .rate-table td:last-child {
+    color: var(--danger);
+    font-weight: 800;
+    text-align: right;
+  }
+
+  .actionbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.75fr) minmax(320px, 1fr);
+    gap: 10px;
+    padding: 12px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: #f7f9fc;
+  }
+
+  .action-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: center;
+    min-width: 0;
+  }
+
+  .action-label {
+    width: 100%;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .btn {
+    min-height: 32px;
+    padding: 6px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--ink);
+    font: inherit;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .btn.primary {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: #fff;
+  }
+
+  .btn.danger {
+    border-color: var(--danger);
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+
+  .btn.muted {
+    color: var(--muted);
+    background: #f2f4f7;
+  }
+
+  .list-area {
+    padding: 12px;
+  }
+
+  .list-controls {
+    display: grid;
+    grid-template-columns: auto minmax(280px, 1fr) auto auto;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .tab {
+    display: inline-flex;
+    align-items: center;
+    min-height: 30px;
+    padding: 5px 10px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    background: #fff;
+    font-weight: 700;
+  }
+
+  .tab.on {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .search {
+    min-height: 32px;
+    padding: 6px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 4px;
+    background: #fff;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .cargo-table {
+    min-width: 1720px;
+    background: #fff;
+  }
+
+  .cargo-table th.core,
+  .cargo-table td.core {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background: #f8fafc;
+  }
+
+  .cargo-table td {
+    height: 32px;
+  }
+
+  .cargo-table tr.selected td {
+    background: var(--selected);
+  }
+
+  .cargo-table tr.cancelled td {
+    color: var(--danger);
+    background: #fffafa;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 42px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .badge.received {
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+
+  .badge.done {
+    background: var(--success-soft);
+    color: var(--success);
+  }
+
+  .badge.cancel {
+    background: var(--danger-soft);
+    color: var(--danger);
+  }
+
+  .footnote {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 8px 2px 0;
+    color: var(--muted);
+    font-size: 12px;
+  }
+
+  .review-note {
+    margin: 10px 12px 12px;
+    padding: 8px 10px;
+    border: 1px solid #efc56c;
+    border-radius: var(--radius);
+    background: var(--warn-soft);
+    color: var(--warn);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 1180px) {
+    body {
+      padding: 8px;
+    }
+
+    .titlebar,
+    .workspace,
+    .actionbar,
+    .list-controls {
+      grid-template-columns: 1fr;
+    }
+
+    .status-pack {
+      justify-content: flex-start;
+    }
+
+    .subbar {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.cols-5,
+    .grid.cols-6 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    body {
+      padding: 0;
+      background: #fff;
+    }
+
+    .app {
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    .titlebar,
+    .subbar,
+    .workspace,
+    .actionbar,
+    .list-area {
+      padding: 10px;
+    }
+
+    .subbar,
+    .grid.cols-2,
+    .grid.cols-3,
+    .grid.cols-4,
+    .grid.cols-5,
+    .grid.cols-6,
+    .money-row {
+      grid-template-columns: 1fr;
+    }
+
+    .span-2,
+    .span-3,
+    .span-4,
+    .span-5,
+    .span-6 {
+      grid-column: auto;
+    }
+
+    .section-note {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+<main class="app" aria-label="화물 오더 접수 수정 관리 B안 개선 와이어프레임">
+  <header class="titlebar">
+    <div>
+      <h1>화물 오더 접수 / 수정 관리</h1>
+      <div class="subtitle">
+        <span>SCR-CARGO-ORDER-001</span>
+        <span>확정 B안 개선 wireframe</span>
+        <span>기존 배치 유지 + 업무 의미 묶음 정리</span>
+      </div>
+    </div>
+    <div class="status-pack" aria-label="상단 업무 상태">
+      <span class="metric-chip">예치금 <strong>60,000원</strong></span>
+      <span class="metric-chip">미확인 쪽지 <strong>138건</strong></span>
+      <span class="status-chip">VER:2026_04_23_001</span>
+      <button class="btn muted" type="button">종료</button>
+    </div>
+  </header>
+
+  <nav class="nav" aria-label="주 메뉴">
+    <button type="button">기본정보</button>
+    <button type="button">고객관리</button>
+    <button type="button" class="active">오더관리</button>
+    <button type="button">SMS관리</button>
+    <button type="button">예치금관리</button>
+    <button type="button">정산관리</button>
+    <button type="button">경영정보</button>
+    <button type="button">설정</button>
+    <button type="button">서비스규정동의</button>
+    <button type="button">화물관계</button>
+    <button type="button">원격지원요청</button>
+    <button type="button">도움말</button>
+  </nav>
+
+  <section class="subbar" aria-label="표시 옵션과 현황">
+    <div class="subitem"><span class="label">노출 방식</span><span class="value">즉시표시</span></div>
+    <div class="subitem"><span class="label">거리</span><span class="value">15.8km</span></div>
+    <div class="subitem"><span class="label">기준 금액</span><span class="value">105,000원</span></div>
+    <div class="subitem"><span class="label">실시간 운송료</span><span class="value">조회 가능</span></div>
+    <div class="subitem warning"><span class="label">현황</span><span class="value">전체 8,314 / 완료 1,461</span></div>
+  </section>
+
+  <section class="workspace">
+    <div class="column">
+      <section class="section" aria-labelledby="section-route">
+        <div class="section-head">
+          <div class="section-title" id="section-route"><span class="num">1</span>운송 구간</div>
+          <div class="section-note">상차지와 하차지는 현재처럼 좌측 최상단 유지</div>
+        </div>
+        <div class="section-body grid cols-6">
+          <div class="field span-3"><label>상차지 검색</label><div class="control placeholder">주소 검색...</div></div>
+          <div class="field"><label>시/도</label><div class="select-like">경기</div></div>
+          <div class="field"><label>시/군/구</label><div class="select-like">여주</div></div>
+          <div class="field"><label>읍/면/동</label><div class="select-like">산북면</div></div>
+          <div class="field span-6"><label>상차 상세주소</label><div class="control">후리 18-1 코덱트 후진입차</div></div>
+
+          <div class="field span-3"><label>하차지 검색</label><div class="control placeholder">주소 검색...</div></div>
+          <div class="field"><label>시/도</label><div class="select-like">경기</div></div>
+          <div class="field"><label>시/군/구</label><div class="select-like">광주</div></div>
+          <div class="field"><label>읍/면/동</label><div class="select-like">초월읍</div></div>
+          <div class="field span-6"><label>하차 상세주소</label><div class="control">무갑리 554-7</div></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-cargo-transport">
+        <div class="section-head">
+          <div class="section-title" id="section-cargo-transport"><span class="num">2</span>화물 운송정보</div>
+          <div class="section-note">수수료 금액은 운송료/합계와 같은 흐름에 둠</div>
+        </div>
+        <div class="section-body">
+          <div class="grid cols-6">
+            <div class="field"><label>톤수</label><div class="select-like">5톤</div></div>
+            <div class="field"><label>광폭</label><div class="button-like">미선택</div></div>
+            <div class="field"><label>차종</label><div class="select-like">축카고</div></div>
+            <div class="field"><label>도착</label><div class="select-like">당착</div></div>
+            <div class="field"><label>대수</label><div class="control">1</div></div>
+            <div class="field"><label>품목</label><div class="control">장비 운송</div></div>
+          </div>
+          <div class="money-row" style="margin-top:8px">
+            <div class="field"><label>운송비구분</label><div class="select-like">인수증</div></div>
+            <div class="field"><label>운송료</label><div class="control">140,000</div></div>
+            <div class="field"><label>수수료</label><div class="control">0</div></div>
+            <div class="field total"><label>합계</label><div class="control">140,000</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-summary-docs">
+        <div class="section-head">
+          <div class="section-title" id="section-summary-docs"><span class="num">3</span>화물 요약·중량·증빙</div>
+          <div class="section-note">화물정보는 위 운송 조건을 요약하는 메모</div>
+        </div>
+        <div class="section-body grid cols-4">
+          <div class="field span-4">
+            <label>화물정보 요약</label>
+            <div class="memo">지금상 당착 장비 운송 지/지-A. 품목, 차종, 도착 조건을 요약해 차주가 바로 이해할 수 있게 작성.</div>
+          </div>
+          <div class="field"><label>중량</label><div class="control">5.5톤</div></div>
+          <div class="field"><label>계산 기준</label><div class="control">톤수 110%</div></div>
+          <div class="field"><label>이하 여부</label><div class="button-like">이하 미선택</div></div>
+          <div class="field"><label>안내문</label><div class="button-like">안내문 보기</div></div>
+          <div class="field span-4">
+            <label>증빙 옵션</label>
+            <div class="checks">
+              <span class="check">전자세금계산서</span>
+              <span class="check">인수증 우편발송</span>
+              <span class="check">이사화물</span>
+              <span class="check on">선착불 산재보험 주의사항</span>
+            </div>
+          </div>
+          <div class="alert span-4">화물정보에 화물중량을 중복 입력하지 마세요. 중량은 별도 필드에서 관리합니다.</div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-driver">
+        <div class="section-head">
+          <div class="section-title" id="section-driver"><span class="num">4</span>차주 정보</div>
+          <div class="section-note">차주명, 차량번호, 연락처를 하나로 묶음</div>
+        </div>
+        <div class="section-body grid cols-4">
+          <div class="field"><label>차주명</label><div class="control">임동진</div></div>
+          <div class="field"><label>복지/상태</label><div class="button-like">복지</div></div>
+          <div class="field"><label>차량번호</label><div class="control">경기92바7283</div></div>
+          <div class="field"><label>차주 연락처</label><div class="control">010-5241-1461</div></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="column">
+      <section class="section" aria-labelledby="section-dispatch">
+        <div class="section-head">
+          <div class="section-title" id="section-dispatch"><span class="num">5</span>배차 유형</div>
+          <div class="section-note">화물 운송정보에서 분리</div>
+        </div>
+        <div class="section-body">
+          <div class="seg">
+            <span class="pill-option on">독차</span>
+            <span class="pill-option">혼적</span>
+            <span class="pill-option">선택</span>
+          </div>
+          <div class="checks" style="margin-top:8px">
+            <span class="check">긴급</span>
+            <span class="check">왕복</span>
+            <span class="check">예약</span>
+            <span class="check">경유</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-load">
+        <div class="section-head">
+          <div class="section-title" id="section-load"><span class="num">6</span>상차 조건</div>
+          <div class="section-note">방법과 일시를 한 묶음으로 확인</div>
+        </div>
+        <div class="section-body grid cols-4">
+          <div class="field span-4">
+            <label>상차방법</label>
+            <div class="checks">
+              <span class="check on">지게차</span>
+              <span class="check">수작업</span>
+              <span class="check">호이스트</span>
+              <span class="check">크레인</span>
+              <span class="check">컨베이어</span>
+            </div>
+          </div>
+          <div class="field span-4">
+            <label>상차일시</label>
+            <div class="inline-set">
+              <span class="pill-option on">지금</span>
+              <span class="pill-option">당일</span>
+              <span class="pill-option">내일</span>
+              <span class="control" style="min-width:90px">일상차</span>
+              <span class="select-like" style="min-width:92px">선택</span>
+              <span class="check">30분</span>
+            </div>
+          </div>
+          <div class="field span-2"><label>상차지 전화</label><div class="control placeholder">연락처 입력</div></div>
+          <div class="field"><label>초기화</label><div class="button-like">초기화</div></div>
+          <div class="alert span-4">지금상인 경우 시간을 입력하지 마세요.</div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-unload">
+        <div class="section-head">
+          <div class="section-title" id="section-unload"><span class="num">7</span>하차 조건</div>
+          <div class="section-note">상차 조건과 같은 패턴 유지</div>
+        </div>
+        <div class="section-body grid cols-4">
+          <div class="field span-4">
+            <label>하차방법</label>
+            <div class="checks">
+              <span class="check on">지게차</span>
+              <span class="check">수작업</span>
+              <span class="check">호이스트</span>
+              <span class="check">크레인</span>
+              <span class="check">컨베이어</span>
+            </div>
+          </div>
+          <div class="field span-4">
+            <label>하차일시</label>
+            <div class="inline-set">
+              <span class="pill-option on">당일</span>
+              <span class="pill-option">내일</span>
+              <span class="pill-option">월착</span>
+              <span class="control" style="min-width:90px">일하차</span>
+              <span class="select-like" style="min-width:92px">선택</span>
+              <span class="check">30분</span>
+            </div>
+          </div>
+          <div class="field"><label>당착/내착</label><div class="button-like">당착</div></div>
+          <div class="field"><label>산재보험료</label><div class="control">610원</div></div>
+          <div class="field span-2"><label>승률보험료</label><div class="control">153,390원</div></div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-shipper">
+        <div class="section-head">
+          <div class="section-title" id="section-shipper"><span class="num">8</span>화주 정보</div>
+          <div class="section-note">기존 의뢰자 영역</div>
+        </div>
+        <div class="section-body grid cols-4">
+          <div class="field span-2"><label>의뢰자명</label><div class="control placeholder">화주명 입력</div></div>
+          <div class="field"><label>조회</label><div class="button-like">조회</div></div>
+          <div class="field"><label>연락</label><div class="button-like">전화</div></div>
+          <div class="field"><label>의뢰자구분</label><div class="select-like">비운수사</div></div>
+          <div class="field span-2"><label>의뢰자 사업자번호</label><div class="control placeholder">사업자번호</div></div>
+          <div class="field"><label>점검</label><div class="button-like">점검</div></div>
+          <div class="field span-2"><label>도착 연락처</label><div class="control">010-3372-0042</div></div>
+          <div class="field span-2"><label>실적신고 조건</label><div class="control">운수사 선택 시 사업자번호 필수</div></div>
+          <div class="alert span-4">의뢰자 구분이 운수사인 경우 사업자번호를 입력해야 실적신고가 가능합니다.</div>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="section-rate">
+        <div class="section-head">
+          <div class="section-title" id="section-rate"><span class="num">9</span>수수료율 정보</div>
+          <div class="section-note">수수료 금액과 분리된 기준표</div>
+        </div>
+        <div class="section-body">
+          <div class="row-label" style="margin-bottom:6px">주선약관 수수료율</div>
+          <table class="rate-table" aria-label="주선약관 수수료율">
+            <thead>
+              <tr><th>하한</th><th>상한</th><th>요율(%)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>0</td><td>200,000</td><td>25</td></tr>
+              <tr><td>200,001</td><td>500,000</td><td>20</td></tr>
+              <tr><td>500,001</td><td>초과</td><td>15</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </section>
+
+  <section class="actionbar" aria-label="오더 처리 액션">
+    <div class="action-group">
+      <div class="action-label">기본 작업</div>
+      <button class="btn primary" type="button">신규(F3)</button>
+      <button class="btn primary" type="button">화물등록</button>
+      <button class="btn" type="button">화물수정</button>
+      <button class="btn" type="button">화물복사</button>
+      <button class="btn" type="button">정보변경</button>
+      <button class="btn" type="button">화물위치</button>
+    </div>
+    <div class="action-group">
+      <div class="action-label">위험 작업</div>
+      <button class="btn danger" type="button">화물취소</button>
+      <button class="btn danger" type="button">배차취소</button>
+      <span class="check">취소자료 감추기</span>
+    </div>
+    <div class="action-group">
+      <div class="action-label">출력·정산·증빙</div>
+      <button class="btn" type="button">엑셀</button>
+      <button class="btn" type="button">인쇄</button>
+      <button class="btn" type="button">계산서</button>
+      <button class="btn" type="button">인수증</button>
+      <button class="btn" type="button">정산처리</button>
+      <button class="btn" type="button">서명확인</button>
+      <button class="btn" type="button">위탁증</button>
+    </div>
+  </section>
+
+  <section class="list-area" aria-label="화물 목록">
+    <div class="list-controls">
+      <div class="tabs" aria-label="상태 필터">
+        <span class="tab on">전체목록 100</span>
+        <span class="tab">접수목록 12</span>
+        <span class="tab">완료목록 38</span>
+        <span class="tab">취소 2</span>
+      </div>
+      <div class="search">2026-04-30 · 검색기준: 화물번호 · 오더번호 / 화주 / 차주 / 차량번호 검색</div>
+      <div class="inline-set">
+        <span class="button-like">이전</span>
+        <span class="button-like">1 / 1 페이지</span>
+        <span class="button-like">다음</span>
+      </div>
+      <div class="inline-set">
+        <span class="select-like">처리시간역순</span>
+        <span class="button-like">항목 너비 저장</span>
+        <span class="button-like">글씨 크게</span>
+      </div>
+    </div>
+
+    <div class="table-scroll">
+      <table class="cargo-table" aria-label="화물 목록 테이블">
+        <thead>
+          <tr>
+            <th>선택</th>
+            <th class="core">화물ID</th>
+            <th>처리시간</th>
+            <th>상태</th>
+            <th>상차지</th>
+            <th>하차지</th>
+            <th>화물정보</th>
+            <th>운송료</th>
+            <th>수수료</th>
+            <th>운임구분</th>
+            <th>혼적</th>
+            <th>톤수</th>
+            <th>차종</th>
+            <th>차주이름</th>
+            <th>차주전화</th>
+            <th>차량번호</th>
+            <th>적재옵션</th>
+            <th>차량종류</th>
+            <th>차량톤수</th>
+            <th>사업자번호</th>
+            <th>계산서발행일</th>
+            <th>계산서금액</th>
+            <th>하차일시</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="selected">
+            <td>▶</td>
+            <td class="core">4-0150-889</td>
+            <td>04-30 12:42</td>
+            <td><span class="badge done">완료</span></td>
+            <td>경기 여주 산북면</td>
+            <td>경기 광주 초월읍</td>
+            <td>지금상 당착 장비 운송 지/지-A</td>
+            <td>140,000</td>
+            <td>0</td>
+            <td>인수증</td>
+            <td></td>
+            <td>5</td>
+            <td>축카고</td>
+            <td>임동진</td>
+            <td>010-5241-1461</td>
+            <td>경기92바7283</td>
+            <td>4.5톤, 7m50</td>
+            <td>플축카고</td>
+            <td>5</td>
+            <td>129-20-29761</td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="core">4-0148-009</td>
+            <td>04-30 13:09</td>
+            <td><span class="badge done">완료</span></td>
+            <td>충남 홍성 갈산면</td>
+            <td>강원 원주 문막읍</td>
+            <td>지금상 당착 핑크폼 단열재</td>
+            <td>340,000</td>
+            <td>0</td>
+            <td>인수증</td>
+            <td></td>
+            <td>5</td>
+            <td>플러스윙</td>
+            <td>고태현</td>
+            <td>010-8131-7061</td>
+            <td>경기80바7964</td>
+            <td>17톤, 10m20</td>
+            <td>플축윙</td>
+            <td>18</td>
+            <td>359-30-01586</td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+          </tr>
+          <tr class="cancelled">
+            <td></td>
+            <td class="core">4-0142-709</td>
+            <td>04-30 10:37</td>
+            <td><span class="badge cancel">취소</span></td>
+            <td>경기 안양 동안구</td>
+            <td>서울 성동 성수동</td>
+            <td>예약 당일오후 상차</td>
+            <td>200,000</td>
+            <td>0</td>
+            <td>인수증</td>
+            <td></td>
+            <td>5</td>
+            <td>카/윙</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td></td>
+            <td class="core">4-0143-095</td>
+            <td>04-30 11:34</td>
+            <td><span class="badge done">완료</span></td>
+            <td>경기 여주 가남읍</td>
+            <td>서울 중구 을지로</td>
+            <td>예약 당일상 내일오전 하차</td>
+            <td>200,000</td>
+            <td>0</td>
+            <td>인수증</td>
+            <td></td>
+            <td>3.5</td>
+            <td>윙바디</td>
+            <td>박종원</td>
+            <td>010-4159-4636</td>
+            <td>서울84사7069</td>
+            <td></td>
+            <td>윙바디</td>
+            <td>3.5</td>
+            <td>318-10-02591</td>
+            <td></td>
+            <td>0</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="footnote">
+      <span>상태: 접수 / 완료 / 취소는 색상과 배지로 함께 표시</span>
+      <span>핵심 컬럼은 유지하고, 추가 컬럼은 테이블 내부 가로 스크롤로 보존</span>
+      <span>선택 행은 상단 입력 폼과 연결</span>
+    </div>
+  </section>
+
+  <div class="review-note">
+    개선 반영: B안 그룹 재정렬, 수수료 금액 복구, 수수료율 기준표 분리, 원본 핵심 버튼 라벨 복구, 목록 핵심 컬럼 보강.
+  </div>
+</main>
+</body>
+</html>
