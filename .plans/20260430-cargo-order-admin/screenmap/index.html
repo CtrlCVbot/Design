@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cargo Order Admin Screen Map</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="title-block">
+          <p class="eyebrow">Visual Handoff Hub MVP</p>
+          <h1>화물 오더 접수/수정 Screen Map</h1>
+        </div>
+        <nav class="header-actions" aria-label="기준 문서 링크">
+          <a class="link-button primary" id="masterHeaderLink" href="../wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html" target="_blank" rel="noreferrer">Master HTML</a>
+          <a class="link-button" href="../wireframes/final-handoff/README.md" target="_blank" rel="noreferrer">Final Handoff</a>
+          <a class="link-button" href="../wireframes/final-handoff/data/final-baseline.json" target="_blank" rel="noreferrer">Baseline Data</a>
+        </nav>
+      </header>
+
+      <main class="pane-grid" aria-label="Screen map explorer">
+        <aside class="pane nav-pane" aria-label="User flow와 screen map node 목록">
+          <div class="pane-head">
+            <div>
+              <p class="pane-kicker">Left</p>
+              <h2>Flow / Node</h2>
+            </div>
+            <span class="count-pill" id="nodeCount">0 nodes</span>
+          </div>
+
+          <label class="search-wrap">
+            <span>Node 검색</span>
+            <input id="nodeSearch" type="search" placeholder="예: 금액, API, Header" autocomplete="off" />
+          </label>
+
+          <div class="flow-list" id="flowList"></div>
+        </aside>
+
+        <section class="pane preview-pane" aria-label="선택 node 화면 상태 preview">
+          <div class="pane-head split">
+            <div>
+              <p class="pane-kicker">Center</p>
+              <h2 id="selectedTitle">선택된 Node</h2>
+            </div>
+            <a class="link-button primary" id="masterPreviewLink" href="../wireframes/final-handoff/baseline/html/cargo-order-admin-hifi-master.html" target="_blank" rel="noreferrer">Master 열기</a>
+          </div>
+
+          <div class="selected-meta" id="selectedMeta"></div>
+
+          <div class="preview-stage" id="previewStage" aria-live="polite"></div>
+
+          <section class="preview-section">
+            <div class="section-title-row">
+              <h3>상태 전이</h3>
+              <span id="stateCount" class="muted-label"></span>
+            </div>
+            <div class="state-strip" id="stateStrip"></div>
+          </section>
+
+          <section class="preview-section">
+            <div class="section-title-row">
+              <h3>Source Links</h3>
+              <span class="muted-label">screenmap 기준 상대 경로</span>
+            </div>
+            <div class="source-list" id="centerSources"></div>
+          </section>
+        </section>
+
+        <aside class="pane detail-pane" aria-label="선택 node 상세 handoff 정보">
+          <div class="pane-head">
+            <div>
+              <p class="pane-kicker">Right</p>
+              <h2>Detail / Contract / QA</h2>
+            </div>
+          </div>
+
+          <div class="detail-scroll" id="detailPanel"></div>
+        </aside>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
