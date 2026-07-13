@@ -76,9 +76,9 @@
 
 | 실행 단위 | 범위 | 목적 | 우선 산출물 |
 | --- | --- | --- | --- |
-| Phase 1A. 운행 수행 | 내 배차 목록, 배차 상세, 상차완료, 하차완료, 상태 타임라인 | 차주가 오늘 처리할 배차와 다음 액션을 빠르게 수행 | `06-mvp-prd.md`, `07-mvp-user-flow.md`, `08-mvp-wireframe-spec.md` |
-| Phase 1B. 운행/정산 조회 | 운행 내역, 기간/월별 조회, 정산/송금 상태, 정산 문의 | 차주가 운행 결과와 송금 상태를 스스로 확인 | `06-mvp-prd.md`, `07-mvp-user-flow.md`, `08-mvp-wireframe-spec.md` |
-| Phase 1C. 예외 처리 | 특이사항 보고, 사진/메모 optional, 보류 상태, 담당자 문의 | 문제가 있는 배차를 정상 flow와 분리해 운영자가 확인 가능하게 함 | `06-mvp-prd.md`, `07-mvp-user-flow.md`, `08-mvp-wireframe-spec.md` |
+| Phase 1A. 운행 수행 | 내 배차 목록, 배차 상세, 상차완료, 하차완료, 상태 타임라인 | 차주가 오늘 처리할 배차와 다음 액션을 빠르게 수행 | `phase-1-mvp/01-mvp-prd.md`, `phase-1-mvp/02-mvp-user-flows.md`, `phase-1-mvp/03-wireframes-dispatch-execution.md` |
+| Phase 1B. 운행/정산 조회 | 운행 내역, 기간/월별 조회, 정산/송금 상태, 정산 문의 | 차주가 운행 결과와 송금 상태를 스스로 확인 | `phase-1-mvp/01-mvp-prd.md`, `phase-1-mvp/02-mvp-user-flows.md`, `phase-1-mvp/04-wireframes-history-settlement-issue.md` |
+| Phase 1C. 예외 처리 | 특이사항 보고, 사진/메모 optional, 보류 상태, 담당자 문의 | 문제가 있는 배차를 정상 flow와 분리해 운영자가 확인 가능하게 함 | `phase-1-mvp/01-mvp-prd.md`, `phase-1-mvp/02-mvp-user-flows.md`, `phase-1-mvp/04-wireframes-history-settlement-issue.md` |
 
 ### MVP 제외 범위
 
@@ -94,10 +94,12 @@
 
 | 산출물 | 파일 제안 | 목적 |
 | --- | --- | --- |
-| MVP PRD | `06-mvp-prd.md` | Phase 1 요구사항과 수용 기준 확정 |
-| MVP User Flow | `07-mvp-user-flow.md` | 차주 주요 작업 흐름 정리 |
-| MVP Wireframe Spec | `08-mvp-wireframe-spec.md` | 화면별 구조와 상태 문구 정의 |
-| MVP Screen Map | `09-mvp-screen-map.md` | 화면 목록, 진입점, 이동 관계 정리 |
+| MVP PRD | `phase-1-mvp/01-mvp-prd.md` | Phase 1 요구사항과 수용 기준 확정 |
+| MVP User Flow | `phase-1-mvp/02-mvp-user-flows.md` | 차주 주요 작업 흐름 정리 |
+| MVP Wireframe Spec - 운행 수행 | `phase-1-mvp/03-wireframes-dispatch-execution.md` | 내 배차, 상세, 상태 변경 화면 구조 정의 |
+| MVP Wireframe Spec - 조회/예외 | `phase-1-mvp/04-wireframes-history-settlement-issue.md` | 운행 내역, 정산/송금, 특이사항 화면 구조 정의 |
+| MVP Screen Map | `phase-1-mvp/05-screen-map.md` | 화면 목록, 진입점, 이동 관계 정리 |
+| Traceability & Review | `phase-1-mvp/06-traceability-and-review.md` | REQ/flow/screen 매핑과 self-review |
 
 ### Phase 1 화면 우선순위
 
@@ -116,7 +118,7 @@
 | --- | --- |
 | 기능 기준 | MVP Must 기능의 유저플로우와 화면 구조가 모두 정의된다. |
 | UX 기준 | 차주가 목록에서 상세로 들어가 `상차완료`, `하차완료`를 완료하는 flow가 끊기지 않는다. |
-| 상태 기준 | `assigned`, `accepted`, `pickup_done`, `dropoff_done`, `operation_completed`, `settlement_pending`, `paid`, `issue_hold`의 표시 문구와 버튼 정책이 정리된다. |
+| 상태 기준 | `assigned`, `driver_confirmed`, `pickup_done`, `dropoff_done`, `operation_completed`, `settlement_pending`, `paid`, `issue_hold`의 표시 문구와 버튼 정책이 정리된다. |
 | 정산 기준 | 차주가 볼 수 있는 금액/송금 정보와 숨겨야 할 내부 정산 정보가 구분된다. |
 
 ## 6. Phase 2. 하차 확인 고도화
@@ -211,11 +213,11 @@ flowchart TD
 
 | 순서 | 작업 | 결과물 |
 | --- | --- | --- |
-| 1 | Phase 1 MVP PRD 작성 | `06-mvp-prd.md` |
-| 2 | MVP 주요 유저플로우 작성 | `07-mvp-user-flow.md` |
-| 3 | Phase 1A 운행 수행 와이어프레임 작성 | `08-mvp-wireframe-spec.md` |
-| 4 | Phase 1B 운행/정산 조회 화면 정책 작성 | `08-mvp-wireframe-spec.md` 또는 별도 정산 화면 문서 |
-| 5 | Phase 1C 특이사항/보류 flow 작성 | `07-mvp-user-flow.md`, `08-mvp-wireframe-spec.md` |
+| 1 | Phase 1 MVP PRD 작성 | `phase-1-mvp/01-mvp-prd.md` |
+| 2 | MVP 주요 유저플로우 작성 | `phase-1-mvp/02-mvp-user-flows.md` |
+| 3 | Phase 1A 운행 수행 와이어프레임 작성 | `phase-1-mvp/03-wireframes-dispatch-execution.md` |
+| 4 | Phase 1B 운행/정산 조회 화면 정책 작성 | `phase-1-mvp/04-wireframes-history-settlement-issue.md` |
+| 5 | Phase 1C 특이사항/보류 flow 작성 | `phase-1-mvp/02-mvp-user-flows.md`, `phase-1-mvp/04-wireframes-history-settlement-issue.md` |
 | 6 | Phase 2 하차 확인 고도화는 별도 backlog로 보류 | `10-delivery-confirmation-prd.md` 이후 |
 
 ## 11. Self-review
