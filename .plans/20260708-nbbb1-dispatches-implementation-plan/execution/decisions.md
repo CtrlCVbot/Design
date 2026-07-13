@@ -21,4 +21,4 @@
 | EX-DEC-017 | 2026-07-13 | 디자인 디테일 제안은 standalone HTML로만 제공 | 사용자 요청 및 승인 전 UI 기준선 보호 | DD-01~12 앱 미적용, 선택 후 별도 구현 |
 | EX-DEC-018 | 2026-07-13 | 사용자의 `전체 적용`을 DD-01~12 전체 승인으로 기록 | HTML을 직접 검토한 후 명시한 결정 | R4 UI 구현 unblock, Phase B는 계속 보류 |
 | EX-DEC-019 | 2026-07-13 | 사용자의 `G-UI approved`를 R4 화면 기준선 승인으로 기록 | R4 검증·fidelity evidence 완료 후 명시 승인 | Phase B 계획 수립 가능, 실제 연결은 별도 승인 필요 |
-| EX-DEC-020 | 2026-07-13 | 주니어 인수인계는 Phase B 계획 단계부터 시작 | UI R3/R4와 기획 문서가 아직 미커밋 상태 | handoff boundary 고정 후 첫 slice 승인 요청 |
+| EX-DEC-020 | 2026-07-13 | 인수인계는 Phase B 계획 단계부터 시작 | UI R3/R4 기준선 commit 완료 | handoff boundary 고정 후 첫 slice 승인 요청 |

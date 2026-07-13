@@ -1,4 +1,4 @@
-# Phase B 시작 계획 — 주니어용
+# Phase B 시작 계획 — 인수인계용
 
 - 상태: `계획 작성 전`
 - 선행 gate: `G-UI approved (R4)` — 충족
@@ -20,7 +20,7 @@
 
 ## 3. 시작 전 체크리스트
 
-- [ ] [22-junior-handoff.md](22-junior-handoff.md)를 읽었다.
+- [ ] [22-handoff.md](22-handoff.md)를 읽었다.
 - [ ] 코드·기획 두 저장소의 branch, diff, 사용자 WIP를 확인했다.
 - [ ] R3/R4 미커밋 변경의 고정 방식(commit 또는 별도 worktree)을 담당자와 합의했다.
 - [ ] `10`, `12`, `13`, `14`, `15` 문서를 읽었다.

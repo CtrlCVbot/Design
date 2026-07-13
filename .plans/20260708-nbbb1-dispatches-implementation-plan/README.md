@@ -36,8 +36,8 @@
 | [20-g-ui-revision-3-search-fidelity-contract.md](20-g-ui-revision-3-search-fidelity-contract.md) | G-UI R3 검색 복원 계약 | 목록 검색어·검색·초기화 구현 범위 |
 | [design-proposals/g-ui-design-detail-before-after.html](design-proposals/g-ui-design-detail-before-after.html) | 디자인 디테일 개선 제안 HTML | DD-01~12 변경 전·변경 후 비교와 승인 선택지 |
 | [21-g-ui-revision-4-design-detail-implementation-contract.md](21-g-ui-revision-4-design-detail-implementation-contract.md) | G-UI R4 디자인 디테일 전체 적용 계약 | DD-01~12 구현·responsive·검증 기준 |
-| [22-junior-handoff.md](22-junior-handoff.md) | 주니어 인수인계 | 현재 상태·작업 경계·읽는 순서·검증·시작 프롬프트 |
-| [23-junior-phase-b-start-plan.md](23-junior-phase-b-start-plan.md) | Phase B 시작 계획 | 첫 capability 선정·승인·구현 절차 |
+| [22-handoff.md](22-handoff.md) | 인수인계 안내 | 현재 상태·작업 경계·읽는 순서·검증·시작 프롬프트 |
+| [23-phase-b-handoff-start-plan.md](23-phase-b-handoff-start-plan.md) | Phase B 인수인계 시작 계획 | 첫 capability 선정·승인·구현 절차 |
 | [execution/](execution/) | G0 이후 실행 SSOT | plan·context·tasks·progress·decisions |
 | [evidence/](evidence/) | G-UI 검수·검증 증거 | screenshots·visual-gap·verification |
 | `_working/` | 중간 산출물 (추출 43건, 도메인 인벤토리 8건, 매핑 5건 등) | 근거 추적용 — 최종 문서의 원본 |

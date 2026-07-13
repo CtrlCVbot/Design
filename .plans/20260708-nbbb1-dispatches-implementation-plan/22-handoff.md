@@ -1,4 +1,4 @@
-# 신규 화물 관리 — 주니어 인수인계
+# 신규 화물 관리 — 인수인계 안내
 
 - 작성일: 2026-07-13
 - 인수 대상: `mm-broker` 신규 화물 관리 UI와 Phase B 기능 연결 준비
@@ -8,7 +8,7 @@
 
 ## 1. 이 문서의 목적
 
-이 문서는 주니어가 지금까지의 화면 구현을 다시 해석하거나 기존 route를 건드리지 않고, 승인된 UI 기준선 위에서 다음 기능 연결 작업을 안전하게 시작하도록 돕는다.
+이 문서는 인수인계 담당자가 지금까지의 화면 구현을 다시 해석하거나 기존 route를 건드리지 않고, 승인된 UI 기준선 위에서 다음 기능 연결 작업을 안전하게 시작하도록 돕는다.
 
 **지금 할 일은 Phase B를 바로 구현하는 것이 아니라, 첫 연결 범위를 문서로 확정하고 사용자 승인을 받는 것**이다.
 
@@ -39,17 +39,17 @@
 
 ## 4. 저장소와 현재 작업 상태
 
-| 저장소 | 경로 | branch | 마지막 commit | 현재 상태 |
+| 저장소 | 경로 | branch | G-UI 기준선 commit | 현재 상태 |
 |---|---|---|---|---|
-| 코드 | `C:\Work\Dev\Optics\apps\mm-broker` | `feat/nbbb1-broker-order-console-new-ui-prototype` | `1d8b6aa5 feat: 신규 화물 관리 UI 프로토타입 추가` | 신규 route 6 tracked 파일이 미커밋 |
-| 기획 | `C:\Work\Dev\Design` | `feat/nbbb1-dispatches-implementation-plan` | `2988a3e docs: 화물 관리 구현 기획 패키지 정리` | R3/R4 문서·증거가 미커밋 |
+| 코드 | `C:\Work\Dev\Optics\apps\mm-broker` | `feat/nbbb1-broker-order-console-new-ui-prototype` | `79c1cda2 feat: 신규 화물 관리 UI 검색 및 디자인 디테일 보강` | G-UI 기준선 commit 완료, 사용자 WIP는 별도 보존 |
+| 기획 | `C:\Work\Dev\Design` | `feat/nbbb1-dispatches-implementation-plan` | `7ff193d docs: G-UI 승인 및 주니어 인수인계 기준 정리` | G-UI 근거·인수인계 기준 commit 완료 |
 
 ### 인수 전 주의
 
-현재 두 저장소 모두 dirty state다. Phase B 코드를 시작하기 전에 다음 중 하나를 담당자와 합의한다.
+G-UI 기준선은 두 저장소에 각각 commit으로 고정됐다. Phase B 코드를 시작하기 전에 다음 중 하나를 담당자와 합의한다.
 
-1. 현재 R3/R4 코드와 기획 문서를 각각 논리적 commit으로 먼저 고정한다. **권장**
-2. 현재 WIP를 그대로 인수하되, Phase B는 별도 branch/worktree에서 시작한다.
+1. Phase B 전용 branch/worktree에서 시작하고, 시작 시점의 사용자 WIP를 그대로 보존한다. **권장**
+2. 현재 worktree에서 시작해야 한다면, 사용자 WIP와 Phase B 변경을 commit 단위로 엄격히 분리한다.
 
 이 결정을 하지 않은 채 같은 worktree에서 새 기능을 시작하면 UI 변경과 기능 연결 변경이 섞여 회귀 원인과 commit 경계가 불명확해진다.
 
@@ -61,7 +61,7 @@
 2. [G-UI 승인 Gate](15-ui-prototype-acceptance-gate.md) — 승인 범위와 제외 항목
 3. [현재 Phase 3 코드 기준선](09-current-phase3-code-baseline.md) — legacy와 검증 기준
 4. [화면·기능 재매핑](10-nbbb1-phase3-screen-state-mapping.md) — `REUSE/ADAPT/ADD/PROPOSE/DEFER`
-5. [Phase B 시작 계획](23-junior-phase-b-start-plan.md) — 첫 작업 순서
+5. [Phase B 인수인계 시작 계획](23-phase-b-handoff-start-plan.md) — 첫 작업 순서
 
 ### 구현 전 반드시 읽기
 
@@ -128,7 +128,7 @@ UI component 변경 시에는 해당 test를 먼저 실패시키고(TDD), 전체
 5. 사용자 승인 후에만 TDD 구현을 시작한다.
 6. 한 capability slice마다 demo fallback과 실제 연결을 구분해 검증한다.
 
-## 9. 주니어가 하지 말아야 할 것
+## 9. 인수인계 담당자가 하지 말아야 할 것
 
 - `nb-main/src/pages/Dispatches.tsx`를 통째로 복사하지 않는다.
 - fixture, `localStorage`, mock AI를 실제 업무 흐름으로 이식하지 않는다.
@@ -139,7 +139,7 @@ UI component 변경 시에는 해당 test를 먼저 실패시키고(TDD), 전체
 
 ## 10. 인수인계 완료 보고 형식
 
-주니어는 작업 시작·종료 시 아래 항목을 짧게 보고한다.
+인수인계 담당자는 작업 시작·종료 시 아래 항목을 짧게 보고한다.
 
 1. 현재 branch와 dirty state
 2. 선택한 capability와 근거 문서
@@ -152,8 +152,8 @@ UI component 변경 시에는 해당 test를 먼저 실패시키고(TDD), 전체
 
 ```text
 신규 화물 관리 Phase B를 준비한다. 먼저
-C:\Work\Dev\Design\.plans\20260708-nbbb1-dispatches-implementation-plan\22-junior-handoff.md와
-23-junior-phase-b-start-plan.md를 읽어라.
+C:\Work\Dev\Optics\apps\mm-broker\app\test\broker-order-console-new\implementation-plan\22-handoff.md와
+23-phase-b-handoff-start-plan.md를 읽어라.
 
 이번 세션은 Phase B 상세 계획만 작성한다. 코드는 수정하지 않는다.
 `10-nbbb1-phase3-screen-state-mapping.md`, `12-implementation-roadmap-v2.md`,

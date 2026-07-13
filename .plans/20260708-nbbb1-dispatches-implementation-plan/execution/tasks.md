@@ -33,7 +33,7 @@
 | R4-03 | 신규 route 전체·type·build 검증 | 완료 | Advisor | 11/46, type/build PASS |
 | R4-04 | interaction·responsive·fidelity 검증 | 완료 | Advisor | 1600/1440/1280/766 PASS |
 | G-UI | 사용자 재검수 | 완료 | 사용자 | R4 `approved` 기록 |
-| JH-00 | 주니어 인수인계 패키지 | 완료 | Advisor | `22`, `23` — Phase B 계획부터 시작 |
+| JH-00 | 인수인계 패키지 | 완료 | Advisor | `22`, `23` — Phase B 계획부터 시작 |
 | B-00+ | 실제 기능 연결 | 예정 | Advisor/Worker | Phase B 상세 계획·사용자 승인 후 시작 |
 
 ## 현재 중단선

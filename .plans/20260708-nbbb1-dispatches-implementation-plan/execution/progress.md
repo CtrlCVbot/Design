@@ -218,9 +218,9 @@ TDD Red에서 R1 관련 test 6건 실패를 확인한 뒤 구현했다.
 
 G-UI gate는 `approved (R4)`다. 기존 backend/service/API는 이 승인 기록만으로 변경하지 않는다.
 
-## 2026-07-13 — 주니어 인수인계 준비
+## 2026-07-13 — 인수인계 준비
 
-- 인수인계 문서: `22-junior-handoff.md`
-- Phase B 시작 계획: `23-junior-phase-b-start-plan.md`
-- 현재 두 저장소의 R3/R4 변경은 미커밋이므로 Phase B 전 commit 경계 또는 별도 worktree 합의가 필요하다.
-- 주니어 첫 세션은 코드 구현이 아닌 첫 capability slice의 상세 계획·사용자 승인 요청으로 제한한다.
+- 인수인계 문서: `22-handoff.md`
+- Phase B 시작 계획: `23-phase-b-handoff-start-plan.md`
+- 두 저장소의 R3/R4 기준선은 commit으로 고정됐으며, Phase B는 별도 worktree 또는 엄격히 분리된 commit 경계에서 시작한다.
+- 인수인계 첫 세션은 코드 구현이 아닌 첫 capability slice의 상세 계획·사용자 승인 요청으로 제한한다.
