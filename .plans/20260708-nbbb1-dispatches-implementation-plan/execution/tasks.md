@@ -24,9 +24,18 @@
 | R2-02 | inline detail 구조·상태 재구현 | 완료 | Worker | advisor·상하차·정산·운임·차주·6-state |
 | R2-03 | typography·semantic color repair | 완료 | Advisor/Worker | reference exact token CSS contract 6건 |
 | R2-04 | 독립 회귀·build·browser 검증 | 완료 | Advisor | 11/34 + combined 57/465, build PASS |
-| G-UI | 사용자 재검수 | 대기 | 사용자 | R2 `approved` 또는 추가 `revise` 필요 |
-| B-00+ | 실제 기능 연결 | 보류 | Advisor/Worker | G-UI 승인 전 시작 금지 |
+| R3-01 | 목록 검색 reference 계약 | 완료 | Advisor | 6-field·지연 적용·facet·reset 계약 |
+| R3-02 | 검색·초기화 TDD 구현 | 완료 | Worker | focused 2/16, 신규 route 11/43 PASS |
+| R3-03 | 디자인 디테일 Before/After HTML | 완료 | Advisor | DD-01~12, 앱 미적용 |
+| R3-04 | 독립 type·build·browser 검증 | 완료 | Advisor | type/build/computed style/interaction PASS |
+| R4-01 | DD-01~12 fidelity 계약 | 완료 | Advisor | HTML After state·token·viewport 고정 |
+| R4-02 | DD-01~12 TDD 구현 | 완료 | Worker | Red 5 FAIL + 보강 1 FAIL, Green 5/38 |
+| R4-03 | 신규 route 전체·type·build 검증 | 완료 | Advisor | 11/46, type/build PASS |
+| R4-04 | interaction·responsive·fidelity 검증 | 완료 | Advisor | 1600/1440/1280/766 PASS |
+| G-UI | 사용자 재검수 | 완료 | 사용자 | R4 `approved` 기록 |
+| JH-00 | 주니어 인수인계 패키지 | 완료 | Advisor | `22`, `23` — Phase B 계획부터 시작 |
+| B-00+ | 실제 기능 연결 | 예정 | Advisor/Worker | Phase B 상세 계획·사용자 승인 후 시작 |
 
 ## 현재 중단선
 
-R2 inline 상세 코드·검증·재검수 자료 준비는 끝났으며 현재 단계는 `G-UI revise-ready (R2)`다. 실제 API, Phase 3 capability bridge, backend/service 연결은 시작하지 않는다.
+R4 DD-01~12 전체 적용이 사용자 `G-UI approved`로 승인됐다. 현재 단계는 Phase B 계획·승인 대기이며 실제 API, Phase 3 capability bridge, backend/service 연결은 아직 시작하지 않는다.

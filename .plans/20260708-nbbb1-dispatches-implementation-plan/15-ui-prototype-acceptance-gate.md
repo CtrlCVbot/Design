@@ -1,7 +1,7 @@
 # 15. UI Prototype 사용자 검수·승인 Gate
 
 - 작성일: 2026-07-10
-- 상태: G0 `approved` / G-UI `revise-ready (R2)`
+- 상태: G0 `approved` / G-UI `approved (R4)`
 - 검수 target: `/test/broker-order-console-new`
 - 원칙: 사용자가 `approved`를 명시하기 전에는 Phase 3 capability bridge를 연결하지 않는다.
 
@@ -127,16 +127,16 @@ G-UI 검수 요청 시 다음을 함께 제공한다.
 | 필드 | 값 |
 |---|---|
 | gate | `G-UI` |
-| status | `pending / revise / approved` |
+| status | `approved` |
 | reviewer | 사용자 |
-| reviewed_at | 미정 |
+| reviewed_at | 2026-07-13 |
 | target URL | `/test/broker-order-console-new` |
-| viewport | 미정 |
-| approved evidence | 미정 |
-| approved revision | 미정 |
-| remaining tolerance | 미정 |
-| excluded items | 미정 |
-| follow-up decisions | 미정 |
+| viewport | 1600 / 1440 / 1280 / 766 검증 |
+| approved evidence | `evidence/verification/05-g-ui-r4-design-detail-verification.md` |
+| approved revision | R4 DD-01~12 |
+| remaining tolerance | browser screenshot 가장자리 타일링은 DOM·computed style 증거로 보완 |
+| excluded items | 실제 날짜 데이터 filtering |
+| follow-up decisions | Phase B는 별도 작업으로 계획·승인 후 시작 |
 
 승인 문구 예시:
 
@@ -214,3 +214,45 @@ R1 완료 전 gate status는 `revise`, 완료 후 사용자 재검수 대기 상
 - evidence: `evidence/verification/02-g-ui-r1-verification.md`
 - fidelity: `evidence/visual-gap/02-g-ui-r1-code-fidelity-report.md`
 - screenshots: `g-ui-r1-client-search.png`, `g-ui-r1-inline-detail.png`
+
+## 13. G-UI Revision 2 기록
+
+- 요청일: 2026-07-10
+- decision: `G-UI revise`
+- 대상: `inline-dispatch-detail.tsx` 내부 구조와 상호작용
+- 완료 상태: `revise-ready (R2)`
+- 검증: 11 files / 34 tests, combined 57 files / 465 tests, build·type PASS
+- evidence: `evidence/verification/03-g-ui-r2-inline-detail-verification.md`
+
+## 14. G-UI Revision 3 기록
+
+- 요청일: 2026-07-13
+- decision: `G-UI revise`
+- 대상: 운행 내역 검색어·검색·초기화 복원
+- reference: `nb-main/src/pages/Dispatches.tsx:1962-1964,2022-2030,2790-2804,4961-4995`
+- 완료 상태: `revise-ready (R3)`
+- 검증: focused 2 files / 16 tests, 신규 route 11 files / 43 tests, type·build·browser PASS
+- evidence: `evidence/verification/04-g-ui-r3-search-verification.md`
+- screenshot: `evidence/screenshots/g-ui-r3-dispatch-search.png`
+
+디자인 디테일 개선안은 승인 전 앱에 적용하지 않고 `design-proposals/g-ui-design-detail-before-after.html`에서 변경 전·후 예시로만 제공한다. G-UI 승인 전 Phase B는 계속 보류한다.
+
+## 15. G-UI Revision 4 기록
+
+- 요청일: 2026-07-13
+- decision: 디자인 디테일 `전체 적용`
+- 대상: `design-proposals/g-ui-design-detail-before-after.html` DD-01~12 After
+- 완료 상태: `revise-ready (R4)`
+- 검증: focused 5 files / 38 tests, 신규 route 11 files / 46 tests, type·build·browser PASS
+- responsive: 1600·1440·1280·766, document overflow 0
+- evidence: `evidence/verification/05-g-ui-r4-design-detail-verification.md`
+- fidelity: `evidence/visual-gap/05-g-ui-r4-design-detail-fidelity-report.md`
+
+### R4 사용자 승인 기록
+
+- approved_at: 2026-07-13
+- reviewer: 사용자
+- decision: `G-UI approved`
+- baseline: R4 DD-01~12 After 화면·상호작용·responsive 계약
+
+G-UI 기준선이 잠겼다. Phase B와 실제 API·저장 연결은 자동 착수하지 않으며, 다음 구현 계획을 사용자에게 별도로 제안·승인받은 뒤 시작한다.

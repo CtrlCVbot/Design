@@ -16,3 +16,9 @@
 | EX-DEC-012 | 2026-07-10 | R2 inline detail은 reference JSX/CSS를 line-by-line SSOT로 사용 | R1 내부 재해석이 사용자 기대와 불일치 | 원본 label·순서·token·상태 동작 고정 |
 | EX-DEC-013 | 2026-07-10 | reference의 저장은 route-local state로만 대체 | backend/service 무변경 gate | UI 동작 검수 가능, 실제 저장 없음 |
 | EX-DEC-014 | 2026-07-10 | typography·색상 drift를 repair brief로 재위임 | Advisor 독립 검증에서 high fidelity gap 확인 | CSS exact contract 추가 후 재검증 |
+| EX-DEC-015 | 2026-07-13 | 목록 검색은 입력 state와 적용 filter를 분리 | reference는 검색 click·Enter에서 적용 | 입력 중 목록이 임의 변경되지 않음 |
+| EX-DEC-016 | 2026-07-13 | 검색 facet은 전체 원본에서 먼저 검색한 뒤 상태별 count 계산 | reference count 의미 보존 | 검색 결과 안에서 상태를 재필터링 가능 |
+| EX-DEC-017 | 2026-07-13 | 디자인 디테일 제안은 standalone HTML로만 제공 | 사용자 요청 및 승인 전 UI 기준선 보호 | DD-01~12 앱 미적용, 선택 후 별도 구현 |
+| EX-DEC-018 | 2026-07-13 | 사용자의 `전체 적용`을 DD-01~12 전체 승인으로 기록 | HTML을 직접 검토한 후 명시한 결정 | R4 UI 구현 unblock, Phase B는 계속 보류 |
+| EX-DEC-019 | 2026-07-13 | 사용자의 `G-UI approved`를 R4 화면 기준선 승인으로 기록 | R4 검증·fidelity evidence 완료 후 명시 승인 | Phase B 계획 수립 가능, 실제 연결은 별도 승인 필요 |
+| EX-DEC-020 | 2026-07-13 | 주니어 인수인계는 Phase B 계획 단계부터 시작 | UI R3/R4와 기획 문서가 아직 미커밋 상태 | handoff boundary 고정 후 첫 slice 승인 요청 |

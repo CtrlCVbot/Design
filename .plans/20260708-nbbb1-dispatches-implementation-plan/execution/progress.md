@@ -138,3 +138,89 @@ TDD Red에서 R1 관련 test 6건 실패를 확인한 뒤 구현했다.
 브라우저 console에는 기존 Sentry debug bundle warning 1건만 있었다. production build의 Sentry/LMS 환경변수 warning도 기존 설정이며 build exit code는 0이다.
 
 현재 상태는 `G-UI revise-ready (R2)`다. 사용자 승인 전 Phase B는 계속 보류한다.
+
+## 2026-07-13 — G-UI Revision 3 목록 검색
+
+사용자 피드백에 따라 운행 내역의 검색어 입력, 검색, 초기화 control을 reference source code 기준으로 복원했다. 전반적인 디자인 개선안은 앱 변경과 분리해 standalone HTML로만 작성했다.
+
+### R3 구현 범위
+
+- 입력 draft와 적용 filter 분리: 검색 click 또는 Enter에서만 목록 변경
+- 거래처·상차지·하차지·차량스펙·차주명·차량번호 6-field 검색
+- 검색 결과 기준 status facet count
+- 초기화 시 입력·적용 검색어·상태 `전체` 복원
+- 검색 결과 없음과 상태 결과 없음 안내 분리
+- reference button/input token 복원
+
+### R3 검증
+
+| 검증 | 결과 |
+|---|---|
+| focused | 2 files / 16 tests PASS |
+| 신규 route 전체 | 11 files / 43 tests PASS |
+| TypeScript | PASS |
+| production build | PASS, route 14.5 kB |
+| browser | 지연 적용·검색·Enter·초기화·facet PASS |
+| computed style | 130px/12px/13.12px, outline 1.5px PASS |
+| scope | legacy/backend/service/API/config 변경 0건 |
+
+브라우저 console의 `/api/auth/refresh` 401 한 건은 기존 전역 인증 refresh이며 R3 검색 변경에서 발생한 API 호출은 아니다.
+
+### 디자인 제안 분리
+
+- 파일: `design-proposals/g-ui-design-detail-before-after.html`
+- 내용: DD-01~12 각각 변경 전·변경 후 예시
+- 상태: 제안 전용, 앱 미적용
+
+현재 상태는 `G-UI revise-ready (R3)`다. 사용자 재검수 및 디자인 제안 선택 전에는 Phase B와 디자인 제안 적용을 시작하지 않는다.
+
+## 2026-07-13 — G-UI Revision 4 디자인 디테일 전체 적용
+
+사용자가 Before/After HTML을 검토한 뒤 `전체 적용`을 승인했다. DD-01~12 After 상태를 신규 route에만 TDD로 적용했다.
+
+### 구현 결과
+
+- toolbar rail과 고정 검색 action cluster
+- pressed 날짜 filter와 직접선택 기간 입력
+- minmax·ellipsis column과 expanded primary rail
+- form section rail·40px field·통합 vertical rhythm
+- Primary/Secondary/Outline/Ghost action hierarchy
+- 11/12/13/14.72px typography ladder
+- 3px focus-visible, disabled 42% + not-allowed
+- sticky table header와 edge fade
+- 검색어가 포함된 no-result와 실제 필터 초기화
+- 상세 수정 완료·저장 안 됨 feedback
+- 1440 compact, 1280 internal column scroll, 768 미만 single-column
+
+### 검증 결과
+
+| 검증 | 결과 |
+|---|---|
+| TDD Red | 4 files / 29 tests 중 5 FAIL, CSS 보강 1 FAIL |
+| focused Green | 5 files / 38 tests PASS |
+| 신규 route 전체 | 11 files / 46 tests PASS |
+| TypeScript | PASS |
+| production build | PASS, 14.9 kB / 201 kB |
+| browser state | custom date·no-result recovery·detail feedback PASS |
+| computed token | focus 3px, disabled 0.42, selected rail, sticky/fade PASS |
+| responsive | 1600/1440/1280/766, document overflow 0 |
+| scope | legacy/backend/service/API/config 변경 0건 |
+
+현재 상태는 `G-UI revise-ready (R4)`다. R4 사용자 승인 전 Phase B는 계속 보류한다.
+
+## 2026-07-13 — G-UI 승인
+
+- 사용자 결정: `G-UI approved`
+- 승인 기준선: R4 DD-01~12 After 화면·interaction·responsive 계약
+- 승인 증거: `evidence/verification/05-g-ui-r4-design-detail-verification.md`
+- 제외: 실제 날짜 데이터 filtering
+- 다음 gate: Phase B 상세 계획을 별도로 제안·승인한 뒤 capability bridge 시작
+
+G-UI gate는 `approved (R4)`다. 기존 backend/service/API는 이 승인 기록만으로 변경하지 않는다.
+
+## 2026-07-13 — 주니어 인수인계 준비
+
+- 인수인계 문서: `22-junior-handoff.md`
+- Phase B 시작 계획: `23-junior-phase-b-start-plan.md`
+- 현재 두 저장소의 R3/R4 변경은 미커밋이므로 Phase B 전 commit 경계 또는 별도 worktree 합의가 필요하다.
+- 주니어 첫 세션은 코드 구현이 아닌 첫 capability slice의 상세 계획·사용자 승인 요청으로 제한한다.
