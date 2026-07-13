@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-1-transport",
+  "created_at": "2026-07-10T11:32:20.4028818+09:00",
+  "fixture_precondition": "absent",
+  "transport_precondition": "absent",
+  "contract_files": [
+    {
+      "path": "EVAL.md",
+      "size_bytes": 4982,
+      "sha256": "E3E58394F3702285DCA64837DBCC867501CF188B23B7C6BA811FBCE8D4396067"
+    },
+    {
+      "path": "briefs/trial-01.md",
+      "size_bytes": 5224,
+      "sha256": "27427F257FB4291A491DA6F5098ED8ABD308803B0AA2A0D90F36471BA2A56140"
+    },
+    {
+      "path": "WB-phase4b-v2-1-transport-001.md",
+      "size_bytes": 4580,
+      "sha256": "D517761D1A74F02B7D2FD8721CD977DB30B1E8614CD6CF9A00986E3DED851C4F"
+    }
+  ],
+  "source_evidence": [
+    {
+      "path": "../phase4b-gt04-v2/EVAL.md",
+      "sha256": "78C8D30AFB0BF0A6E282DFEE7D15746F99015520C0F5356D57B4D3004616E490"
+    },
+    {
+      "path": "../phase4b-gt04-v2/run-result.json",
+      "sha256": "7CE113F4978BBFC260D53C84CCE9752BB457828FB99D7CE095D288D70C9242EF"
+    },
+    {
+      "path": "../phase4b-gt04-v2/fixture/verify_gt04.ps1",
+      "sha256": "B17DA517AE644B4E43A2C41CB51CE9B0852F2F84409C1103FF89601656EA394B"
+    }
+  ],
+  "global_files": [
+    {
+      "path": "C:/Users/beck/.codex/AGENTS.md",
+      "sha256": "49E40BD1E4C84AC52BFE87A0E77AB0DCD55411E702F51649DA3976EC2CC4092E"
+    },
+    {
+      "path": "C:/Users/beck/.codex/config.toml",
+      "sha256": "1A4C9A247B145AF5F354BF5B9046EEEF3DACAB70745316551A286772BD02535A"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/implementation-worker.toml",
+      "sha256": "1AFAE3220ADD10037285413C067F9B51D9C1EE78C70632EF2859E23024ED87FF"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/routine-worker.toml",
+      "sha256": "0862E1228F896D4B7C8DE8F6FEAC57C272EF87C8D21C1B511D4EFBB58BA2C2E5"
+    },
+    {
+      "path": "C:/Users/beck/.agents/skills/advisor-worker-orchestration/SKILL.md",
+      "sha256": "F75E6BAAAB9F4D6F847C3764AAE1ED90ECC6F8C6535DD1D4B668390C1F42BD46"
+    },
+    {
+      "path": "C:/Users/beck/.agents/skills/agentic-health-check/scripts/agentic_health_check.py",
+      "sha256": "E60BCD180B527CA975CE9F4BC295972F133A97F46193A407A2B94C706950E790"
+    }
+  ]
+}

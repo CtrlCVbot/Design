@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "parent_thread_id": "019f4a5d-d1fd-7b12-866f-7c975da2aeeb",
+  "child_thread_id": "019f4a5e-0121-7180-bcbc-73b8a0f147a4",
+  "spawn_count": 1,
+  "wait_count": 1,
+  "wait_timeout_ms": 10000,
+  "timed_out": true,
+  "close_count": 1,
+  "previous_status": "running",
+  "child_final_state": "interrupted",
+  "file_changes": 0,
+  "retry_count": 0,
+  "resume_count": 0,
+  "followup_count": 0,
+  "parent_total_tokens": 121847,
+  "duration_ms": 28380
+}

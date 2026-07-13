@@ -1,0 +1,109 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-3-app-local-bundle",
+  "executed_at": "2026-07-10T12:44:57+09:00",
+  "route_observability": {
+    "result": "PASS",
+    "fresh_parent_disclosure": {
+      "mode": "direct",
+      "advisor": "unavailable",
+      "worker": "none",
+      "orchestration_skill": "invoked",
+      "reason_present": true
+    },
+    "global_agents_before_sha256": "49E40BD1E4C84AC52BFE87A0E77AB0DCD55411E702F51649DA3976EC2CC4092E",
+    "global_agents_after_sha256": "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B",
+    "orchestration_skill_before_sha256": "F75E6BAAAB9F4D6F847C3764AAE1ED90ECC6F8C6535DD1D4B668390C1F42BD46",
+    "orchestration_skill_final_sha256": "78439C6F84CAD99B8B3C4D8AA942BA58FCD624B232E0107D30F258B0BB1567C6",
+    "contract_test": "PASS",
+    "health_check": {
+      "agents_md": "pass",
+      "custom_agents": "pass",
+      "skills": "pass",
+      "config": "warn",
+      "existing_stale_hook_hashes": 15,
+      "new_warning_count": 0
+    }
+  },
+  "implementation_worker": {
+    "thread_id": "019f4a14-a9c2-7862-8ca7-55976ea08a80",
+    "rollout_path": "C:/Users/beck/.codex/sessions/2026/07/10/rollout-2026-07-10T12-31-41-019f4a14-a9c2-7862-8ca7-55976ea08a80.jsonl",
+    "rollout_sha256": "4E04CA5B34B25420EFD6F81232061FAAF6AA2B20E2EC711A1BECE275687218FC",
+    "initial_turn": {
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "medium"
+    },
+    "repair_resume_turn": {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "xhigh"
+    },
+    "resume_model_changed": true,
+    "result": "PASS_AFTER_R1",
+    "usage": {
+      "input_tokens": 3387893,
+      "cached_input_tokens": 3182080,
+      "output_tokens": 25608,
+      "reasoning_output_tokens": 5485,
+      "total_tokens": 3413501
+    }
+  },
+  "probe": {
+    "combination": "GT04-V2-3-APP-LOCAL-CAPABILITY-PROBE",
+    "result": "FAIL",
+    "failure_stage": "runtime preflight script execution",
+    "diagnostic_executed": false,
+    "stop_reason": "PowerShell execution policy blocked transport/test_bundle.ps1 before probe source read or execution.",
+    "parent": {
+      "thread_id": "019f4a20-e416-7cb1-a0ae-bed46fad7ee8",
+      "rollout_path": "C:/Users/beck/.codex/sessions/2026/07/10/rollout-2026-07-10T12-44-57-019f4a20-e416-7cb1-a0ae-bed46fad7ee8.jsonl",
+      "rollout_sha256": "F5EDE13807612645BBAD84626B1F7F73EE4C4AD13E12D119C1CBF9CCD740793E",
+      "cli_path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex.exe",
+      "cli_version": "0.144.0-alpha.4",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "sandbox": "workspace-write",
+      "approval_policy": "never",
+      "exit_code": 0,
+      "wall_seconds": 18.573,
+      "functions_exec_source_executions": 0,
+      "spawn_agent_calls": 0,
+      "child_count": 0,
+      "exception": "PSSecurityException: running scripts is disabled on this system"
+    },
+    "usage": {
+      "input_tokens": 120856,
+      "cached_input_tokens": 96256,
+      "output_tokens": 684,
+      "reasoning_output_tokens": 258,
+      "total_tokens": 121540
+    }
+  },
+  "combined_observed_usage": {
+    "total_tokens": 3535041,
+    "credits_source": "unavailable",
+    "total_credits": null
+  },
+  "integrity_at_probe_stop": {
+    "pre_probe_manifest_sha256": "F36C384922750F85696E1A4806E7A9ADB95847D2691D5CE5E3B08ED6967C457E",
+    "frozen_files_checked": 46,
+    "frozen_file_hash_drift": 0,
+    "global_files_checked": 6,
+    "global_hash_drift": 0,
+    "bundle_files_checked": 4,
+    "bundle_hash_drift": 0,
+    "trial_01_mismatches": 4,
+    "worker_changes_during_probe": 0
+  },
+  "post_probe_hardening": {
+    "change": "Require actual model/effort verification after every spawn and resume.",
+    "orchestration_skill_sha256": "78439C6F84CAD99B8B3C4D8AA942BA58FCD624B232E0107D30F258B0BB1567C6",
+    "contract_test": "PASS",
+    "health_check": "PASS_WITH_EXISTING_CONFIG_WARNING"
+  },
+  "next_gate": {
+    "id": "GT-04-v2.4",
+    "required_change": "Run bundle preflight with process-scoped ExecutionPolicy Bypass in the parent prompt.",
+    "automatic_run": false,
+    "reason": "Preserve v2.3 first-attempt evidence and avoid another high-usage run without a new gate."
+  }
+}

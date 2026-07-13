@@ -1,0 +1,254 @@
+service_tier = "priority"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "low"
+
+notify = [ "C:\\Users\\beck\\AppData\\Local\\OpenAI\\Codex\\runtimes\\cua_node\\ecfc0d9aa02807e3\\bin\\node_modules\\@oai\\sky\\bin\\windows\\codex-computer-use.exe", "turn-ended" ]
+
+[agents]
+max_threads = 4
+max_depth = 1
+
+[marketplaces.openai-primary-runtime]
+last_updated = "2026-07-10T02:22:18Z"
+source_type = "local"
+source = '\\?\C:\Users\beck\.cache\codex-runtimes\codex-primary-runtime\plugins\openai-primary-runtime'
+
+[marketplaces.openai-bundled]
+last_updated = "2026-07-10T03:52:06Z"
+source_type = "local"
+source = '\\?\C:\Users\beck\.codex\.tmp\bundled-marketplaces\openai-bundled'
+
+[marketplaces.openai-codex]
+last_updated = "2026-07-08T07:24:45Z"
+last_revision = "db52e28f4d9ded852ab3942cea316258ae4ef346"
+source_type = "git"
+source = "https://github.com/openai/codex-plugin-cc.git"
+
+[plugins."documents@openai-primary-runtime"]
+enabled = true
+
+[plugins."pdf@openai-primary-runtime"]
+enabled = true
+
+[plugins."spreadsheets@openai-primary-runtime"]
+enabled = true
+
+[plugins."presentations@openai-primary-runtime"]
+enabled = true
+
+[plugins."template-creator@openai-primary-runtime"]
+enabled = true
+
+[plugins."claude-kit@user-local"]
+enabled = true
+
+[plugins."gmail@openai-curated"]
+enabled = true
+
+[plugins."codex@openai-codex"]
+enabled = true
+
+[plugins."google-drive@openai-curated"]
+enabled = true
+
+[plugins."sites@openai-bundled"]
+enabled = true
+
+[plugins."visualize@openai-bundled"]
+enabled = true
+
+[plugins."browser@openai-bundled"]
+enabled = true
+
+[features]
+memories = true
+js_repl = false
+
+[shell_environment_policy]
+experimental_use_profile = false
+inherit = "all"
+
+[shell_environment_policy.set]
+CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
+ComSpec = 'C:\Windows\System32\cmd.exe'
+ENABLE_TOOL_SEARCH = "auto:5"
+SystemRoot = 'C:\Windows'
+WINDIR = 'C:\Windows'
+
+[desktop]
+followUpQueueMode = "steer"
+composerEnterBehavior = "cmdIfMultiline"
+default-service-tier = "priority"
+git-branch-prefix = ""
+git-commit-instructions = """
+- 커밋 메시지는 Conventional Commits 형식을 사용한다.
+  - 허용 접두사: `feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf`, `ci`
+  - 예: `fix: 로그인 예외 처리 보강`
+- `codex/`, `codex:`, `generated-by-codex`처럼 도구명을 드러내는 커밋 형식은 지양한다.
+- 커밋 설명과 본문은 한글로 작성한다.
+- 한 커밋에는 하나의 논리적 변경만 포함한다.
+- 커밋 전에는 repo root, 현재 branch, worktree 상태, nested repo 경계를 확인한다.
+- 커밋 전에는 `git config --local user.name`과 `git config --local user.email`을 확인한다.
+- 사용자 확인 없이 `git config --global` 값을 변경하지 않는다.
+- 기본적으로 `Co-Authored-By: Claude ...` 또는 자동 생성 도구 서명은 추가하지 않는다.
+- 커밋 전 검증 가능한 테스트나 빌드가 있으면 실행하고, 실행하지 못한 경우 이유를 보고한다.
+- 사용자가 만들었거나 요청 범위 밖에 있는 변경은 되돌리지 않는다."""
+git-pr-instructions = """
+- PR 제목은 Conventional Commits 형식을 우선 사용한다.
+  - 예: `feat: 결제 내역 필터 추가`
+- PR 제목, 본문, 브랜치명에 `codex/`, `codex:`, `generated-by-codex`처럼 도구명을 드러내는 형식은 지양한다.
+- PR 작성 전 전체 커밋 이력과 `git diff [base-branch]...HEAD`를 확인한다.
+- PR 본문에는 변경 요약, 테스트 결과, 남은 TODO 또는 리스크를 포함한다.
+- 관련 이슈가 있으면 PR 본문에 연결한다.
+- 테스트를 실행하지 못한 경우, 실행하지 못한 이유와 남은 검증 방법을 명시한다.
+- PR은 하나의 목적 또는 기능 단위로 작게 유지한다.
+- unrelated diff나 사용자가 만든 기존 변경은 PR 범위에 섞지 않는다."""
+
+[desktop.open-in-target-preferences]
+global = "fileManager"
+
+[desktop.open-in-target-preferences.perPath]
+'C:\Work\Dev\Design' = "fileManager"
+'C:\Work\Dev\Optics' = "fileManager"
+
+[mcp_servers.node_repl]
+args = []
+command = 'C:\Users\beck\AppData\Local\OpenAI\Codex\runtimes\cua_node\ecfc0d9aa02807e3\bin\node_repl.exe'
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = 'C:\Users\beck\AppData\Local\OpenAI\Codex\runtimes\cua_node\ecfc0d9aa02807e3\bin\node_modules'
+NODE_REPL_NODE_PATH = 'C:\Users\beck\AppData\Local\OpenAI\Codex\runtimes\cua_node\ecfc0d9aa02807e3\bin\node.exe'
+NODE_REPL_TRUSTED_CODE_PATHS = 'C:\Users\beck\.codex'
+CODEX_HOME = 'C:\Users\beck\.codex'
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "7ed52dae165c3bc22b6d24f282e2c1fbc87f6949fbbe037767a7418d8f517f01,c8b7e809d7cf9e20a57123b2530d476ccec9a01a6230a7b2b924fea7d94d7f4a"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.707.31428"
+SKY_CUA_NATIVE_PIPE = "1"
+SKY_CUA_NATIVE_PIPE_DIRECTORY = '\\.\pipe\codex-computer-use-54b3d071-d759-44af-9ce8-faf5d749e4b4'
+CODEX_CLI_PATH = 'C:\Users\beck\AppData\Local\OpenAI\Codex\bin\a7c12ebff69fb123\codex.exe'
+
+[mcp_servers.claude_reviewer]
+args = ['C:\Users\beck\.codex\local-plugins\claude-reviewer\mcp\server.mjs']
+command = "node"
+enabled = true
+enabled_tools = ["claude_review_worktree", "claude_review_files", "claude_ultrareview_branch"]
+startup_timeout_sec = 20
+tool_timeout_sec = 300
+
+[projects.'c:\work\dev\optics']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-24\c-work-dev-design-plans-20260430']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-24\c-work-dev-design-plans-20260430-2']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-24\cod']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\design']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-24\ag']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\micro']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\scribe']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-24\new-chat']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex\2026-06-25\new-chat']
+trust_level = "trusted"
+
+[projects.'c:\users\beck\documents\codex']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\lampup']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\newhope']
+trust_level = "trusted"
+
+[projects.'c:\work\dev\optics\apps\mm-broker']
+trust_level = "trusted"
+
+[windows]
+sandbox = "elevated"
+
+[hooks.state]
+
+[hooks.state."claude-kit@user-local:hooks.json:pre_tool_use:0:0"]
+trusted_hash = "sha256:3bc496a768ed482f993e00467b13663ec8f76215724f51366d8576bc20b0dbc6"
+
+[hooks.state."claude-kit@user-local:hooks.json:pre_tool_use:1:0"]
+trusted_hash = "sha256:bc4efc209be9b29b9287d9ada861aa08b1ab8c9f9300135875e58f7fa36a7c11"
+
+[hooks.state."claude-kit@user-local:hooks.json:pre_tool_use:2:0"]
+trusted_hash = "sha256:3c789821898afa961502d2bd739713e2224c7a5ba568731fa6788b0d90b05fb1"
+
+[hooks.state."claude-kit@user-local:hooks.json:pre_tool_use:3:0"]
+trusted_hash = "sha256:cacb48551e93fbc3aba281746142646a33d95024f7db1fb4ee635399ba5e52b9"
+
+[hooks.state."claude-kit@user-local:hooks.json:post_tool_use:0:0"]
+trusted_hash = "sha256:cfd88dffed16cb3a34db1cd5e4bcd36256e1962aec7db36b905fd38e4d9fb8ea"
+
+[hooks.state."claude-kit@user-local:hooks.json:post_tool_use:1:0"]
+trusted_hash = "sha256:73b273f03f451695391d8538a7fb22bf5830ca3759158c979912ee4d212f0b83"
+
+[hooks.state."claude-kit@user-local:hooks.json:post_tool_use:2:0"]
+trusted_hash = "sha256:92f70252629d0b152c3c3021b976937084a9961acd69627bd6a4a0ca944abc56"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:0:0']
+trusted_hash = "sha256:49243839334b32b111254147ff1dece01322b66a8abec9efc2f4aedd4a3a5f8a"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:1:0']
+trusted_hash = "sha256:e069fb5fcd75e95bdffd60b638b163ffa60ef0bc290f2084ad2ac6bf9eaac55f"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:1:1']
+trusted_hash = "sha256:b6dce4df177244c81c79b3510cc505414aa6e011d03ee8e78be470918e1570a7"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:2:0']
+trusted_hash = "sha256:91c9a390b4d102a5980176592fd6ec7d6ef0451f844566d647da258f33056554"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:3:0']
+trusted_hash = "sha256:5c08c731b93b8e1ada4823dcf13a26197121f8aa12eff5d67aa2d9a41a87aeb2"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:4:0']
+trusted_hash = "sha256:ce112e4055c34d100871774cb61147270ffbd87853749c64d2f755e162de63e5"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:pre_tool_use:5:0']
+trusted_hash = "sha256:8c1ba226426b762cb774d9bc900dc9844e0f1eded6c2968f424f949e9997e060"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:post_tool_use:0:0']
+trusted_hash = "sha256:b93d4c94207bc9d84bb74ed8c70da55d1db6cb3df4dc5bbfeca46a386c8df2ce"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:post_tool_use:0:1']
+trusted_hash = "sha256:9c2b97bdd219f3ff7a3ceab17473d4a5cceffdc18ada6ecea35a9b05a87a283a"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:post_tool_use:1:0']
+trusted_hash = "sha256:ae4e6c22b525a1d5d29073b52fd04c91536e8bca28881f56bbf428ff39efe58c"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:user_prompt_submit:0:0']
+trusted_hash = "sha256:f62aa66c3fce27accdaa364169ca0d35e03feff68e7f7a4c715c12749cb115aa"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:user_prompt_submit:0:1']
+trusted_hash = "sha256:b3d0334207deb45cdc6883d7ed63aafaa1217ff2a819b4fc91acfd55f4fa96bd"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:user_prompt_submit:1:0']
+trusted_hash = "sha256:01739a5bc31e98c3fdd0558303b8f64d3fb7567236790c3a8d00d505cb818c4a"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:stop:0:0']
+trusted_hash = "sha256:b93929e579aa1c762554a05b641d6c470314f5f8c8cde98c110b097fde4c962b"
+
+[hooks.state.'C:\Work\Dev\Design\.codex\hooks.json:stop:0:1']
+trusted_hash = "sha256:bf994066cbe2c602177ad8da8daa944a3ad47e89ca75222c18a3ae29a116d790"

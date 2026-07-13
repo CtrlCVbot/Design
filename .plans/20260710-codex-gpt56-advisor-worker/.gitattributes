@@ -1,0 +1,9 @@
+# These transport fixtures validate source bytes with precomputed SHA256 values.
+phase4b-gt04-v2-3/transport/probe-source.mjs -text -diff
+phase4b-gt04-v2-3/transport/run-source.mjs -text -diff
+phase4b-gt04-v2-3/transport/test_transport.ps1 -text -diff
+phase4b-gt04-v2-4/transport/probe-source.mjs -text -diff
+phase4b-gt04-v2-4/transport/run-source.mjs -text -diff
+phase4b-gt04-v2-4/transport/test_transport.ps1 -text -diff
+phase4b-gt04-v2-3/briefs/trial-01.md -text -diff
+phase4b-gt04-v2-4/briefs/trial-01.md -text -diff

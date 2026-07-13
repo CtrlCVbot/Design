@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-1-transport",
+  "combination_id": "GT04-V2-1-LUNA-CUSTOM-DIAGNOSTIC",
+  "status": "FAIL",
+  "started_at": "2026-07-10T02:40:02.062Z",
+  "ended_at": "2026-07-10T02:40:21.504Z",
+  "wall_time_seconds": 19.014,
+  "preparation": {
+    "implementation_worker_thread_id": "019f49de-dbc9-7ee2-976f-b667505483b6",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium",
+    "repair_count": 1,
+    "transport_preflight_tests": 6,
+    "mocked_transport_calls": [
+      "read",
+      "spawn",
+      "notify",
+      "wait",
+      "text"
+    ],
+    "fixture_tests": 5,
+    "status": "PASS"
+  },
+  "runtime": {
+    "parent": {
+      "thread_id": "019f49e5-72a3-79b2-a57c-3daab58578be",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "sandbox": "workspace-write",
+      "approval": "never",
+      "cli_version": "0.144.0-alpha.4",
+      "cli_exit_code": 0
+    },
+    "transport_source_execution_count": 1,
+    "actual_spawn_agent_call_count": 0,
+    "actual_worker_count": 0,
+    "child_thread_id": null,
+    "child_nickname": null,
+    "live_nested_tool_evidence": {
+      "tools.shell_command": "available and used by the parent to read run-source.mjs",
+      "tools.exec_command": "unavailable inside functions.exec",
+      "observed_error": "TypeError: tools.exec_command is not a function"
+    }
+  },
+  "diagnostic": {
+    "trial_id": "trial-01",
+    "transformation_attempted": false,
+    "strict_trial_pass": false,
+    "byte_output_pass": false,
+    "pre_run_mismatches": 4,
+    "post_run_mismatches": 4,
+    "parent_exception_count": 1,
+    "worker_exception_count": null,
+    "retry_count": 0,
+    "repair_count": 0,
+    "failure_stage": "structured source read before child creation"
+  },
+  "metrics": {
+    "diagnostic_pass_at_1": 0.0,
+    "strict_pass_count": 0,
+    "byte_output_pass_count": 0,
+    "scope_integrity_pass": true,
+    "plan_file_changes": 0,
+    "global_hash_drift_count": 0,
+    "write_conflicts": 0,
+    "remaining_trials_executed": 0,
+    "advisor_verification_complete": true
+  },
+  "usage": {
+    "parent": {
+      "input_tokens": 87964,
+      "cached_input_tokens": 65792,
+      "output_tokens": 764,
+      "reasoning_output_tokens": 250,
+      "total_tokens": 88728,
+      "cached_input_ratio": 0.7479
+    },
+    "child": null,
+    "credits_source": "unavailable",
+    "total_credits": null
+  },
+  "evidence": {
+    "pre_run_manifest_sha256": "DE027BB22EF88FB8B485E0FD1AD87E5CF2BB6814B7E61997C936A14C5C7054A3",
+    "parent_rollout": "C:/Users/beck/.codex/sessions/2026/07/10/rollout-2026-07-10T11-40-02-019f49e5-72a3-79b2-a57c-3daab58578be.jsonl",
+    "parent_rollout_sha256": "FFDC2D84C62502DDD065F9580D61FB4DF4613A33B5427604859E3C5EE5EF0D24",
+    "child_rollout_count": 0
+  },
+  "primary_failure_class": "fresh CLI nested tool capability mismatch",
+  "notes": [
+    "The initial implementation used an incorrect multi-agent schema; Advisor detected it before the live run and required a repair brief.",
+    "Static parse, six transport tests, a mocked lifecycle dry-run, five fixture tests, and the initial RED state all passed.",
+    "The mocked dry-run supplied tools.exec_command itself and therefore could not prove that the live fresh CLI exposed that tool.",
+    "The fresh CLI parent successfully used tools.shell_command to read the source, then the source failed because tools.exec_command was not available in functions.exec.",
+    "No spawn_agent call occurred, no child session was created, and no v2.1 or global file hash changed.",
+    "No retry was performed and trial-02/trial-03 were not executed."
+  ]
+}

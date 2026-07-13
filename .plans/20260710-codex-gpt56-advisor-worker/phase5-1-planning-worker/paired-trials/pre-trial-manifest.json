@@ -1,0 +1,212 @@
+{
+    "schema_version":  1,
+    "fixture_id":  "planning-worker-paired-v1",
+    "created_at":  "2026-07-10T13:55:09.8187001+09:00",
+    "seed":  20260710,
+    "run_order":  [
+                      "direct-01",
+                      "delegated-02",
+                      "delegated-03",
+                      "direct-03",
+                      "direct-02",
+                      "delegated-01"
+                  ],
+    "files":  [
+                  {
+                      "path":  "brief.md",
+                      "bytes":  3001,
+                      "sha256":  "F89D880299E9A3B91EF31A2D3B40A9F57D5C94AB62219065D93B77285C9AEC64"
+                  },
+                  {
+                      "path":  "delegated-01/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "delegated-01/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "delegated-01/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "delegated-01/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "delegated-02/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "delegated-02/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "delegated-02/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "delegated-02/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "delegated-03/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "delegated-03/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "delegated-03/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "delegated-03/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "direct-01/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "direct-01/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "direct-01/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "direct-01/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "direct-02/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "direct-02/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "direct-02/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "direct-02/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "direct-03/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "direct-03/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "direct-03/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "direct-03/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "EVAL.md",
+                      "bytes":  1672,
+                      "sha256":  "9589B855C126D4FC58289CC610E66FEDB7BAA01BEFEA067552120D9FB1B1DE5B"
+                  },
+                  {
+                      "path":  "prompts/delegated-01.md",
+                      "bytes":  1514,
+                      "sha256":  "3807436ADAF1D930A4FD983B84A408841750B7B022881F17B72F51660CCF362C"
+                  },
+                  {
+                      "path":  "prompts/delegated-02.md",
+                      "bytes":  1514,
+                      "sha256":  "64227133C460331DF7BC3795C649DEF05F7E2FCD45F443898E2229330D7E354D"
+                  },
+                  {
+                      "path":  "prompts/delegated-03.md",
+                      "bytes":  1514,
+                      "sha256":  "0F70ECE692D5191AA585FF371C5CEA3913E529A7C6BBC31E654432A4651CA39C"
+                  },
+                  {
+                      "path":  "prompts/direct-01.md",
+                      "bytes":  1212,
+                      "sha256":  "1EC7C93D7BAA82C4341491A8AE7D67ED51A907A798066A2206F812F88E7580D3"
+                  },
+                  {
+                      "path":  "prompts/direct-02.md",
+                      "bytes":  1212,
+                      "sha256":  "B34386773CE594F24C935CE9A0331045B817CFE222606C7DDF461C0393BB6198"
+                  },
+                  {
+                      "path":  "prompts/direct-03.md",
+                      "bytes":  1212,
+                      "sha256":  "81BF8D33BD64D1E94AB9EA1DE13399AFFAAA89E1E189AEA40E3777F4AC54E09C"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/AGENTS.md",
+                      "bytes":  11476,
+                      "sha256":  "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/config.toml",
+                      "bytes":  10366,
+                      "sha256":  "256BCCC3EB28C9631B365CA63D5ADEA9AFD618D05ACB5C180C9C4F39038664F2"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/agents/planning-worker.toml",
+                      "bytes":  2328,
+                      "sha256":  "56BC6ED90DF7DD2F0E744E72E35FB03E49A76BFBCF58657C460818083727AB06"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.agents/skills/advisor-worker-orchestration/SKILL.md",
+                      "bytes":  7130,
+                      "sha256":  "78439C6F84CAD99B8B3C4D8AA942BA58FCD624B232E0107D30F258B0BB1567C6"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.agents/skills/agentic-health-check/scripts/agentic_health_check.py",
+                      "bytes":  19597,
+                      "sha256":  "A5B510B9082D5F316FC747323418326C0BEDD3C76BB8806807F28F160C108BD5"
+                  },
+                  {
+                      "path":  "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex.exe",
+                      "bytes":  341269296,
+                      "sha256":  "B88F944EF63556527CAAE2AD43F80B88B8BE174DC09B09D9B037FC94240A0E91"
+                  }
+              ],
+    "expected_initial_output_files":  0,
+    "direct_token_ceiling":  300000,
+    "worker_token_ceiling":  300000,
+    "delegated_total_ceiling":  450000,
+    "expected_model":  "gpt-5.6-terra",
+    "expected_effort":  "medium"
+}

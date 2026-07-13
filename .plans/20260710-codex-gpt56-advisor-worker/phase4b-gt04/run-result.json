@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v1",
+  "combination_id": "GT04-LUNA-CUSTOM-PILOT",
+  "status": "FAIL",
+  "started_at": "2026-07-10T02:02:24.314Z",
+  "ended_at": "2026-07-10T02:04:27.706Z",
+  "wall_time_seconds": 123.392,
+  "seeded_order": [
+    "trial-02",
+    "trial-01",
+    "trial-03"
+  ],
+  "runtime": {
+    "parent": {
+      "thread_id": "019f49c2-fc44-7ee2-8c6d-6c32ef0f5282",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "sandbox": "workspace-write",
+      "approval": "never"
+    },
+    "worker_count": 3,
+    "worker_role": "routine_worker",
+    "worker_model": "gpt-5.6-luna",
+    "worker_reasoning_effort": "medium"
+  },
+  "trials": [
+    {
+      "trial_id": "trial-02",
+      "child_thread_id": "019f49c3-65bb-7140-886d-ca13ad9f04c6",
+      "nickname": "routine_runner",
+      "status": "blocked",
+      "exception_count": 1,
+      "changed_file_count": 0,
+      "grader_mismatches": 4,
+      "byte_output_pass": false,
+      "strict_trial_pass": false,
+      "failure": "python.exe logon session error before transformation",
+      "scope_deviation": "none",
+      "usage": {
+        "input_tokens": 123187,
+        "cached_input_tokens": 99328,
+        "output_tokens": 1332,
+        "reasoning_output_tokens": 457,
+        "total_tokens": 124519
+      }
+    },
+    {
+      "trial_id": "trial-01",
+      "child_thread_id": "019f49c3-6bdd-7660-a687-3629eacf6411",
+      "nickname": "scope_stopper",
+      "status": "blocked",
+      "exception_count": 1,
+      "changed_file_count": 4,
+      "grader_mismatches": 0,
+      "byte_output_pass": true,
+      "strict_trial_pass": false,
+      "failure": "python.exe logon session error during acceptance check",
+      "scope_deviation": "none",
+      "usage": {
+        "input_tokens": 353305,
+        "cached_input_tokens": 335104,
+        "output_tokens": 2772,
+        "reasoning_output_tokens": 697,
+        "total_tokens": 356077
+      }
+    },
+    {
+      "trial_id": "trial-03",
+      "child_thread_id": "019f49c3-7169-7931-b681-8346077e90f6",
+      "nickname": "rule_executor",
+      "status": "blocked",
+      "exception_count": 1,
+      "changed_file_count": 4,
+      "grader_mismatches": 1,
+      "byte_output_pass": false,
+      "strict_trial_pass": false,
+      "failure": "python.exe logon session error during acceptance check; north.json contains an invalid trailing comma",
+      "scope_deviation": "none",
+      "usage": {
+        "input_tokens": 186273,
+        "cached_input_tokens": 173568,
+        "output_tokens": 1438,
+        "reasoning_output_tokens": 243,
+        "total_tokens": 187711
+      }
+    }
+  ],
+  "metrics": {
+    "task_pass_at_1": 0.0,
+    "pass_power_3": false,
+    "strict_pass_count": 0,
+    "byte_output_pass_count": 1,
+    "exception_count": 3,
+    "scope_violations": 0,
+    "write_conflicts": 0,
+    "repair_loops": 0,
+    "advisor_verification_complete": true
+  },
+  "usage": {
+    "parent": {
+      "input_tokens": 623600,
+      "cached_input_tokens": 578816,
+      "output_tokens": 1805,
+      "reasoning_output_tokens": 312,
+      "total_tokens": 625405
+    },
+    "combined": {
+      "input_tokens": 1286365,
+      "cached_input_tokens": 1186816,
+      "output_tokens": 7347,
+      "reasoning_output_tokens": 1709,
+      "total_tokens": 1293712,
+      "cached_input_ratio": 0.9226
+    },
+    "credits_source": "unavailable",
+    "total_credits": null
+  },
+  "primary_failure_class": "child command runtime unavailable",
+  "notes": [
+    "All three children loaded the registered routine_worker role at gpt-5.6-luna/medium.",
+    "No retry or repair was run before grading.",
+    "Only trial-01 and trial-03 record files changed; all changes stayed inside assigned paths.",
+    "The sandbox created empty .git and .agents directories at the fixture root; neither contains files or forms a functional nested repository or agent configuration.",
+    "The pilot does not establish cost savings because no comparator was run."
+  ]
+}

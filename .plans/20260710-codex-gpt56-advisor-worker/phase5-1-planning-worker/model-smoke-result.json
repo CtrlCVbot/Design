@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "parent_thread_id": "019f4a54-bd7b-7700-ba73-1bfe4cd01c6f",
+  "child_thread_id": "019f4a54-f723-7392-9e52-3fa9e93a788e",
+  "parent_model": "gpt-5.6-terra",
+  "parent_effort": "medium",
+  "child_model": "gpt-5.6-terra",
+  "child_effort": "medium",
+  "result": "PLANNING_WORKER_MODEL_SMOKE_PASS",
+  "file_changes": 0,
+  "usage": {
+    "parent_total_tokens": 120686,
+    "worker_total_tokens": 29672,
+    "orchestration_total_tokens": 150358
+  }
+}

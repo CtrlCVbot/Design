@@ -1,0 +1,41 @@
+{
+  "status": "COMPLETE",
+  "fixture_id": "planning-worker-paired-v1",
+  "seed": 20260710,
+  "run_order": ["direct-01", "delegated-02", "delegated-03", "direct-03", "direct-02", "delegated-01"],
+  "preflight": { "checked": 38, "drift_count": 0 },
+  "runs": [
+    { "run": "direct-01", "mode": "direct", "parent_thread_id": "019f4a61-b28d-7f02-adbf-28f17f278a3a", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "total_tokens": 228811, "duration_ms": 69998 },
+    { "run": "delegated-02", "mode": "delegated", "parent_thread_id": "019f4a62-fd38-79f1-848e-b6578ac92be7", "child_thread_id": "019f4a63-74e3-7fc3-a90e-d8d3ef2a6b5a", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "parent_tokens": 193592, "worker_tokens": 201480, "total_tokens": 395072, "duration_ms": 115840 },
+    { "run": "delegated-03", "mode": "delegated", "parent_thread_id": "019f4a65-1bee-7112-a9f7-6c79eeefbea9", "child_thread_id": "019f4a65-affd-7092-ac1f-fefea19a13b4", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "parent_tokens": 193229, "worker_tokens": 207063, "total_tokens": 400292, "duration_ms": 119408 },
+    { "run": "direct-03", "mode": "direct", "parent_thread_id": "019f4a67-4b18-7600-ab73-8001eea0aa40", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "total_tokens": 263673, "duration_ms": 90758 },
+    { "run": "direct-02", "mode": "direct", "parent_thread_id": "019f4a68-e81d-7282-a070-137774105da4", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "total_tokens": 229568, "duration_ms": 75752 },
+    { "run": "delegated-01", "mode": "delegated", "parent_thread_id": "019f4a6a-7ff5-7311-8ff9-510ee15ef518", "child_thread_id": "019f4a6b-01ac-7fa3-85e0-8ea2467bf3a7", "model": "gpt-5.6-terra", "effort": "medium", "grader": "PASS", "files": 5, "parent_tokens": 224697, "worker_tokens": 201318, "total_tokens": 426015, "duration_ms": 98417 }
+  ],
+  "quality": {
+    "direct_pass_power_3": true,
+    "delegated_pass_power_3": true,
+    "scope_violations": 0,
+    "model_drifts": 0,
+    "timeouts": 0
+  },
+  "medians": {
+    "direct_tokens": 229568,
+    "direct_duration_ms": 75752,
+    "delegated_worker_tokens": 201480,
+    "delegated_orchestration_tokens": 400292,
+    "delegated_duration_ms": 115840,
+    "delegated_token_ratio_percent": 174.37,
+    "delegated_time_ratio_percent": 152.92
+  },
+  "gates": {
+    "quality": "PASS",
+    "worker_ceiling": "PASS",
+    "orchestration_ceiling": "PASS",
+    "efficiency": "FAIL",
+    "automatic_routing": "REJECT"
+  },
+  "decision": "Keep planning_worker as explicit user-approved opt-in only. Do not enable automatic docs routing.",
+  "credits_source": "unavailable",
+  "runtime_warnings": ["delegated-01 parent logged one post-completion model cache TTL renewal EOF warning; grader and result were unaffected"]
+}

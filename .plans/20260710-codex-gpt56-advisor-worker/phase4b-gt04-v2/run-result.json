@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-powershell",
+  "combination_id": "GT04-V2-LUNA-CUSTOM-DIAGNOSTIC",
+  "status": "FAIL",
+  "started_at": "2026-07-10T02:21:28.395Z",
+  "ended_at": "2026-07-10T02:22:20.971Z",
+  "wall_time_seconds": 52.006,
+  "runtime": {
+    "parent": {
+      "thread_id": "019f49d4-748c-7680-8480-69965ed49912",
+      "model": "gpt-5.6-luna",
+      "reasoning_effort": "low",
+      "sandbox": "workspace-write",
+      "approval": "never",
+      "cli_version": "0.144.0-alpha.4",
+      "cli_exit_code": 0
+    },
+    "spawn_attempt_count": 1,
+    "actual_worker_count": 0,
+    "expected_worker_role": "routine_worker",
+    "expected_worker_model": "gpt-5.6-luna",
+    "expected_worker_reasoning_effort": "medium",
+    "child_thread_id": null,
+    "child_nickname": null
+  },
+  "diagnostic": {
+    "trial_id": "trial-01",
+    "transformation_attempted": false,
+    "strict_trial_pass": false,
+    "byte_output_pass": false,
+    "pre_run_mismatches": 4,
+    "post_run_mismatches": 4,
+    "parent_exception_count": 1,
+    "worker_exception_count": null,
+    "retry_count": 0,
+    "repair_count": 0,
+    "failure": "SyntaxError: Octal escape sequences are not allowed in template strings.",
+    "failure_stage": "parent brief transport before child creation"
+  },
+  "metrics": {
+    "diagnostic_pass_at_1": 0.0,
+    "strict_pass_count": 0,
+    "byte_output_pass_count": 0,
+    "scope_integrity_pass": false,
+    "plan_file_changes": 0,
+    "global_hash_drift_count": 1,
+    "write_conflicts": 0,
+    "repair_loops": 0,
+    "remaining_trials_executed": 0,
+    "advisor_verification_complete": true
+  },
+  "global_drift": {
+    "path": "C:/Users/beck/.codex/config.toml",
+    "before_sha256": "7A2B76079ABDB4FE2F368A288A058BCFA6B05A29EE020D2236055DAAA6174278",
+    "after_sha256": "1A4C9A247B145AF5F354BF5B9046EEEF3DACAB70745316551A286772BD02535A",
+    "after_size_bytes": 10363,
+    "observed_modified_at": "2026-07-10T11:22:21.1282796+09:00",
+    "attribution": "unproven; observed immediately after the fresh CLI run",
+    "semantic_checks": {
+      "model": "gpt-5.6-sol",
+      "model_reasoning_effort": "xhigh",
+      "service_tier": "priority",
+      "max_threads": 4,
+      "max_depth": 1,
+      "custom_agent_routes": "PASS",
+      "agentic_health_check": "PASS with the pre-existing hook-trust warning"
+    }
+  },
+  "usage": {
+    "parent": {
+      "input_tokens": 169093,
+      "cached_input_tokens": 135936,
+      "output_tokens": 2573,
+      "reasoning_output_tokens": 861,
+      "total_tokens": 171666,
+      "cached_input_ratio": 0.8039
+    },
+    "child": null,
+    "credits_source": "unavailable",
+    "total_credits": null
+  },
+  "evidence": {
+    "pre_run_manifest_sha256": "A7F6B8FCA00250DD7BA3AC61C254A2AEBAC160EF59837902FF8FA4A314098A6F",
+    "parent_rollout": "C:/Users/beck/.codex/sessions/2026/07/10/rollout-2026-07-10T11-21-28-019f49d4-748c-7680-8480-69965ed49912.jsonl",
+    "parent_rollout_sha256": "E4C597F931BAB315A077F34FDE65257BF76B14FF3D3436C6A3C5889A487AB989",
+    "child_rollout_count": 0
+  },
+  "primary_failure_class": "parent brief transport serialization",
+  "notes": [
+    "The PowerShell-native grader and its five-case self-test passed before the diagnostic.",
+    "The parent embedded raw Windows backslashes from the brief in a JavaScript template string; the sequence beginning with \\2026 triggered the syntax error.",
+    "The parent claimed worker_count 1, but rollout evidence shows no child session; Advisor corrected the actual count to 0.",
+    "No v2 plan or fixture file changed during the diagnostic and trial-01 remained at four mismatches.",
+    "The config.toml hash drift was not reverted because its writer and exact intent are unproven, while semantic agent-routing checks remain healthy.",
+    "No retry or repair was performed and trial-02/trial-03 were not executed."
+  ]
+}

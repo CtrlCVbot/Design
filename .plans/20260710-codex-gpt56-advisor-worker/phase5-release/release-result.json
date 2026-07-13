@@ -1,0 +1,46 @@
+{
+  "release_type": "controlled_rollout",
+  "released_at": "2026-07-10T13:26:03+09:00",
+  "config": {
+    "before": {
+      "model": "gpt-5.6-sol",
+      "reasoning_effort": "low",
+      "sha256": "F33B9DA7D2C749F1AB6AC77EF4FB03AAEED41EABC5634F7BA452A1C02DEC3E9A"
+    },
+    "after": {
+      "model": "gpt-5.6-terra",
+      "reasoning_effort": "medium",
+      "sha256": "256BCCC3EB28C9631B365CA63D5ADEA9AFD618D05ACB5C180C9C4F39038664F2"
+    },
+    "unchanged": ["service_tier=priority", "agents.max_threads=4", "agents.max_depth=1"]
+  },
+  "health": {
+    "config_parse": "PASS",
+    "agents": "PASS",
+    "skills": "PASS",
+    "stale_hook_hashes": 15,
+    "stale_hook_hash_status": "pre-existing non-blocking warning"
+  },
+  "direct_smoke": {
+    "status": "PASS",
+    "thread_id": "019f4a46-18fe-7361-bc76-e647ae3f5b13",
+    "model": "gpt-5.6-terra",
+    "reasoning_effort": "medium",
+    "worker_count": 0,
+    "result": "DIRECT_SMOKE_PASS"
+  },
+  "delegated_smoke": {
+    "status": "PASS",
+    "parent_thread_id": "019f4a46-52d0-7781-aac2-4b8d65abf90a",
+    "child_thread_id": "019f4a46-745c-7c02-997f-47de43620902",
+    "parent_model": "gpt-5.6-terra",
+    "parent_reasoning_effort": "medium",
+    "worker_role": "implementation_worker",
+    "child_model": "gpt-5.6-terra",
+    "child_reasoning_effort": "medium",
+    "result": "IMPLEMENTATION_WORKER_SMOKE_PASS",
+    "file_changes": 0,
+    "prohibited_actions": 0
+  },
+  "rollback": "rollback.md"
+}

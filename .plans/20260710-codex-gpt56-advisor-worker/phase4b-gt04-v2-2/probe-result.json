@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-2-live-shell",
+  "combination": "GT04-V2-2-LIVE-CAPABILITY-PROBE",
+  "executed_at": "2026-07-10T11:57:20+09:00",
+  "result": "FAIL",
+  "failure_stage": "functions.exec code-mode host startup",
+  "diagnostic_executed": false,
+  "stop_reason": "Probe source could not be read or executed because the selected fresh CLI bundle lacked codex-code-mode-host.exe.",
+  "launcher_preflight": {
+    "path": "C:/Program Files/WindowsApps/OpenAI.Codex_26.707.3563.0_x64__2p2nqsd0c76g0/app/resources/codex.exe",
+    "result": "FAIL_BEFORE_THREAD",
+    "exception": "Access is denied",
+    "counted_as_probe": false
+  },
+  "parent": {
+    "thread_id": "019f49f5-4734-7182-8832-435f6141deff",
+    "rollout_path": "C:/Users/beck/.codex/sessions/2026/07/10/rollout-2026-07-10T11-57-19-019f49f5-4734-7182-8832-435f6141deff.jsonl",
+    "rollout_sha256": "D113B5310640040A144BBDA57876A93D9B03BE359D22F2FB2AA3CBA96E7D8DDA",
+    "cli_path": "C:/Users/beck/.codex/.sandbox-bin/codex.exe",
+    "cli_version": "0.144.0-alpha.4",
+    "model": "gpt-5.6-luna",
+    "reasoning_effort": "low",
+    "sandbox": "workspace-write",
+    "approval_policy": "never",
+    "exit_code": 0,
+    "wall_seconds": 11.803,
+    "functions_exec_calls": 1,
+    "spawn_agent_calls": 0,
+    "child_count": 0,
+    "exception": "failed to spawn code-mode host C:/Users/beck/.codex/.sandbox-bin/codex-code-mode-host.exe: file not found (os error 2)"
+  },
+  "usage": {
+    "input_tokens": 57874,
+    "cached_input_tokens": 37376,
+    "output_tokens": 620,
+    "reasoning_output_tokens": 314,
+    "total_tokens": 58494,
+    "credits_source": "unavailable",
+    "total_credits": null
+  },
+  "integrity": {
+    "pre_probe_manifest_sha256": "D8EF1C22D0969898A9B627A942E6DBFB2C57F0AC90FE12D0674909BE03E9F65C",
+    "frozen_files_checked": 39,
+    "frozen_file_hash_drift": 0,
+    "global_files_checked": 6,
+    "global_hash_drift": 0,
+    "trial_01_mismatches": 4,
+    "worker_changes": 0
+  },
+  "next_runtime_bundle": {
+    "path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123",
+    "cli_version": "0.144.0-alpha.4",
+    "codex_sha256": "B88F944EF63556527CAAE2AD43F80B88B8BE174DC09B09D9B037FC94240A0E91",
+    "code_mode_host_sha256": "47D4F085833502BDA816607121FA3B9B2D3381F8511A43757F0D77F4760DDEB3",
+    "companion_host_present": true
+  }
+}

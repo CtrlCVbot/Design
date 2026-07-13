@@ -1,0 +1,169 @@
+﻿{
+    "schema_version":  1,
+    "fixture_id":  "GT04-json-normalization-v1",
+    "created_at":  "2026-07-10T11:01:52.1946368+09:00",
+    "contains_secrets":  false,
+    "run_order":  [
+                      "trial-02",
+                      "trial-01",
+                      "trial-03"
+                  ],
+    "files":  [
+                  {
+                      "path":  "EVAL.md",
+                      "size_bytes":  3430,
+                      "sha256":  "D27A7CCD78EF1D85782E877141672D5093667799B465F3D5ACC1625006A38FCD"
+                  },
+                  {
+                      "path":  "WB-phase4b-fixture-001.md",
+                      "size_bytes":  4147,
+                      "sha256":  "20DD194BD1162C011D7B554286363AB5E04091BC5A83E7BC1666B6183909E23D"
+                  },
+                  {
+                      "path":  "briefs/trial-01.md",
+                      "size_bytes":  4158,
+                      "sha256":  "82C95AEE7351E02DD98EF13177324AD8CEE18361ED5B5F0EA9A4724C94F57F1E"
+                  },
+                  {
+                      "path":  "briefs/trial-02.md",
+                      "size_bytes":  4158,
+                      "sha256":  "DDB6ABC43D3934615D5945761F49FE840707B2B27D570B235CE52BCF9108027A"
+                  },
+                  {
+                      "path":  "briefs/trial-03.md",
+                      "size_bytes":  4158,
+                      "sha256":  "F64AD93949471AA401B39A9DD4144C4E7098E64300D96208D6F05833AA164E5E"
+                  },
+                  {
+                      "path":  "fixture/verify_gt04.py",
+                      "size_bytes":  2385,
+                      "sha256":  "B7AF8F040B47D42DA6071986BC164E4420F01EF67C60B402D7CF113A01637CA4"
+                  },
+                  {
+                      "path":  "fixture/baseline/records/east.json",
+                      "size_bytes":  66,
+                      "sha256":  "5B3C3B594DB1A30710B0A2D4465B3A719F9D723434989D8B2FE485108F2B57FF"
+                  },
+                  {
+                      "path":  "fixture/baseline/records/north.json",
+                      "size_bytes":  118,
+                      "sha256":  "CC496E6F9501B404098D276336D4926185CC37995C4717D9A4CDB0787FB0501D"
+                  },
+                  {
+                      "path":  "fixture/baseline/records/south.json",
+                      "size_bytes":  107,
+                      "sha256":  "C8C6B8DC280F671ED9F0DCD43B3CD1DFADE0A2B7DD700651209AA2B11CEF7618"
+                  },
+                  {
+                      "path":  "fixture/baseline/records/west.json",
+                      "size_bytes":  109,
+                      "sha256":  "50CB6646E3FACD33253547D63FF3ADB9114EA34985E11384016664C1839F1C9C"
+                  },
+                  {
+                      "path":  "fixture/expected/records/east.json",
+                      "size_bytes":  99,
+                      "sha256":  "EE825168BAF4E8F98817C23EBDCCE29708C47CAE9C85A0E2C17EC3C8D026AA07"
+                  },
+                  {
+                      "path":  "fixture/expected/records/north.json",
+                      "size_bytes":  115,
+                      "sha256":  "A43406AD61D1E1DAD22BF6BBFA7B2ECB4524B3A6F4B739825E336FC1E1AE1164"
+                  },
+                  {
+                      "path":  "fixture/expected/records/south.json",
+                      "size_bytes":  114,
+                      "sha256":  "F7A174C878CA8E2928E32C54EE814A89DC9F393124626C791BF317D258C33630"
+                  },
+                  {
+                      "path":  "fixture/expected/records/west.json",
+                      "size_bytes":  110,
+                      "sha256":  "F1B9712FD37EAC57459ED8BD9DD518C35F7904A797F3B5166A5C8849696D223C"
+                  },
+                  {
+                      "path":  "fixture/trial-01/records/east.json",
+                      "size_bytes":  66,
+                      "sha256":  "5B3C3B594DB1A30710B0A2D4465B3A719F9D723434989D8B2FE485108F2B57FF"
+                  },
+                  {
+                      "path":  "fixture/trial-01/records/north.json",
+                      "size_bytes":  118,
+                      "sha256":  "CC496E6F9501B404098D276336D4926185CC37995C4717D9A4CDB0787FB0501D"
+                  },
+                  {
+                      "path":  "fixture/trial-01/records/south.json",
+                      "size_bytes":  107,
+                      "sha256":  "C8C6B8DC280F671ED9F0DCD43B3CD1DFADE0A2B7DD700651209AA2B11CEF7618"
+                  },
+                  {
+                      "path":  "fixture/trial-01/records/west.json",
+                      "size_bytes":  109,
+                      "sha256":  "50CB6646E3FACD33253547D63FF3ADB9114EA34985E11384016664C1839F1C9C"
+                  },
+                  {
+                      "path":  "fixture/trial-02/records/east.json",
+                      "size_bytes":  66,
+                      "sha256":  "5B3C3B594DB1A30710B0A2D4465B3A719F9D723434989D8B2FE485108F2B57FF"
+                  },
+                  {
+                      "path":  "fixture/trial-02/records/north.json",
+                      "size_bytes":  118,
+                      "sha256":  "CC496E6F9501B404098D276336D4926185CC37995C4717D9A4CDB0787FB0501D"
+                  },
+                  {
+                      "path":  "fixture/trial-02/records/south.json",
+                      "size_bytes":  107,
+                      "sha256":  "C8C6B8DC280F671ED9F0DCD43B3CD1DFADE0A2B7DD700651209AA2B11CEF7618"
+                  },
+                  {
+                      "path":  "fixture/trial-02/records/west.json",
+                      "size_bytes":  109,
+                      "sha256":  "50CB6646E3FACD33253547D63FF3ADB9114EA34985E11384016664C1839F1C9C"
+                  },
+                  {
+                      "path":  "fixture/trial-03/records/east.json",
+                      "size_bytes":  66,
+                      "sha256":  "5B3C3B594DB1A30710B0A2D4465B3A719F9D723434989D8B2FE485108F2B57FF"
+                  },
+                  {
+                      "path":  "fixture/trial-03/records/north.json",
+                      "size_bytes":  118,
+                      "sha256":  "CC496E6F9501B404098D276336D4926185CC37995C4717D9A4CDB0787FB0501D"
+                  },
+                  {
+                      "path":  "fixture/trial-03/records/south.json",
+                      "size_bytes":  107,
+                      "sha256":  "C8C6B8DC280F671ED9F0DCD43B3CD1DFADE0A2B7DD700651209AA2B11CEF7618"
+                  },
+                  {
+                      "path":  "fixture/trial-03/records/west.json",
+                      "size_bytes":  109,
+                      "sha256":  "50CB6646E3FACD33253547D63FF3ADB9114EA34985E11384016664C1839F1C9C"
+                  }
+              ],
+    "global_files":  [
+                         {
+                             "path":  "C:/Users/beck/.codex/AGENTS.md",
+                             "sha256":  "49E40BD1E4C84AC52BFE87A0E77AB0DCD55411E702F51649DA3976EC2CC4092E"
+                         },
+                         {
+                             "path":  "C:/Users/beck/.codex/config.toml",
+                             "sha256":  "7A2B76079ABDB4FE2F368A288A058BCFA6B05A29EE020D2236055DAAA6174278"
+                         },
+                         {
+                             "path":  "C:/Users/beck/.codex/agents/implementation-worker.toml",
+                             "sha256":  "1AFAE3220ADD10037285413C067F9B51D9C1EE78C70632EF2859E23024ED87FF"
+                         },
+                         {
+                             "path":  "C:/Users/beck/.codex/agents/routine-worker.toml",
+                             "sha256":  "0862E1228F896D4B7C8DE8F6FEAC57C272EF87C8D21C1B511D4EFBB58BA2C2E5"
+                         },
+                         {
+                             "path":  "C:/Users/beck/.agents/skills/advisor-worker-orchestration/SKILL.md",
+                             "sha256":  "F75E6BAAAB9F4D6F847C3764AAE1ED90ECC6F8C6535DD1D4B668390C1F42BD46"
+                         },
+                         {
+                             "path":  "C:/Users/beck/.agents/skills/agentic-health-check/scripts/agentic_health_check.py",
+                             "sha256":  "E60BCD180B527CA975CE9F4BC295972F133A97F46193A407A2B94C706950E790"
+                         }
+                     ]
+}

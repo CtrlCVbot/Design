@@ -1,0 +1,4 @@
+interface:
+  display_name: "Advisor Worker Orchestration"
+  short_description: "안전한 구현 위임, 독립 검증, 복구 절차 안내"
+  default_prompt: "Use $advisor-worker-orchestration to prepare a bounded implementation delegation and independent verification plan."

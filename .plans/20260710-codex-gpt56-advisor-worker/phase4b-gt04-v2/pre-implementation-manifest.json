@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-powershell",
+  "created_at": "2026-07-10T11:16:05.7887891+09:00",
+  "worker_thread_id": "019f49cf-2568-7501-ad61-1f8a594039f6",
+  "worker_model": "gpt-5.6-terra",
+  "worker_reasoning_effort": "medium",
+  "fixture_precondition": "absent",
+  "files": [
+    {
+      "path": "EVAL.md",
+      "size_bytes": 5278,
+      "sha256": "78C8D30AFB0BF0A6E282DFEE7D15746F99015520C0F5356D57B4D3004616E490"
+    },
+    {
+      "path": "WB-phase4b-v2-fixture-001.md",
+      "size_bytes": 4939,
+      "sha256": "4BFD01836817BD76E25DE252A2C7120F1C5B350006F29ECD5DAF60CE5F0C6C42"
+    },
+    {
+      "path": "../phase4b-gt04/EVAL.md",
+      "size_bytes": 3430,
+      "sha256": "D27A7CCD78EF1D85782E877141672D5093667799B465F3D5ACC1625006A38FCD"
+    },
+    {
+      "path": "../phase4b-gt04/run-result.json",
+      "size_bytes": 3995,
+      "sha256": "F853096C793EE8E5C9E6BF3F7991589EBC489037C2B13477E104521AE22C7F83"
+    }
+  ],
+  "global_files": [
+    {
+      "path": "C:/Users/beck/.codex/AGENTS.md",
+      "sha256": "49E40BD1E4C84AC52BFE87A0E77AB0DCD55411E702F51649DA3976EC2CC4092E"
+    },
+    {
+      "path": "C:/Users/beck/.codex/config.toml",
+      "sha256": "7A2B76079ABDB4FE2F368A288A058BCFA6B05A29EE020D2236055DAAA6174278"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/implementation-worker.toml",
+      "sha256": "1AFAE3220ADD10037285413C067F9B51D9C1EE78C70632EF2859E23024ED87FF"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/routine-worker.toml",
+      "sha256": "0862E1228F896D4B7C8DE8F6FEAC57C272EF87C8D21C1B511D4EFBB58BA2C2E5"
+    },
+    {
+      "path": "C:/Users/beck/.agents/skills/advisor-worker-orchestration/SKILL.md",
+      "sha256": "F75E6BAAAB9F4D6F847C3764AAE1ED90ECC6F8C6535DD1D4B668390C1F42BD46"
+    },
+    {
+      "path": "C:/Users/beck/.agents/skills/agentic-health-check/scripts/agentic_health_check.py",
+      "sha256": "E60BCD180B527CA975CE9F4BC295972F133A97F46193A407A2B94C706950E790"
+    }
+  ]
+}

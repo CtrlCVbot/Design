@@ -1,0 +1,92 @@
+{
+    "schema_version":  1,
+    "fixture_id":  "planning-worker-capability-01",
+    "created_at":  "2026-07-10T13:41:17.0428918+09:00",
+    "files":  [
+                  {
+                      "path":  "EVAL.md",
+                      "bytes":  1856,
+                      "sha256":  "1C9C68D290AB847BAAB3C816B0313D0B26B8091A6F647E76E3BB6742DBA16266"
+                  },
+                  {
+                      "path":  "briefs/capability-01.md",
+                      "bytes":  3017,
+                      "sha256":  "85CBDC28C7F798CA603F58EF0D12C55C497DFE468AD7525734CB57CABCE18483"
+                  },
+                  {
+                      "path":  "model-smoke-prompt.md",
+                      "bytes":  1062,
+                      "sha256":  "945D62A79B27B7B43EA5F8132662F46A18FC7F257490547ED2DBAE3D7218EF0F"
+                  },
+                  {
+                      "path":  "capability-parent-prompt.md",
+                      "bytes":  1819,
+                      "sha256":  "DAF85A671E7C409AE118077E09265BBA53A81471B6613C23BBF056ECEEDA3DBF"
+                  },
+                  {
+                      "path":  "verify_manifest.ps1",
+                      "bytes":  1299,
+                      "sha256":  "440FEC6A4CDDA1EFB3AF9353B0E452AF3330AE6021EC9CCEC650A1C4416F5F97"
+                  },
+                  {
+                      "path":  "test_verify_manifest.ps1",
+                      "bytes":  1562,
+                      "sha256":  "761834ED4B18621EB757E2DA82D533E02AF02C3C632FAE8CD7B0BB8906716BF9"
+                  },
+                  {
+                      "path":  "fixture/evidence/product.md",
+                      "bytes":  408,
+                      "sha256":  "555BE5798FE657F23F30D101A4337F27FEEC04086DD2E81B5B53BBA279C3BC32"
+                  },
+                  {
+                      "path":  "fixture/evidence/architecture.md",
+                      "bytes":  380,
+                      "sha256":  "5B4C3CE43395711A8AAAE7A299D46FF5CFBF77AD8E90AB3D38D8C905610698ED"
+                  },
+                  {
+                      "path":  "fixture/evidence/operations.md",
+                      "bytes":  465,
+                      "sha256":  "5A5B4D6DA7689F34C81B3E1E3C38C52ABCE97893D3F5FBFDECC9A7C6ECBB9002"
+                  },
+                  {
+                      "path":  "fixture/verify_planning.ps1",
+                      "bytes":  2100,
+                      "sha256":  "A26A7F602B6602553D5B85A45FEE0AB61CB739B41BF3DFBA1C878DC5BEDCB8D9"
+                  },
+                  {
+                      "path":  "fixture/test_verify_planning.ps1",
+                      "bytes":  2492,
+                      "sha256":  "34798F7FEBB3144E09ED76B556952162D20814F2051960AB29C16A24A6F0BDF3"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/AGENTS.md",
+                      "bytes":  11476,
+                      "sha256":  "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/config.toml",
+                      "bytes":  10366,
+                      "sha256":  "256BCCC3EB28C9631B365CA63D5ADEA9AFD618D05ACB5C180C9C4F39038664F2"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.codex/agents/planning-worker.toml",
+                      "bytes":  2328,
+                      "sha256":  "56BC6ED90DF7DD2F0E744E72E35FB03E49A76BFBCF58657C460818083727AB06"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.agents/skills/agentic-health-check/scripts/agentic_health_check.py",
+                      "bytes":  19597,
+                      "sha256":  "A5B510B9082D5F316FC747323418326C0BEDD3C76BB8806807F28F160C108BD5"
+                  },
+                  {
+                      "path":  "C:/Users/beck/.agents/skills/agentic-health-check/tests/test_agentic_health_check.py",
+                      "bytes":  8008,
+                      "sha256":  "60FF90E168A7B8D7122DADF8B22118E39219AD408357C73D614B5499E16C3829"
+                  }
+              ],
+    "expected_initial_output_files":  0,
+    "worker_token_ceiling":  300000,
+    "wait_timeout_ms":  600000,
+    "expected_model":  "gpt-5.6-terra",
+    "expected_effort":  "medium"
+}

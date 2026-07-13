@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "fixture_id": "GT04-json-normalization-v2-3-app-local-bundle",
+  "created_at": "2026-07-10T03:30:13.630Z",
+  "phase": "pre-implementation",
+  "fixture_precondition": "absent",
+  "worker_allowed_paths": [
+    "fixture/**",
+    "transport/**",
+    "policy-candidate/**",
+    "probe-parent-prompt.md",
+    "diagnostic-parent-prompt.md"
+  ],
+  "contract_files": [
+    {
+      "path": "EVAL.md",
+      "bytes": 5561,
+      "sha256": "CF0CA53B6330CB36BB44B79A2ECF29312AA35B3F68090EE9482B9A9E5B829E6B"
+    },
+    {
+      "path": "POLICY-CONTRACT.md",
+      "bytes": 1266,
+      "sha256": "AE235A2EC58F5648FA60F4E85DA0EF59DB664F072ADD491B4C68FDA0C6CFA278"
+    },
+    {
+      "path": "briefs/trial-01.md",
+      "bytes": 5216,
+      "sha256": "8D66DAD382B79A3D91D97567F873015BF9CCADE6E6E3CBC4C0AB2CC4BB9E7AD6"
+    },
+    {
+      "path": "WB-phase4b-v2-3-bundle-001.md",
+      "bytes": 6055,
+      "sha256": "D0F0C22D46D5696FBFF426C79C8EF22727B2E47F28945FC8A0E29DDEA91B6D85"
+    }
+  ],
+  "source_evidence": [
+    {
+      "path": "../phase4b-gt04-v2-2/EVAL.md",
+      "sha256": "DF643891F11FC9843AC41B4FCC667D4636B1CA75EFE71D51CAF736A377FDEB11"
+    },
+    {
+      "path": "../phase4b-gt04-v2-2/probe-result.json",
+      "sha256": "9AAA5491984F2C5BCE5C1505A18B851B476731E9AC93F6CFF06190269112DE1E"
+    },
+    {
+      "path": "../phase4b-gt04-v2-2/transport/probe-source.mjs",
+      "sha256": "265180EDA388E2F69AD5A094D6A6044B212A45C14B1673ADD7FA641472556209"
+    },
+    {
+      "path": "../phase4b-gt04-v2-2/transport/run-source.mjs",
+      "sha256": "9B64604B21BEC3A63F24E63CB0F77433432FF9E865DF9F9B449788DA35599A76"
+    }
+  ],
+  "global_files": [
+    {
+      "path": "C:/Users/beck/.codex/AGENTS.md",
+      "sha256": "49E40BD1E4C84AC52BFE87A0E77AB0DCD55411E702F51649DA3976EC2CC4092E"
+    },
+    {
+      "path": "C:/Users/beck/.codex/config.toml",
+      "sha256": "1A4C9A247B145AF5F354BF5B9046EEEF3DACAB70745316551A286772BD02535A"
+    },
+    {
+      "path": "C:/Users/beck/.agents/skills/advisor-worker-orchestration/SKILL.md",
+      "sha256": "F75E6BAAAB9F4D6F847C3764AAE1ED90ECC6F8C6535DD1D4B668390C1F42BD46"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/implementation-worker.toml",
+      "sha256": "1AFAE3220ADD10037285413C067F9B51D9C1EE78C70632EF2859E23024ED87FF"
+    },
+    {
+      "path": "C:/Users/beck/.codex/agents/routine-worker.toml",
+      "sha256": "0862E1228F896D4B7C8DE8F6FEAC57C272EF87C8D21C1B511D4EFBB58BA2C2E5"
+    }
+  ],
+  "app_local_bundle": [
+    {
+      "path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex.exe",
+      "bytes": 341269296,
+      "sha256": "B88F944EF63556527CAAE2AD43F80B88B8BE174DC09B09D9B037FC94240A0E91"
+    },
+    {
+      "path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex-code-mode-host.exe",
+      "bytes": 53593904,
+      "sha256": "47D4F085833502BDA816607121FA3B9B2D3381F8511A43757F0D77F4760DDEB3"
+    },
+    {
+      "path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex-command-runner.exe",
+      "bytes": 1271600,
+      "sha256": "01A582479BF7D31E3EF3F2CBA5BB22DBA5A1D5542CE850B44BBE0217BB4A327E"
+    },
+    {
+      "path": "C:/Users/beck/AppData/Local/OpenAI/Codex/bin/a7c12ebff69fb123/codex-windows-sandbox-setup.exe",
+      "bytes": 8821040,
+      "sha256": "5FBFC00734EBB13DC6E0D0323ABE130AD75A979F59A3B84299BDD48A67844FB2"
+    }
+  ]
+}
