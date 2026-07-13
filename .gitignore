@@ -3,6 +3,10 @@
 .obsidian/
 output/playwright/
 
+# Python test caches
+__pycache__/
+*.py[cod]
+
 # External source snapshots and delivery archives
 .references/code/
 .plans/20260430-cargo-order-admin/*.zip
