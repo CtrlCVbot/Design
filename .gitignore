@@ -1,0 +1,10 @@
+# Local runtime and editor state
+.harness-metrics.jsonl
+.obsidian/
+output/playwright/
+
+# External source snapshots and delivery archives
+.references/code/
+.plans/20260430-cargo-order-admin/*.zip
+.plans/20260624-cargo-carowner-app-design/publishing/.thumbnail
+.plans/20260624-cargo-carowner-app-design/publishing/화물 배차 앱 3차 (standalone).html
