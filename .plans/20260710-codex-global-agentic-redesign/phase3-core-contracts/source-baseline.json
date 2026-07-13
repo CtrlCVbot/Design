@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "captured_at": "2026-07-13T00:00:00+09:00",
+  "tree_digest_rule": "SHA256 of UTF-8 relative/path=fileSHA256 lines sorted by relative path with ordinal code-point order and joined by LF",
+  "summary": {
+    "source_directories": 10,
+    "source_files": 33,
+    "source_bytes": 173510,
+    "global_directories": 6,
+    "global_files": 22,
+    "global_bytes": 125181,
+    "claude_kit_directories": 4,
+    "claude_kit_files": 11,
+    "claude_kit_bytes": 48329
+  },
+  "sources": [
+    {"target":"verification-router","scope":"global","path":"C:/Users/beck/.agents/skills/verification-engine","files":2,"bytes":12740,"sha256_tree":"B8415D937AAEDDEE3CC3F3E991B139EBC608626C85028CE9134EA8578E56FA2C","migration":"quarantine after target gate"},
+    {"target":"verification-router","scope":"global","path":"C:/Users/beck/.agents/skills/verify-implementation","files":2,"bytes":12372,"sha256_tree":"9DDCAE5D279C076EA0EB3D46A667B030E32EAF306F48B2FDFC6B979E3942707D","migration":"quarantine after target gate"},
+    {"target":"verification-router","scope":"claude-kit","path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/dev-verification-engine","files":2,"bytes":12590,"sha256_tree":"C899127149BC6A750C9ED0A7CD76B6308A753ABDECDEE39FE9BEBE1243FE7C72","migration":"defer to Phase 4"},
+    {"target":"security-review","scope":"global","path":"C:/Users/beck/.agents/quarantine/20260713-phase3-security-review/security-pipeline","original_path":"C:/Users/beck/.agents/skills/security-pipeline","files":1,"bytes":5030,"sha256_tree":"22FA3403BFD434EC6BA4CC8EA1B758EBC057E8A17B6F904B742A30CF23491A0B","migration":"quarantined after G3-1 PASS; rollback mapping in phase3-security-review/quarantine-manifest.json"},
+    {"target":"security-review","scope":"claude-kit","path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/dev-security-pipeline","files":1,"bytes":4905,"sha256_tree":"BBDFF1A75735E32B29681A5C950847A162974B4D15C8FED7B6BFF35A03074376","migration":"defer to Phase 4"},
+    {"target":"skill-lifecycle","scope":"global","path":"C:/Users/beck/.agents/skills/manage-skills","files":2,"bytes":21422,"sha256_tree":"FC7122597026D04475875AB4B416FBDDF5F7CD1567EE682BA8227D4ABE4C1392","migration":"quarantine after target gate"},
+    {"target":"skill-lifecycle","scope":"global","path":"C:/Users/beck/.agents/skills/skill-factory","files":8,"bytes":44130,"sha256_tree":"B734A5FABA4FD5F23089667016E5023165809A763329BA14D729D3A5D4862331","migration":"quarantine after target gate"},
+    {"target":"session-closeout","scope":"global","path":"C:/Users/beck/.agents/skills/session-wrap","files":7,"bytes":29487,"sha256_tree":"C6B9FEB6AB94E0439A0D2227FEE07EB0BF73C5C07E4E476D18DFC56AF44B8344","migration":"quarantine after target gate"},
+    {"target":"session-closeout","scope":"claude-kit","path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/session-wrap","files":7,"bytes":26481,"sha256_tree":"3D89A53826FFBD0445E08600123D13CA28307AC09598CA83F74BD875DE0F396E","migration":"defer to Phase 4"},
+    {"target":"session-closeout","scope":"claude-kit","path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/session-wrap-suggest","files":1,"bytes":4353,"sha256_tree":"2C648C297E0F11083134E89F7EA608147F08AD388AD45CAB8E4A88CAA15976E2","migration":"defer to Phase 4 quarantine candidate"}
+  ]
+}

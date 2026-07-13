@@ -1,0 +1,21 @@
+{
+  "captured_at": "2026-07-10T00:00:00+09:00",
+  "source_root": "C:/Users/beck/.agents/skills/agentic-health-check",
+  "backup_root": "./before",
+  "baseline_health": {
+    "config_status": "warn",
+    "trusted_hooks": 22,
+    "plugin_expected_hooks": 7,
+    "reported_stale_hooks": 15,
+    "reported_skill_stale_files": 0,
+    "reported_command_stale_files": 0,
+    "custom_agent_routes": "3/3",
+    "unit_tests": "9/9 PASS"
+  },
+  "files": [
+    {"path": "references/checks.md", "sha256": "E2A950336EAA6E6DBC64567E7A8C1E8378CA6104252EA6FC8103960C91833DBF"},
+    {"path": "scripts/agentic_health_check.py", "sha256": "A5B510B9082D5F316FC747323418326C0BEDD3C76BB8806807F28F160C108BD5"},
+    {"path": "SKILL.md", "sha256": "FE8CD78BDC5C0028D5FA220CDA01EA453DB0E9CEB65F18072F5FA6CFAE436847"},
+    {"path": "tests/test_agentic_health_check.py", "sha256": "60FF90E168A7B8D7122DADF8B22118E39219AD408357C73D614B5499E16C3829"}
+  ]
+}

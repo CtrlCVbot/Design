@@ -1,0 +1,108 @@
+{
+  "schema_version": "1.0",
+  "phase": "Phase 3 core skill contracts",
+  "status": "IN_PROGRESS_G3_1_COMPLETE",
+  "implementation_started": true,
+  "methodology": ["Contract-First", "Docs-as-Code", "Risk Review"],
+  "constraints": {
+    "target_count": 4,
+    "max_files_per_target": 3,
+    "max_total_target_files": 12,
+    "automatic_fanout": false,
+    "automatic_fix": false,
+    "global_hard_block": false,
+    "default_file_write": false,
+    "delete_before_phase7": false,
+    "claude_kit_edit_before_phase4": false
+  },
+  "implementation_order": ["security-review", "verification-router", "skill-lifecycle", "session-closeout"],
+  "targets": [
+    {
+      "id": "NEW-003",
+      "name": "security-review",
+      "path": "C:/Users/beck/.agents/skills/security-review/SKILL.md",
+      "status": "IMPLEMENTED_G3_1",
+      "responsibility": "Explicit evidence-based review for risk-high security changes",
+      "triggers": ["explicit user request", "methodology-router risk-high route after scope inspection"],
+      "excluded_triggers": ["path-only automatic trigger", "commit-time automatic block", "global hook"],
+      "inputs": ["absolute repo root", "change scope or diff", "trust and data boundaries", "auth roles", "available tests"],
+      "workflow": ["confirm scope and threat surface", "inspect local evidence", "verify time-sensitive CVE or advisory claims with official primary sources", "classify findings", "propose fix and regression test", "report residual risk"],
+      "outputs": ["severity", "confidence", "evidence", "attack path", "impact", "fix", "regression test", "residual risk"],
+      "non_goals": ["effort self-enforcement", "automatic fix", "commit block", "secret value output", "unverified exhaustive scan claim"],
+      "sources": [
+        {"path":"C:/Users/beck/.agents/skills/security-pipeline","preserve":["CWE and STRIDE review lenses","severity output"],"discard":["automatic trigger","missing slash commands","effort enforcement","automatic gate"]},
+        {"path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/dev-security-pipeline","preserve":["project risk categories"],"defer_to":"Phase 4"},
+        {"path":"C:/Users/beck/.codex/local-plugins/claude-kit/hooks/security-auto-trigger.js","preserve":["sensitive-change signal ideas"],"defer_to":"Phase 5 isolated hook pilot"}
+      ],
+      "acceptance": ["SEC-01","SEC-02","SEC-03","SEC-04","SEC-05","SEC-06"],
+      "rollback": "Quarantine the new target and retain original sources until Phase 7"
+    },
+    {
+      "id": "NEW-002",
+      "name": "verification-router",
+      "path": "C:/Users/beck/.agents/skills/verification-router/SKILL.md",
+      "status": "CONTRACT_READY",
+      "responsibility": "Select and run the smallest valid project verification and report evidence",
+      "triggers": ["explicit verification request", "after non-trivial implementation", "before requested PR or closeout"],
+      "excluded_triggers": ["automatic verify-skill fanout", "automatic handoff creation"],
+      "inputs": ["absolute repo root", "change scope", "project instructions", "required tests", "optional risk profile"],
+      "workflow": ["confirm repository boundary", "discover project contract", "run focused checks", "run justified blast-radius checks", "report evidence or repair scope"],
+      "outputs": ["commands", "exit codes", "focused result", "blast-radius result", "scope gaps", "PASS WARN FAIL", "repair evidence"],
+      "non_goals": ["source auto-fix", "five-retry loop", "commit push PR", "missing slash command", "hidden effort behavior"],
+      "sources": [
+        {"path":"C:/Users/beck/.agents/skills/verification-engine","preserve":["focused-to-broader verification","fresh-context independence"],"discard":["auto-fix loop","stale commands and models","handoff coupling"]},
+        {"path":"C:/Users/beck/.agents/skills/verify-implementation","preserve":["project verification discovery"],"discard":["verify-skill fanout","self-modifying target lists"]},
+        {"path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/dev-verification-engine","preserve":["project consumer evidence"],"defer_to":"Phase 4"}
+      ],
+      "dependencies": ["security-review optional for confirmed risk-high scope"],
+      "acceptance": ["VER-01","VER-02","VER-03","VER-04","VER-05","VER-06"],
+      "rollback": "Quarantine the new target and restore original global verification skills from hash manifest"
+    },
+    {
+      "id": "NEW-004",
+      "name": "skill-lifecycle",
+      "path": "C:/Users/beck/.agents/skills/skill-lifecycle/SKILL.md",
+      "status": "CONTRACT_READY",
+      "responsibility": "Inspect, create or update, validate, merge, and quarantine skills with explicit scope",
+      "triggers": ["explicit skill create update merge audit or retirement request"],
+      "excluded_triggers": ["automatic session mining", "automatic AGENTS registration"],
+      "inputs": ["global or project scope", "objective", "reuse evidence", "target path", "allowed changes", "retirement conditions"],
+      "workflow": ["search existing skills and consumers", "choose NO-OP UPDATE CREATE MERGE or QUARANTINE", "reuse official skill-creator", "validate", "report rollback"],
+      "outputs": ["disposition", "changed files", "consumer evidence", "validation", "rollback"],
+      "non_goals": ["skill-creator duplication", "Agent Teams requirement", "automatic skill generation", "consumer-free deletion assumption", "global package install"],
+      "sources": [
+        {"path":"C:/Users/beck/.agents/skills/manage-skills","preserve":["drift and consumer inspection"],"discard":["self-modifying verify lists","automatic project AGENTS generation"]},
+        {"path":"C:/Users/beck/.agents/skills/skill-factory","preserve":["duplicate search","reusable-pattern evidence"],"discard":["TeamCreate workflow","Unix script requirement","automatic session mining"]},
+        {"path":"C:/Users/beck/.codex/skills/.system/skill-creator","use_as":"authoring and validation dependency; do not copy"},
+        {"path":"C:/Users/beck/.agents/skills/agentic-health-check","use_as":"post-change global health dependency"}
+      ],
+      "acceptance": ["LIFE-01","LIFE-02","LIFE-03","LIFE-04","LIFE-05","LIFE-06"],
+      "rollback": "Restore source skills from manifest; never delete a consumer-bound skill"
+    },
+    {
+      "id": "NEW-005",
+      "name": "session-closeout",
+      "path": "C:/Users/beck/.agents/skills/session-closeout/SKILL.md",
+      "status": "CONTRACT_READY",
+      "responsibility": "Produce a concise resumable summary of the current session",
+      "triggers": ["explicit session closeout wrap handoff or cleanup request"],
+      "excluded_triggers": ["ordinary farewell", "tool-count threshold", "Stop hook"],
+      "inputs": ["repo root", "user goal", "git status or diff", "tests run", "current plan or handoff", "remaining blockers"],
+      "workflow": ["collect read-only state", "separate completed validation risk and next actions", "optionally use one read-only reviewer", "report in Korean"],
+      "outputs": ["completed work", "changed files", "validation", "unapplied feedback", "risks", "next step", "optional handoff path"],
+      "non_goals": ["four-plus-one agent fanout", "Unix temp pipeline", "automatic memory or instinct write", "automatic docs edit", "commit push PR", "automatic suggestion hook"],
+      "sources": [
+        {"path":"C:/Users/beck/.agents/skills/session-wrap","preserve":["change validation risk and follow-up summary"],"discard":["five-agent fanout","homunculus","Unix temp files","automatic writes"]},
+        {"path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/session-wrap","preserve":["compatibility consumer evidence"],"defer_to":"Phase 4"},
+        {"path":"C:/Users/beck/.codex/local-plugins/claude-kit/skills/session-wrap-suggest","preserve":[],"defer_to":"Phase 4 quarantine candidate"}
+      ],
+      "acceptance": ["CLOSE-01","CLOSE-02","CLOSE-03","CLOSE-04","CLOSE-05","CLOSE-06"],
+      "rollback": "Quarantine the new target and restore global session-wrap from hash manifest"
+    }
+  ],
+  "gate": {
+    "contract": "G3-1_IMPLEMENTED; G3-2_TO_G3-4_REVIEW_READY",
+    "implementation": "G3-1_PASS",
+    "next_action": "Review G3-1 evidence, then approve verification-router only"
+  }
+}

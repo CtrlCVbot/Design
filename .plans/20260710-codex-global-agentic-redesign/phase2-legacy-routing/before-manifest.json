@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "phase": "Phase 2 legacy routing quarantine",
+  "captured_at": "2026-07-13T00:00:00+09:00",
+  "operation": "Move-Item only; no deletion",
+  "source_root": "C:\\Users\\beck\\.agents\\skills",
+  "quarantine_root": "C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing",
+  "moved_skill_count": 4,
+  "moved_file_count": 12,
+  "protected_before": {
+    "config": "6ED39C2C96C7B2ADB42EC7F8D2D40AAD2041280EE60E891C6239852503B58BDC",
+    "agents_md": "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B",
+    "custom_agents": "7FDEA2C40BF54201E9C9AE4B6E5C5E5EAE97CB39FA614D6CD2FEB83E1E867854",
+    "claude_kit": "FB81B601E34EA532B472701FEB0B1E9682159708B8466CA58EA68F7C942C6D74",
+    "agentic_health": "F78193D126AA53F5FC4F612A88E7AD7890F50EA62BEEBAB67FA1195116C5C27A",
+    "continuous_learning": "BDCB5C32A1F2118721DC30BAC04BB22B9EE7FFEFA5330B5C2EB291624A1B0A28"
+  },
+  "deferred": {
+    "skill": "continuous-learning-v2",
+    "original_path": "C:\\Users\\beck\\.agents\\skills\\continuous-learning-v2",
+    "file_count": 11,
+    "tree_digest_sha256": "BDCB5C32A1F2118721DC30BAC04BB22B9EE7FFEFA5330B5C2EB291624A1B0A28",
+    "disposition": "DEFERRED_CONSUMER_BOUND",
+    "reason": "claude-kit compatibility skill 및 session-wrap 문서 consumer가 확인되어 Phase 2 consumer-free gate를 통과하지 못함"
+  },
+  "files": [
+    {"skill":"cc-dev-agent","relative_path":"SKILL.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\SKILL.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\SKILL.md","sha256":"4413938DA36095C78E79FF512E0D79F24E7FFBD240F32587C26B1E1AF09A2F10","size_bytes":4161,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/context-engineering.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\context-engineering.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\context-engineering.md","sha256":"3B9D73276EEA51F2D173394F86308761E842284A1D8F053EBE6175523329B91A","size_bytes":3751,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/playwright-agents.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\playwright-agents.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\playwright-agents.md","sha256":"69F5FE2E8634488B0AF98D2E34CF86729B3E3EA31890EEA43400A09A4DC66DB3","size_bytes":5456,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/post-dev-workflow.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\post-dev-workflow.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\post-dev-workflow.md","sha256":"53A6BC8EC73560DAF6BC1C4056C924B22681C3B2D547F5C5D4CB58A334D6EF55","size_bytes":8110,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/prompts.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\prompts.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\prompts.md","sha256":"3AA08CFEA39BC7E75DAAFB7A3250C1CE15D767848C51F3D047C98AD2B629C118","size_bytes":5618,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/sub-agents.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\sub-agents.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\sub-agents.md","sha256":"F9DC7F797D32E747D6E209B55E3C93B6B0C7E03E485793CF911DBFFF74B1A5C9","size_bytes":6673,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/templates.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\templates.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\templates.md","sha256":"ECBC6A57C37A541C1E02FFF020544F3828A020519560FF484C3F9F3D1DA994D6","size_bytes":4732,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"cc-dev-agent","relative_path":"references/troubleshooting.md","original_path":"C:\\Users\\beck\\.agents\\skills\\cc-dev-agent\\references\\troubleshooting.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\cc-dev-agent\\references\\troubleshooting.md","sha256":"DC253E9AD02E684A53AFE9BD7A67F0A58B6D64FC60DA4C68FC2F3647140D579D","size_bytes":5178,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"team-orchestrator","relative_path":"SKILL.md","original_path":"C:\\Users\\beck\\.agents\\skills\\team-orchestrator\\SKILL.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\team-orchestrator\\SKILL.md","sha256":"14334E459A9DE9AC6272DA502BC9FEF4C3628661085617D2DF02E08E14CD138A","size_bytes":7989,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"strategic-compact","relative_path":"SKILL.md","original_path":"C:\\Users\\beck\\.agents\\skills\\strategic-compact\\SKILL.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\strategic-compact\\SKILL.md","sha256":"7F48D98716C57A6A7B0C16D90125821A13054A56C783A42BFE1C5403EBC000AF","size_bytes":2112,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"strategic-compact","relative_path":"suggest-compact.sh","original_path":"C:\\Users\\beck\\.agents\\skills\\strategic-compact\\suggest-compact.sh","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\strategic-compact\\suggest-compact.sh","sha256":"71535FC67D33BA97437A9AB76F474AACF35F5374B4D943FCF657D7A6AFEBEFED","size_bytes":1689,"disposition":"PLANNED_QUARANTINE"},
+    {"skill":"using-superpowers","relative_path":"SKILL.md","original_path":"C:\\Users\\beck\\.agents\\skills\\using-superpowers\\SKILL.md","quarantine_path":"C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\using-superpowers\\SKILL.md","sha256":"9E0909F208B770B70E755672C8D0C8FCF655EE5D0367BD775E864293166E0EF1","size_bytes":2197,"disposition":"PLANNED_QUARANTINE"}
+  ]
+}

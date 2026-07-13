@@ -1,0 +1,31 @@
+{
+  "gate": "G3-1",
+  "status": "PASS",
+  "target": "C:/Users/beck/.agents/skills/security-review",
+  "evidence": ["before-hashes.json", "fixtures", "EVAL.md", "quarantine-manifest.json"],
+  "scope_protection": {
+    "config_sha256": "6ED39C2C96C7B2ADB42EC7F8D2D40AAD2041280EE60E891C6239852503B58BDC",
+    "agents_sha256_tree": "7FDEA2C40BF54201E9C9AE4B6E5C5E5EAE97CB39FA614D6CD2FEB83E1E867854",
+    "claude_kit_sha256_tree": "FB81B601E34EA532B472701FEB0B1E9682159708B8466CA58EA68F7C942C6D74",
+    "agents_policy_sha256": "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B",
+    "methodology_router_sha256_before": "E9B0D4A7A34F0173F7C31F3AF488E905287AC3595B61B4239BD795220E956B3A",
+    "methodology_router_sha256_after": "D9E80AEEFCD94C021D542031FC0DDB3D5A8293D5E5021BB7D3AFE5265E366150",
+    "security_review_sha256_after": "595F14BF2002969C7C7DEF231BD7ED6D526127A27F4F03FE76B00EBA4CEF2217"
+  },
+  "tests": [
+    {"name":"quick_validate","result":"Skill is valid!"},
+    {"name":"static fixture/EVAL verification","result":"PASS; unsafe is reviewable only, safe has no asserted vulnerability, no secret values"},
+    {"name":"agentic-health-check unit","result":"19 tests PASS"},
+    {"name":"agentic-health-check live","result":"exit 0; skills 63; hooks global/project/unknown 7/15/0; stale files 0"}
+  ],
+  "advisor_verification": {
+    "quick_validate": "PASS with PYTHONUTF8=1",
+    "methodology_router_validate": "PASS with PYTHONUTF8=1",
+    "health_check_unit": "19/19 PASS",
+    "health_check_live": "PASS; skills 63; hook trust 7/15/0",
+    "forward_test_agent": "019f58f7-127c-78f2-8975-24c6bde3ddbd",
+    "forward_test": "PASS; unsafe DOM XSS identified, shell wrapper risk kept unconfirmed without implementation, safe snippet has no confirmed finding",
+    "protected_hashes_match": true
+  },
+  "quarantine": {"source_absent":true,"destination":"C:/Users/beck/.agents/quarantine/20260713-phase3-security-review/security-pipeline","skill_md_sha256":"E464AF00EEE9E9773A548F4E4C1D8E82651856167844CEFA67E0F5996C13E4C4","skill_md_size":5030}
+}

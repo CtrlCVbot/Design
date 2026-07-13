@@ -1,0 +1,12 @@
+{
+  "captured_at": "2026-07-13T00:00:00+09:00",
+  "algorithm": "SHA-256",
+  "files": [
+    {"path":"C:/Users/beck/.agents/skills/methodology-router/SKILL.md","hash":"E9B0D4A7A34F0173F7C31F3AF488E905287AC3595B61B4239BD795220E956B3A","purpose":"routing source baseline"},
+    {"path":"C:/Users/beck/.agents/skills/security-pipeline/SKILL.md","hash":"E464AF00EEE9E9773A548F4E4C1D8E82651856167844CEFA67E0F5996C13E4C4","purpose":"quarantine source baseline"},
+    {"path":"C:/Users/beck/.codex/config.toml","hash":"6ED39C2C96C7B2ADB42EC7F8D2D40AAD2041280EE60E891C6239852503B58BDC","purpose":"protected config"},
+    {"path":"C:/Users/beck/.codex/AGENTS.md","hash":"2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B","purpose":"protected policy"},
+    {"path":"C:/Users/beck/.codex/agents","sha256_tree":"7FDEA2C40BF54201E9C9AE4B6E5C5E5EAE97CB39FA614D6CD2FEB83E1E867854","purpose":"protected custom agents"},
+    {"path":"C:/Users/beck/.codex/local-plugins/claude-kit","sha256_tree":"FB81B601E34EA532B472701FEB0B1E9682159708B8466CA58EA68F7C942C6D74","purpose":"protected claude-kit source"}
+  ]
+}

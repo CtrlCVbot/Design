@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "completed_at": "2026-07-13T00:00:00+09:00",
+  "status": "PASS",
+  "operation": "Move-Item only; no deletion",
+  "moved_skills": ["cc-dev-agent", "team-orchestrator", "strategic-compact", "using-superpowers"],
+  "moved_file_count": 12,
+  "total_size_bytes": 57666,
+  "mapping_digest_sha256": "6C2DF8D8873DD3F86F233CF5844D302B0E459682B05A8E6809F4B7D68887FD69",
+  "manifest_evidence": "before-manifest.json and C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\quarantine-manifest.json",
+  "worker": {
+    "agent_id": "019f58bd-2151-7ff1-a885-40edb1ce146a",
+    "role": "implementation_worker",
+    "model": "gpt-5.6-terra",
+    "effort": "medium",
+    "evidence": "config-derived",
+    "runtime_reported_model": false
+  },
+  "protected_after": {
+    "config": "6ED39C2C96C7B2ADB42EC7F8D2D40AAD2041280EE60E891C6239852503B58BDC",
+    "agents_md": "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B",
+    "custom_agents": "7FDEA2C40BF54201E9C9AE4B6E5C5E5EAE97CB39FA614D6CD2FEB83E1E867854",
+    "claude_kit": "FB81B601E34EA532B472701FEB0B1E9682159708B8466CA58EA68F7C942C6D74",
+    "agentic_health": "F78193D126AA53F5FC4F612A88E7AD7890F50EA62BEEBAB67FA1195116C5C27A",
+    "continuous_learning": "BDCB5C32A1F2118721DC30BAC04BB22B9EE7FFEFA5330B5C2EB291624A1B0A28"
+  },
+  "protected_hashes_unchanged": true,
+  "deferred": {"skill":"continuous-learning-v2","state":"DEFERRED_CONSUMER_BOUND","file_count":11,"tree_digest_sha256":"BDCB5C32A1F2118721DC30BAC04BB22B9EE7FFEFA5330B5C2EB291624A1B0A28"},
+  "health_check": {"exit_code":0,"unit_tests":"19/19 PASS","active_skills":63,"plugin_count":14,"active_scan_files":440,"hook_trust":{"global":7,"project":15,"unknown":0},"runtime_references":{"active":14,"inactive":7}},
+  "fresh_context_smoke": {
+    "agent_id": "019f58c6-aa7a-7120-b404-91414de802eb",
+    "status": "PASS",
+    "mode": "read-only live filesystem inspection",
+    "quarantined_skills_absent_from_active_root": 4,
+    "core_routing_skills_present": 5,
+    "custom_agents_present": 3,
+    "broken_active_consumers": 0,
+    "project_entry_points": ["C:\\Work\\Dev\\Design\\AGENTS.md", "C:\\Work\\Dev\\Design\\.codex\\hooks.json"]
+  },
+  "rollback": "For each listed skill, Move-Item C:\\Users\\beck\\.agents\\quarantine\\20260713-phase2-legacy-routing\\<skill> C:\\Users\\beck\\.agents\\skills\\ and verify quarantine-manifest.json SHA-256/size mapping."
+}

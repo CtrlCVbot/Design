@@ -1,0 +1,16 @@
+{
+  "migration": "G3-1 security-review",
+  "operation": "Move-Item after target validation; no deletion",
+  "source": "C:/Users/beck/.agents/skills/security-pipeline",
+  "destination": "C:/Users/beck/.agents/quarantine/20260713-phase3-security-review/security-pipeline",
+  "source_skill_md_sha256_before": "E464AF00EEE9E9773A548F4E4C1D8E82651856167844CEFA67E0F5996C13E4C4",
+  "rollback": {
+    "command": "Move-Item -LiteralPath 'C:/Users/beck/.agents/quarantine/20260713-phase3-security-review/security-pipeline' -Destination 'C:/Users/beck/.agents/skills/security-pipeline'",
+    "preconditions": ["destination is absent", "quarantined SKILL.md hash matches source_skill_md_sha256_before"],
+    "mapping": [{"from":"C:/Users/beck/.agents/quarantine/20260713-phase3-security-review/security-pipeline","to":"C:/Users/beck/.agents/skills/security-pipeline"}]
+  },
+  "move_status": "QUARANTINED",
+  "source_absent_after_move": true,
+  "destination_skill_md_sha256_after": "E464AF00EEE9E9773A548F4E4C1D8E82651856167844CEFA67E0F5996C13E4C4",
+  "destination_skill_md_size_after": 5030
+}

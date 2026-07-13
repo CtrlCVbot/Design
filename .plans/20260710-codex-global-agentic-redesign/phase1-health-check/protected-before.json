@@ -1,0 +1,10 @@
+{
+  "captured_at": "2026-07-10T00:00:00+09:00",
+  "protected": {
+    "C:/Users/beck/.codex/config.toml": "256BCCC3EB28C9631B365CA63D5ADEA9AFD618D05ACB5C180C9C4F39038664F2",
+    "C:/Users/beck/.codex/AGENTS.md": "2887086457C73E102547BB023A9A301324676B2C073A142DAF93703D60314F7B",
+    "C:/Users/beck/.codex/agents": "7FDEA2C40BF54201E9C9AE4B6E5C5E5EAE97CB39FA614D6CD2FEB83E1E867854",
+    "C:/Users/beck/.codex/local-plugins/claude-kit": "FB81B601E34EA532B472701FEB0B1E9682159708B8466CA58EA68F7C942C6D74"
+  },
+  "tree_digest_rule": "SHA256 of UTF-8 sorted relative/path=fileSHA256 lines joined by LF"
+}

@@ -1,0 +1,47 @@
+{
+  "completed_at": "2026-07-10T00:00:00+09:00",
+  "status": "PASS",
+  "worker": {
+    "thread_id": "019f4ac1-ecdf-7c61-8f88-412208b19ea9",
+    "role": "implementation_worker",
+    "model": "gpt-5.6-terra",
+    "effort": "medium",
+    "evidence": "config-derived",
+    "repair_loops": 2
+  },
+  "tests": {
+    "unit": "19/19 PASS",
+    "python_compile": "PASS",
+    "skill_validator": "Skill is valid!",
+    "live_health_exit": 0
+  },
+  "live_health": {
+    "trusted_hooks": 22,
+    "expected_hooks": 22,
+    "global_expected": 7,
+    "project_expected": 15,
+    "unknown": 0,
+    "active_scan_files": 449,
+    "active_stale_hits": 14,
+    "inactive_hook_files": 7,
+    "inactive_stale_hits": 7
+  },
+  "final_files": [
+    {"path": "scripts/agentic_health_check.py", "sha256": "0CFAABCA48F4426D7F2385D875591256399BE222C73640C607DF82B0CB4EC003"},
+    {"path": "tests/test_agentic_health_check.py", "sha256": "96C291F9EBFBB054390BA27CE731BB9CFD7B2CBA44B150E73EFBF84508ACF9F3"},
+    {"path": "SKILL.md", "sha256": "6F3819F04003A223BF5143252A37E4AD00F340DDD9FA253B6C626E6518133302"},
+    {"path": "references/checks.md", "sha256": "BD8F340CEBFE7D2555AA73B54C2DA299C95F0F59DFA0F799960DFC7EE8F6CCC1"}
+  ],
+  "protected_hashes_unchanged": true,
+  "acceptance": {
+    "HC-01": "PASS",
+    "HC-02": "PASS",
+    "HC-03": "PASS",
+    "HC-04": "PASS",
+    "HC-05": "PASS",
+    "HC-06": "PASS",
+    "HC-07": "PASS",
+    "HC-08": "PASS",
+    "HC-09": "PASS"
+  }
+}
