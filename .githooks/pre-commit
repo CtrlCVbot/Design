@@ -1,0 +1,3 @@
+#!/bin/sh
+# logishm-dev-guidelines 결과 게이트 (도구 무관)
+node "docs/dev-guidelines/enforce/precommit-gates.mjs" || exit 1

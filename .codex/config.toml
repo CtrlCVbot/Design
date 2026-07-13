@@ -1,0 +1,5 @@
+# Codex MCP 서버 — mm-broker .mcp.json 에서 생성
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest","--isolated"]

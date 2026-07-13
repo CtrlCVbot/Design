@@ -1,0 +1,51 @@
+# /dip-review — DIP 전문가 코드 리뷰
+
+변경된 코드를 DIP(Dependency Inversion Principle) 관점으로 리뷰합니다.
+
+> 방법론: `.claude/skills/dip-review.md` 참조
+
+---
+
+## 사용법
+
+```
+/dip-review                              # 현재 변경 파일 전체 리뷰
+/dip-review server/order/                # 특정 디렉토리 리뷰
+/dip-review path/to/file.ts             # 특정 파일 리뷰
+/dip-review --domain order               # order 도메인 전체 cross-layer 리뷰
+```
+
+---
+
+## 수행 단계
+
+### 1단계: 대상 파일 수집
+
+**인자 없으면:** `git diff --name-only HEAD` 또는 `%TEMP%/claude-edits.log`.
+
+**`--domain <name>` 인자가 있는 경우:** `.claude/skills/domain-map.md`를 읽고, 해당 도메인에 매핑된 모든 경로의 `.ts`/`.tsx` 파일을 대상으로 한다.
+
+**경로 인자가 있는 경우:** 해당 경로의 `.ts`/`.tsx` 파일을 대상으로 한다.
+
+### 2단계: 스킬 로드
+
+`.claude/skills/dip-review.md`를 읽고 의존성 방향 규칙을 숙지한다.
+
+### 3단계: 위반 패턴 검사
+
+1. **변동성 높은 구체에 의존** — DB 스키마/ORM 타입을 Service/Domain에서 직접 import
+2. **의존성 방향 역전** — 안쪽(Domain/Service)이 바깥쪽(Route/DB)에 의존
+3. **Factory 패턴 부재** — Service가 Repository 구체를 직접 생성
+4. **안정/변동 구분** — 변동성 높은 우리 모듈 vs 안정된 외부 라이브러리
+
+### 4단계: 영향도 평가 + 리포트
+
+스킬의 영향도 기준(Critical/High/Medium/Low)으로 등급을 매기고 리포트 출력.
+
+---
+
+## 완료 시
+
+```
+dip-review 작업완료!
+```

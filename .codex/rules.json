@@ -1,0 +1,72 @@
+{
+  "_comment": "구조 규칙 예시 — Claude 훅(layer-violation-checker 등)에만 있던 강제를 도구 무관 게이트로 옮긴 선언적 설정. 이 파일을 같은 폴더의 rules.json 으로 복사해 활성화한다. match 는 glob, severity 는 critical|high(차단) / medium(경고). 아래는 mm-broker 레이어 규칙을 옮긴 예시이므로, 프로젝트 구조에 맞게 match 경로를 고쳐 쓴다.",
+
+  "forbiddenImports": [
+    {
+      "name": "Route 레이어 db/drizzle 직접 import 금지",
+      "match": "**/app/api/**/route.ts",
+      "forbid": ["drizzle-orm", "@/db"],
+      "severity": "critical",
+      "hint": "Repository를 통해 데이터에 접근하세요"
+    },
+    {
+      "name": "Service 레이어 db/drizzle/zod import 금지",
+      "match": "**/application/**/*.service.ts",
+      "forbid": ["drizzle-orm", "@/db", "zod"],
+      "severity": "critical",
+      "hint": "Service는 순수 TypeScript — ORM/검증은 Repository·도메인·Route에 위임"
+    }
+  ],
+
+  "forbiddenPatterns": [
+    {
+      "name": "비밀번호 평문 비교 금지",
+      "match": "**/*.ts",
+      "pattern": "(command|body|input|req|data)\\.\\s*password\\s*[!=]==?\\s*(user|record|found|row)\\.\\s*password",
+      "severity": "critical",
+      "hint": "bcrypt.compare() 를 사용하세요"
+    },
+    {
+      "name": "Route 에서 request.json() 직접 호출 금지",
+      "match": "**/app/api/**/route.ts",
+      "pattern": "request\\.json\\(\\)",
+      "severity": "high",
+      "hint": "validateJsonBody(request, schema) 를 사용하세요"
+    },
+    {
+      "name": "Repository 전체 컬럼 select() 금지",
+      "match": "**/infrastructure/**/*.repository.ts",
+      "pattern": "\\.select\\(\\)\\s*\\.from\\(",
+      "severity": "high",
+      "hint": "필요한 컬럼만 select({ ... }) 하세요"
+    },
+    {
+      "name": "도메인 모델에 id 필드 금지",
+      "match": "**/domain/**/*.model.ts",
+      "pattern": "(private|readonly|public)\\s+(readonly\\s+)?id\\s*[:=]",
+      "severity": "high",
+      "hint": "id는 DB 관심사 — 도메인 모델에서 제거하세요"
+    },
+    {
+      "name": "인증 실패에서 사용자 존재 여부 노출 금지",
+      "match": "**/server/auth/**/*.ts",
+      "pattern": "등록되지 않은.*이메일|비밀번호가 일치하지|invalid.*password",
+      "severity": "high",
+      "hint": "\"이메일 또는 비밀번호가 올바르지 않습니다\"로 통일하세요"
+    }
+  ],
+
+  "requireTest": {
+    "_comment": "프로덕션 .ts/.tsx 를 스테이지하면 대응 테스트(__tests__/ 또는 tests/ 의 name.test.*)가 있어야 한다. 너무 빡빡하면 exclude 를 늘리거나 이 블록을 지운다.",
+    "match": ["**/*.ts", "**/*.tsx"],
+    "exclude": [
+      "**/*.test.*", "**/*.spec.*", "**/*.d.ts",
+      "**/types/**", "**/db/**", "**/scripts/**", "**/.claude/**",
+      "**/components/ui/**", "**/index.ts", "**/*.config.*",
+      "**/app/**/page.tsx", "**/app/**/layout.tsx", "**/app/**/loading.tsx",
+      "**/app/**/error.tsx", "**/app/**/not-found.tsx",
+      "**/app/api/**/route.ts", "**/*.repository.ts"
+    ],
+    "severity": "high"
+  }
+}

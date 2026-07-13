@@ -1,0 +1,127 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/codex-rules-guard.mjs"
+          }
+        ]
+      },
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/guide-loader.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/tdd-guard.js"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__playwright__browser_navigate|mcp__playwright__browser_snapshot|mcp__playwright__browser_click|mcp__playwright__browser_fill_form|mcp__playwright__browser_run_code",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/qa-knowledge-activator.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/simple-design-precommit.js"
+          }
+        ]
+      },
+      {
+        "matcher": "apply_patch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/codex-skill-loader.mjs"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/codex-qa-knowledge.mjs"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/skill-activator.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/complexity-reminder.js"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/codex-skill-activator.mjs"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/file-edit-tracker.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/layer-violation-checker.js"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .codex/harness-probe.cjs codex"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/solid-reviewer.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/build-checker.js"
+          }
+        ]
+      }
+    ]
+  }
+}

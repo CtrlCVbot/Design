@@ -1,0 +1,277 @@
+{
+  "domain-modeling": {
+    "description": "도메인 모델, Value Object, Aggregate 규칙",
+    "promptTriggers": {
+      "keywords": ["도메인", "domain", "model", "value object", "aggregate", "entity", "vo", "rich model"],
+      "intentPatterns": [
+        "(만들|생성|추가|작성).*(도메인|모델|entity)",
+        "(create|add|make).*(domain|model|entity)",
+        "(설계|design).*(도메인|domain)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["server/**/domain/**/*.ts"],
+      "contentPatterns": ["class.*Model", "ValueObject", "extends.*Model"]
+    },
+    "skill": ".claude/skills/domain-modeling.md"
+  },
+  "layered-architecture": {
+    "description": "Route/Service/Repository 레이어 규칙",
+    "promptTriggers": {
+      "keywords": ["route", "service", "repository", "레이어", "layer", "controller", "api", "endpoint"],
+      "intentPatterns": [
+        "(만들|생성|추가).*(서비스|service|route|api|endpoint)",
+        "(create|add|make).*(service|route|api|endpoint|repository)",
+        "(리팩토링|refactor).*(레이어|layer)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": [
+        "server/**/application/**/*.ts",
+        "server/**/infrastructure/**/*.ts",
+        "app/api/**/*.ts"
+      ],
+      "contentPatterns": ["Service", "Repository", "router"]
+    },
+    "skill": ".claude/skills/layered-architecture.md"
+  },
+  "type-safety": {
+    "description": "타입 안전성 및 as any 사용 가이드",
+    "promptTriggers": {
+      "keywords": ["as any", "type", "interface", "타입", "generic", "타입 에러", "type error"],
+      "intentPatterns": [
+        "(타입|type).*(에러|error|오류)",
+        "(any).*(제거|remove|fix)",
+        "(인터페이스|interface).*(정의|define)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": [],
+      "contentPatterns": ["as any", "as unknown"]
+    },
+    "skill": ".claude/skills/type-safety.md"
+  },
+  "testing": {
+    "description": "Unit/Integration 테스트 규칙",
+    "promptTriggers": {
+      "keywords": ["test", "spec", "테스트", "unit", "integration", "mock", "vitest", "jest"],
+      "intentPatterns": [
+        "(테스트|test).*(작성|만들|추가|write|add|create)",
+        "(단위|unit|통합|integration).*(테스트|test)",
+        "(mock|stub).*(만들|create)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["tests/**/*.ts", "**/*.spec.ts", "**/*.test.ts"],
+      "contentPatterns": ["describe\\(", "it\\(", "test\\(", "expect\\("]
+    },
+    "skill": ".claude/skills/testing.md"
+  },
+  "response-dto": {
+    "description": "Response DTO 작성 규칙",
+    "promptTriggers": {
+      "keywords": ["dto", "response", "request", "응답", "요청", "ReturnType"],
+      "intentPatterns": [
+        "(dto|DTO).*(만들|생성|작성)",
+        "(response|request).*(타입|type|정의)",
+        "(응답|요청).*(구조|structure)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["**/dto/**/*.ts", "**/dto/*.ts"],
+      "contentPatterns": ["Response", "Request", "toResponse"]
+    },
+    "skill": ".claude/skills/response-dto.md"
+  },
+  "tanstack-query": {
+    "description": "TanStack Query 서버 상태 관리 기준",
+    "promptTriggers": {
+      "keywords": ["useQuery", "useMutation", "query", "react query", "tanstack", "invalidate", "refetch", "queryKey", "queryClient", "서버 상태", "캐시", "cache"],
+      "intentPatterns": [
+        "(fetch|페칭|조회).*(hook|훅|데이터)",
+        "(query|쿼리).*(만들|생성|추가|수정)",
+        "(mutation|뮤테이션).*(만들|생성|추가)",
+        "(서버|server).*(상태|state|데이터|data)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["hooks/**/*.ts", "hooks/**/*.tsx"],
+      "contentPatterns": ["useQuery", "useMutation", "useQueryClient", "queryKey"]
+    },
+    "skill": ".claude/skills/tanstack-query.md"
+  },
+  "react-hook-form-zod": {
+    "description": "폼 상태 관리 + Zod 검증 기준",
+    "promptTriggers": {
+      "keywords": ["useForm", "폼", "form", "zodResolver", "스키마", "schema", "Controller", "register", "handleSubmit", "useFieldArray", "zod"],
+      "intentPatterns": [
+        "(폼|form).*(만들|생성|추가|수정)",
+        "(검증|validation|validate).*(폼|form|필드|field)",
+        "(스키마|schema).*(정의|작성|추가)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["components/**/*form*.tsx", "components/**/*dialog*.tsx", "components/**/*sheet*.tsx"],
+      "contentPatterns": ["useForm", "zodResolver", "z\\.object", "handleSubmit"]
+    },
+    "skill": ".claude/skills/react-hook-form-zod.md"
+  },
+  "zustand": {
+    "description": "Zustand store 사용 기준 및 안티패턴 방지",
+    "promptTriggers": {
+      "keywords": ["zustand", "store", "스토어", "전역 상태", "global state", "useShallow", "persist"],
+      "intentPatterns": [
+        "(store|스토어).*(만들|생성|추가|수정|리팩토링)",
+        "(create|add|modify|refactor).*(store|zustand)",
+        "(전역|global).*(상태|state)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["store/**/*.ts"],
+      "contentPatterns": ["from 'zustand'", "create<", "useShallow"]
+    },
+    "skill": ".claude/skills/zustand.md"
+  },
+  "react": {
+    "description": "React 컴포넌트, state, effect, 메모이제이션 규칙",
+    "promptTriggers": {
+      "keywords": ["useState", "useEffect", "useMemo", "useCallback", "memo", "컴포넌트", "component", "props", "effect", "렌더링", "rendering", "커스텀 훅", "custom hook"],
+      "intentPatterns": [
+        "(컴포넌트|component).*(만들|생성|추가|수정|분리)",
+        "(상태|state).*(관리|추가|수정)",
+        "(effect|이펙트).*(추가|수정|제거)",
+        "(훅|hook).*(만들|생성|추출)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["hooks/**/*.ts", "hooks/**/*.tsx"],
+      "contentPatterns": []
+    },
+    "skill": ".claude/skills/react.md"
+  },
+  "nextjs": {
+    "description": "Next.js 15 App Router 사용 기준",
+    "promptTriggers": {
+      "keywords": ["next.js", "nextjs", "route handler", "middleware", "layout", "page", "서버 컴포넌트", "server component", "client component", "loading", "error boundary", "metadata"],
+      "intentPatterns": [
+        "(페이지|page|라우트|route).*(만들|생성|추가)",
+        "(API|api).*(엔드포인트|endpoint|라우트|route).*(만들|추가)",
+        "(미들웨어|middleware).*(수정|추가)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["app/**/page.tsx", "app/**/layout.tsx", "app/**/loading.tsx", "app/**/error.tsx", "app/api/**/route.ts", "middleware.ts"],
+      "contentPatterns": ["NextRequest", "NextResponse", "use client", "generateMetadata"]
+    },
+    "skill": ".claude/skills/nextjs.md"
+  },
+  "shadcn-radix": {
+    "description": "shadcn/ui + Radix UI 컴포넌트 사용 기준",
+    "promptTriggers": {
+      "keywords": ["shadcn", "radix", "dialog", "sheet", "popover", "select", "dropdown", "모달", "modal", "컴포넌트", "ui component"],
+      "intentPatterns": [
+        "(모달|dialog|sheet).*(만들|생성|추가|수정)",
+        "(UI|ui).*(컴포넌트|component).*(만들|추가)",
+        "(select|popover|dropdown).*(만들|수정)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["components/ui/**/*.tsx"],
+      "contentPatterns": ["@radix-ui", "DialogContent", "SheetContent", "PopoverContent", "asChild"]
+    },
+    "skill": ".claude/skills/shadcn-radix.md"
+  },
+  "tailwind": {
+    "description": "Tailwind CSS v4 유틸리티 클래스 사용 기준",
+    "promptTriggers": {
+      "keywords": ["tailwind", "cn(", "cva", "스타일", "style", "css", "dark mode", "반응형", "responsive"],
+      "intentPatterns": [
+        "(스타일|style|디자인).*(수정|변경|추가)",
+        "(className|클래스).*(수정|추가|변경)",
+        "(컴포넌트|component).*(스타일|UI|디자인)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": [],
+      "contentPatterns": ["cn\\(", "cva\\("]
+    },
+    "skill": ".claude/skills/tailwind.md"
+  },
+  "typescript": {
+    "description": "TypeScript 타입 정의, 추론, 단언, 제네릭 규칙",
+    "promptTriggers": {
+      "keywords": ["타입", "type", "interface", "generic", "제네릭", "any", "unknown", "as", "assertion", "단언", "narrowing", "union", "infer", "추론"],
+      "intentPatterns": [
+        "(타입|type|인터페이스|interface).*(정의|만들|추가|수정|define|create)",
+        "(any|unknown).*(제거|수정|변경|fix|remove)",
+        "(제네릭|generic).*(만들|추가|수정)",
+        "(단언|assertion|as).*(검토|수정)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["**/types/**/*.ts", "**/*.d.ts"],
+      "contentPatterns": ["as any", "as unknown", ": any"]
+    },
+    "skill": ".claude/skills/typescript.md"
+  },
+  "drizzle": {
+    "description": "Drizzle ORM 스키마, 쿼리, 트랜잭션 규칙",
+    "promptTriggers": {
+      "keywords": ["drizzle", "스키마", "schema", "테이블", "table", "마이그레이션", "migration", "repository", "트랜잭션", "transaction", "쿼리", "query", "select", "insert", "update", "join"],
+      "intentPatterns": [
+        "(스키마|schema|테이블|table).*(만들|생성|추가|수정)",
+        "(쿼리|query|조회).*(만들|작성|수정|최적화)",
+        "(repository|레포지토리).*(만들|생성|추가|수정)",
+        "(트랜잭션|transaction).*(추가|수정)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": ["db/schema/**/*.ts", "server/**/infrastructure/**/*.ts", "lib/transaction.ts"],
+      "contentPatterns": ["from 'drizzle-orm'", "pgTable", "db.select", "db.query", "db.insert", "db.update", "db.transaction"]
+    },
+    "skill": ".claude/skills/drizzle.md"
+  },
+  "auth": {
+    "description": "인증/세션/인가, JWT, 쿠키, 미들웨어 보호 규칙",
+    "promptTriggers": {
+      "keywords": ["인증", "로그인", "로그아웃", "세션", "auth", "login", "logout", "session", "jwt", "token", "refresh", "쿠키", "cookie", "password", "비밀번호", "middleware auth", "access_token", "refresh_token"],
+      "intentPatterns": [
+        "(인증|auth|로그인|login).*(수정|추가|만들|변경|fix|modify)",
+        "(토큰|token|JWT|jwt).*(갱신|생성|검증|수정|refresh|create|verify)",
+        "(미들웨어|middleware).*(인증|auth|보호|protect)",
+        "(세션|session).*(관리|관련|수정)",
+        "(쿠키|cookie).*(설정|수정|추가)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": [
+        "middleware.ts",
+        "utils/jwt.ts",
+        "utils/auth.ts",
+        "store/auth-store.ts",
+        "app/api/auth/**/*.ts",
+        "server/auth/**/*.ts",
+        "components/auth-initializer.tsx"
+      ],
+      "contentPatterns": ["verifyAccessToken", "signAccessToken", "refreshToken", "access_token", "httpOnly"]
+    },
+    "skill": ".claude/skills/auth.md"
+  },
+  "refactoring": {
+    "description": "리팩토링 워크플로우 및 Google Staff Engineer 품질 기준",
+    "promptTriggers": {
+      "keywords": ["refactor", "리팩토링", "리팩터", "개선", "정리", "클린", "clean", "restructure"],
+      "intentPatterns": [
+        "(리팩토링|refactor|리팩터).*(해줘|하자|시작|해)",
+        "(코드|code).*(정리|개선|clean)",
+        "(구조|structure).*(개선|변경|바꿔)",
+        "(레이어|layer).*(분리|정리|리팩토링)"
+      ]
+    },
+    "fileTriggers": {
+      "pathPatterns": [],
+      "contentPatterns": []
+    },
+    "skill": ".claude/skills/refactoring.md"
+  }
+}

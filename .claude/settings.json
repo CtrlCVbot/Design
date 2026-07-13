@@ -1,0 +1,104 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx jest:*)",
+      "Bash(findstr:*)"
+    ]
+  },
+  "enabledPlugins": {
+    "plannotator@plannotator": true
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "playwright"
+  ],
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/guide-loader.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/claude-rules-guard.js pre"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__playwright__browser_navigate|mcp__playwright__browser_snapshot|mcp__playwright__browser_click|mcp__playwright__browser_fill_form|mcp__playwright__browser_run_code",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/qa-knowledge-activator.js"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/simple-design-precommit.js"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/skill-activator.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/complexity-reminder.js"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/file-edit-tracker.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/claude-rules-guard.js post"
+          }
+        ]
+      },
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/harness-probe.cjs claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node .claude/hooks/solid-reviewer.js"
+          },
+          {
+            "type": "command",
+            "command": "node .claude/hooks/build-checker.js"
+          }
+        ]
+      }
+    ]
+  }
+}

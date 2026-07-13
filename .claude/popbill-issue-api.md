@@ -1,0 +1,6439 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "POPBill Developers" [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "POPBill Developers" [ref=e6]
+      - navigation [ref=e7]:
+        - list [ref=e9]:
+          - listitem [ref=e10]:
+            - link "가이드" [ref=e11] [cursor=pointer]:
+              - /url: /guide/taxinvoice/getting-started/environment-set-up
+          - listitem [ref=e12]:
+            - link "SDK 레퍼런스" [ref=e13] [cursor=pointer]:
+              - /url: /reference/taxinvoice/node/getting-started/tutorial
+          - listitem [ref=e14]:
+            - link "API 레퍼런스" [ref=e15] [cursor=pointer]:
+              - /url: /api-reference/taxinvoice/getting-started/authorization
+          - listitem [ref=e16]:
+            - link "오류코드" [ref=e17] [cursor=pointer]:
+              - /url: /error-code
+          - listitem [ref=e18]:
+            - link "고객지원" [ref=e19] [cursor=pointer]:
+              - /url: /customer-center/techinquiry
+      - generic [ref=e20]:
+        - list [ref=e21]:
+          - listitem [ref=e22]:
+            - link "제안서" [ref=e23] [cursor=pointer]:
+              - /url: /customer-center/proposal
+          - listitem [ref=e24]:
+            - link "주요고객사" [ref=e25] [cursor=pointer]:
+              - /url: /customer-center/client
+        - link "연동신청" [ref=e26] [cursor=pointer]:
+          - /url: /customer-center/partner-request
+        - button "검색어를 입력해주세요 Ctrl K" [ref=e27] [cursor=pointer]:
+          - text: 검색어를 입력해주세요
+          - generic [ref=e28]: Ctrl K
+  - generic [ref=e30]:
+    - generic [ref=e31]: SDK 레퍼런스
+    - emphasis [ref=e33] [cursor=pointer]: 전자세금계산서
+    - emphasis [ref=e35] [cursor=pointer]: Node.js
+  - main [ref=e36]:
+    - generic [ref=e37]:
+      - navigation [ref=e38]:
+        - generic [ref=e40]:
+          - generic [ref=e41]:
+            - term [ref=e42]:
+              - link "시작하기" [ref=e43] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/getting-started/tutorial
+            - definition [ref=e44]:
+              - link "튜토리얼" [ref=e45] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/getting-started/tutorial
+            - definition [ref=e46]:
+              - link "SDK 환경설정" [ref=e47] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/getting-started/sdk-configration
+          - generic [ref=e48]:
+            - term [ref=e49]:
+              - link "전자세금계산서 API" [ref=e50] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api
+            - definition [ref=e51]:
+              - link "발행/전송" [ref=e52] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue
+            - definition [ref=e53]:
+              - link "정보확인" [ref=e54] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/info
+            - definition [ref=e55]:
+              - link "보기/인쇄" [ref=e56] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/view
+            - definition [ref=e57]:
+              - link "부가기능" [ref=e58] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/etc
+            - definition [ref=e59]:
+              - link "인증서 관리" [ref=e60] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/cert
+          - generic [ref=e61]:
+            - term [ref=e62]:
+              - link "공통 API" [ref=e63] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/common-api
+                - text: 공통 API
+            - definition [ref=e65]:
+              - link "포인트 관리" [ref=e66] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/common-api/point
+            - definition [ref=e67]:
+              - link "회원 관리" [ref=e68] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/common-api/member
+          - term [ref=e70]:
+            - link "전자세금계산서 상태" [ref=e71] [cursor=pointer]:
+              - /url: /reference/taxinvoice/node/response-code
+          - generic [ref=e72]:
+            - term [ref=e73]:
+              - link "웹훅" [ref=e74] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/webhook/introduction
+            - definition [ref=e75]:
+              - link "개요" [ref=e76] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/webhook/introduction
+            - definition [ref=e77]:
+              - link "이벤트" [ref=e78] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/webhook/webhook-event
+            - definition [ref=e79]:
+              - link "튜토리얼" [ref=e80] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/webhook/webhook-tutorial
+          - link "서비스 연동을 위한 SDK 다운로드" [ref=e82] [cursor=pointer]:
+            - /url: /reference/taxinvoice/node/sdk
+            - text: 서비스 연동을 위한
+            - strong [ref=e83]: SDK 다운로드
+      - article [ref=e84]:
+        - generic [ref=e86]:
+          - generic [ref=e87]: SDK 레퍼런스
+          - generic [ref=e88]: 전자세금계산서
+          - generic [ref=e89]: Node.js
+          - generic [ref=e90]: 발행/전송
+        - heading "발행/전송" [level=1] [ref=e92]
+        - generic [ref=e93]:
+          - heading "1. RegistIssue - 즉시 발행" [level=3] [ref=e94]
+          - list [ref=e95]:
+            - listitem [ref=e96]:
+              - text: 작성된 세금계산서 데이터를 팝빌에 저장과 동시에 발행(전자서명)하여 "발행완료" 상태로 처리합니다.
+              - link "[참고] 팝빌 국세청 전송 정책" [ref=e97] [cursor=pointer]:
+                - /url: /guide/taxinvoice/introduction/policy-of-send-to-nts
+            - listitem [ref=e98]:
+              - text: "\"발행완료\"된 전자세금계산서는 국세청 전송 이전에"
+              - link "[CancelIssue – 발행취소]" [ref=e99] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue#CancelIssue
+              - text: 함수로 국세청 신고 대상에서 제외할 수 있습니다.
+              - paragraph [ref=e100]:
+                - text: ※
+                - link "[Register - 임시저장]" [ref=e101] [cursor=pointer]:
+                  - /url: /reference/taxinvoice/node/api/issue#Register
+                - text: 과
+                - link "[Issue - 발행]" [ref=e102] [cursor=pointer]:
+                  - /url: /reference/taxinvoice/node/api/issue#Issue
+                - text: 함수 기능을 한 번의 프로세스로 처리합니다.
+          - code [ref=e104]: taxinvoiceService.registIssue(CorpNum, Taxinvoice, writeSpecification, forceIssue, memo, emailSubject, dealInvoiceMgtKey, UserID, success, error)
+          - list [ref=e106]:
+            - listitem [ref=e107]:
+              - text: 세금계산서 발행을 위해서 공급자의 인증서가 팝빌 인증서버에 사전등록 되어야 합니다.
+              - paragraph [ref=e108]: ※ 위수탁의 경우, 수탁자의 인증서 등록이 필요합니다.
+            - listitem [ref=e109]: 세금계산서 발행시 포인트가 과금되며, 공급받는자에게 발행 메일이 발송됩니다.
+          - heading "요청" [level=6] [ref=e110]
+          - generic [ref=e111]:
+            - generic [ref=e112] [cursor=pointer]: Parameters
+            - table [ref=e113]:
+              - rowgroup [ref=e114]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e115]:
+                  - columnheader "순번" [ref=e116]
+                  - columnheader "변수명" [ref=e117]
+                  - columnheader "타입" [ref=e118]
+                  - columnheader "길이" [ref=e119]
+                  - columnheader "필수" [ref=e120]
+                  - columnheader "설명" [ref=e121]
+              - rowgroup [ref=e122]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e123]:
+                  - cell [ref=e124]
+                  - cell "CorpNum" [ref=e125]
+                  - cell "string" [ref=e126]
+                  - cell "10" [ref=e127]
+                  - cell "Y" [ref=e128]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e129]
+                - row "Taxinvoice Taxinvoice - Y 전자세금계산서 정보" [ref=e130]:
+                  - cell [ref=e131]
+                  - cell "Taxinvoice" [ref=e132]
+                  - cell "Taxinvoice" [ref=e133]:
+                    - link "Taxinvoice" [ref=e134] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#Taxinvoice_Input
+                  - cell "-" [ref=e135]
+                  - cell "Y" [ref=e136]
+                  - cell "전자세금계산서 정보" [ref=e137]
+                - row [ref=e4206]:
+                  - cell [ref=e4207]:
+                    - generic:
+                      - generic:
+                        - generic [ref=e140]: Taxinvoice
+                        - table [ref=e142]:
+                          - rowgroup [ref=e143]:
+                            - row "순번 변수명 타입 길이 필수 설명" [ref=e144]:
+                              - columnheader "순번" [ref=e145]
+                              - columnheader "변수명" [ref=e146]
+                              - columnheader "타입" [ref=e147]
+                              - columnheader "길이" [ref=e148]
+                              - columnheader "필수" [ref=e149]
+                              - columnheader "설명" [ref=e150]
+                          - rowgroup [ref=e151]:
+                            - row "issueType string 3 Y 발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e152]:
+                              - cell [ref=e153]
+                              - cell "issueType" [ref=e154]
+                              - cell "string" [ref=e155]
+                              - cell "3" [ref=e156]
+                              - cell "Y" [ref=e157]
+                              - cell "발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e158]:
+                                - text: 발행형태 (택 1)
+                                - generic [ref=e159]:
+                                  - text: └
+                                  - generic [ref=e160]: 정발행
+                                - generic [ref=e161]:
+                                  - text: └
+                                  - generic [ref=e162]: 역발행
+                                - generic [ref=e163]:
+                                  - text: └
+                                  - generic [ref=e164]: 위수탁
+                            - row "taxType string 2 Y 과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e165]:
+                              - cell [ref=e166]
+                              - cell "taxType" [ref=e167]
+                              - cell "string" [ref=e168]
+                              - cell "2" [ref=e169]
+                              - cell "Y" [ref=e170]
+                              - cell "과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e171]:
+                                - text: 과세형태 (택 1)
+                                - generic [ref=e172]:
+                                  - text: └
+                                  - generic [ref=e173]: 과세
+                                - generic [ref=e174]:
+                                  - text: └
+                                  - generic [ref=e175]: 영세
+                                - generic [ref=e176]:
+                                  - text: └
+                                  - generic [ref=e177]: 면세
+                            - 'row "chargeDirection string 3 Y 과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e178]':
+                              - cell [ref=e179]
+                              - cell "chargeDirection" [ref=e180]
+                              - cell "string" [ref=e181]
+                              - cell "3" [ref=e182]
+                              - cell "Y" [ref=e183]
+                              - 'cell "과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e184]':
+                                - text: 과금방향 (택 1)
+                                - generic [ref=e185]:
+                                  - text: └
+                                  - generic [ref=e186]: 정과금
+                                  - text: 공급자 과금
+                                - generic [ref=e187]:
+                                  - text: └
+                                  - generic [ref=e188]: 역과금
+                                  - text: 공급받는자 과금
+                                - text: "-{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능"
+                                - text: "-{issueType}=\"역발행\" 경우 역과금 가능"
+                            - row "serialNum string 30 N 일련번호" [ref=e189]:
+                              - cell [ref=e190]
+                              - cell "serialNum" [ref=e191]
+                              - cell "string" [ref=e192]
+                              - cell "30" [ref=e193]
+                              - cell "N" [ref=e194]
+                              - cell "일련번호" [ref=e195]
+                            - row "kwon number 4 N 책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e196]:
+                              - cell [ref=e197]
+                              - cell "kwon" [ref=e198]
+                              - cell "number" [ref=e199]
+                              - cell "4" [ref=e200]
+                              - cell "N" [ref=e201]
+                              - cell "책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e202]:
+                                - text: 책번호 "권" 항목
+                                - generic [ref=e203]: → 정수만 입력 가능
+                            - row "ho number 4 N 책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e204]:
+                              - cell [ref=e205]
+                              - cell "ho" [ref=e206]
+                              - cell "number" [ref=e207]
+                              - cell "4" [ref=e208]
+                              - cell "N" [ref=e209]
+                              - cell "책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e210]:
+                                - text: 책번호 "호" 항목
+                                - generic [ref=e211]: → 정수만 입력 가능
+                            - 'row "writeDate string 8 Y 작성일자 → 형식 : yyyyMMdd" [ref=e212]':
+                              - cell [ref=e213]
+                              - cell "writeDate" [ref=e214]
+                              - cell "string" [ref=e215]
+                              - cell "8" [ref=e216]
+                              - cell "Y" [ref=e217]
+                              - 'cell "작성일자 → 형식 : yyyyMMdd" [ref=e218]':
+                                - text: 작성일자
+                                - generic [ref=e219]: "→ 형식 : yyyyMMdd"
+                            - row "purposeType string 2 Y 영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e220]:
+                              - cell [ref=e221]
+                              - cell "purposeType" [ref=e222]
+                              - cell "string" [ref=e223]
+                              - cell "2" [ref=e224]
+                              - cell "Y" [ref=e225]
+                              - cell "영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e226]:
+                                - text: 영수/청구 (택 1)
+                                - generic [ref=e227]:
+                                  - text: └
+                                  - generic [ref=e228]: 영수
+                                - generic [ref=e229]:
+                                  - text: └
+                                  - generic [ref=e230]: 청구
+                                - generic [ref=e231]:
+                                  - text: └
+                                  - generic [ref=e232]: 없음
+                            - row "supplyCostTotal string 18 Y 공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e233]:
+                              - cell [ref=e234]
+                              - cell "supplyCostTotal" [ref=e235]
+                              - cell "string" [ref=e236]
+                              - cell "18" [ref=e237]
+                              - cell "Y" [ref=e238]
+                              - cell "공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e239]:
+                                - text: 공급가액 합계
+                                - generic [ref=e240]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "taxTotal string 18 Y 세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e241]:
+                              - cell [ref=e242]
+                              - cell "taxTotal" [ref=e243]
+                              - cell "string" [ref=e244]
+                              - cell "18" [ref=e245]
+                              - cell "Y" [ref=e246]
+                              - cell "세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e247]:
+                                - text: 세액 합계
+                                - generic [ref=e248]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "totalAmount string 18 Y 합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e249]:
+                              - cell [ref=e250]
+                              - cell "totalAmount" [ref=e251]
+                              - cell "string" [ref=e252]
+                              - cell "18" [ref=e253]
+                              - cell "Y" [ref=e254]
+                              - cell "합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e255]:
+                                - text: 합계금액
+                                - generic [ref=e256]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "cash string 18 N 현금" [ref=e257]:
+                              - cell [ref=e258]
+                              - cell "cash" [ref=e259]
+                              - cell "string" [ref=e260]
+                              - cell "18" [ref=e261]
+                              - cell "N" [ref=e262]
+                              - cell "현금" [ref=e263]
+                            - row "chkBill string 18 N 수표" [ref=e264]:
+                              - cell [ref=e265]
+                              - cell "chkBill" [ref=e266]
+                              - cell "string" [ref=e267]
+                              - cell "18" [ref=e268]
+                              - cell "N" [ref=e269]
+                              - cell "수표" [ref=e270]
+                            - row "credit string 18 N 외상" [ref=e271]:
+                              - cell [ref=e272]
+                              - cell "credit" [ref=e273]
+                              - cell "string" [ref=e274]
+                              - cell "18" [ref=e275]
+                              - cell "N" [ref=e276]
+                              - cell "외상" [ref=e277]
+                            - row "note string 18 N 어음" [ref=e278]:
+                              - cell [ref=e279]
+                              - cell "note" [ref=e280]
+                              - cell "string" [ref=e281]
+                              - cell "18" [ref=e282]
+                              - cell "N" [ref=e283]
+                              - cell "어음" [ref=e284]
+                            - 'row "remark1 string 150 조건부 비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e285]':
+                              - cell [ref=e286]
+                              - cell "remark1" [ref=e287]
+                              - cell "string" [ref=e288]
+                              - cell "150" [ref=e289]
+                              - cell "조건부" [ref=e290]
+                              - 'cell "비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e291]':
+                                - text: 비고1
+                                - generic [ref=e292]:
+                                  - text: ✓
+                                  - 'link "{invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e293] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-invoiceeType"
+                                    - text: "{invoiceeType}=\"외국인\" 경우"
+                                    - text: 외국인등록번호 또는 여권번호 필수 입력
+                            - row "remark2 string 150 N 비고2" [ref=e294]:
+                              - cell [ref=e295]
+                              - cell "remark2" [ref=e296]
+                              - cell "string" [ref=e297]
+                              - cell "150" [ref=e298]
+                              - cell "N" [ref=e299]
+                              - cell "비고2" [ref=e300]
+                            - row "remark3 string 150 N 비고3" [ref=e301]:
+                              - cell [ref=e302]
+                              - cell "remark3" [ref=e303]
+                              - cell "string" [ref=e304]
+                              - cell "150" [ref=e305]
+                              - cell "N" [ref=e306]
+                              - cell "비고3" [ref=e307]
+                            - 'row "invoicerMgtKey string 24 조건부 공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e308]':
+                              - cell [ref=e309]
+                              - cell "invoicerMgtKey" [ref=e310]
+                              - cell "string" [ref=e311]
+                              - cell "24" [ref=e312]
+                              - cell "조건부" [ref=e313]
+                              - 'cell "공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e314]':
+                                - text: 공급자 문서번호
+                                - generic [ref=e315]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e316]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 필수" [ref=e317] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - row "invoicerCorpNum string 10 Y 공급자 사업자번호 ('-' 제외)" [ref=e318]:
+                              - cell [ref=e319]
+                              - cell "invoicerCorpNum" [ref=e320]
+                              - cell "string" [ref=e321]
+                              - cell "10" [ref=e322]
+                              - cell "Y" [ref=e323]
+                              - cell "공급자 사업자번호 ('-' 제외)" [ref=e324]
+                            - row "invoicerTaxRegID string 4 N 공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e325]:
+                              - cell [ref=e326]
+                              - cell "invoicerTaxRegID" [ref=e327]
+                              - cell "string" [ref=e328]
+                              - cell "4" [ref=e329]
+                              - cell "N" [ref=e330]
+                              - cell "공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e331]:
+                                - text: 공급자 종사업장 식별번호
+                                - generic [ref=e332]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoicerCorpName string 200 Y 공급자 상호" [ref=e333]:
+                              - cell [ref=e334]
+                              - cell "invoicerCorpName" [ref=e335]
+                              - cell "string" [ref=e336]
+                              - cell "200" [ref=e337]
+                              - cell "Y" [ref=e338]
+                              - cell "공급자 상호" [ref=e339]
+                            - row "invoicerCEOName string 100 Y 공급자 대표자 성명" [ref=e340]:
+                              - cell [ref=e341]
+                              - cell "invoicerCEOName" [ref=e342]
+                              - cell "string" [ref=e343]
+                              - cell "100" [ref=e344]
+                              - cell "Y" [ref=e345]
+                              - cell "공급자 대표자 성명" [ref=e346]
+                            - row "invoicerAddr string 300 N 공급자 주소" [ref=e347]:
+                              - cell [ref=e348]
+                              - cell "invoicerAddr" [ref=e349]
+                              - cell "string" [ref=e350]
+                              - cell "300" [ref=e351]
+                              - cell "N" [ref=e352]
+                              - cell "공급자 주소" [ref=e353]
+                            - row "invoicerBizType string 100 N 공급자 업태" [ref=e354]:
+                              - cell [ref=e355]
+                              - cell "invoicerBizType" [ref=e356]
+                              - cell "string" [ref=e357]
+                              - cell "100" [ref=e358]
+                              - cell "N" [ref=e359]
+                              - cell "공급자 업태" [ref=e360]
+                            - row "invoicerBizClass string 100 N 공급자 종목" [ref=e361]:
+                              - cell [ref=e362]
+                              - cell "invoicerBizClass" [ref=e363]
+                              - cell "string" [ref=e364]
+                              - cell "100" [ref=e365]
+                              - cell "N" [ref=e366]
+                              - cell "공급자 종목" [ref=e367]
+                            - row "invoicerContactName string 100 N 공급자 담당자 성명" [ref=e368]:
+                              - cell [ref=e369]
+                              - cell "invoicerContactName" [ref=e370]
+                              - cell "string" [ref=e371]
+                              - cell "100" [ref=e372]
+                              - cell "N" [ref=e373]
+                              - cell "공급자 담당자 성명" [ref=e374]
+                            - row "invoicerDeptName string 100 N 공급자 담당자 부서명" [ref=e375]:
+                              - cell [ref=e376]
+                              - cell "invoicerDeptName" [ref=e377]
+                              - cell "string" [ref=e378]
+                              - cell "100" [ref=e379]
+                              - cell "N" [ref=e380]
+                              - cell "공급자 담당자 부서명" [ref=e381]
+                            - row "invoicerTEL string 20 N 공급자 담당자 연락처" [ref=e382]:
+                              - cell [ref=e383]
+                              - cell "invoicerTEL" [ref=e384]
+                              - cell "string" [ref=e385]
+                              - cell "20" [ref=e386]
+                              - cell "N" [ref=e387]
+                              - cell "공급자 담당자 연락처" [ref=e388]
+                            - row "invoicerHP string 20 N 공급자 담당자 휴대폰" [ref=e389]:
+                              - cell [ref=e390]
+                              - cell "invoicerHP" [ref=e391]
+                              - cell "string" [ref=e392]
+                              - cell "20" [ref=e393]
+                              - cell "N" [ref=e394]
+                              - cell "공급자 담당자 휴대폰" [ref=e395]
+                            - row "invoicerEmail string 100 N 공급자 담당자 메일" [ref=e396]:
+                              - cell [ref=e397]
+                              - cell "invoicerEmail" [ref=e398]
+                              - cell "string" [ref=e399]
+                              - cell "100" [ref=e400]
+                              - cell "N" [ref=e401]
+                              - cell "공급자 담당자 메일" [ref=e402]
+                            - 'row "invoicerSMSSendYN boolean - N 공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e403]':
+                              - cell [ref=e404]
+                              - cell "invoicerSMSSendYN" [ref=e405]
+                              - cell "boolean" [ref=e406]
+                              - cell "-" [ref=e407]
+                              - cell "N" [ref=e408]
+                              - 'cell "공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e409]':
+                                - text: 공급자 알림문자 전송 여부
+                                - generic [ref=e410]:
+                                  - text: └
+                                  - generic [ref=e411]: "true"
+                                  - text: 전송
+                                - generic [ref=e412]:
+                                  - text: └
+                                  - generic [ref=e413]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e414]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e415]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e416] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"정발행\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - 'row "invoiceeMgtKey string 24 조건부 공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e417]':
+                              - cell [ref=e418]
+                              - cell "invoiceeMgtKey" [ref=e419]
+                              - cell "string" [ref=e420]
+                              - cell "24" [ref=e421]
+                              - cell "조건부" [ref=e422]
+                              - 'cell "공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e423]':
+                                - text: 공급받는자 문서번호
+                                - generic [ref=e424]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e425]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 필수" [ref=e426] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - row "invoiceeType string - Y 공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e427]:
+                              - cell [ref=e428]
+                              - cell "invoiceeType" [ref=e429]
+                              - cell "string" [ref=e430]
+                              - cell "-" [ref=e431]
+                              - cell "Y" [ref=e432]
+                              - cell "공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e433]:
+                                - text: 공급받는자 유형 (택 1)
+                                - generic [ref=e434]:
+                                  - text: └
+                                  - generic [ref=e435]: 사업자
+                                - generic [ref=e436]:
+                                  - text: └
+                                  - generic [ref=e437]: 개인
+                                - generic [ref=e438]:
+                                  - text: └
+                                  - generic [ref=e439]: 외국인
+                            - 'row "invoiceeCorpNum string 13 Y 공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e440]':
+                              - cell [ref=e441]
+                              - cell "invoiceeCorpNum" [ref=e442]
+                              - cell "string" [ref=e443]
+                              - cell "13" [ref=e444]
+                              - cell "Y" [ref=e445]
+                              - 'cell "공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e446]':
+                                - text: 공급받는자 등록번호 ('-' 제외)
+                                - text: "- {invoiceeType}=\"사업자\" 경우 사업자번호"
+                                - text: "- {invoiceeType}=\"개인\" 경우 주민등록번호"
+                                - text: "- {invoiceeType}=\"외국인\" 경우 \"9999999999999\""
+                            - row "invoiceeTaxRegID string 4 N 공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e447]:
+                              - cell [ref=e448]
+                              - cell "invoiceeTaxRegID" [ref=e449]
+                              - cell "string" [ref=e450]
+                              - cell "4" [ref=e451]
+                              - cell "N" [ref=e452]
+                              - cell "공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e453]:
+                                - text: 공급받는자 종사업장 식별번호
+                                - generic [ref=e454]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoiceeCorpName string 200 Y 공급받는자 상호" [ref=e455]:
+                              - cell [ref=e456]
+                              - cell "invoiceeCorpName" [ref=e457]
+                              - cell "string" [ref=e458]
+                              - cell "200" [ref=e459]
+                              - cell "Y" [ref=e460]
+                              - cell "공급받는자 상호" [ref=e461]
+                            - row "invoiceeCEOName string 100 Y 공급받는자 대표자 성명" [ref=e462]:
+                              - cell [ref=e463]
+                              - cell "invoiceeCEOName" [ref=e464]
+                              - cell "string" [ref=e465]
+                              - cell "100" [ref=e466]
+                              - cell "Y" [ref=e467]
+                              - cell "공급받는자 대표자 성명" [ref=e468]
+                            - row "invoiceeAddr string 300 N 공급받는자 주소" [ref=e469]:
+                              - cell [ref=e470]
+                              - cell "invoiceeAddr" [ref=e471]
+                              - cell "string" [ref=e472]
+                              - cell "300" [ref=e473]
+                              - cell "N" [ref=e474]
+                              - cell "공급받는자 주소" [ref=e475]
+                            - row "invoiceeBizType string 100 N 공급받는자 업태" [ref=e476]:
+                              - cell [ref=e477]
+                              - cell "invoiceeBizType" [ref=e478]
+                              - cell "string" [ref=e479]
+                              - cell "100" [ref=e480]
+                              - cell "N" [ref=e481]
+                              - cell "공급받는자 업태" [ref=e482]
+                            - row "invoiceeBizClass string 100 N 공급받는자 종목" [ref=e483]:
+                              - cell [ref=e484]
+                              - cell "invoiceeBizClass" [ref=e485]
+                              - cell "string" [ref=e486]
+                              - cell "100" [ref=e487]
+                              - cell "N" [ref=e488]
+                              - cell "공급받는자 종목" [ref=e489]
+                            - row "invoiceeContactName1 string 100 N 공급받는자 담당자 성명" [ref=e490]:
+                              - cell [ref=e491]
+                              - cell "invoiceeContactName1" [ref=e492]
+                              - cell "string" [ref=e493]
+                              - cell "100" [ref=e494]
+                              - cell "N" [ref=e495]
+                              - cell "공급받는자 담당자 성명" [ref=e496]
+                            - row "invoiceeDeptName1 string 100 N 공급받는자 담당자 부서명" [ref=e497]:
+                              - cell [ref=e498]
+                              - cell "invoiceeDeptName1" [ref=e499]
+                              - cell "string" [ref=e500]
+                              - cell "100" [ref=e501]
+                              - cell "N" [ref=e502]
+                              - cell "공급받는자 담당자 부서명" [ref=e503]
+                            - row "invoiceeTEL1 string 20 N 공급받는자 담당자 연락처" [ref=e504]:
+                              - cell [ref=e505]
+                              - cell "invoiceeTEL1" [ref=e506]
+                              - cell "string" [ref=e507]
+                              - cell "20" [ref=e508]
+                              - cell "N" [ref=e509]
+                              - cell "공급받는자 담당자 연락처" [ref=e510]
+                            - row "invoiceeHP1 string 20 N 공급받는자 담당자 휴대폰" [ref=e511]:
+                              - cell [ref=e512]
+                              - cell "invoiceeHP1" [ref=e513]
+                              - cell "string" [ref=e514]
+                              - cell "20" [ref=e515]
+                              - cell "N" [ref=e516]
+                              - cell "공급받는자 담당자 휴대폰" [ref=e517]
+                            - row "invoiceeEmail1 string 100 N 공급받는자 담당자 메일" [ref=e518]:
+                              - cell [ref=e519]
+                              - cell "invoiceeEmail1" [ref=e520]
+                              - cell "string" [ref=e521]
+                              - cell "100" [ref=e522]
+                              - cell "N" [ref=e523]
+                              - cell "공급받는자 담당자 메일" [ref=e524]
+                            - 'row "invoiceeSMSSendYN boolean - N 공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e525]':
+                              - cell [ref=e526]
+                              - cell "invoiceeSMSSendYN" [ref=e527]
+                              - cell "boolean" [ref=e528]
+                              - cell "-" [ref=e529]
+                              - cell "N" [ref=e530]
+                              - 'cell "공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e531]':
+                                - text: 공급받는자 알림문자 전송 여부
+                                - generic [ref=e532]:
+                                  - text: └
+                                  - generic [ref=e533]: "true"
+                                  - text: 전송
+                                - generic [ref=e534]:
+                                  - text: └
+                                  - generic [ref=e535]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e536]:
+                                  - text: "→ 수신자 : 공급자 휴대폰번호 {invoicerHP}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e537]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e538] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"역발행\" 경우"
+                                    - text: 세금계산서 역발행 요청시점에 알림문자 전송
+                            - 'row "trusteeMgtKey string 24 조건부 수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e539]':
+                              - cell [ref=e540]
+                              - cell "trusteeMgtKey" [ref=e541]
+                              - cell "string" [ref=e542]
+                              - cell "24" [ref=e543]
+                              - cell "조건부" [ref=e544]
+                              - 'cell "수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e545]':
+                                - text: 수탁자 문서번호
+                                - generic [ref=e546]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e547]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e548] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCorpNum string 10 조건부 수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e549]':
+                              - cell [ref=e550]
+                              - cell "trusteeCorpNum" [ref=e551]
+                              - cell "string" [ref=e552]
+                              - cell "10" [ref=e553]
+                              - cell "조건부" [ref=e554]
+                              - 'cell "수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e555]':
+                                - text: 수탁자 사업자번호 ('-' 제외)
+                                - generic [ref=e556]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e557] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - row "trusteeTaxRegID string 4 N 수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e558]:
+                              - cell [ref=e559]
+                              - cell "trusteeTaxRegID" [ref=e560]
+                              - cell "string" [ref=e561]
+                              - cell "4" [ref=e562]
+                              - cell "N" [ref=e563]
+                              - cell "수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e564]:
+                                - text: 수탁자 종사업장 식별번호
+                                - generic [ref=e565]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - 'row "trusteeCorpName string 200 조건부 수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e566]':
+                              - cell [ref=e567]
+                              - cell "trusteeCorpName" [ref=e568]
+                              - cell "string" [ref=e569]
+                              - cell "200" [ref=e570]
+                              - cell "조건부" [ref=e571]
+                              - 'cell "수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e572]':
+                                - text: 수탁자 상호
+                                - generic [ref=e573]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e574] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCEOName string 100 조건부 수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e575]':
+                              - cell [ref=e576]
+                              - cell "trusteeCEOName" [ref=e577]
+                              - cell "string" [ref=e578]
+                              - cell "100" [ref=e579]
+                              - cell "조건부" [ref=e580]
+                              - 'cell "수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e581]':
+                                - text: 수탁자 대표자 성명
+                                - generic [ref=e582]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e583] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                            - row "trusteeAddr string 300 N 수탁자 주소" [ref=e584]:
+                              - cell [ref=e585]
+                              - cell "trusteeAddr" [ref=e586]
+                              - cell "string" [ref=e587]
+                              - cell "300" [ref=e588]
+                              - cell "N" [ref=e589]
+                              - cell "수탁자 주소" [ref=e590]
+                            - row "trusteeBizType string 100 N 수탁자 업태" [ref=e591]:
+                              - cell [ref=e592]
+                              - cell "trusteeBizType" [ref=e593]
+                              - cell "string" [ref=e594]
+                              - cell "100" [ref=e595]
+                              - cell "N" [ref=e596]
+                              - cell "수탁자 업태" [ref=e597]
+                            - row "trusteeBizClass string 100 N 수탁자 종목" [ref=e598]:
+                              - cell [ref=e599]
+                              - cell "trusteeBizClass" [ref=e600]
+                              - cell "string" [ref=e601]
+                              - cell "100" [ref=e602]
+                              - cell "N" [ref=e603]
+                              - cell "수탁자 종목" [ref=e604]
+                            - row "trusteeContactName string 100 N 수탁자 담당자 성명" [ref=e605]:
+                              - cell [ref=e606]
+                              - cell "trusteeContactName" [ref=e607]
+                              - cell "string" [ref=e608]
+                              - cell "100" [ref=e609]
+                              - cell "N" [ref=e610]
+                              - cell "수탁자 담당자 성명" [ref=e611]
+                            - row "trusteeDeptName string 100 N 수탁자 담당자 부서명" [ref=e612]:
+                              - cell [ref=e613]
+                              - cell "trusteeDeptName" [ref=e614]
+                              - cell "string" [ref=e615]
+                              - cell "100" [ref=e616]
+                              - cell "N" [ref=e617]
+                              - cell "수탁자 담당자 부서명" [ref=e618]
+                            - row "trusteeTEL string 20 N 수탁자 담당자 연락처" [ref=e619]:
+                              - cell [ref=e620]
+                              - cell "trusteeTEL" [ref=e621]
+                              - cell "string" [ref=e622]
+                              - cell "20" [ref=e623]
+                              - cell "N" [ref=e624]
+                              - cell "수탁자 담당자 연락처" [ref=e625]
+                            - row "trusteeHP string 20 N 수탁자 담당자 휴대폰" [ref=e626]:
+                              - cell [ref=e627]
+                              - cell "trusteeHP" [ref=e628]
+                              - cell "string" [ref=e629]
+                              - cell "20" [ref=e630]
+                              - cell "N" [ref=e631]
+                              - cell "수탁자 담당자 휴대폰" [ref=e632]
+                            - row "trusteeEmail string 100 N 수탁자 담당자 메일" [ref=e633]:
+                              - cell [ref=e634]
+                              - cell "trusteeEmail" [ref=e635]
+                              - cell "string" [ref=e636]
+                              - cell "100" [ref=e637]
+                              - cell "N" [ref=e638]
+                              - cell "수탁자 담당자 메일" [ref=e639]
+                            - 'row "trusteeSMSSendYN boolean - N 수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e640]':
+                              - cell [ref=e641]
+                              - cell "trusteeSMSSendYN" [ref=e642]
+                              - cell "boolean" [ref=e643]
+                              - cell "-" [ref=e644]
+                              - cell "N" [ref=e645]
+                              - 'cell "수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e646]':
+                                - text: 수탁자 알림문자 전송 여부
+                                - generic [ref=e647]:
+                                  - text: └
+                                  - generic [ref=e648]: "true"
+                                  - text: 전송
+                                - generic [ref=e649]:
+                                  - text: └
+                                  - generic [ref=e650]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e651]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e652]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e653] [cursor=pointer]':
+                                    - /url: "#RegistIssue-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"위수탁\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - row "modifyCode number 1 조건부 수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e654]:
+                              - cell [ref=e655]
+                              - cell "modifyCode" [ref=e656]
+                              - cell "number" [ref=e657]
+                              - cell "1" [ref=e658]
+                              - cell "조건부" [ref=e659]
+                              - cell "수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e660]:
+                                - text: 수정 사유코드
+                                - generic [ref=e661]:
+                                  - text: → 수정세금계산서 작성시 필수
+                                  - link "[참고] 수정세금계산서" [ref=e662] [cursor=pointer]:
+                                    - /url: /guide/taxinvoice/introduction/modified-taxinvoice
+                            - row "orgNTSConfirmNum string 24 조건부 당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e663]:
+                              - cell [ref=e664]
+                              - cell "orgNTSConfirmNum" [ref=e665]
+                              - cell "string" [ref=e666]
+                              - cell "24" [ref=e667]
+                              - cell "조건부" [ref=e668]
+                              - cell "당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e669]:
+                                - text: 당초 국세청승인번호
+                                - generic [ref=e670]: → 수정세금계산서 작성시 필수
+                            - 'row "businessLicenseYN boolean - N 팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e671]':
+                              - cell [ref=e672]
+                              - cell "businessLicenseYN" [ref=e673]
+                              - cell "boolean" [ref=e674]
+                              - cell "-" [ref=e675]
+                              - cell "N" [ref=e676]
+                              - 'cell "팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e677]':
+                                - text: 팝빌에 등록된 사업자등록증 첨부 여부
+                                - generic [ref=e678]:
+                                  - text: └
+                                  - generic [ref=e679]: "true"
+                                  - text: 첨부
+                                - generic [ref=e680]:
+                                  - text: └
+                                  - generic [ref=e681]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e682]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e683] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "bankBookYN boolean - N 팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e684]':
+                              - cell [ref=e685]
+                              - cell "bankBookYN" [ref=e686]
+                              - cell "boolean" [ref=e687]
+                              - cell "-" [ref=e688]
+                              - cell "N" [ref=e689]
+                              - 'cell "팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e690]':
+                                - text: 팝빌에 등록된 통장사본 첨부 여부
+                                - generic [ref=e691]:
+                                  - text: └
+                                  - generic [ref=e692]: "true"
+                                  - text: 첨부
+                                - generic [ref=e693]:
+                                  - text: └
+                                  - generic [ref=e694]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e695]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e696] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "detailList List<TaxinvoiceDetail> N 품목 상세정보 → 최대 : 99개" [ref=e697]':
+                              - cell [ref=e698]
+                              - cell "detailList" [ref=e699]
+                              - cell "List<TaxinvoiceDetail>" [ref=e700]:
+                                - link "List<TaxinvoiceDetail>" [ref=e701] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceDetail
+                              - cell "N" [ref=e702]
+                              - 'cell "품목 상세정보 → 최대 : 99개" [ref=e703]':
+                                - text: 품목 상세정보
+                                - generic [ref=e704]: "→ 최대 : 99개"
+                            - 'row "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4208]':
+                              - 'cell "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4209]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e707]: TaxinvoiceDetail
+                                    - table [ref=e4210]:
+                                      - rowgroup [ref=e4211]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4212]:
+                                          - columnheader "순번" [ref=e4213]
+                                          - columnheader "변수명" [ref=e4214]
+                                          - columnheader "타입" [ref=e4215]
+                                          - columnheader "길이" [ref=e4216]
+                                          - columnheader "필수" [ref=e4217]
+                                          - columnheader "설명" [ref=e4218]
+                                      - rowgroup [ref=e4219]:
+                                        - 'row "serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4220]':
+                                          - cell [ref=e4221]
+                                          - cell "serialNum" [ref=e4222]
+                                          - cell "number" [ref=e4223]
+                                          - cell "2" [ref=e4224]
+                                          - cell "Y" [ref=e4225]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4226]':
+                                            - text: 일련번호
+                                            - generic [ref=e4227]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 99"
+                                        - 'row "purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd" [ref=e4228]':
+                                          - cell [ref=e4229]
+                                          - cell "purchaseDT" [ref=e4230]
+                                          - cell "string" [ref=e4231]
+                                          - cell "8" [ref=e4232]
+                                          - cell "N" [ref=e4233]
+                                          - 'cell "거래일자 → 형식 : yyyyMMdd" [ref=e4234]':
+                                            - text: 거래일자
+                                            - generic [ref=e4235]: "→ 형식 : yyyyMMdd"
+                                        - row "itemName string 100 N 품명" [ref=e4236]:
+                                          - cell [ref=e4237]
+                                          - cell "itemName" [ref=e4238]
+                                          - cell "string" [ref=e4239]
+                                          - cell "100" [ref=e4240]
+                                          - cell "N" [ref=e4241]
+                                          - cell "품명" [ref=e4242]
+                                        - row "spec string 60 N 규격" [ref=e4243]:
+                                          - cell [ref=e4244]
+                                          - cell "spec" [ref=e4245]
+                                          - cell "string" [ref=e4246]
+                                          - cell "60" [ref=e4247]
+                                          - cell "N" [ref=e4248]
+                                          - cell "규격" [ref=e4249]
+                                        - row "qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4250]:
+                                          - cell [ref=e4251]
+                                          - cell "qty" [ref=e4252]
+                                          - cell "string" [ref=e4253]
+                                          - cell "12" [ref=e4254]
+                                          - cell "N" [ref=e4255]
+                                          - cell "수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4256]:
+                                            - text: 수량
+                                            - generic [ref=e4257]:
+                                              - text: → -99999999.99 ~ 999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4258]:
+                                          - cell [ref=e4259]
+                                          - cell "unitCost" [ref=e4260]
+                                          - cell "string" [ref=e4261]
+                                          - cell "18" [ref=e4262]
+                                          - cell "N" [ref=e4263]
+                                          - cell "단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4264]:
+                                            - text: 단가
+                                            - generic [ref=e4265]:
+                                              - text: → -99999999999999.99 ~ 999999999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4266]:
+                                          - cell [ref=e4267]
+                                          - cell "supplyCost" [ref=e4268]
+                                          - cell "string" [ref=e4269]
+                                          - cell "18" [ref=e4270]
+                                          - cell "N" [ref=e4271]
+                                          - cell "공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4272]:
+                                            - text: 공급가액
+                                            - generic [ref=e4273]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4274]:
+                                          - cell [ref=e4275]
+                                          - cell "tax" [ref=e4276]
+                                          - cell "string" [ref=e4277]
+                                          - cell "18" [ref=e4278]
+                                          - cell "N" [ref=e4279]
+                                          - cell "세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4280]:
+                                            - text: 세액
+                                            - generic [ref=e4281]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "remark string 100 N 비고" [ref=e4282]:
+                                          - cell [ref=e4283]
+                                          - cell "remark" [ref=e4284]
+                                          - cell "string" [ref=e4285]
+                                          - cell "100" [ref=e4286]
+                                          - cell "N" [ref=e4287]
+                                          - cell "비고" [ref=e4288]
+                            - 'row "addContactList List<TaxinvoiceAddContact> N 공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e709]':
+                              - cell [ref=e710]
+                              - cell "addContactList" [ref=e711]
+                              - cell "List<TaxinvoiceAddContact>" [ref=e712]:
+                                - link "List<TaxinvoiceAddContact>" [ref=e713] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceAddContact
+                              - cell "N" [ref=e714]
+                              - 'cell "공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e715]':
+                                - text: 공급받는자 추가담당자 정보
+                                - generic [ref=e716]:
+                                  - text: → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용
+                                  - text: "최대 : 5명"
+                            - 'row "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4289]':
+                              - 'cell "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4290]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e719]: TaxinvoiceAddContact
+                                    - table [ref=e4291]:
+                                      - rowgroup [ref=e4292]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4293]:
+                                          - columnheader "순번" [ref=e4294]
+                                          - columnheader "변수명" [ref=e4295]
+                                          - columnheader "타입" [ref=e4296]
+                                          - columnheader "길이" [ref=e4297]
+                                          - columnheader "필수" [ref=e4298]
+                                          - columnheader "설명" [ref=e4299]
+                                      - rowgroup [ref=e4300]:
+                                        - 'row "serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4301]':
+                                          - cell [ref=e4302]
+                                          - cell "serialNum" [ref=e4303]
+                                          - cell "number" [ref=e4304]
+                                          - cell "1" [ref=e4305]
+                                          - cell "Y" [ref=e4306]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4307]':
+                                            - text: 일련번호
+                                            - generic [ref=e4308]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 5"
+                                        - row "contactName string 100 N 담당자 성명" [ref=e4309]:
+                                          - cell [ref=e4310]
+                                          - cell "contactName" [ref=e4311]
+                                          - cell "string" [ref=e4312]
+                                          - cell "100" [ref=e4313]
+                                          - cell "N" [ref=e4314]
+                                          - cell "담당자 성명" [ref=e4315]
+                                        - row "email string 100 Y 메일" [ref=e4316]:
+                                          - cell [ref=e4317]
+                                          - cell "email" [ref=e4318]
+                                          - cell "string" [ref=e4319]
+                                          - cell "100" [ref=e4320]
+                                          - cell "Y" [ref=e4321]
+                                          - cell "메일" [ref=e4322]
+                            - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e721]:
+                              - cell [ref=e722]
+                              - cell "memo" [ref=e723]
+                              - cell "string" [ref=e724]
+                              - cell "200" [ref=e725]
+                              - cell "N" [ref=e726]
+                              - cell "세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e727]:
+                                - text: 세금계산서 상태 이력을 관리하기 위한 메모
+                                - generic [ref=e728]: → 대량(Bulk)발행 경우 사용
+                            - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e729]':
+                              - cell [ref=e730]
+                              - cell "emailSubject" [ref=e731]
+                              - cell "string" [ref=e732]
+                              - cell "300" [ref=e733]
+                              - cell "N" [ref=e734]
+                              - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e735]':
+                                - text: 세금계산서 발행 안내메일 제목
+                                - generic [ref=e736]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목"
+                - 'row "writeSpecification boolean - N 거래명세서 동시작성 여부 └ true 사용 └ false 미사용 : 기본값 → 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능" [ref=e737]':
+                  - cell [ref=e738]
+                  - cell "writeSpecification" [ref=e739]
+                  - cell "boolean" [ref=e740]
+                  - cell "-" [ref=e741]
+                  - cell "N" [ref=e742]
+                  - 'cell "거래명세서 동시작성 여부 └ true 사용 └ false 미사용 : 기본값 → 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능" [ref=e743]':
+                    - text: 거래명세서 동시작성 여부
+                    - generic [ref=e744]:
+                      - text: └
+                      - generic [ref=e745]: "true"
+                      - text: 사용
+                    - generic [ref=e746]:
+                      - text: └
+                      - generic [ref=e747]: "false"
+                      - text: "미사용 : 기본값"
+                    - generic [ref=e748]: "→ 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능"
+                - 'row "forceIssue boolean - N 지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e749]':
+                  - cell [ref=e750]
+                  - cell "forceIssue" [ref=e751]
+                  - cell "boolean" [ref=e752]
+                  - cell "-" [ref=e753]
+                  - cell "N" [ref=e754]
+                  - 'cell "지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e755]':
+                    - text: 지연발행 가능여부
+                    - generic [ref=e756]:
+                      - text: └
+                      - generic [ref=e757]: "true"
+                      - text: 가능
+                    - generic [ref=e758]:
+                      - text: └
+                      - generic [ref=e759]: "false"
+                      - text: "불가능 : 기본값"
+                - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e760]:
+                  - cell [ref=e761]
+                  - cell "memo" [ref=e762]
+                  - cell "string" [ref=e763]
+                  - cell "200" [ref=e764]
+                  - cell "N" [ref=e765]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e766]
+                - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용" [ref=e767]':
+                  - cell [ref=e768]
+                  - cell "emailSubject" [ref=e769]
+                  - cell "string" [ref=e770]
+                  - cell "300" [ref=e771]
+                  - cell "N" [ref=e772]
+                  - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용" [ref=e773]':
+                    - text: 세금계산서 발행 안내메일 제목
+                    - generic [ref=e774]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용"
+                - 'row "dealInvoiceKey string 24 N 거래명세서 문서번호 ※ 기본값 : 세금계산서 문서번호와 동일하게 할당 ✓ {WriteSpecification}=true 경우 할당" [ref=e775]':
+                  - cell [ref=e776]
+                  - cell "dealInvoiceKey" [ref=e777]
+                  - cell "string" [ref=e778]
+                  - cell "24" [ref=e779]
+                  - cell "N" [ref=e780]
+                  - 'cell "거래명세서 문서번호 ※ 기본값 : 세금계산서 문서번호와 동일하게 할당 ✓ {WriteSpecification}=true 경우 할당" [ref=e781]':
+                    - text: 거래명세서 문서번호
+                    - generic [ref=e782]: "※ 기본값 : 세금계산서 문서번호와 동일하게 할당"
+                    - generic [ref=e783]:
+                      - text: ✓
+                      - 'link "{WriteSpecification}=true 경우 할당" [ref=e784] [cursor=pointer]':
+                        - /url: "#RegistIssue-WriteSpecification"
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e785]:
+                  - cell [ref=e786]
+                  - cell "UserID" [ref=e787]
+                  - cell "string" [ref=e788]
+                  - cell "50" [ref=e789]
+                  - cell "N" [ref=e790]
+                  - cell "팝빌회원 아이디" [ref=e791]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e792]:
+                  - cell [ref=e793]
+                  - cell "success" [ref=e794]
+                  - cell "function" [ref=e795]
+                  - cell "-" [ref=e796]
+                  - cell "Y" [ref=e797]
+                  - cell "성공에 대한 콜백 함수" [ref=e798]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e799]:
+                  - cell [ref=e800]
+                  - cell "error" [ref=e801]
+                  - cell "function" [ref=e802]
+                  - cell "-" [ref=e803]
+                  - cell "Y" [ref=e804]
+                  - cell "실패에 대한 콜백 함수" [ref=e805]
+          - heading "응답" [level=6] [ref=e806]
+          - generic [ref=e807]:
+            - generic [ref=e808] [cursor=pointer]: IssueResponse
+            - table [ref=e809]:
+              - rowgroup [ref=e810]:
+                - row "순번 변수명 타입 길이 설명" [ref=e811]:
+                  - columnheader "순번" [ref=e812]
+                  - columnheader "변수명" [ref=e813]
+                  - columnheader "타입" [ref=e814]
+                  - columnheader "길이" [ref=e815]
+                  - columnheader "설명" [ref=e816]
+              - rowgroup [ref=e817]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e818]:
+                  - cell [ref=e819]
+                  - cell "code" [ref=e820]
+                  - cell "number" [ref=e821]
+                  - cell "-" [ref=e822]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e823]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e824]:
+                      - text: └
+                      - generic [ref=e825]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e826]:
+                  - cell [ref=e827]
+                  - cell "message" [ref=e828]
+                  - cell "string" [ref=e829]
+                  - cell "-" [ref=e830]
+                  - cell "API 처리에 대한 응답메시지" [ref=e831]
+                - row "ntsConfirmNum string 24 국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e832]:
+                  - cell [ref=e833]
+                  - cell "ntsConfirmNum" [ref=e834]
+                  - cell "string" [ref=e835]
+                  - cell "24" [ref=e836]
+                  - cell "국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e837]:
+                    - text: 국세청승인번호
+                    - generic [ref=e838]: → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당
+          - heading "예외" [level=6] [ref=e839]
+          - generic [ref=e840]:
+            - generic [ref=e841] [cursor=pointer]: PopbillException
+            - table [ref=e4323]:
+              - rowgroup [ref=e4324]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4325]:
+                  - columnheader "순번" [ref=e4326]
+                  - columnheader "변수명" [ref=e4327]
+                  - columnheader "타입" [ref=e4328]
+                  - columnheader "길이" [ref=e4329]
+                  - columnheader "설명" [ref=e4330]
+              - rowgroup [ref=e4331]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4332]:
+                  - cell [ref=e4333]
+                  - cell "code" [ref=e4334]
+                  - cell "number" [ref=e4335]
+                  - cell "-" [ref=e4336]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4337]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e4338]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e4339] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e4340]:
+                  - cell [ref=e4341]
+                  - cell "message" [ref=e4342]
+                  - cell "string" [ref=e4343]
+                  - cell "-" [ref=e4344]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e4345]
+        - generic [ref=e842]:
+          - heading "2. BulkSubmit - 초대량 발행 접수" [level=3] [ref=e843]
+          - list [ref=e844]:
+            - listitem [ref=e845]: 최대 100건의 세금계산서 발행을 한번의 요청으로 접수합니다.
+          - code [ref=e847]: taxinvoiceService.bulkSubmit(CorpNum, SubmitID, taxinvoiceList, forceIssue, UserID, success, error)
+          - list [ref=e849]:
+            - listitem [ref=e850]:
+              - text: 세금계산서 발행을 위해서 공급자의 인증서가 팝빌 인증서버에 사전등록 되어야 합니다.
+              - paragraph [ref=e851]: ※ 위수탁의 경우, 수탁자의 인증서 등록이 필요합니다.
+            - listitem [ref=e852]: 세금계산서 발행시 포인트가 과금되며, 공급받는자에게 발행 메일이 발송됩니다.
+          - heading "요청" [level=6] [ref=e853]
+          - generic [ref=e854]:
+            - generic [ref=e855] [cursor=pointer]: Parameters
+            - table [ref=e856]:
+              - rowgroup [ref=e857]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e858]:
+                  - columnheader "순번" [ref=e859]
+                  - columnheader "변수명" [ref=e860]
+                  - columnheader "타입" [ref=e861]
+                  - columnheader "길이" [ref=e862]
+                  - columnheader "필수" [ref=e863]
+                  - columnheader "설명" [ref=e864]
+              - rowgroup [ref=e865]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e866]:
+                  - cell [ref=e867]
+                  - cell "CorpNum" [ref=e868]
+                  - cell "string" [ref=e869]
+                  - cell "10" [ref=e870]
+                  - cell "Y" [ref=e871]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e872]
+                - row "SubmitID string 36 Y 제출아이디 → 영문, 숫자, '-' 조합으로 구성" [ref=e873]:
+                  - cell [ref=e874]
+                  - cell "SubmitID" [ref=e875]
+                  - cell "string" [ref=e876]
+                  - cell "36" [ref=e877]
+                  - cell "Y" [ref=e878]
+                  - cell "제출아이디 → 영문, 숫자, '-' 조합으로 구성" [ref=e879]:
+                    - text: 제출아이디
+                    - generic [ref=e880]: → 영문, 숫자, '-' 조합으로 구성
+                - 'row "taxinvoiceList Taxinvoice[ ] Y 전자세금계산서 목록 → 최대 : 100건" [ref=e881]':
+                  - cell [ref=e882]
+                  - cell "taxinvoiceList" [ref=e883]
+                  - cell "Taxinvoice[ ]" [ref=e884]:
+                    - link "Taxinvoice[ ]" [ref=e885] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#Taxinvoice_Input
+                  - cell "Y" [ref=e886]
+                  - 'cell "전자세금계산서 목록 → 최대 : 100건" [ref=e887]':
+                    - text: 전자세금계산서 목록
+                    - generic [ref=e888]: "→ 최대 : 100건"
+                - row [ref=e4346]:
+                  - cell [ref=e4347]:
+                    - generic:
+                      - generic:
+                        - generic [ref=e891]: Taxinvoice
+                        - table [ref=e893]:
+                          - rowgroup [ref=e894]:
+                            - row "순번 변수명 타입 길이 필수 설명" [ref=e895]:
+                              - columnheader "순번" [ref=e896]
+                              - columnheader "변수명" [ref=e897]
+                              - columnheader "타입" [ref=e898]
+                              - columnheader "길이" [ref=e899]
+                              - columnheader "필수" [ref=e900]
+                              - columnheader "설명" [ref=e901]
+                          - rowgroup [ref=e902]:
+                            - row "issueType string 3 Y 발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e903]:
+                              - cell [ref=e904]
+                              - cell "issueType" [ref=e905]
+                              - cell "string" [ref=e906]
+                              - cell "3" [ref=e907]
+                              - cell "Y" [ref=e908]
+                              - cell "발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e909]:
+                                - text: 발행형태 (택 1)
+                                - generic [ref=e910]:
+                                  - text: └
+                                  - generic [ref=e911]: 정발행
+                                - generic [ref=e912]:
+                                  - text: └
+                                  - generic [ref=e913]: 역발행
+                                - generic [ref=e914]:
+                                  - text: └
+                                  - generic [ref=e915]: 위수탁
+                            - row "taxType string 2 Y 과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e916]:
+                              - cell [ref=e917]
+                              - cell "taxType" [ref=e918]
+                              - cell "string" [ref=e919]
+                              - cell "2" [ref=e920]
+                              - cell "Y" [ref=e921]
+                              - cell "과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e922]:
+                                - text: 과세형태 (택 1)
+                                - generic [ref=e923]:
+                                  - text: └
+                                  - generic [ref=e924]: 과세
+                                - generic [ref=e925]:
+                                  - text: └
+                                  - generic [ref=e926]: 영세
+                                - generic [ref=e927]:
+                                  - text: └
+                                  - generic [ref=e928]: 면세
+                            - 'row "chargeDirection string 3 Y 과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e929]':
+                              - cell [ref=e930]
+                              - cell "chargeDirection" [ref=e931]
+                              - cell "string" [ref=e932]
+                              - cell "3" [ref=e933]
+                              - cell "Y" [ref=e934]
+                              - 'cell "과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e935]':
+                                - text: 과금방향 (택 1)
+                                - generic [ref=e936]:
+                                  - text: └
+                                  - generic [ref=e937]: 정과금
+                                  - text: 공급자 과금
+                                - generic [ref=e938]:
+                                  - text: └
+                                  - generic [ref=e939]: 역과금
+                                  - text: 공급받는자 과금
+                                - text: "-{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능"
+                                - text: "-{issueType}=\"역발행\" 경우 역과금 가능"
+                            - row "serialNum string 30 N 일련번호" [ref=e940]:
+                              - cell [ref=e941]
+                              - cell "serialNum" [ref=e942]
+                              - cell "string" [ref=e943]
+                              - cell "30" [ref=e944]
+                              - cell "N" [ref=e945]
+                              - cell "일련번호" [ref=e946]
+                            - row "kwon number 4 N 책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e947]:
+                              - cell [ref=e948]
+                              - cell "kwon" [ref=e949]
+                              - cell "number" [ref=e950]
+                              - cell "4" [ref=e951]
+                              - cell "N" [ref=e952]
+                              - cell "책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e953]:
+                                - text: 책번호 "권" 항목
+                                - generic [ref=e954]: → 정수만 입력 가능
+                            - row "ho number 4 N 책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e955]:
+                              - cell [ref=e956]
+                              - cell "ho" [ref=e957]
+                              - cell "number" [ref=e958]
+                              - cell "4" [ref=e959]
+                              - cell "N" [ref=e960]
+                              - cell "책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e961]:
+                                - text: 책번호 "호" 항목
+                                - generic [ref=e962]: → 정수만 입력 가능
+                            - 'row "writeDate string 8 Y 작성일자 → 형식 : yyyyMMdd" [ref=e963]':
+                              - cell [ref=e964]
+                              - cell "writeDate" [ref=e965]
+                              - cell "string" [ref=e966]
+                              - cell "8" [ref=e967]
+                              - cell "Y" [ref=e968]
+                              - 'cell "작성일자 → 형식 : yyyyMMdd" [ref=e969]':
+                                - text: 작성일자
+                                - generic [ref=e970]: "→ 형식 : yyyyMMdd"
+                            - row "purposeType string 2 Y 영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e971]:
+                              - cell [ref=e972]
+                              - cell "purposeType" [ref=e973]
+                              - cell "string" [ref=e974]
+                              - cell "2" [ref=e975]
+                              - cell "Y" [ref=e976]
+                              - cell "영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e977]:
+                                - text: 영수/청구 (택 1)
+                                - generic [ref=e978]:
+                                  - text: └
+                                  - generic [ref=e979]: 영수
+                                - generic [ref=e980]:
+                                  - text: └
+                                  - generic [ref=e981]: 청구
+                                - generic [ref=e982]:
+                                  - text: └
+                                  - generic [ref=e983]: 없음
+                            - row "supplyCostTotal string 18 Y 공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e984]:
+                              - cell [ref=e985]
+                              - cell "supplyCostTotal" [ref=e986]
+                              - cell "string" [ref=e987]
+                              - cell "18" [ref=e988]
+                              - cell "Y" [ref=e989]
+                              - cell "공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e990]:
+                                - text: 공급가액 합계
+                                - generic [ref=e991]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "taxTotal string 18 Y 세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e992]:
+                              - cell [ref=e993]
+                              - cell "taxTotal" [ref=e994]
+                              - cell "string" [ref=e995]
+                              - cell "18" [ref=e996]
+                              - cell "Y" [ref=e997]
+                              - cell "세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e998]:
+                                - text: 세액 합계
+                                - generic [ref=e999]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "totalAmount string 18 Y 합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1000]:
+                              - cell [ref=e1001]
+                              - cell "totalAmount" [ref=e1002]
+                              - cell "string" [ref=e1003]
+                              - cell "18" [ref=e1004]
+                              - cell "Y" [ref=e1005]
+                              - cell "합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1006]:
+                                - text: 합계금액
+                                - generic [ref=e1007]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "cash string 18 N 현금" [ref=e1008]:
+                              - cell [ref=e1009]
+                              - cell "cash" [ref=e1010]
+                              - cell "string" [ref=e1011]
+                              - cell "18" [ref=e1012]
+                              - cell "N" [ref=e1013]
+                              - cell "현금" [ref=e1014]
+                            - row "chkBill string 18 N 수표" [ref=e1015]:
+                              - cell [ref=e1016]
+                              - cell "chkBill" [ref=e1017]
+                              - cell "string" [ref=e1018]
+                              - cell "18" [ref=e1019]
+                              - cell "N" [ref=e1020]
+                              - cell "수표" [ref=e1021]
+                            - row "credit string 18 N 외상" [ref=e1022]:
+                              - cell [ref=e1023]
+                              - cell "credit" [ref=e1024]
+                              - cell "string" [ref=e1025]
+                              - cell "18" [ref=e1026]
+                              - cell "N" [ref=e1027]
+                              - cell "외상" [ref=e1028]
+                            - row "note string 18 N 어음" [ref=e1029]:
+                              - cell [ref=e1030]
+                              - cell "note" [ref=e1031]
+                              - cell "string" [ref=e1032]
+                              - cell "18" [ref=e1033]
+                              - cell "N" [ref=e1034]
+                              - cell "어음" [ref=e1035]
+                            - 'row "remark1 string 150 조건부 비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1036]':
+                              - cell [ref=e1037]
+                              - cell "remark1" [ref=e1038]
+                              - cell "string" [ref=e1039]
+                              - cell "150" [ref=e1040]
+                              - cell "조건부" [ref=e1041]
+                              - 'cell "비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1042]':
+                                - text: 비고1
+                                - generic [ref=e1043]:
+                                  - text: ✓
+                                  - 'link "{invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1044] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-invoiceeType"
+                                    - text: "{invoiceeType}=\"외국인\" 경우"
+                                    - text: 외국인등록번호 또는 여권번호 필수 입력
+                            - row "remark2 string 150 N 비고2" [ref=e1045]:
+                              - cell [ref=e1046]
+                              - cell "remark2" [ref=e1047]
+                              - cell "string" [ref=e1048]
+                              - cell "150" [ref=e1049]
+                              - cell "N" [ref=e1050]
+                              - cell "비고2" [ref=e1051]
+                            - row "remark3 string 150 N 비고3" [ref=e1052]:
+                              - cell [ref=e1053]
+                              - cell "remark3" [ref=e1054]
+                              - cell "string" [ref=e1055]
+                              - cell "150" [ref=e1056]
+                              - cell "N" [ref=e1057]
+                              - cell "비고3" [ref=e1058]
+                            - 'row "invoicerMgtKey string 24 조건부 공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e1059]':
+                              - cell [ref=e1060]
+                              - cell "invoicerMgtKey" [ref=e1061]
+                              - cell "string" [ref=e1062]
+                              - cell "24" [ref=e1063]
+                              - cell "조건부" [ref=e1064]
+                              - 'cell "공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e1065]':
+                                - text: 공급자 문서번호
+                                - generic [ref=e1066]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e1067]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 필수" [ref=e1068] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - row "invoicerCorpNum string 10 Y 공급자 사업자번호 ('-' 제외)" [ref=e1069]:
+                              - cell [ref=e1070]
+                              - cell "invoicerCorpNum" [ref=e1071]
+                              - cell "string" [ref=e1072]
+                              - cell "10" [ref=e1073]
+                              - cell "Y" [ref=e1074]
+                              - cell "공급자 사업자번호 ('-' 제외)" [ref=e1075]
+                            - row "invoicerTaxRegID string 4 N 공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1076]:
+                              - cell [ref=e1077]
+                              - cell "invoicerTaxRegID" [ref=e1078]
+                              - cell "string" [ref=e1079]
+                              - cell "4" [ref=e1080]
+                              - cell "N" [ref=e1081]
+                              - cell "공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1082]:
+                                - text: 공급자 종사업장 식별번호
+                                - generic [ref=e1083]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoicerCorpName string 200 Y 공급자 상호" [ref=e1084]:
+                              - cell [ref=e1085]
+                              - cell "invoicerCorpName" [ref=e1086]
+                              - cell "string" [ref=e1087]
+                              - cell "200" [ref=e1088]
+                              - cell "Y" [ref=e1089]
+                              - cell "공급자 상호" [ref=e1090]
+                            - row "invoicerCEOName string 100 Y 공급자 대표자 성명" [ref=e1091]:
+                              - cell [ref=e1092]
+                              - cell "invoicerCEOName" [ref=e1093]
+                              - cell "string" [ref=e1094]
+                              - cell "100" [ref=e1095]
+                              - cell "Y" [ref=e1096]
+                              - cell "공급자 대표자 성명" [ref=e1097]
+                            - row "invoicerAddr string 300 N 공급자 주소" [ref=e1098]:
+                              - cell [ref=e1099]
+                              - cell "invoicerAddr" [ref=e1100]
+                              - cell "string" [ref=e1101]
+                              - cell "300" [ref=e1102]
+                              - cell "N" [ref=e1103]
+                              - cell "공급자 주소" [ref=e1104]
+                            - row "invoicerBizType string 100 N 공급자 업태" [ref=e1105]:
+                              - cell [ref=e1106]
+                              - cell "invoicerBizType" [ref=e1107]
+                              - cell "string" [ref=e1108]
+                              - cell "100" [ref=e1109]
+                              - cell "N" [ref=e1110]
+                              - cell "공급자 업태" [ref=e1111]
+                            - row "invoicerBizClass string 100 N 공급자 종목" [ref=e1112]:
+                              - cell [ref=e1113]
+                              - cell "invoicerBizClass" [ref=e1114]
+                              - cell "string" [ref=e1115]
+                              - cell "100" [ref=e1116]
+                              - cell "N" [ref=e1117]
+                              - cell "공급자 종목" [ref=e1118]
+                            - row "invoicerContactName string 100 N 공급자 담당자 성명" [ref=e1119]:
+                              - cell [ref=e1120]
+                              - cell "invoicerContactName" [ref=e1121]
+                              - cell "string" [ref=e1122]
+                              - cell "100" [ref=e1123]
+                              - cell "N" [ref=e1124]
+                              - cell "공급자 담당자 성명" [ref=e1125]
+                            - row "invoicerDeptName string 100 N 공급자 담당자 부서명" [ref=e1126]:
+                              - cell [ref=e1127]
+                              - cell "invoicerDeptName" [ref=e1128]
+                              - cell "string" [ref=e1129]
+                              - cell "100" [ref=e1130]
+                              - cell "N" [ref=e1131]
+                              - cell "공급자 담당자 부서명" [ref=e1132]
+                            - row "invoicerTEL string 20 N 공급자 담당자 연락처" [ref=e1133]:
+                              - cell [ref=e1134]
+                              - cell "invoicerTEL" [ref=e1135]
+                              - cell "string" [ref=e1136]
+                              - cell "20" [ref=e1137]
+                              - cell "N" [ref=e1138]
+                              - cell "공급자 담당자 연락처" [ref=e1139]
+                            - row "invoicerHP string 20 N 공급자 담당자 휴대폰" [ref=e1140]:
+                              - cell [ref=e1141]
+                              - cell "invoicerHP" [ref=e1142]
+                              - cell "string" [ref=e1143]
+                              - cell "20" [ref=e1144]
+                              - cell "N" [ref=e1145]
+                              - cell "공급자 담당자 휴대폰" [ref=e1146]
+                            - row "invoicerEmail string 100 N 공급자 담당자 메일" [ref=e1147]:
+                              - cell [ref=e1148]
+                              - cell "invoicerEmail" [ref=e1149]
+                              - cell "string" [ref=e1150]
+                              - cell "100" [ref=e1151]
+                              - cell "N" [ref=e1152]
+                              - cell "공급자 담당자 메일" [ref=e1153]
+                            - 'row "invoicerSMSSendYN boolean - N 공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1154]':
+                              - cell [ref=e1155]
+                              - cell "invoicerSMSSendYN" [ref=e1156]
+                              - cell "boolean" [ref=e1157]
+                              - cell "-" [ref=e1158]
+                              - cell "N" [ref=e1159]
+                              - 'cell "공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1160]':
+                                - text: 공급자 알림문자 전송 여부
+                                - generic [ref=e1161]:
+                                  - text: └
+                                  - generic [ref=e1162]: "true"
+                                  - text: 전송
+                                - generic [ref=e1163]:
+                                  - text: └
+                                  - generic [ref=e1164]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e1165]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e1166]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1167] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"정발행\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - 'row "invoiceeMgtKey string 24 조건부 공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e1168]':
+                              - cell [ref=e1169]
+                              - cell "invoiceeMgtKey" [ref=e1170]
+                              - cell "string" [ref=e1171]
+                              - cell "24" [ref=e1172]
+                              - cell "조건부" [ref=e1173]
+                              - 'cell "공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e1174]':
+                                - text: 공급받는자 문서번호
+                                - generic [ref=e1175]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e1176]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 필수" [ref=e1177] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - row "invoiceeType string - Y 공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e1178]:
+                              - cell [ref=e1179]
+                              - cell "invoiceeType" [ref=e1180]
+                              - cell "string" [ref=e1181]
+                              - cell "-" [ref=e1182]
+                              - cell "Y" [ref=e1183]
+                              - cell "공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e1184]:
+                                - text: 공급받는자 유형 (택 1)
+                                - generic [ref=e1185]:
+                                  - text: └
+                                  - generic [ref=e1186]: 사업자
+                                - generic [ref=e1187]:
+                                  - text: └
+                                  - generic [ref=e1188]: 개인
+                                - generic [ref=e1189]:
+                                  - text: └
+                                  - generic [ref=e1190]: 외국인
+                            - 'row "invoiceeCorpNum string 13 Y 공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e1191]':
+                              - cell [ref=e1192]
+                              - cell "invoiceeCorpNum" [ref=e1193]
+                              - cell "string" [ref=e1194]
+                              - cell "13" [ref=e1195]
+                              - cell "Y" [ref=e1196]
+                              - 'cell "공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e1197]':
+                                - text: 공급받는자 등록번호 ('-' 제외)
+                                - text: "- {invoiceeType}=\"사업자\" 경우 사업자번호"
+                                - text: "- {invoiceeType}=\"개인\" 경우 주민등록번호"
+                                - text: "- {invoiceeType}=\"외국인\" 경우 \"9999999999999\""
+                            - row "invoiceeTaxRegID string 4 N 공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1198]:
+                              - cell [ref=e1199]
+                              - cell "invoiceeTaxRegID" [ref=e1200]
+                              - cell "string" [ref=e1201]
+                              - cell "4" [ref=e1202]
+                              - cell "N" [ref=e1203]
+                              - cell "공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1204]:
+                                - text: 공급받는자 종사업장 식별번호
+                                - generic [ref=e1205]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoiceeCorpName string 200 Y 공급받는자 상호" [ref=e1206]:
+                              - cell [ref=e1207]
+                              - cell "invoiceeCorpName" [ref=e1208]
+                              - cell "string" [ref=e1209]
+                              - cell "200" [ref=e1210]
+                              - cell "Y" [ref=e1211]
+                              - cell "공급받는자 상호" [ref=e1212]
+                            - row "invoiceeCEOName string 100 Y 공급받는자 대표자 성명" [ref=e1213]:
+                              - cell [ref=e1214]
+                              - cell "invoiceeCEOName" [ref=e1215]
+                              - cell "string" [ref=e1216]
+                              - cell "100" [ref=e1217]
+                              - cell "Y" [ref=e1218]
+                              - cell "공급받는자 대표자 성명" [ref=e1219]
+                            - row "invoiceeAddr string 300 N 공급받는자 주소" [ref=e1220]:
+                              - cell [ref=e1221]
+                              - cell "invoiceeAddr" [ref=e1222]
+                              - cell "string" [ref=e1223]
+                              - cell "300" [ref=e1224]
+                              - cell "N" [ref=e1225]
+                              - cell "공급받는자 주소" [ref=e1226]
+                            - row "invoiceeBizType string 100 N 공급받는자 업태" [ref=e1227]:
+                              - cell [ref=e1228]
+                              - cell "invoiceeBizType" [ref=e1229]
+                              - cell "string" [ref=e1230]
+                              - cell "100" [ref=e1231]
+                              - cell "N" [ref=e1232]
+                              - cell "공급받는자 업태" [ref=e1233]
+                            - row "invoiceeBizClass string 100 N 공급받는자 종목" [ref=e1234]:
+                              - cell [ref=e1235]
+                              - cell "invoiceeBizClass" [ref=e1236]
+                              - cell "string" [ref=e1237]
+                              - cell "100" [ref=e1238]
+                              - cell "N" [ref=e1239]
+                              - cell "공급받는자 종목" [ref=e1240]
+                            - row "invoiceeContactName1 string 100 N 공급받는자 담당자 성명" [ref=e1241]:
+                              - cell [ref=e1242]
+                              - cell "invoiceeContactName1" [ref=e1243]
+                              - cell "string" [ref=e1244]
+                              - cell "100" [ref=e1245]
+                              - cell "N" [ref=e1246]
+                              - cell "공급받는자 담당자 성명" [ref=e1247]
+                            - row "invoiceeDeptName1 string 100 N 공급받는자 담당자 부서명" [ref=e1248]:
+                              - cell [ref=e1249]
+                              - cell "invoiceeDeptName1" [ref=e1250]
+                              - cell "string" [ref=e1251]
+                              - cell "100" [ref=e1252]
+                              - cell "N" [ref=e1253]
+                              - cell "공급받는자 담당자 부서명" [ref=e1254]
+                            - row "invoiceeTEL1 string 20 N 공급받는자 담당자 연락처" [ref=e1255]:
+                              - cell [ref=e1256]
+                              - cell "invoiceeTEL1" [ref=e1257]
+                              - cell "string" [ref=e1258]
+                              - cell "20" [ref=e1259]
+                              - cell "N" [ref=e1260]
+                              - cell "공급받는자 담당자 연락처" [ref=e1261]
+                            - row "invoiceeHP1 string 20 N 공급받는자 담당자 휴대폰" [ref=e1262]:
+                              - cell [ref=e1263]
+                              - cell "invoiceeHP1" [ref=e1264]
+                              - cell "string" [ref=e1265]
+                              - cell "20" [ref=e1266]
+                              - cell "N" [ref=e1267]
+                              - cell "공급받는자 담당자 휴대폰" [ref=e1268]
+                            - row "invoiceeEmail1 string 100 N 공급받는자 담당자 메일" [ref=e1269]:
+                              - cell [ref=e1270]
+                              - cell "invoiceeEmail1" [ref=e1271]
+                              - cell "string" [ref=e1272]
+                              - cell "100" [ref=e1273]
+                              - cell "N" [ref=e1274]
+                              - cell "공급받는자 담당자 메일" [ref=e1275]
+                            - 'row "invoiceeSMSSendYN boolean - N 공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e1276]':
+                              - cell [ref=e1277]
+                              - cell "invoiceeSMSSendYN" [ref=e1278]
+                              - cell "boolean" [ref=e1279]
+                              - cell "-" [ref=e1280]
+                              - cell "N" [ref=e1281]
+                              - 'cell "공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e1282]':
+                                - text: 공급받는자 알림문자 전송 여부
+                                - generic [ref=e1283]:
+                                  - text: └
+                                  - generic [ref=e1284]: "true"
+                                  - text: 전송
+                                - generic [ref=e1285]:
+                                  - text: └
+                                  - generic [ref=e1286]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e1287]:
+                                  - text: "→ 수신자 : 공급자 휴대폰번호 {invoicerHP}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e1288]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e1289] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"역발행\" 경우"
+                                    - text: 세금계산서 역발행 요청시점에 알림문자 전송
+                            - 'row "trusteeMgtKey string 24 조건부 수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1290]':
+                              - cell [ref=e1291]
+                              - cell "trusteeMgtKey" [ref=e1292]
+                              - cell "string" [ref=e1293]
+                              - cell "24" [ref=e1294]
+                              - cell "조건부" [ref=e1295]
+                              - 'cell "수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1296]':
+                                - text: 수탁자 문서번호
+                                - generic [ref=e1297]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e1298]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e1299] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCorpNum string 10 조건부 수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1300]':
+                              - cell [ref=e1301]
+                              - cell "trusteeCorpNum" [ref=e1302]
+                              - cell "string" [ref=e1303]
+                              - cell "10" [ref=e1304]
+                              - cell "조건부" [ref=e1305]
+                              - 'cell "수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1306]':
+                                - text: 수탁자 사업자번호 ('-' 제외)
+                                - generic [ref=e1307]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e1308] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - row "trusteeTaxRegID string 4 N 수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1309]:
+                              - cell [ref=e1310]
+                              - cell "trusteeTaxRegID" [ref=e1311]
+                              - cell "string" [ref=e1312]
+                              - cell "4" [ref=e1313]
+                              - cell "N" [ref=e1314]
+                              - cell "수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1315]:
+                                - text: 수탁자 종사업장 식별번호
+                                - generic [ref=e1316]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - 'row "trusteeCorpName string 200 조건부 수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1317]':
+                              - cell [ref=e1318]
+                              - cell "trusteeCorpName" [ref=e1319]
+                              - cell "string" [ref=e1320]
+                              - cell "200" [ref=e1321]
+                              - cell "조건부" [ref=e1322]
+                              - 'cell "수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1323]':
+                                - text: 수탁자 상호
+                                - generic [ref=e1324]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e1325] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCEOName string 100 조건부 수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1326]':
+                              - cell [ref=e1327]
+                              - cell "trusteeCEOName" [ref=e1328]
+                              - cell "string" [ref=e1329]
+                              - cell "100" [ref=e1330]
+                              - cell "조건부" [ref=e1331]
+                              - 'cell "수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e1332]':
+                                - text: 수탁자 대표자 성명
+                                - generic [ref=e1333]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e1334] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                            - row "trusteeAddr string 300 N 수탁자 주소" [ref=e1335]:
+                              - cell [ref=e1336]
+                              - cell "trusteeAddr" [ref=e1337]
+                              - cell "string" [ref=e1338]
+                              - cell "300" [ref=e1339]
+                              - cell "N" [ref=e1340]
+                              - cell "수탁자 주소" [ref=e1341]
+                            - row "trusteeBizType string 100 N 수탁자 업태" [ref=e1342]:
+                              - cell [ref=e1343]
+                              - cell "trusteeBizType" [ref=e1344]
+                              - cell "string" [ref=e1345]
+                              - cell "100" [ref=e1346]
+                              - cell "N" [ref=e1347]
+                              - cell "수탁자 업태" [ref=e1348]
+                            - row "trusteeBizClass string 100 N 수탁자 종목" [ref=e1349]:
+                              - cell [ref=e1350]
+                              - cell "trusteeBizClass" [ref=e1351]
+                              - cell "string" [ref=e1352]
+                              - cell "100" [ref=e1353]
+                              - cell "N" [ref=e1354]
+                              - cell "수탁자 종목" [ref=e1355]
+                            - row "trusteeContactName string 100 N 수탁자 담당자 성명" [ref=e1356]:
+                              - cell [ref=e1357]
+                              - cell "trusteeContactName" [ref=e1358]
+                              - cell "string" [ref=e1359]
+                              - cell "100" [ref=e1360]
+                              - cell "N" [ref=e1361]
+                              - cell "수탁자 담당자 성명" [ref=e1362]
+                            - row "trusteeDeptName string 100 N 수탁자 담당자 부서명" [ref=e1363]:
+                              - cell [ref=e1364]
+                              - cell "trusteeDeptName" [ref=e1365]
+                              - cell "string" [ref=e1366]
+                              - cell "100" [ref=e1367]
+                              - cell "N" [ref=e1368]
+                              - cell "수탁자 담당자 부서명" [ref=e1369]
+                            - row "trusteeTEL string 20 N 수탁자 담당자 연락처" [ref=e1370]:
+                              - cell [ref=e1371]
+                              - cell "trusteeTEL" [ref=e1372]
+                              - cell "string" [ref=e1373]
+                              - cell "20" [ref=e1374]
+                              - cell "N" [ref=e1375]
+                              - cell "수탁자 담당자 연락처" [ref=e1376]
+                            - row "trusteeHP string 20 N 수탁자 담당자 휴대폰" [ref=e1377]:
+                              - cell [ref=e1378]
+                              - cell "trusteeHP" [ref=e1379]
+                              - cell "string" [ref=e1380]
+                              - cell "20" [ref=e1381]
+                              - cell "N" [ref=e1382]
+                              - cell "수탁자 담당자 휴대폰" [ref=e1383]
+                            - row "trusteeEmail string 100 N 수탁자 담당자 메일" [ref=e1384]:
+                              - cell [ref=e1385]
+                              - cell "trusteeEmail" [ref=e1386]
+                              - cell "string" [ref=e1387]
+                              - cell "100" [ref=e1388]
+                              - cell "N" [ref=e1389]
+                              - cell "수탁자 담당자 메일" [ref=e1390]
+                            - 'row "trusteeSMSSendYN boolean - N 수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1391]':
+                              - cell [ref=e1392]
+                              - cell "trusteeSMSSendYN" [ref=e1393]
+                              - cell "boolean" [ref=e1394]
+                              - cell "-" [ref=e1395]
+                              - cell "N" [ref=e1396]
+                              - 'cell "수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1397]':
+                                - text: 수탁자 알림문자 전송 여부
+                                - generic [ref=e1398]:
+                                  - text: └
+                                  - generic [ref=e1399]: "true"
+                                  - text: 전송
+                                - generic [ref=e1400]:
+                                  - text: └
+                                  - generic [ref=e1401]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e1402]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e1403]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1404] [cursor=pointer]':
+                                    - /url: "#BulkSubmit-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"위수탁\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - row "modifyCode number 1 조건부 수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e1405]:
+                              - cell [ref=e1406]
+                              - cell "modifyCode" [ref=e1407]
+                              - cell "number" [ref=e1408]
+                              - cell "1" [ref=e1409]
+                              - cell "조건부" [ref=e1410]
+                              - cell "수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e1411]:
+                                - text: 수정 사유코드
+                                - generic [ref=e1412]:
+                                  - text: → 수정세금계산서 작성시 필수
+                                  - link "[참고] 수정세금계산서" [ref=e1413] [cursor=pointer]:
+                                    - /url: /guide/taxinvoice/introduction/modified-taxinvoice
+                            - row "orgNTSConfirmNum string 24 조건부 당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e1414]:
+                              - cell [ref=e1415]
+                              - cell "orgNTSConfirmNum" [ref=e1416]
+                              - cell "string" [ref=e1417]
+                              - cell "24" [ref=e1418]
+                              - cell "조건부" [ref=e1419]
+                              - cell "당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e1420]:
+                                - text: 당초 국세청승인번호
+                                - generic [ref=e1421]: → 수정세금계산서 작성시 필수
+                            - 'row "businessLicenseYN boolean - N 팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e1422]':
+                              - cell [ref=e1423]
+                              - cell "businessLicenseYN" [ref=e1424]
+                              - cell "boolean" [ref=e1425]
+                              - cell "-" [ref=e1426]
+                              - cell "N" [ref=e1427]
+                              - 'cell "팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e1428]':
+                                - text: 팝빌에 등록된 사업자등록증 첨부 여부
+                                - generic [ref=e1429]:
+                                  - text: └
+                                  - generic [ref=e1430]: "true"
+                                  - text: 첨부
+                                - generic [ref=e1431]:
+                                  - text: └
+                                  - generic [ref=e1432]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e1433]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e1434] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "bankBookYN boolean - N 팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e1435]':
+                              - cell [ref=e1436]
+                              - cell "bankBookYN" [ref=e1437]
+                              - cell "boolean" [ref=e1438]
+                              - cell "-" [ref=e1439]
+                              - cell "N" [ref=e1440]
+                              - 'cell "팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e1441]':
+                                - text: 팝빌에 등록된 통장사본 첨부 여부
+                                - generic [ref=e1442]:
+                                  - text: └
+                                  - generic [ref=e1443]: "true"
+                                  - text: 첨부
+                                - generic [ref=e1444]:
+                                  - text: └
+                                  - generic [ref=e1445]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e1446]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e1447] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "detailList List<TaxinvoiceDetail> N 품목 상세정보 → 최대 : 99개" [ref=e1448]':
+                              - cell [ref=e1449]
+                              - cell "detailList" [ref=e1450]
+                              - cell "List<TaxinvoiceDetail>" [ref=e1451]:
+                                - link "List<TaxinvoiceDetail>" [ref=e1452] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceDetail
+                              - cell "N" [ref=e1453]
+                              - 'cell "품목 상세정보 → 최대 : 99개" [ref=e1454]':
+                                - text: 품목 상세정보
+                                - generic [ref=e1455]: "→ 최대 : 99개"
+                            - 'row "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4348]':
+                              - 'cell "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4349]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e1458]: TaxinvoiceDetail
+                                    - table [ref=e4350]:
+                                      - rowgroup [ref=e4351]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4352]:
+                                          - columnheader "순번" [ref=e4353]
+                                          - columnheader "변수명" [ref=e4354]
+                                          - columnheader "타입" [ref=e4355]
+                                          - columnheader "길이" [ref=e4356]
+                                          - columnheader "필수" [ref=e4357]
+                                          - columnheader "설명" [ref=e4358]
+                                      - rowgroup [ref=e4359]:
+                                        - 'row "serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4360]':
+                                          - cell [ref=e4361]
+                                          - cell "serialNum" [ref=e4362]
+                                          - cell "number" [ref=e4363]
+                                          - cell "2" [ref=e4364]
+                                          - cell "Y" [ref=e4365]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4366]':
+                                            - text: 일련번호
+                                            - generic [ref=e4367]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 99"
+                                        - 'row "purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd" [ref=e4368]':
+                                          - cell [ref=e4369]
+                                          - cell "purchaseDT" [ref=e4370]
+                                          - cell "string" [ref=e4371]
+                                          - cell "8" [ref=e4372]
+                                          - cell "N" [ref=e4373]
+                                          - 'cell "거래일자 → 형식 : yyyyMMdd" [ref=e4374]':
+                                            - text: 거래일자
+                                            - generic [ref=e4375]: "→ 형식 : yyyyMMdd"
+                                        - row "itemName string 100 N 품명" [ref=e4376]:
+                                          - cell [ref=e4377]
+                                          - cell "itemName" [ref=e4378]
+                                          - cell "string" [ref=e4379]
+                                          - cell "100" [ref=e4380]
+                                          - cell "N" [ref=e4381]
+                                          - cell "품명" [ref=e4382]
+                                        - row "spec string 60 N 규격" [ref=e4383]:
+                                          - cell [ref=e4384]
+                                          - cell "spec" [ref=e4385]
+                                          - cell "string" [ref=e4386]
+                                          - cell "60" [ref=e4387]
+                                          - cell "N" [ref=e4388]
+                                          - cell "규격" [ref=e4389]
+                                        - row "qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4390]:
+                                          - cell [ref=e4391]
+                                          - cell "qty" [ref=e4392]
+                                          - cell "string" [ref=e4393]
+                                          - cell "12" [ref=e4394]
+                                          - cell "N" [ref=e4395]
+                                          - cell "수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4396]:
+                                            - text: 수량
+                                            - generic [ref=e4397]:
+                                              - text: → -99999999.99 ~ 999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4398]:
+                                          - cell [ref=e4399]
+                                          - cell "unitCost" [ref=e4400]
+                                          - cell "string" [ref=e4401]
+                                          - cell "18" [ref=e4402]
+                                          - cell "N" [ref=e4403]
+                                          - cell "단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4404]:
+                                            - text: 단가
+                                            - generic [ref=e4405]:
+                                              - text: → -99999999999999.99 ~ 999999999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4406]:
+                                          - cell [ref=e4407]
+                                          - cell "supplyCost" [ref=e4408]
+                                          - cell "string" [ref=e4409]
+                                          - cell "18" [ref=e4410]
+                                          - cell "N" [ref=e4411]
+                                          - cell "공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4412]:
+                                            - text: 공급가액
+                                            - generic [ref=e4413]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4414]:
+                                          - cell [ref=e4415]
+                                          - cell "tax" [ref=e4416]
+                                          - cell "string" [ref=e4417]
+                                          - cell "18" [ref=e4418]
+                                          - cell "N" [ref=e4419]
+                                          - cell "세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4420]:
+                                            - text: 세액
+                                            - generic [ref=e4421]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "remark string 100 N 비고" [ref=e4422]:
+                                          - cell [ref=e4423]
+                                          - cell "remark" [ref=e4424]
+                                          - cell "string" [ref=e4425]
+                                          - cell "100" [ref=e4426]
+                                          - cell "N" [ref=e4427]
+                                          - cell "비고" [ref=e4428]
+                            - 'row "addContactList List<TaxinvoiceAddContact> N 공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e1460]':
+                              - cell [ref=e1461]
+                              - cell "addContactList" [ref=e1462]
+                              - cell "List<TaxinvoiceAddContact>" [ref=e1463]:
+                                - link "List<TaxinvoiceAddContact>" [ref=e1464] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceAddContact
+                              - cell "N" [ref=e1465]
+                              - 'cell "공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e1466]':
+                                - text: 공급받는자 추가담당자 정보
+                                - generic [ref=e1467]:
+                                  - text: → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용
+                                  - text: "최대 : 5명"
+                            - 'row "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4429]':
+                              - 'cell "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4430]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e1470]: TaxinvoiceAddContact
+                                    - table [ref=e4431]:
+                                      - rowgroup [ref=e4432]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4433]:
+                                          - columnheader "순번" [ref=e4434]
+                                          - columnheader "변수명" [ref=e4435]
+                                          - columnheader "타입" [ref=e4436]
+                                          - columnheader "길이" [ref=e4437]
+                                          - columnheader "필수" [ref=e4438]
+                                          - columnheader "설명" [ref=e4439]
+                                      - rowgroup [ref=e4440]:
+                                        - 'row "serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4441]':
+                                          - cell [ref=e4442]
+                                          - cell "serialNum" [ref=e4443]
+                                          - cell "number" [ref=e4444]
+                                          - cell "1" [ref=e4445]
+                                          - cell "Y" [ref=e4446]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4447]':
+                                            - text: 일련번호
+                                            - generic [ref=e4448]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 5"
+                                        - row "contactName string 100 N 담당자 성명" [ref=e4449]:
+                                          - cell [ref=e4450]
+                                          - cell "contactName" [ref=e4451]
+                                          - cell "string" [ref=e4452]
+                                          - cell "100" [ref=e4453]
+                                          - cell "N" [ref=e4454]
+                                          - cell "담당자 성명" [ref=e4455]
+                                        - row "email string 100 Y 메일" [ref=e4456]:
+                                          - cell [ref=e4457]
+                                          - cell "email" [ref=e4458]
+                                          - cell "string" [ref=e4459]
+                                          - cell "100" [ref=e4460]
+                                          - cell "Y" [ref=e4461]
+                                          - cell "메일" [ref=e4462]
+                            - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e1472]:
+                              - cell [ref=e1473]
+                              - cell "memo" [ref=e1474]
+                              - cell "string" [ref=e1475]
+                              - cell "200" [ref=e1476]
+                              - cell "N" [ref=e1477]
+                              - cell "세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e1478]:
+                                - text: 세금계산서 상태 이력을 관리하기 위한 메모
+                                - generic [ref=e1479]: → 대량(Bulk)발행 경우 사용
+                            - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e1480]':
+                              - cell [ref=e1481]
+                              - cell "emailSubject" [ref=e1482]
+                              - cell "string" [ref=e1483]
+                              - cell "300" [ref=e1484]
+                              - cell "N" [ref=e1485]
+                              - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e1486]':
+                                - text: 세금계산서 발행 안내메일 제목
+                                - generic [ref=e1487]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목"
+                - 'row "forceIssue boolean - N 지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e1488]':
+                  - cell [ref=e1489]
+                  - cell "forceIssue" [ref=e1490]
+                  - cell "boolean" [ref=e1491]
+                  - cell "-" [ref=e1492]
+                  - cell "N" [ref=e1493]
+                  - 'cell "지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e1494]':
+                    - text: 지연발행 가능여부
+                    - generic [ref=e1495]:
+                      - text: └
+                      - generic [ref=e1496]: "true"
+                      - text: 가능
+                    - generic [ref=e1497]:
+                      - text: └
+                      - generic [ref=e1498]: "false"
+                      - text: "불가능 : 기본값"
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e1499]:
+                  - cell [ref=e1500]
+                  - cell "UserID" [ref=e1501]
+                  - cell "string" [ref=e1502]
+                  - cell "50" [ref=e1503]
+                  - cell "N" [ref=e1504]
+                  - cell "팝빌회원 아이디" [ref=e1505]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e1506]:
+                  - cell [ref=e1507]
+                  - cell "success" [ref=e1508]
+                  - cell "function" [ref=e1509]
+                  - cell "-" [ref=e1510]
+                  - cell "Y" [ref=e1511]
+                  - cell "성공에 대한 콜백 함수" [ref=e1512]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e1513]:
+                  - cell [ref=e1514]
+                  - cell "error" [ref=e1515]
+                  - cell "function" [ref=e1516]
+                  - cell "-" [ref=e1517]
+                  - cell "Y" [ref=e1518]
+                  - cell "실패에 대한 콜백 함수" [ref=e1519]
+          - heading "응답" [level=6] [ref=e1520]
+          - generic [ref=e1521]:
+            - generic [ref=e1522] [cursor=pointer]: BulkResponse
+            - table [ref=e4463]:
+              - rowgroup [ref=e4464]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4465]:
+                  - columnheader "순번" [ref=e4466]
+                  - columnheader "변수명" [ref=e4467]
+                  - columnheader "타입" [ref=e4468]
+                  - columnheader "길이" [ref=e4469]
+                  - columnheader "설명" [ref=e4470]
+              - rowgroup [ref=e4471]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e4472]:
+                  - cell [ref=e4473]
+                  - cell "code" [ref=e4474]
+                  - cell "number" [ref=e4475]
+                  - cell "-" [ref=e4476]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e4477]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e4478]:
+                      - text: └
+                      - generic [ref=e4479]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e4480]:
+                  - cell [ref=e4481]
+                  - cell "message" [ref=e4482]
+                  - cell "string" [ref=e4483]
+                  - cell "-" [ref=e4484]
+                  - cell "API 처리에 대한 응답메시지" [ref=e4485]
+                - row "receiptID string 36 접수아이디 → 접수 시점에 팝빌에서 자동으로 할당" [ref=e4486]:
+                  - cell [ref=e4487]
+                  - cell "receiptID" [ref=e4488]
+                  - cell "string" [ref=e4489]
+                  - cell "36" [ref=e4490]
+                  - cell "접수아이디 → 접수 시점에 팝빌에서 자동으로 할당" [ref=e4491]:
+                    - text: 접수아이디
+                    - generic [ref=e4492]: → 접수 시점에 팝빌에서 자동으로 할당
+          - heading "예외" [level=6] [ref=e1523]
+          - generic [ref=e1524]:
+            - generic [ref=e1525] [cursor=pointer]: PopbillException
+            - table [ref=e4493]:
+              - rowgroup [ref=e4494]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4495]:
+                  - columnheader "순번" [ref=e4496]
+                  - columnheader "변수명" [ref=e4497]
+                  - columnheader "타입" [ref=e4498]
+                  - columnheader "길이" [ref=e4499]
+                  - columnheader "설명" [ref=e4500]
+              - rowgroup [ref=e4501]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4502]:
+                  - cell [ref=e4503]
+                  - cell "code" [ref=e4504]
+                  - cell "number" [ref=e4505]
+                  - cell "-" [ref=e4506]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4507]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e4508]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e4509] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e4510]:
+                  - cell [ref=e4511]
+                  - cell "message" [ref=e4512]
+                  - cell "string" [ref=e4513]
+                  - cell "-" [ref=e4514]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e4515]
+        - generic [ref=e1526]:
+          - heading "3. GetBulkResult - 초대량 접수결과 확인" [level=3] [ref=e1527]
+          - list [ref=e1528]:
+            - listitem [ref=e1529]: 접수시 기재한 SubmitID를 사용하여 세금계산서 접수결과를 확인합니다.
+            - listitem [ref=e1530]: txState(접수상태)가 2(완료)일 때, 개별 세금계산서 발행결과(성공/실패) 확인이 가능합니다.
+          - code [ref=e1532]: taxinvoiceService.getBulkResult(CorpNum, SubmitID, UserID, success, error)
+          - heading "요청" [level=6] [ref=e1533]
+          - generic [ref=e1534]:
+            - generic [ref=e1535] [cursor=pointer]: Parameters
+            - table [ref=e1536]:
+              - rowgroup [ref=e1537]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e1538]:
+                  - columnheader "순번" [ref=e1539]
+                  - columnheader "변수명" [ref=e1540]
+                  - columnheader "타입" [ref=e1541]
+                  - columnheader "길이" [ref=e1542]
+                  - columnheader "필수" [ref=e1543]
+                  - columnheader "설명" [ref=e1544]
+              - rowgroup [ref=e1545]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e1546]:
+                  - cell [ref=e1547]
+                  - cell "CorpNum" [ref=e1548]
+                  - cell "string" [ref=e1549]
+                  - cell "10" [ref=e1550]
+                  - cell "Y" [ref=e1551]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e1552]
+                - row "SubmitID string 36 Y 파트너가 할당한 제출아이디" [ref=e1553]:
+                  - cell [ref=e1554]
+                  - cell "SubmitID" [ref=e1555]
+                  - cell "string" [ref=e1556]
+                  - cell "36" [ref=e1557]
+                  - cell "Y" [ref=e1558]
+                  - cell "파트너가 할당한 제출아이디" [ref=e1559]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e1560]:
+                  - cell [ref=e1561]
+                  - cell "UserID" [ref=e1562]
+                  - cell "string" [ref=e1563]
+                  - cell "50" [ref=e1564]
+                  - cell "N" [ref=e1565]
+                  - cell "팝빌회원 아이디" [ref=e1566]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e1567]:
+                  - cell [ref=e1568]
+                  - cell "success" [ref=e1569]
+                  - cell "function" [ref=e1570]
+                  - cell "-" [ref=e1571]
+                  - cell "Y" [ref=e1572]
+                  - cell "성공에 대한 콜백 함수" [ref=e1573]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e1574]:
+                  - cell [ref=e1575]
+                  - cell "error" [ref=e1576]
+                  - cell "function" [ref=e1577]
+                  - cell "-" [ref=e1578]
+                  - cell "Y" [ref=e1579]
+                  - cell "실패에 대한 콜백 함수" [ref=e1580]
+          - heading "응답" [level=6] [ref=e1581]
+          - generic [ref=e1582]:
+            - generic [ref=e1583] [cursor=pointer]: BulkTaxinvoiceResult
+            - table [ref=e4516]:
+              - rowgroup [ref=e4517]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4518]:
+                  - columnheader "순번" [ref=e4519]
+                  - columnheader "변수명" [ref=e4520]
+                  - columnheader "타입" [ref=e4521]
+                  - columnheader "길이" [ref=e4522]
+                  - columnheader "설명" [ref=e4523]
+              - rowgroup [ref=e4524]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e4525]:
+                  - cell [ref=e4526]
+                  - cell "code" [ref=e4527]
+                  - cell "number" [ref=e4528]
+                  - cell "-" [ref=e4529]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e4530]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e4531]:
+                      - text: └
+                      - generic [ref=e4532]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e4533]:
+                  - cell [ref=e4534]
+                  - cell "message" [ref=e4535]
+                  - cell "string" [ref=e4536]
+                  - cell "-" [ref=e4537]
+                  - cell "API 처리에 대한 응답메시지" [ref=e4538]
+                - row "submitID string 36 접수 시점에 고객사에서 할당한 제출아이디" [ref=e4539]:
+                  - cell [ref=e4540]
+                  - cell "submitID" [ref=e4541]
+                  - cell "string" [ref=e4542]
+                  - cell "36" [ref=e4543]
+                  - cell "접수 시점에 고객사에서 할당한 제출아이디" [ref=e4544]
+                - row "submitCount number - 세금계산서 접수 건수" [ref=e4545]:
+                  - cell [ref=e4546]
+                  - cell "submitCount" [ref=e4547]
+                  - cell "number" [ref=e4548]
+                  - cell "-" [ref=e4549]
+                  - cell "세금계산서 접수 건수" [ref=e4550]
+                - row "successCount number - 세금계산서 발행 성공 건수" [ref=e4551]:
+                  - cell [ref=e4552]
+                  - cell "successCount" [ref=e4553]
+                  - cell "number" [ref=e4554]
+                  - cell "-" [ref=e4555]
+                  - cell "세금계산서 발행 성공 건수" [ref=e4556]
+                - row "failCount number - 세금계산서 발행 실패 건수" [ref=e4557]:
+                  - cell [ref=e4558]
+                  - cell "failCount" [ref=e4559]
+                  - cell "number" [ref=e4560]
+                  - cell "-" [ref=e4561]
+                  - cell "세금계산서 발행 실패 건수" [ref=e4562]
+                - row "txState number 1 접수상태 └ 0 접수 └ 1 처리중 └ 2 처리완료" [ref=e4563]:
+                  - cell [ref=e4564]
+                  - cell "txState" [ref=e4565]
+                  - cell "number" [ref=e4566]
+                  - cell "1" [ref=e4567]
+                  - cell "접수상태 └ 0 접수 └ 1 처리중 └ 2 처리완료" [ref=e4568]:
+                    - text: 접수상태
+                    - generic [ref=e4569]:
+                      - text: └
+                      - generic [ref=e4570]: "0"
+                      - text: 접수
+                    - generic [ref=e4571]:
+                      - text: └
+                      - generic [ref=e4572]: "1"
+                      - text: 처리중
+                    - generic [ref=e4573]:
+                      - text: └
+                      - generic [ref=e4574]: "2"
+                      - text: 처리완료
+                - 'row "txResultCode number - 접수 결과코드 - 성공 : 1 - 실패 : 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4575]':
+                  - cell [ref=e4576]
+                  - cell "txResultCode" [ref=e4577]
+                  - cell "number" [ref=e4578]
+                  - cell "-" [ref=e4579]
+                  - 'cell "접수 결과코드 - 성공 : 1 - 실패 : 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4580]':
+                    - text: 접수 결과코드
+                    - text: "- 성공 : 1"
+                    - text: "- 실패 : 음의 정수 8자리 숫자값"
+                    - link "[참고] 오류코드" [ref=e4581] [cursor=pointer]:
+                      - /url: /error-code
+                - 'row "txStartDT string 14 발행처리 시작일시 → 형식 : yyyyMMddHHmmss" [ref=e4582]':
+                  - cell [ref=e4583]
+                  - cell "txStartDT" [ref=e4584]
+                  - cell "string" [ref=e4585]
+                  - cell "14" [ref=e4586]
+                  - 'cell "발행처리 시작일시 → 형식 : yyyyMMddHHmmss" [ref=e4587]':
+                    - text: 발행처리 시작일시
+                    - generic [ref=e4588]: "→ 형식 : yyyyMMddHHmmss"
+                - 'row "txEndDT string 14 발행처리 완료일시 → 형식 : yyyyMMddHHmmss" [ref=e4589]':
+                  - cell [ref=e4590]
+                  - cell "txEndDT" [ref=e4591]
+                  - cell "string" [ref=e4592]
+                  - cell "14" [ref=e4593]
+                  - 'cell "발행처리 완료일시 → 형식 : yyyyMMddHHmmss" [ref=e4594]':
+                    - text: 발행처리 완료일시
+                    - generic [ref=e4595]: "→ 형식 : yyyyMMddHHmmss"
+                - 'row "receiptDT string 14 접수일시 → 형식 : yyyyMMddHHmmss" [ref=e4596]':
+                  - cell [ref=e4597]
+                  - cell "receiptDT" [ref=e4598]
+                  - cell "string" [ref=e4599]
+                  - cell "14" [ref=e4600]
+                  - 'cell "접수일시 → 형식 : yyyyMMddHHmmss" [ref=e4601]':
+                    - text: 접수일시
+                    - generic [ref=e4602]: "→ 형식 : yyyyMMddHHmmss"
+                - row "receiptID string 36 접수아이디 → 접수 시점에 팝빌에서 자동으로 할당" [ref=e4603]:
+                  - cell [ref=e4604]
+                  - cell "receiptID" [ref=e4605]
+                  - cell "string" [ref=e4606]
+                  - cell "36" [ref=e4607]
+                  - cell "접수아이디 → 접수 시점에 팝빌에서 자동으로 할당" [ref=e4608]:
+                    - text: 접수아이디
+                    - generic [ref=e4609]: → 접수 시점에 팝빌에서 자동으로 할당
+                - row "issueResult BulkTaxinvoiceIssueResult[] 발행결과" [ref=e4610]:
+                  - cell [ref=e4611]
+                  - cell "issueResult" [ref=e4612]
+                  - cell "BulkTaxinvoiceIssueResult[]" [ref=e4613]:
+                    - link "BulkTaxinvoiceIssueResult[]" [ref=e4614] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#BulkTaxinvoiceIssueResult
+                  - cell "발행결과" [ref=e4615]
+                - 'row "BulkTaxinvoiceIssueResult 순번 변수명 타입 길이 설명 invoicerMgtKey string 24 공급자 문서번호 → 공급자의 문서 관리를 위해 파트너가 할당한 식별번호 trusteeMgtKey string 24 수탁자 문서번호 → 파트너가 할당한 문서번호 code number - API 처리에 대한 응답코드 └ 1 성공 message string - API 처리에 대한 응답메시지 ntsconfirmNum string 24 국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당 issueDT string 14 발행일시 → 형식 : yyyyMMddHHmmss"':
+                  - 'cell "BulkTaxinvoiceIssueResult 순번 변수명 타입 길이 설명 invoicerMgtKey string 24 공급자 문서번호 → 공급자의 문서 관리를 위해 파트너가 할당한 식별번호 trusteeMgtKey string 24 수탁자 문서번호 → 파트너가 할당한 문서번호 code number - API 처리에 대한 응답코드 └ 1 성공 message string - API 처리에 대한 응답메시지 ntsconfirmNum string 24 국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당 issueDT string 14 발행일시 → 형식 : yyyyMMddHHmmss"':
+                    - generic:
+                      - generic:
+                        - generic [ref=e4616]: BulkTaxinvoiceIssueResult
+                        - table [ref=e4618]:
+                          - rowgroup [ref=e4619]:
+                            - row "순번 변수명 타입 길이 설명" [ref=e4620]:
+                              - columnheader "순번" [ref=e4621]
+                              - columnheader "변수명" [ref=e4622]
+                              - columnheader "타입" [ref=e4623]
+                              - columnheader "길이" [ref=e4624]
+                              - columnheader "설명" [ref=e4625]
+                          - rowgroup [ref=e4626]:
+                            - row "invoicerMgtKey string 24 공급자 문서번호 → 공급자의 문서 관리를 위해 파트너가 할당한 식별번호" [ref=e4627]:
+                              - cell [ref=e4628]
+                              - cell "invoicerMgtKey" [ref=e4629]
+                              - cell "string" [ref=e4630]
+                              - cell "24" [ref=e4631]
+                              - cell "공급자 문서번호 → 공급자의 문서 관리를 위해 파트너가 할당한 식별번호" [ref=e4632]:
+                                - text: 공급자 문서번호
+                                - generic [ref=e4633]: → 공급자의 문서 관리를 위해 파트너가 할당한 식별번호
+                            - row "trusteeMgtKey string 24 수탁자 문서번호 → 파트너가 할당한 문서번호" [ref=e4634]:
+                              - cell [ref=e4635]
+                              - cell "trusteeMgtKey" [ref=e4636]
+                              - cell "string" [ref=e4637]
+                              - cell "24" [ref=e4638]
+                              - cell "수탁자 문서번호 → 파트너가 할당한 문서번호" [ref=e4639]:
+                                - text: 수탁자 문서번호
+                                - generic [ref=e4640]: → 파트너가 할당한 문서번호
+                            - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e4641]:
+                              - cell [ref=e4642]
+                              - cell "code" [ref=e4643]
+                              - cell "number" [ref=e4644]
+                              - cell "-" [ref=e4645]
+                              - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e4646]:
+                                - text: API 처리에 대한 응답코드
+                                - generic [ref=e4647]:
+                                  - text: └
+                                  - generic [ref=e4648]: "1"
+                                  - text: 성공
+                            - row "message string - API 처리에 대한 응답메시지" [ref=e4649]:
+                              - cell [ref=e4650]
+                              - cell "message" [ref=e4651]
+                              - cell "string" [ref=e4652]
+                              - cell "-" [ref=e4653]
+                              - cell "API 처리에 대한 응답메시지" [ref=e4654]
+                            - row "ntsconfirmNum string 24 국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e4655]:
+                              - cell [ref=e4656]
+                              - cell "ntsconfirmNum" [ref=e4657]
+                              - cell "string" [ref=e4658]
+                              - cell "24" [ref=e4659]
+                              - cell "국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e4660]:
+                                - text: 국세청승인번호
+                                - generic [ref=e4661]: → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당
+                            - 'row "issueDT string 14 발행일시 → 형식 : yyyyMMddHHmmss" [ref=e4662]':
+                              - cell [ref=e4663]
+                              - cell "issueDT" [ref=e4664]
+                              - cell "string" [ref=e4665]
+                              - cell "14" [ref=e4666]
+                              - 'cell "발행일시 → 형식 : yyyyMMddHHmmss" [ref=e4667]':
+                                - text: 발행일시
+                                - generic [ref=e4668]: "→ 형식 : yyyyMMddHHmmss"
+          - heading "예외" [level=6] [ref=e1584]
+          - generic [ref=e1585]:
+            - generic [ref=e1586] [cursor=pointer]: PopbillException
+            - table [ref=e4669]:
+              - rowgroup [ref=e4670]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4671]:
+                  - columnheader "순번" [ref=e4672]
+                  - columnheader "변수명" [ref=e4673]
+                  - columnheader "타입" [ref=e4674]
+                  - columnheader "길이" [ref=e4675]
+                  - columnheader "설명" [ref=e4676]
+              - rowgroup [ref=e4677]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4678]:
+                  - cell [ref=e4679]
+                  - cell "code" [ref=e4680]
+                  - cell "number" [ref=e4681]
+                  - cell "-" [ref=e4682]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4683]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e4684]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e4685] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e4686]:
+                  - cell [ref=e4687]
+                  - cell "message" [ref=e4688]
+                  - cell "string" [ref=e4689]
+                  - cell "-" [ref=e4690]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e4691]
+        - generic [ref=e1587]:
+          - heading "4. Register - 임시저장" [level=3] [ref=e1588]
+          - list [ref=e1589]:
+            - listitem [ref=e1590]: 작성된 세금계산서 데이터를 팝빌에 저장합니다.
+            - listitem [ref=e1591]:
+              - text: "\"임시저장\" 상태의 세금계산서는"
+              - link "[Issue - 발행]" [ref=e1592] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue#Issue
+              - text: 함수를 호출하여 "발행완료" 처리한 경우에만 국세청으로 전송됩니다.
+          - code [ref=e1594]: taxinvoiceService.register(CorpNum, Taxinvoice, UserID, writeSpecification, success, error)
+          - list [ref=e1596]:
+            - listitem [ref=e1597]:
+              - text: 세금계산서 파일첨부 기능을 구현하는 경우,
+              - link "[Register – 임시저장]" [ref=e1598] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue#Register
+              - text: →
+              - link "[AttachFile – 파일첨부]" [ref=e1599] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/etc#AttachFile
+              - text: →
+              - link "[Issue – 발행]" [ref=e1600] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue#Issue
+              - text: 함수를 차례로 호출합니다.
+            - listitem [ref=e1601]:
+              - text: 역발행 세금계산서를 저장하는 경우, 객체 Taxinvoice 의 변수 'chargeDirection' 값을 통해 과금 주체를 지정할 수 있습니다.
+              - paragraph [ref=e1602]: "※ 정과금: 공급자 과금, 역과금: 공급받는자 과금"
+            - listitem [ref=e1603]: 임시저장된 세금계산서는 팝빌 사이트 '임시문서함'에서 확인 가능합니다.
+          - heading "요청" [level=6] [ref=e1604]
+          - generic [ref=e1605]:
+            - generic [ref=e1606] [cursor=pointer]: Parameters
+            - table [ref=e1607]:
+              - rowgroup [ref=e1608]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e1609]:
+                  - columnheader "순번" [ref=e1610]
+                  - columnheader "변수명" [ref=e1611]
+                  - columnheader "타입" [ref=e1612]
+                  - columnheader "길이" [ref=e1613]
+                  - columnheader "필수" [ref=e1614]
+                  - columnheader "설명" [ref=e1615]
+              - rowgroup [ref=e1616]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e1617]:
+                  - cell [ref=e1618]
+                  - cell "CorpNum" [ref=e1619]
+                  - cell "string" [ref=e1620]
+                  - cell "10" [ref=e1621]
+                  - cell "Y" [ref=e1622]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e1623]
+                - row "Taxinvoice Taxinvoice - Y 전자세금계산서 정보" [ref=e1624]:
+                  - cell [ref=e1625]
+                  - cell "Taxinvoice" [ref=e1626]
+                  - cell "Taxinvoice" [ref=e1627]:
+                    - link "Taxinvoice" [ref=e1628] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#Taxinvoice_Input
+                  - cell "-" [ref=e1629]
+                  - cell "Y" [ref=e1630]
+                  - cell "전자세금계산서 정보" [ref=e1631]
+                - row [ref=e4692]:
+                  - cell [ref=e4693]:
+                    - generic:
+                      - generic:
+                        - generic [ref=e1634]: Taxinvoice
+                        - table [ref=e1636]:
+                          - rowgroup [ref=e1637]:
+                            - row "순번 변수명 타입 길이 필수 설명" [ref=e1638]:
+                              - columnheader "순번" [ref=e1639]
+                              - columnheader "변수명" [ref=e1640]
+                              - columnheader "타입" [ref=e1641]
+                              - columnheader "길이" [ref=e1642]
+                              - columnheader "필수" [ref=e1643]
+                              - columnheader "설명" [ref=e1644]
+                          - rowgroup [ref=e1645]:
+                            - row "issueType string 3 Y 발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e1646]:
+                              - cell [ref=e1647]
+                              - cell "issueType" [ref=e1648]
+                              - cell "string" [ref=e1649]
+                              - cell "3" [ref=e1650]
+                              - cell "Y" [ref=e1651]
+                              - cell "발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e1652]:
+                                - text: 발행형태 (택 1)
+                                - generic [ref=e1653]:
+                                  - text: └
+                                  - generic [ref=e1654]: 정발행
+                                - generic [ref=e1655]:
+                                  - text: └
+                                  - generic [ref=e1656]: 역발행
+                                - generic [ref=e1657]:
+                                  - text: └
+                                  - generic [ref=e1658]: 위수탁
+                            - row "taxType string 2 Y 과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e1659]:
+                              - cell [ref=e1660]
+                              - cell "taxType" [ref=e1661]
+                              - cell "string" [ref=e1662]
+                              - cell "2" [ref=e1663]
+                              - cell "Y" [ref=e1664]
+                              - cell "과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e1665]:
+                                - text: 과세형태 (택 1)
+                                - generic [ref=e1666]:
+                                  - text: └
+                                  - generic [ref=e1667]: 과세
+                                - generic [ref=e1668]:
+                                  - text: └
+                                  - generic [ref=e1669]: 영세
+                                - generic [ref=e1670]:
+                                  - text: └
+                                  - generic [ref=e1671]: 면세
+                            - 'row "chargeDirection string 3 Y 과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e1672]':
+                              - cell [ref=e1673]
+                              - cell "chargeDirection" [ref=e1674]
+                              - cell "string" [ref=e1675]
+                              - cell "3" [ref=e1676]
+                              - cell "Y" [ref=e1677]
+                              - 'cell "과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e1678]':
+                                - text: 과금방향 (택 1)
+                                - generic [ref=e1679]:
+                                  - text: └
+                                  - generic [ref=e1680]: 정과금
+                                  - text: 공급자 과금
+                                - generic [ref=e1681]:
+                                  - text: └
+                                  - generic [ref=e1682]: 역과금
+                                  - text: 공급받는자 과금
+                                - text: "-{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능"
+                                - text: "-{issueType}=\"역발행\" 경우 역과금 가능"
+                            - row "serialNum string 30 N 일련번호" [ref=e1683]:
+                              - cell [ref=e1684]
+                              - cell "serialNum" [ref=e1685]
+                              - cell "string" [ref=e1686]
+                              - cell "30" [ref=e1687]
+                              - cell "N" [ref=e1688]
+                              - cell "일련번호" [ref=e1689]
+                            - row "kwon number 4 N 책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e1690]:
+                              - cell [ref=e1691]
+                              - cell "kwon" [ref=e1692]
+                              - cell "number" [ref=e1693]
+                              - cell "4" [ref=e1694]
+                              - cell "N" [ref=e1695]
+                              - cell "책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e1696]:
+                                - text: 책번호 "권" 항목
+                                - generic [ref=e1697]: → 정수만 입력 가능
+                            - row "ho number 4 N 책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e1698]:
+                              - cell [ref=e1699]
+                              - cell "ho" [ref=e1700]
+                              - cell "number" [ref=e1701]
+                              - cell "4" [ref=e1702]
+                              - cell "N" [ref=e1703]
+                              - cell "책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e1704]:
+                                - text: 책번호 "호" 항목
+                                - generic [ref=e1705]: → 정수만 입력 가능
+                            - 'row "writeDate string 8 Y 작성일자 → 형식 : yyyyMMdd" [ref=e1706]':
+                              - cell [ref=e1707]
+                              - cell "writeDate" [ref=e1708]
+                              - cell "string" [ref=e1709]
+                              - cell "8" [ref=e1710]
+                              - cell "Y" [ref=e1711]
+                              - 'cell "작성일자 → 형식 : yyyyMMdd" [ref=e1712]':
+                                - text: 작성일자
+                                - generic [ref=e1713]: "→ 형식 : yyyyMMdd"
+                            - row "purposeType string 2 Y 영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e1714]:
+                              - cell [ref=e1715]
+                              - cell "purposeType" [ref=e1716]
+                              - cell "string" [ref=e1717]
+                              - cell "2" [ref=e1718]
+                              - cell "Y" [ref=e1719]
+                              - cell "영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e1720]:
+                                - text: 영수/청구 (택 1)
+                                - generic [ref=e1721]:
+                                  - text: └
+                                  - generic [ref=e1722]: 영수
+                                - generic [ref=e1723]:
+                                  - text: └
+                                  - generic [ref=e1724]: 청구
+                                - generic [ref=e1725]:
+                                  - text: └
+                                  - generic [ref=e1726]: 없음
+                            - row "supplyCostTotal string 18 Y 공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1727]:
+                              - cell [ref=e1728]
+                              - cell "supplyCostTotal" [ref=e1729]
+                              - cell "string" [ref=e1730]
+                              - cell "18" [ref=e1731]
+                              - cell "Y" [ref=e1732]
+                              - cell "공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1733]:
+                                - text: 공급가액 합계
+                                - generic [ref=e1734]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "taxTotal string 18 Y 세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1735]:
+                              - cell [ref=e1736]
+                              - cell "taxTotal" [ref=e1737]
+                              - cell "string" [ref=e1738]
+                              - cell "18" [ref=e1739]
+                              - cell "Y" [ref=e1740]
+                              - cell "세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1741]:
+                                - text: 세액 합계
+                                - generic [ref=e1742]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "totalAmount string 18 Y 합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1743]:
+                              - cell [ref=e1744]
+                              - cell "totalAmount" [ref=e1745]
+                              - cell "string" [ref=e1746]
+                              - cell "18" [ref=e1747]
+                              - cell "Y" [ref=e1748]
+                              - cell "합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e1749]:
+                                - text: 합계금액
+                                - generic [ref=e1750]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "cash string 18 N 현금" [ref=e1751]:
+                              - cell [ref=e1752]
+                              - cell "cash" [ref=e1753]
+                              - cell "string" [ref=e1754]
+                              - cell "18" [ref=e1755]
+                              - cell "N" [ref=e1756]
+                              - cell "현금" [ref=e1757]
+                            - row "chkBill string 18 N 수표" [ref=e1758]:
+                              - cell [ref=e1759]
+                              - cell "chkBill" [ref=e1760]
+                              - cell "string" [ref=e1761]
+                              - cell "18" [ref=e1762]
+                              - cell "N" [ref=e1763]
+                              - cell "수표" [ref=e1764]
+                            - row "credit string 18 N 외상" [ref=e1765]:
+                              - cell [ref=e1766]
+                              - cell "credit" [ref=e1767]
+                              - cell "string" [ref=e1768]
+                              - cell "18" [ref=e1769]
+                              - cell "N" [ref=e1770]
+                              - cell "외상" [ref=e1771]
+                            - row "note string 18 N 어음" [ref=e1772]:
+                              - cell [ref=e1773]
+                              - cell "note" [ref=e1774]
+                              - cell "string" [ref=e1775]
+                              - cell "18" [ref=e1776]
+                              - cell "N" [ref=e1777]
+                              - cell "어음" [ref=e1778]
+                            - 'row "remark1 string 150 조건부 비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1779]':
+                              - cell [ref=e1780]
+                              - cell "remark1" [ref=e1781]
+                              - cell "string" [ref=e1782]
+                              - cell "150" [ref=e1783]
+                              - cell "조건부" [ref=e1784]
+                              - 'cell "비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1785]':
+                                - text: 비고1
+                                - generic [ref=e1786]:
+                                  - text: ✓
+                                  - 'link "{invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e1787] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-invoiceeType"
+                                    - text: "{invoiceeType}=\"외국인\" 경우"
+                                    - text: 외국인등록번호 또는 여권번호 필수 입력
+                            - row "remark2 string 150 N 비고2" [ref=e1788]:
+                              - cell [ref=e1789]
+                              - cell "remark2" [ref=e1790]
+                              - cell "string" [ref=e1791]
+                              - cell "150" [ref=e1792]
+                              - cell "N" [ref=e1793]
+                              - cell "비고2" [ref=e1794]
+                            - row "remark3 string 150 N 비고3" [ref=e1795]:
+                              - cell [ref=e1796]
+                              - cell "remark3" [ref=e1797]
+                              - cell "string" [ref=e1798]
+                              - cell "150" [ref=e1799]
+                              - cell "N" [ref=e1800]
+                              - cell "비고3" [ref=e1801]
+                            - 'row "invoicerMgtKey string 24 조건부 공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e1802]':
+                              - cell [ref=e1803]
+                              - cell "invoicerMgtKey" [ref=e1804]
+                              - cell "string" [ref=e1805]
+                              - cell "24" [ref=e1806]
+                              - cell "조건부" [ref=e1807]
+                              - 'cell "공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e1808]':
+                                - text: 공급자 문서번호
+                                - generic [ref=e1809]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e1810]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 필수" [ref=e1811] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - row "invoicerCorpNum string 10 Y 공급자 사업자번호 ('-' 제외)" [ref=e1812]:
+                              - cell [ref=e1813]
+                              - cell "invoicerCorpNum" [ref=e1814]
+                              - cell "string" [ref=e1815]
+                              - cell "10" [ref=e1816]
+                              - cell "Y" [ref=e1817]
+                              - cell "공급자 사업자번호 ('-' 제외)" [ref=e1818]
+                            - row "invoicerTaxRegID string 4 N 공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1819]:
+                              - cell [ref=e1820]
+                              - cell "invoicerTaxRegID" [ref=e1821]
+                              - cell "string" [ref=e1822]
+                              - cell "4" [ref=e1823]
+                              - cell "N" [ref=e1824]
+                              - cell "공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1825]:
+                                - text: 공급자 종사업장 식별번호
+                                - generic [ref=e1826]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoicerCorpName string 200 Y 공급자 상호" [ref=e1827]:
+                              - cell [ref=e1828]
+                              - cell "invoicerCorpName" [ref=e1829]
+                              - cell "string" [ref=e1830]
+                              - cell "200" [ref=e1831]
+                              - cell "Y" [ref=e1832]
+                              - cell "공급자 상호" [ref=e1833]
+                            - row "invoicerCEOName string 100 Y 공급자 대표자 성명" [ref=e1834]:
+                              - cell [ref=e1835]
+                              - cell "invoicerCEOName" [ref=e1836]
+                              - cell "string" [ref=e1837]
+                              - cell "100" [ref=e1838]
+                              - cell "Y" [ref=e1839]
+                              - cell "공급자 대표자 성명" [ref=e1840]
+                            - row "invoicerAddr string 300 N 공급자 주소" [ref=e1841]:
+                              - cell [ref=e1842]
+                              - cell "invoicerAddr" [ref=e1843]
+                              - cell "string" [ref=e1844]
+                              - cell "300" [ref=e1845]
+                              - cell "N" [ref=e1846]
+                              - cell "공급자 주소" [ref=e1847]
+                            - row "invoicerBizType string 100 N 공급자 업태" [ref=e1848]:
+                              - cell [ref=e1849]
+                              - cell "invoicerBizType" [ref=e1850]
+                              - cell "string" [ref=e1851]
+                              - cell "100" [ref=e1852]
+                              - cell "N" [ref=e1853]
+                              - cell "공급자 업태" [ref=e1854]
+                            - row "invoicerBizClass string 100 N 공급자 종목" [ref=e1855]:
+                              - cell [ref=e1856]
+                              - cell "invoicerBizClass" [ref=e1857]
+                              - cell "string" [ref=e1858]
+                              - cell "100" [ref=e1859]
+                              - cell "N" [ref=e1860]
+                              - cell "공급자 종목" [ref=e1861]
+                            - row "invoicerContactName string 100 N 공급자 담당자 성명" [ref=e1862]:
+                              - cell [ref=e1863]
+                              - cell "invoicerContactName" [ref=e1864]
+                              - cell "string" [ref=e1865]
+                              - cell "100" [ref=e1866]
+                              - cell "N" [ref=e1867]
+                              - cell "공급자 담당자 성명" [ref=e1868]
+                            - row "invoicerDeptName string 100 N 공급자 담당자 부서명" [ref=e1869]:
+                              - cell [ref=e1870]
+                              - cell "invoicerDeptName" [ref=e1871]
+                              - cell "string" [ref=e1872]
+                              - cell "100" [ref=e1873]
+                              - cell "N" [ref=e1874]
+                              - cell "공급자 담당자 부서명" [ref=e1875]
+                            - row "invoicerTEL string 20 N 공급자 담당자 연락처" [ref=e1876]:
+                              - cell [ref=e1877]
+                              - cell "invoicerTEL" [ref=e1878]
+                              - cell "string" [ref=e1879]
+                              - cell "20" [ref=e1880]
+                              - cell "N" [ref=e1881]
+                              - cell "공급자 담당자 연락처" [ref=e1882]
+                            - row "invoicerHP string 20 N 공급자 담당자 휴대폰" [ref=e1883]:
+                              - cell [ref=e1884]
+                              - cell "invoicerHP" [ref=e1885]
+                              - cell "string" [ref=e1886]
+                              - cell "20" [ref=e1887]
+                              - cell "N" [ref=e1888]
+                              - cell "공급자 담당자 휴대폰" [ref=e1889]
+                            - row "invoicerEmail string 100 N 공급자 담당자 메일" [ref=e1890]:
+                              - cell [ref=e1891]
+                              - cell "invoicerEmail" [ref=e1892]
+                              - cell "string" [ref=e1893]
+                              - cell "100" [ref=e1894]
+                              - cell "N" [ref=e1895]
+                              - cell "공급자 담당자 메일" [ref=e1896]
+                            - 'row "invoicerSMSSendYN boolean - N 공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1897]':
+                              - cell [ref=e1898]
+                              - cell "invoicerSMSSendYN" [ref=e1899]
+                              - cell "boolean" [ref=e1900]
+                              - cell "-" [ref=e1901]
+                              - cell "N" [ref=e1902]
+                              - 'cell "공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1903]':
+                                - text: 공급자 알림문자 전송 여부
+                                - generic [ref=e1904]:
+                                  - text: └
+                                  - generic [ref=e1905]: "true"
+                                  - text: 전송
+                                - generic [ref=e1906]:
+                                  - text: └
+                                  - generic [ref=e1907]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e1908]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e1909]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e1910] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"정발행\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - 'row "invoiceeMgtKey string 24 조건부 공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e1911]':
+                              - cell [ref=e1912]
+                              - cell "invoiceeMgtKey" [ref=e1913]
+                              - cell "string" [ref=e1914]
+                              - cell "24" [ref=e1915]
+                              - cell "조건부" [ref=e1916]
+                              - 'cell "공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e1917]':
+                                - text: 공급받는자 문서번호
+                                - generic [ref=e1918]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e1919]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 필수" [ref=e1920] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - row "invoiceeType string - Y 공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e1921]:
+                              - cell [ref=e1922]
+                              - cell "invoiceeType" [ref=e1923]
+                              - cell "string" [ref=e1924]
+                              - cell "-" [ref=e1925]
+                              - cell "Y" [ref=e1926]
+                              - cell "공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e1927]:
+                                - text: 공급받는자 유형 (택 1)
+                                - generic [ref=e1928]:
+                                  - text: └
+                                  - generic [ref=e1929]: 사업자
+                                - generic [ref=e1930]:
+                                  - text: └
+                                  - generic [ref=e1931]: 개인
+                                - generic [ref=e1932]:
+                                  - text: └
+                                  - generic [ref=e1933]: 외국인
+                            - 'row "invoiceeCorpNum string 13 Y 공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e1934]':
+                              - cell [ref=e1935]
+                              - cell "invoiceeCorpNum" [ref=e1936]
+                              - cell "string" [ref=e1937]
+                              - cell "13" [ref=e1938]
+                              - cell "Y" [ref=e1939]
+                              - 'cell "공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e1940]':
+                                - text: 공급받는자 등록번호 ('-' 제외)
+                                - text: "- {invoiceeType}=\"사업자\" 경우 사업자번호"
+                                - text: "- {invoiceeType}=\"개인\" 경우 주민등록번호"
+                                - text: "- {invoiceeType}=\"외국인\" 경우 \"9999999999999\""
+                            - row "invoiceeTaxRegID string 4 N 공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1941]:
+                              - cell [ref=e1942]
+                              - cell "invoiceeTaxRegID" [ref=e1943]
+                              - cell "string" [ref=e1944]
+                              - cell "4" [ref=e1945]
+                              - cell "N" [ref=e1946]
+                              - cell "공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e1947]:
+                                - text: 공급받는자 종사업장 식별번호
+                                - generic [ref=e1948]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoiceeCorpName string 200 Y 공급받는자 상호" [ref=e1949]:
+                              - cell [ref=e1950]
+                              - cell "invoiceeCorpName" [ref=e1951]
+                              - cell "string" [ref=e1952]
+                              - cell "200" [ref=e1953]
+                              - cell "Y" [ref=e1954]
+                              - cell "공급받는자 상호" [ref=e1955]
+                            - row "invoiceeCEOName string 100 Y 공급받는자 대표자 성명" [ref=e1956]:
+                              - cell [ref=e1957]
+                              - cell "invoiceeCEOName" [ref=e1958]
+                              - cell "string" [ref=e1959]
+                              - cell "100" [ref=e1960]
+                              - cell "Y" [ref=e1961]
+                              - cell "공급받는자 대표자 성명" [ref=e1962]
+                            - row "invoiceeAddr string 300 N 공급받는자 주소" [ref=e1963]:
+                              - cell [ref=e1964]
+                              - cell "invoiceeAddr" [ref=e1965]
+                              - cell "string" [ref=e1966]
+                              - cell "300" [ref=e1967]
+                              - cell "N" [ref=e1968]
+                              - cell "공급받는자 주소" [ref=e1969]
+                            - row "invoiceeBizType string 100 N 공급받는자 업태" [ref=e1970]:
+                              - cell [ref=e1971]
+                              - cell "invoiceeBizType" [ref=e1972]
+                              - cell "string" [ref=e1973]
+                              - cell "100" [ref=e1974]
+                              - cell "N" [ref=e1975]
+                              - cell "공급받는자 업태" [ref=e1976]
+                            - row "invoiceeBizClass string 100 N 공급받는자 종목" [ref=e1977]:
+                              - cell [ref=e1978]
+                              - cell "invoiceeBizClass" [ref=e1979]
+                              - cell "string" [ref=e1980]
+                              - cell "100" [ref=e1981]
+                              - cell "N" [ref=e1982]
+                              - cell "공급받는자 종목" [ref=e1983]
+                            - row "invoiceeContactName1 string 100 N 공급받는자 담당자 성명" [ref=e1984]:
+                              - cell [ref=e1985]
+                              - cell "invoiceeContactName1" [ref=e1986]
+                              - cell "string" [ref=e1987]
+                              - cell "100" [ref=e1988]
+                              - cell "N" [ref=e1989]
+                              - cell "공급받는자 담당자 성명" [ref=e1990]
+                            - row "invoiceeDeptName1 string 100 N 공급받는자 담당자 부서명" [ref=e1991]:
+                              - cell [ref=e1992]
+                              - cell "invoiceeDeptName1" [ref=e1993]
+                              - cell "string" [ref=e1994]
+                              - cell "100" [ref=e1995]
+                              - cell "N" [ref=e1996]
+                              - cell "공급받는자 담당자 부서명" [ref=e1997]
+                            - row "invoiceeTEL1 string 20 N 공급받는자 담당자 연락처" [ref=e1998]:
+                              - cell [ref=e1999]
+                              - cell "invoiceeTEL1" [ref=e2000]
+                              - cell "string" [ref=e2001]
+                              - cell "20" [ref=e2002]
+                              - cell "N" [ref=e2003]
+                              - cell "공급받는자 담당자 연락처" [ref=e2004]
+                            - row "invoiceeHP1 string 20 N 공급받는자 담당자 휴대폰" [ref=e2005]:
+                              - cell [ref=e2006]
+                              - cell "invoiceeHP1" [ref=e2007]
+                              - cell "string" [ref=e2008]
+                              - cell "20" [ref=e2009]
+                              - cell "N" [ref=e2010]
+                              - cell "공급받는자 담당자 휴대폰" [ref=e2011]
+                            - row "invoiceeEmail1 string 100 N 공급받는자 담당자 메일" [ref=e2012]:
+                              - cell [ref=e2013]
+                              - cell "invoiceeEmail1" [ref=e2014]
+                              - cell "string" [ref=e2015]
+                              - cell "100" [ref=e2016]
+                              - cell "N" [ref=e2017]
+                              - cell "공급받는자 담당자 메일" [ref=e2018]
+                            - 'row "invoiceeSMSSendYN boolean - N 공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2019]':
+                              - cell [ref=e2020]
+                              - cell "invoiceeSMSSendYN" [ref=e2021]
+                              - cell "boolean" [ref=e2022]
+                              - cell "-" [ref=e2023]
+                              - cell "N" [ref=e2024]
+                              - 'cell "공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2025]':
+                                - text: 공급받는자 알림문자 전송 여부
+                                - generic [ref=e2026]:
+                                  - text: └
+                                  - generic [ref=e2027]: "true"
+                                  - text: 전송
+                                - generic [ref=e2028]:
+                                  - text: └
+                                  - generic [ref=e2029]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e2030]:
+                                  - text: "→ 수신자 : 공급자 휴대폰번호 {invoicerHP}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e2031]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2032] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"역발행\" 경우"
+                                    - text: 세금계산서 역발행 요청시점에 알림문자 전송
+                            - 'row "trusteeMgtKey string 24 조건부 수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2033]':
+                              - cell [ref=e2034]
+                              - cell "trusteeMgtKey" [ref=e2035]
+                              - cell "string" [ref=e2036]
+                              - cell "24" [ref=e2037]
+                              - cell "조건부" [ref=e2038]
+                              - 'cell "수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2039]':
+                                - text: 수탁자 문서번호
+                                - generic [ref=e2040]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e2041]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2042] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCorpNum string 10 조건부 수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2043]':
+                              - cell [ref=e2044]
+                              - cell "trusteeCorpNum" [ref=e2045]
+                              - cell "string" [ref=e2046]
+                              - cell "10" [ref=e2047]
+                              - cell "조건부" [ref=e2048]
+                              - 'cell "수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2049]':
+                                - text: 수탁자 사업자번호 ('-' 제외)
+                                - generic [ref=e2050]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2051] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - row "trusteeTaxRegID string 4 N 수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2052]:
+                              - cell [ref=e2053]
+                              - cell "trusteeTaxRegID" [ref=e2054]
+                              - cell "string" [ref=e2055]
+                              - cell "4" [ref=e2056]
+                              - cell "N" [ref=e2057]
+                              - cell "수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2058]:
+                                - text: 수탁자 종사업장 식별번호
+                                - generic [ref=e2059]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - 'row "trusteeCorpName string 200 조건부 수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2060]':
+                              - cell [ref=e2061]
+                              - cell "trusteeCorpName" [ref=e2062]
+                              - cell "string" [ref=e2063]
+                              - cell "200" [ref=e2064]
+                              - cell "조건부" [ref=e2065]
+                              - 'cell "수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2066]':
+                                - text: 수탁자 상호
+                                - generic [ref=e2067]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2068] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCEOName string 100 조건부 수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2069]':
+                              - cell [ref=e2070]
+                              - cell "trusteeCEOName" [ref=e2071]
+                              - cell "string" [ref=e2072]
+                              - cell "100" [ref=e2073]
+                              - cell "조건부" [ref=e2074]
+                              - 'cell "수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2075]':
+                                - text: 수탁자 대표자 성명
+                                - generic [ref=e2076]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2077] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                            - row "trusteeAddr string 300 N 수탁자 주소" [ref=e2078]:
+                              - cell [ref=e2079]
+                              - cell "trusteeAddr" [ref=e2080]
+                              - cell "string" [ref=e2081]
+                              - cell "300" [ref=e2082]
+                              - cell "N" [ref=e2083]
+                              - cell "수탁자 주소" [ref=e2084]
+                            - row "trusteeBizType string 100 N 수탁자 업태" [ref=e2085]:
+                              - cell [ref=e2086]
+                              - cell "trusteeBizType" [ref=e2087]
+                              - cell "string" [ref=e2088]
+                              - cell "100" [ref=e2089]
+                              - cell "N" [ref=e2090]
+                              - cell "수탁자 업태" [ref=e2091]
+                            - row "trusteeBizClass string 100 N 수탁자 종목" [ref=e2092]:
+                              - cell [ref=e2093]
+                              - cell "trusteeBizClass" [ref=e2094]
+                              - cell "string" [ref=e2095]
+                              - cell "100" [ref=e2096]
+                              - cell "N" [ref=e2097]
+                              - cell "수탁자 종목" [ref=e2098]
+                            - row "trusteeContactName string 100 N 수탁자 담당자 성명" [ref=e2099]:
+                              - cell [ref=e2100]
+                              - cell "trusteeContactName" [ref=e2101]
+                              - cell "string" [ref=e2102]
+                              - cell "100" [ref=e2103]
+                              - cell "N" [ref=e2104]
+                              - cell "수탁자 담당자 성명" [ref=e2105]
+                            - row "trusteeDeptName string 100 N 수탁자 담당자 부서명" [ref=e2106]:
+                              - cell [ref=e2107]
+                              - cell "trusteeDeptName" [ref=e2108]
+                              - cell "string" [ref=e2109]
+                              - cell "100" [ref=e2110]
+                              - cell "N" [ref=e2111]
+                              - cell "수탁자 담당자 부서명" [ref=e2112]
+                            - row "trusteeTEL string 20 N 수탁자 담당자 연락처" [ref=e2113]:
+                              - cell [ref=e2114]
+                              - cell "trusteeTEL" [ref=e2115]
+                              - cell "string" [ref=e2116]
+                              - cell "20" [ref=e2117]
+                              - cell "N" [ref=e2118]
+                              - cell "수탁자 담당자 연락처" [ref=e2119]
+                            - row "trusteeHP string 20 N 수탁자 담당자 휴대폰" [ref=e2120]:
+                              - cell [ref=e2121]
+                              - cell "trusteeHP" [ref=e2122]
+                              - cell "string" [ref=e2123]
+                              - cell "20" [ref=e2124]
+                              - cell "N" [ref=e2125]
+                              - cell "수탁자 담당자 휴대폰" [ref=e2126]
+                            - row "trusteeEmail string 100 N 수탁자 담당자 메일" [ref=e2127]:
+                              - cell [ref=e2128]
+                              - cell "trusteeEmail" [ref=e2129]
+                              - cell "string" [ref=e2130]
+                              - cell "100" [ref=e2131]
+                              - cell "N" [ref=e2132]
+                              - cell "수탁자 담당자 메일" [ref=e2133]
+                            - 'row "trusteeSMSSendYN boolean - N 수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2134]':
+                              - cell [ref=e2135]
+                              - cell "trusteeSMSSendYN" [ref=e2136]
+                              - cell "boolean" [ref=e2137]
+                              - cell "-" [ref=e2138]
+                              - cell "N" [ref=e2139]
+                              - 'cell "수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2140]':
+                                - text: 수탁자 알림문자 전송 여부
+                                - generic [ref=e2141]:
+                                  - text: └
+                                  - generic [ref=e2142]: "true"
+                                  - text: 전송
+                                - generic [ref=e2143]:
+                                  - text: └
+                                  - generic [ref=e2144]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e2145]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e2146]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2147] [cursor=pointer]':
+                                    - /url: "#Register-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"위수탁\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - row "modifyCode number 1 조건부 수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e2148]:
+                              - cell [ref=e2149]
+                              - cell "modifyCode" [ref=e2150]
+                              - cell "number" [ref=e2151]
+                              - cell "1" [ref=e2152]
+                              - cell "조건부" [ref=e2153]
+                              - cell "수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e2154]:
+                                - text: 수정 사유코드
+                                - generic [ref=e2155]:
+                                  - text: → 수정세금계산서 작성시 필수
+                                  - link "[참고] 수정세금계산서" [ref=e2156] [cursor=pointer]:
+                                    - /url: /guide/taxinvoice/introduction/modified-taxinvoice
+                            - row "orgNTSConfirmNum string 24 조건부 당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e2157]:
+                              - cell [ref=e2158]
+                              - cell "orgNTSConfirmNum" [ref=e2159]
+                              - cell "string" [ref=e2160]
+                              - cell "24" [ref=e2161]
+                              - cell "조건부" [ref=e2162]
+                              - cell "당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e2163]:
+                                - text: 당초 국세청승인번호
+                                - generic [ref=e2164]: → 수정세금계산서 작성시 필수
+                            - 'row "businessLicenseYN boolean - N 팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2165]':
+                              - cell [ref=e2166]
+                              - cell "businessLicenseYN" [ref=e2167]
+                              - cell "boolean" [ref=e2168]
+                              - cell "-" [ref=e2169]
+                              - cell "N" [ref=e2170]
+                              - 'cell "팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2171]':
+                                - text: 팝빌에 등록된 사업자등록증 첨부 여부
+                                - generic [ref=e2172]:
+                                  - text: └
+                                  - generic [ref=e2173]: "true"
+                                  - text: 첨부
+                                - generic [ref=e2174]:
+                                  - text: └
+                                  - generic [ref=e2175]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e2176]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e2177] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "bankBookYN boolean - N 팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2178]':
+                              - cell [ref=e2179]
+                              - cell "bankBookYN" [ref=e2180]
+                              - cell "boolean" [ref=e2181]
+                              - cell "-" [ref=e2182]
+                              - cell "N" [ref=e2183]
+                              - 'cell "팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2184]':
+                                - text: 팝빌에 등록된 통장사본 첨부 여부
+                                - generic [ref=e2185]:
+                                  - text: └
+                                  - generic [ref=e2186]: "true"
+                                  - text: 첨부
+                                - generic [ref=e2187]:
+                                  - text: └
+                                  - generic [ref=e2188]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e2189]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e2190] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "detailList List<TaxinvoiceDetail> N 품목 상세정보 → 최대 : 99개" [ref=e2191]':
+                              - cell [ref=e2192]
+                              - cell "detailList" [ref=e2193]
+                              - cell "List<TaxinvoiceDetail>" [ref=e2194]:
+                                - link "List<TaxinvoiceDetail>" [ref=e2195] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceDetail
+                              - cell "N" [ref=e2196]
+                              - 'cell "품목 상세정보 → 최대 : 99개" [ref=e2197]':
+                                - text: 품목 상세정보
+                                - generic [ref=e2198]: "→ 최대 : 99개"
+                            - 'row "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4694]':
+                              - 'cell "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4695]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e2201]: TaxinvoiceDetail
+                                    - table [ref=e4696]:
+                                      - rowgroup [ref=e4697]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4698]:
+                                          - columnheader "순번" [ref=e4699]
+                                          - columnheader "변수명" [ref=e4700]
+                                          - columnheader "타입" [ref=e4701]
+                                          - columnheader "길이" [ref=e4702]
+                                          - columnheader "필수" [ref=e4703]
+                                          - columnheader "설명" [ref=e4704]
+                                      - rowgroup [ref=e4705]:
+                                        - 'row "serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4706]':
+                                          - cell [ref=e4707]
+                                          - cell "serialNum" [ref=e4708]
+                                          - cell "number" [ref=e4709]
+                                          - cell "2" [ref=e4710]
+                                          - cell "Y" [ref=e4711]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4712]':
+                                            - text: 일련번호
+                                            - generic [ref=e4713]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 99"
+                                        - 'row "purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd" [ref=e4714]':
+                                          - cell [ref=e4715]
+                                          - cell "purchaseDT" [ref=e4716]
+                                          - cell "string" [ref=e4717]
+                                          - cell "8" [ref=e4718]
+                                          - cell "N" [ref=e4719]
+                                          - 'cell "거래일자 → 형식 : yyyyMMdd" [ref=e4720]':
+                                            - text: 거래일자
+                                            - generic [ref=e4721]: "→ 형식 : yyyyMMdd"
+                                        - row "itemName string 100 N 품명" [ref=e4722]:
+                                          - cell [ref=e4723]
+                                          - cell "itemName" [ref=e4724]
+                                          - cell "string" [ref=e4725]
+                                          - cell "100" [ref=e4726]
+                                          - cell "N" [ref=e4727]
+                                          - cell "품명" [ref=e4728]
+                                        - row "spec string 60 N 규격" [ref=e4729]:
+                                          - cell [ref=e4730]
+                                          - cell "spec" [ref=e4731]
+                                          - cell "string" [ref=e4732]
+                                          - cell "60" [ref=e4733]
+                                          - cell "N" [ref=e4734]
+                                          - cell "규격" [ref=e4735]
+                                        - row "qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4736]:
+                                          - cell [ref=e4737]
+                                          - cell "qty" [ref=e4738]
+                                          - cell "string" [ref=e4739]
+                                          - cell "12" [ref=e4740]
+                                          - cell "N" [ref=e4741]
+                                          - cell "수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4742]:
+                                            - text: 수량
+                                            - generic [ref=e4743]:
+                                              - text: → -99999999.99 ~ 999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4744]:
+                                          - cell [ref=e4745]
+                                          - cell "unitCost" [ref=e4746]
+                                          - cell "string" [ref=e4747]
+                                          - cell "18" [ref=e4748]
+                                          - cell "N" [ref=e4749]
+                                          - cell "단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4750]:
+                                            - text: 단가
+                                            - generic [ref=e4751]:
+                                              - text: → -99999999999999.99 ~ 999999999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4752]:
+                                          - cell [ref=e4753]
+                                          - cell "supplyCost" [ref=e4754]
+                                          - cell "string" [ref=e4755]
+                                          - cell "18" [ref=e4756]
+                                          - cell "N" [ref=e4757]
+                                          - cell "공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4758]:
+                                            - text: 공급가액
+                                            - generic [ref=e4759]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4760]:
+                                          - cell [ref=e4761]
+                                          - cell "tax" [ref=e4762]
+                                          - cell "string" [ref=e4763]
+                                          - cell "18" [ref=e4764]
+                                          - cell "N" [ref=e4765]
+                                          - cell "세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4766]:
+                                            - text: 세액
+                                            - generic [ref=e4767]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "remark string 100 N 비고" [ref=e4768]:
+                                          - cell [ref=e4769]
+                                          - cell "remark" [ref=e4770]
+                                          - cell "string" [ref=e4771]
+                                          - cell "100" [ref=e4772]
+                                          - cell "N" [ref=e4773]
+                                          - cell "비고" [ref=e4774]
+                            - 'row "addContactList List<TaxinvoiceAddContact> N 공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e2203]':
+                              - cell [ref=e2204]
+                              - cell "addContactList" [ref=e2205]
+                              - cell "List<TaxinvoiceAddContact>" [ref=e2206]:
+                                - link "List<TaxinvoiceAddContact>" [ref=e2207] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceAddContact
+                              - cell "N" [ref=e2208]
+                              - 'cell "공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e2209]':
+                                - text: 공급받는자 추가담당자 정보
+                                - generic [ref=e2210]:
+                                  - text: → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용
+                                  - text: "최대 : 5명"
+                            - 'row "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4775]':
+                              - 'cell "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4776]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e2213]: TaxinvoiceAddContact
+                                    - table [ref=e4777]:
+                                      - rowgroup [ref=e4778]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4779]:
+                                          - columnheader "순번" [ref=e4780]
+                                          - columnheader "변수명" [ref=e4781]
+                                          - columnheader "타입" [ref=e4782]
+                                          - columnheader "길이" [ref=e4783]
+                                          - columnheader "필수" [ref=e4784]
+                                          - columnheader "설명" [ref=e4785]
+                                      - rowgroup [ref=e4786]:
+                                        - 'row "serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4787]':
+                                          - cell [ref=e4788]
+                                          - cell "serialNum" [ref=e4789]
+                                          - cell "number" [ref=e4790]
+                                          - cell "1" [ref=e4791]
+                                          - cell "Y" [ref=e4792]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4793]':
+                                            - text: 일련번호
+                                            - generic [ref=e4794]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 5"
+                                        - row "contactName string 100 N 담당자 성명" [ref=e4795]:
+                                          - cell [ref=e4796]
+                                          - cell "contactName" [ref=e4797]
+                                          - cell "string" [ref=e4798]
+                                          - cell "100" [ref=e4799]
+                                          - cell "N" [ref=e4800]
+                                          - cell "담당자 성명" [ref=e4801]
+                                        - row "email string 100 Y 메일" [ref=e4802]:
+                                          - cell [ref=e4803]
+                                          - cell "email" [ref=e4804]
+                                          - cell "string" [ref=e4805]
+                                          - cell "100" [ref=e4806]
+                                          - cell "Y" [ref=e4807]
+                                          - cell "메일" [ref=e4808]
+                            - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e2215]:
+                              - cell [ref=e2216]
+                              - cell "memo" [ref=e2217]
+                              - cell "string" [ref=e2218]
+                              - cell "200" [ref=e2219]
+                              - cell "N" [ref=e2220]
+                              - cell "세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e2221]:
+                                - text: 세금계산서 상태 이력을 관리하기 위한 메모
+                                - generic [ref=e2222]: → 대량(Bulk)발행 경우 사용
+                            - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e2223]':
+                              - cell [ref=e2224]
+                              - cell "emailSubject" [ref=e2225]
+                              - cell "string" [ref=e2226]
+                              - cell "300" [ref=e2227]
+                              - cell "N" [ref=e2228]
+                              - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e2229]':
+                                - text: 세금계산서 발행 안내메일 제목
+                                - generic [ref=e2230]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목"
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e2231]:
+                  - cell [ref=e2232]
+                  - cell "UserID" [ref=e2233]
+                  - cell "string" [ref=e2234]
+                  - cell "50" [ref=e2235]
+                  - cell "N" [ref=e2236]
+                  - cell "팝빌회원 아이디" [ref=e2237]
+                - 'row "writeSpecification boolean - N 거래명세서 동시작성 여부 └ true 사용 └ false 미사용 : 기본값 → 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능" [ref=e2238]':
+                  - cell [ref=e2239]
+                  - cell "writeSpecification" [ref=e2240]
+                  - cell "boolean" [ref=e2241]
+                  - cell "-" [ref=e2242]
+                  - cell "N" [ref=e2243]
+                  - 'cell "거래명세서 동시작성 여부 └ true 사용 └ false 미사용 : 기본값 → 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능" [ref=e2244]':
+                    - text: 거래명세서 동시작성 여부
+                    - generic [ref=e2245]:
+                      - text: └
+                      - generic [ref=e2246]: "true"
+                      - text: 사용
+                    - generic [ref=e2247]:
+                      - text: └
+                      - generic [ref=e2248]: "false"
+                      - text: "미사용 : 기본값"
+                    - generic [ref=e2249]: "→ 공급받는자 유형 {invoiceeType}=\"사업자\" 경우만 가능"
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e2250]:
+                  - cell [ref=e2251]
+                  - cell "success" [ref=e2252]
+                  - cell "function" [ref=e2253]
+                  - cell "-" [ref=e2254]
+                  - cell "Y" [ref=e2255]
+                  - cell "성공에 대한 콜백 함수" [ref=e2256]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e2257]:
+                  - cell [ref=e2258]
+                  - cell "error" [ref=e2259]
+                  - cell "function" [ref=e2260]
+                  - cell "-" [ref=e2261]
+                  - cell "Y" [ref=e2262]
+                  - cell "실패에 대한 콜백 함수" [ref=e2263]
+          - heading "응답" [level=6] [ref=e2264]
+          - generic [ref=e2265]:
+            - generic [ref=e2266] [cursor=pointer]: Response
+            - table [ref=e4809]:
+              - rowgroup [ref=e4810]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4811]:
+                  - columnheader "순번" [ref=e4812]
+                  - columnheader "변수명" [ref=e4813]
+                  - columnheader "타입" [ref=e4814]
+                  - columnheader "길이" [ref=e4815]
+                  - columnheader "설명" [ref=e4816]
+              - rowgroup [ref=e4817]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e4818]:
+                  - cell [ref=e4819]
+                  - cell "code" [ref=e4820]
+                  - cell "number" [ref=e4821]
+                  - cell "-" [ref=e4822]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e4823]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e4824]:
+                      - text: └
+                      - generic [ref=e4825]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e4826]:
+                  - cell [ref=e4827]
+                  - cell "message" [ref=e4828]
+                  - cell "string" [ref=e4829]
+                  - cell "-" [ref=e4830]
+                  - cell "API 처리에 대한 응답메시지" [ref=e4831]
+          - heading "예외" [level=6] [ref=e2267]
+          - generic [ref=e2268]:
+            - generic [ref=e2269] [cursor=pointer]: PopbillException
+            - table [ref=e4832]:
+              - rowgroup [ref=e4833]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4834]:
+                  - columnheader "순번" [ref=e4835]
+                  - columnheader "변수명" [ref=e4836]
+                  - columnheader "타입" [ref=e4837]
+                  - columnheader "길이" [ref=e4838]
+                  - columnheader "설명" [ref=e4839]
+              - rowgroup [ref=e4840]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4841]:
+                  - cell [ref=e4842]
+                  - cell "code" [ref=e4843]
+                  - cell "number" [ref=e4844]
+                  - cell "-" [ref=e4845]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e4846]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e4847]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e4848] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e4849]:
+                  - cell [ref=e4850]
+                  - cell "message" [ref=e4851]
+                  - cell "string" [ref=e4852]
+                  - cell "-" [ref=e4853]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e4854]
+        - generic [ref=e2270]:
+          - heading "5. Update - 수정" [level=3] [ref=e2271]
+          - list [ref=e2272]:
+            - listitem [ref=e2273]: "\"임시저장\" 상태의 세금계산서를 수정합니다."
+          - code [ref=e2275]: taxinvoiceService.update(CorpNum, KeyType, MgtKey, Taxinvoice, UserID, success, error)
+          - heading "요청" [level=6] [ref=e2276]
+          - generic [ref=e2277]:
+            - generic [ref=e2278] [cursor=pointer]: Parameters
+            - table [ref=e2279]:
+              - rowgroup [ref=e2280]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e2281]:
+                  - columnheader "순번" [ref=e2282]
+                  - columnheader "변수명" [ref=e2283]
+                  - columnheader "타입" [ref=e2284]
+                  - columnheader "길이" [ref=e2285]
+                  - columnheader "필수" [ref=e2286]
+                  - columnheader "설명" [ref=e2287]
+              - rowgroup [ref=e2288]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e2289]:
+                  - cell [ref=e2290]
+                  - cell "CorpNum" [ref=e2291]
+                  - cell "string" [ref=e2292]
+                  - cell "10" [ref=e2293]
+                  - cell "Y" [ref=e2294]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e2295]
+                - row "KeyType string - Y 문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e2296]:
+                  - cell [ref=e2297]
+                  - cell "KeyType" [ref=e2298]
+                  - cell "string" [ref=e2299]
+                  - cell "-" [ref=e2300]
+                  - cell "Y" [ref=e2301]
+                  - cell "문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e2302]:
+                    - text: 문서번호 유형 (택 1)
+                    - generic [ref=e2303]:
+                      - text: └
+                      - generic [ref=e2304]: SELL
+                      - text: 매출
+                    - generic [ref=e2305]:
+                      - text: └
+                      - generic [ref=e2306]: BUY
+                      - text: 매입
+                    - generic [ref=e2307]:
+                      - text: └
+                      - generic [ref=e2308]: TRUSTEE
+                      - text: 위수탁
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e2309]:
+                  - cell [ref=e2310]
+                  - cell "MgtKey" [ref=e2311]
+                  - cell "string" [ref=e2312]
+                  - cell "24" [ref=e2313]
+                  - cell "Y" [ref=e2314]
+                  - cell "파트너가 할당한 문서번호" [ref=e2315]
+                - row "Taxinvoice Taxinvoice - Y 수정할 전자세금계산서 정보" [ref=e2316]:
+                  - cell [ref=e2317]
+                  - cell "Taxinvoice" [ref=e2318]
+                  - cell "Taxinvoice" [ref=e2319]:
+                    - link "Taxinvoice" [ref=e2320] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#Taxinvoice_Input
+                  - cell "-" [ref=e2321]
+                  - cell "Y" [ref=e2322]
+                  - cell "수정할 전자세금계산서 정보" [ref=e2323]
+                - row [ref=e4855]:
+                  - cell [ref=e4856]:
+                    - generic:
+                      - generic:
+                        - generic [ref=e2326]: Taxinvoice
+                        - table [ref=e2328]:
+                          - rowgroup [ref=e2329]:
+                            - row "순번 변수명 타입 길이 필수 설명" [ref=e2330]:
+                              - columnheader "순번" [ref=e2331]
+                              - columnheader "변수명" [ref=e2332]
+                              - columnheader "타입" [ref=e2333]
+                              - columnheader "길이" [ref=e2334]
+                              - columnheader "필수" [ref=e2335]
+                              - columnheader "설명" [ref=e2336]
+                          - rowgroup [ref=e2337]:
+                            - row "issueType string 3 Y 발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e2338]:
+                              - cell [ref=e2339]
+                              - cell "issueType" [ref=e2340]
+                              - cell "string" [ref=e2341]
+                              - cell "3" [ref=e2342]
+                              - cell "Y" [ref=e2343]
+                              - cell "발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e2344]:
+                                - text: 발행형태 (택 1)
+                                - generic [ref=e2345]:
+                                  - text: └
+                                  - generic [ref=e2346]: 정발행
+                                - generic [ref=e2347]:
+                                  - text: └
+                                  - generic [ref=e2348]: 역발행
+                                - generic [ref=e2349]:
+                                  - text: └
+                                  - generic [ref=e2350]: 위수탁
+                            - row "taxType string 2 Y 과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e2351]:
+                              - cell [ref=e2352]
+                              - cell "taxType" [ref=e2353]
+                              - cell "string" [ref=e2354]
+                              - cell "2" [ref=e2355]
+                              - cell "Y" [ref=e2356]
+                              - cell "과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e2357]:
+                                - text: 과세형태 (택 1)
+                                - generic [ref=e2358]:
+                                  - text: └
+                                  - generic [ref=e2359]: 과세
+                                - generic [ref=e2360]:
+                                  - text: └
+                                  - generic [ref=e2361]: 영세
+                                - generic [ref=e2362]:
+                                  - text: └
+                                  - generic [ref=e2363]: 면세
+                            - 'row "chargeDirection string 3 Y 과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e2364]':
+                              - cell [ref=e2365]
+                              - cell "chargeDirection" [ref=e2366]
+                              - cell "string" [ref=e2367]
+                              - cell "3" [ref=e2368]
+                              - cell "Y" [ref=e2369]
+                              - 'cell "과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e2370]':
+                                - text: 과금방향 (택 1)
+                                - generic [ref=e2371]:
+                                  - text: └
+                                  - generic [ref=e2372]: 정과금
+                                  - text: 공급자 과금
+                                - generic [ref=e2373]:
+                                  - text: └
+                                  - generic [ref=e2374]: 역과금
+                                  - text: 공급받는자 과금
+                                - text: "-{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능"
+                                - text: "-{issueType}=\"역발행\" 경우 역과금 가능"
+                            - row "serialNum string 30 N 일련번호" [ref=e2375]:
+                              - cell [ref=e2376]
+                              - cell "serialNum" [ref=e2377]
+                              - cell "string" [ref=e2378]
+                              - cell "30" [ref=e2379]
+                              - cell "N" [ref=e2380]
+                              - cell "일련번호" [ref=e2381]
+                            - row "kwon number 4 N 책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e2382]:
+                              - cell [ref=e2383]
+                              - cell "kwon" [ref=e2384]
+                              - cell "number" [ref=e2385]
+                              - cell "4" [ref=e2386]
+                              - cell "N" [ref=e2387]
+                              - cell "책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e2388]:
+                                - text: 책번호 "권" 항목
+                                - generic [ref=e2389]: → 정수만 입력 가능
+                            - row "ho number 4 N 책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e2390]:
+                              - cell [ref=e2391]
+                              - cell "ho" [ref=e2392]
+                              - cell "number" [ref=e2393]
+                              - cell "4" [ref=e2394]
+                              - cell "N" [ref=e2395]
+                              - cell "책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e2396]:
+                                - text: 책번호 "호" 항목
+                                - generic [ref=e2397]: → 정수만 입력 가능
+                            - 'row "writeDate string 8 Y 작성일자 → 형식 : yyyyMMdd" [ref=e2398]':
+                              - cell [ref=e2399]
+                              - cell "writeDate" [ref=e2400]
+                              - cell "string" [ref=e2401]
+                              - cell "8" [ref=e2402]
+                              - cell "Y" [ref=e2403]
+                              - 'cell "작성일자 → 형식 : yyyyMMdd" [ref=e2404]':
+                                - text: 작성일자
+                                - generic [ref=e2405]: "→ 형식 : yyyyMMdd"
+                            - row "purposeType string 2 Y 영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e2406]:
+                              - cell [ref=e2407]
+                              - cell "purposeType" [ref=e2408]
+                              - cell "string" [ref=e2409]
+                              - cell "2" [ref=e2410]
+                              - cell "Y" [ref=e2411]
+                              - cell "영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e2412]:
+                                - text: 영수/청구 (택 1)
+                                - generic [ref=e2413]:
+                                  - text: └
+                                  - generic [ref=e2414]: 영수
+                                - generic [ref=e2415]:
+                                  - text: └
+                                  - generic [ref=e2416]: 청구
+                                - generic [ref=e2417]:
+                                  - text: └
+                                  - generic [ref=e2418]: 없음
+                            - row "supplyCostTotal string 18 Y 공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2419]:
+                              - cell [ref=e2420]
+                              - cell "supplyCostTotal" [ref=e2421]
+                              - cell "string" [ref=e2422]
+                              - cell "18" [ref=e2423]
+                              - cell "Y" [ref=e2424]
+                              - cell "공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2425]:
+                                - text: 공급가액 합계
+                                - generic [ref=e2426]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "taxTotal string 18 Y 세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2427]:
+                              - cell [ref=e2428]
+                              - cell "taxTotal" [ref=e2429]
+                              - cell "string" [ref=e2430]
+                              - cell "18" [ref=e2431]
+                              - cell "Y" [ref=e2432]
+                              - cell "세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2433]:
+                                - text: 세액 합계
+                                - generic [ref=e2434]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "totalAmount string 18 Y 합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2435]:
+                              - cell [ref=e2436]
+                              - cell "totalAmount" [ref=e2437]
+                              - cell "string" [ref=e2438]
+                              - cell "18" [ref=e2439]
+                              - cell "Y" [ref=e2440]
+                              - cell "합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e2441]:
+                                - text: 합계금액
+                                - generic [ref=e2442]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "cash string 18 N 현금" [ref=e2443]:
+                              - cell [ref=e2444]
+                              - cell "cash" [ref=e2445]
+                              - cell "string" [ref=e2446]
+                              - cell "18" [ref=e2447]
+                              - cell "N" [ref=e2448]
+                              - cell "현금" [ref=e2449]
+                            - row "chkBill string 18 N 수표" [ref=e2450]:
+                              - cell [ref=e2451]
+                              - cell "chkBill" [ref=e2452]
+                              - cell "string" [ref=e2453]
+                              - cell "18" [ref=e2454]
+                              - cell "N" [ref=e2455]
+                              - cell "수표" [ref=e2456]
+                            - row "credit string 18 N 외상" [ref=e2457]:
+                              - cell [ref=e2458]
+                              - cell "credit" [ref=e2459]
+                              - cell "string" [ref=e2460]
+                              - cell "18" [ref=e2461]
+                              - cell "N" [ref=e2462]
+                              - cell "외상" [ref=e2463]
+                            - row "note string 18 N 어음" [ref=e2464]:
+                              - cell [ref=e2465]
+                              - cell "note" [ref=e2466]
+                              - cell "string" [ref=e2467]
+                              - cell "18" [ref=e2468]
+                              - cell "N" [ref=e2469]
+                              - cell "어음" [ref=e2470]
+                            - 'row "remark1 string 150 조건부 비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e2471]':
+                              - cell [ref=e2472]
+                              - cell "remark1" [ref=e2473]
+                              - cell "string" [ref=e2474]
+                              - cell "150" [ref=e2475]
+                              - cell "조건부" [ref=e2476]
+                              - 'cell "비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e2477]':
+                                - text: 비고1
+                                - generic [ref=e2478]:
+                                  - text: ✓
+                                  - 'link "{invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e2479] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-invoiceeType"
+                                    - text: "{invoiceeType}=\"외국인\" 경우"
+                                    - text: 외국인등록번호 또는 여권번호 필수 입력
+                            - row "remark2 string 150 N 비고2" [ref=e2480]:
+                              - cell [ref=e2481]
+                              - cell "remark2" [ref=e2482]
+                              - cell "string" [ref=e2483]
+                              - cell "150" [ref=e2484]
+                              - cell "N" [ref=e2485]
+                              - cell "비고2" [ref=e2486]
+                            - row "remark3 string 150 N 비고3" [ref=e2487]:
+                              - cell [ref=e2488]
+                              - cell "remark3" [ref=e2489]
+                              - cell "string" [ref=e2490]
+                              - cell "150" [ref=e2491]
+                              - cell "N" [ref=e2492]
+                              - cell "비고3" [ref=e2493]
+                            - 'row "invoicerMgtKey string 24 조건부 공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e2494]':
+                              - cell [ref=e2495]
+                              - cell "invoicerMgtKey" [ref=e2496]
+                              - cell "string" [ref=e2497]
+                              - cell "24" [ref=e2498]
+                              - cell "조건부" [ref=e2499]
+                              - 'cell "공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e2500]':
+                                - text: 공급자 문서번호
+                                - generic [ref=e2501]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e2502]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 필수" [ref=e2503] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - row "invoicerCorpNum string 10 Y 공급자 사업자번호 ('-' 제외)" [ref=e2504]:
+                              - cell [ref=e2505]
+                              - cell "invoicerCorpNum" [ref=e2506]
+                              - cell "string" [ref=e2507]
+                              - cell "10" [ref=e2508]
+                              - cell "Y" [ref=e2509]
+                              - cell "공급자 사업자번호 ('-' 제외)" [ref=e2510]
+                            - row "invoicerTaxRegID string 4 N 공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2511]:
+                              - cell [ref=e2512]
+                              - cell "invoicerTaxRegID" [ref=e2513]
+                              - cell "string" [ref=e2514]
+                              - cell "4" [ref=e2515]
+                              - cell "N" [ref=e2516]
+                              - cell "공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2517]:
+                                - text: 공급자 종사업장 식별번호
+                                - generic [ref=e2518]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoicerCorpName string 200 Y 공급자 상호" [ref=e2519]:
+                              - cell [ref=e2520]
+                              - cell "invoicerCorpName" [ref=e2521]
+                              - cell "string" [ref=e2522]
+                              - cell "200" [ref=e2523]
+                              - cell "Y" [ref=e2524]
+                              - cell "공급자 상호" [ref=e2525]
+                            - row "invoicerCEOName string 100 Y 공급자 대표자 성명" [ref=e2526]:
+                              - cell [ref=e2527]
+                              - cell "invoicerCEOName" [ref=e2528]
+                              - cell "string" [ref=e2529]
+                              - cell "100" [ref=e2530]
+                              - cell "Y" [ref=e2531]
+                              - cell "공급자 대표자 성명" [ref=e2532]
+                            - row "invoicerAddr string 300 N 공급자 주소" [ref=e2533]:
+                              - cell [ref=e2534]
+                              - cell "invoicerAddr" [ref=e2535]
+                              - cell "string" [ref=e2536]
+                              - cell "300" [ref=e2537]
+                              - cell "N" [ref=e2538]
+                              - cell "공급자 주소" [ref=e2539]
+                            - row "invoicerBizType string 100 N 공급자 업태" [ref=e2540]:
+                              - cell [ref=e2541]
+                              - cell "invoicerBizType" [ref=e2542]
+                              - cell "string" [ref=e2543]
+                              - cell "100" [ref=e2544]
+                              - cell "N" [ref=e2545]
+                              - cell "공급자 업태" [ref=e2546]
+                            - row "invoicerBizClass string 100 N 공급자 종목" [ref=e2547]:
+                              - cell [ref=e2548]
+                              - cell "invoicerBizClass" [ref=e2549]
+                              - cell "string" [ref=e2550]
+                              - cell "100" [ref=e2551]
+                              - cell "N" [ref=e2552]
+                              - cell "공급자 종목" [ref=e2553]
+                            - row "invoicerContactName string 100 N 공급자 담당자 성명" [ref=e2554]:
+                              - cell [ref=e2555]
+                              - cell "invoicerContactName" [ref=e2556]
+                              - cell "string" [ref=e2557]
+                              - cell "100" [ref=e2558]
+                              - cell "N" [ref=e2559]
+                              - cell "공급자 담당자 성명" [ref=e2560]
+                            - row "invoicerDeptName string 100 N 공급자 담당자 부서명" [ref=e2561]:
+                              - cell [ref=e2562]
+                              - cell "invoicerDeptName" [ref=e2563]
+                              - cell "string" [ref=e2564]
+                              - cell "100" [ref=e2565]
+                              - cell "N" [ref=e2566]
+                              - cell "공급자 담당자 부서명" [ref=e2567]
+                            - row "invoicerTEL string 20 N 공급자 담당자 연락처" [ref=e2568]:
+                              - cell [ref=e2569]
+                              - cell "invoicerTEL" [ref=e2570]
+                              - cell "string" [ref=e2571]
+                              - cell "20" [ref=e2572]
+                              - cell "N" [ref=e2573]
+                              - cell "공급자 담당자 연락처" [ref=e2574]
+                            - row "invoicerHP string 20 N 공급자 담당자 휴대폰" [ref=e2575]:
+                              - cell [ref=e2576]
+                              - cell "invoicerHP" [ref=e2577]
+                              - cell "string" [ref=e2578]
+                              - cell "20" [ref=e2579]
+                              - cell "N" [ref=e2580]
+                              - cell "공급자 담당자 휴대폰" [ref=e2581]
+                            - row "invoicerEmail string 100 N 공급자 담당자 메일" [ref=e2582]:
+                              - cell [ref=e2583]
+                              - cell "invoicerEmail" [ref=e2584]
+                              - cell "string" [ref=e2585]
+                              - cell "100" [ref=e2586]
+                              - cell "N" [ref=e2587]
+                              - cell "공급자 담당자 메일" [ref=e2588]
+                            - 'row "invoicerSMSSendYN boolean - N 공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2589]':
+                              - cell [ref=e2590]
+                              - cell "invoicerSMSSendYN" [ref=e2591]
+                              - cell "boolean" [ref=e2592]
+                              - cell "-" [ref=e2593]
+                              - cell "N" [ref=e2594]
+                              - 'cell "공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2595]':
+                                - text: 공급자 알림문자 전송 여부
+                                - generic [ref=e2596]:
+                                  - text: └
+                                  - generic [ref=e2597]: "true"
+                                  - text: 전송
+                                - generic [ref=e2598]:
+                                  - text: └
+                                  - generic [ref=e2599]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e2600]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e2601]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2602] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"정발행\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - 'row "invoiceeMgtKey string 24 조건부 공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e2603]':
+                              - cell [ref=e2604]
+                              - cell "invoiceeMgtKey" [ref=e2605]
+                              - cell "string" [ref=e2606]
+                              - cell "24" [ref=e2607]
+                              - cell "조건부" [ref=e2608]
+                              - 'cell "공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e2609]':
+                                - text: 공급받는자 문서번호
+                                - generic [ref=e2610]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e2611]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 필수" [ref=e2612] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - row "invoiceeType string - Y 공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e2613]:
+                              - cell [ref=e2614]
+                              - cell "invoiceeType" [ref=e2615]
+                              - cell "string" [ref=e2616]
+                              - cell "-" [ref=e2617]
+                              - cell "Y" [ref=e2618]
+                              - cell "공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e2619]:
+                                - text: 공급받는자 유형 (택 1)
+                                - generic [ref=e2620]:
+                                  - text: └
+                                  - generic [ref=e2621]: 사업자
+                                - generic [ref=e2622]:
+                                  - text: └
+                                  - generic [ref=e2623]: 개인
+                                - generic [ref=e2624]:
+                                  - text: └
+                                  - generic [ref=e2625]: 외국인
+                            - 'row "invoiceeCorpNum string 13 Y 공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e2626]':
+                              - cell [ref=e2627]
+                              - cell "invoiceeCorpNum" [ref=e2628]
+                              - cell "string" [ref=e2629]
+                              - cell "13" [ref=e2630]
+                              - cell "Y" [ref=e2631]
+                              - 'cell "공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e2632]':
+                                - text: 공급받는자 등록번호 ('-' 제외)
+                                - text: "- {invoiceeType}=\"사업자\" 경우 사업자번호"
+                                - text: "- {invoiceeType}=\"개인\" 경우 주민등록번호"
+                                - text: "- {invoiceeType}=\"외국인\" 경우 \"9999999999999\""
+                            - row "invoiceeTaxRegID string 4 N 공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2633]:
+                              - cell [ref=e2634]
+                              - cell "invoiceeTaxRegID" [ref=e2635]
+                              - cell "string" [ref=e2636]
+                              - cell "4" [ref=e2637]
+                              - cell "N" [ref=e2638]
+                              - cell "공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2639]:
+                                - text: 공급받는자 종사업장 식별번호
+                                - generic [ref=e2640]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoiceeCorpName string 200 Y 공급받는자 상호" [ref=e2641]:
+                              - cell [ref=e2642]
+                              - cell "invoiceeCorpName" [ref=e2643]
+                              - cell "string" [ref=e2644]
+                              - cell "200" [ref=e2645]
+                              - cell "Y" [ref=e2646]
+                              - cell "공급받는자 상호" [ref=e2647]
+                            - row "invoiceeCEOName string 100 Y 공급받는자 대표자 성명" [ref=e2648]:
+                              - cell [ref=e2649]
+                              - cell "invoiceeCEOName" [ref=e2650]
+                              - cell "string" [ref=e2651]
+                              - cell "100" [ref=e2652]
+                              - cell "Y" [ref=e2653]
+                              - cell "공급받는자 대표자 성명" [ref=e2654]
+                            - row "invoiceeAddr string 300 N 공급받는자 주소" [ref=e2655]:
+                              - cell [ref=e2656]
+                              - cell "invoiceeAddr" [ref=e2657]
+                              - cell "string" [ref=e2658]
+                              - cell "300" [ref=e2659]
+                              - cell "N" [ref=e2660]
+                              - cell "공급받는자 주소" [ref=e2661]
+                            - row "invoiceeBizType string 100 N 공급받는자 업태" [ref=e2662]:
+                              - cell [ref=e2663]
+                              - cell "invoiceeBizType" [ref=e2664]
+                              - cell "string" [ref=e2665]
+                              - cell "100" [ref=e2666]
+                              - cell "N" [ref=e2667]
+                              - cell "공급받는자 업태" [ref=e2668]
+                            - row "invoiceeBizClass string 100 N 공급받는자 종목" [ref=e2669]:
+                              - cell [ref=e2670]
+                              - cell "invoiceeBizClass" [ref=e2671]
+                              - cell "string" [ref=e2672]
+                              - cell "100" [ref=e2673]
+                              - cell "N" [ref=e2674]
+                              - cell "공급받는자 종목" [ref=e2675]
+                            - row "invoiceeContactName1 string 100 N 공급받는자 담당자 성명" [ref=e2676]:
+                              - cell [ref=e2677]
+                              - cell "invoiceeContactName1" [ref=e2678]
+                              - cell "string" [ref=e2679]
+                              - cell "100" [ref=e2680]
+                              - cell "N" [ref=e2681]
+                              - cell "공급받는자 담당자 성명" [ref=e2682]
+                            - row "invoiceeDeptName1 string 100 N 공급받는자 담당자 부서명" [ref=e2683]:
+                              - cell [ref=e2684]
+                              - cell "invoiceeDeptName1" [ref=e2685]
+                              - cell "string" [ref=e2686]
+                              - cell "100" [ref=e2687]
+                              - cell "N" [ref=e2688]
+                              - cell "공급받는자 담당자 부서명" [ref=e2689]
+                            - row "invoiceeTEL1 string 20 N 공급받는자 담당자 연락처" [ref=e2690]:
+                              - cell [ref=e2691]
+                              - cell "invoiceeTEL1" [ref=e2692]
+                              - cell "string" [ref=e2693]
+                              - cell "20" [ref=e2694]
+                              - cell "N" [ref=e2695]
+                              - cell "공급받는자 담당자 연락처" [ref=e2696]
+                            - row "invoiceeHP1 string 20 N 공급받는자 담당자 휴대폰" [ref=e2697]:
+                              - cell [ref=e2698]
+                              - cell "invoiceeHP1" [ref=e2699]
+                              - cell "string" [ref=e2700]
+                              - cell "20" [ref=e2701]
+                              - cell "N" [ref=e2702]
+                              - cell "공급받는자 담당자 휴대폰" [ref=e2703]
+                            - row "invoiceeEmail1 string 100 N 공급받는자 담당자 메일" [ref=e2704]:
+                              - cell [ref=e2705]
+                              - cell "invoiceeEmail1" [ref=e2706]
+                              - cell "string" [ref=e2707]
+                              - cell "100" [ref=e2708]
+                              - cell "N" [ref=e2709]
+                              - cell "공급받는자 담당자 메일" [ref=e2710]
+                            - 'row "invoiceeSMSSendYN boolean - N 공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2711]':
+                              - cell [ref=e2712]
+                              - cell "invoiceeSMSSendYN" [ref=e2713]
+                              - cell "boolean" [ref=e2714]
+                              - cell "-" [ref=e2715]
+                              - cell "N" [ref=e2716]
+                              - 'cell "공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2717]':
+                                - text: 공급받는자 알림문자 전송 여부
+                                - generic [ref=e2718]:
+                                  - text: └
+                                  - generic [ref=e2719]: "true"
+                                  - text: 전송
+                                - generic [ref=e2720]:
+                                  - text: └
+                                  - generic [ref=e2721]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e2722]:
+                                  - text: "→ 수신자 : 공급자 휴대폰번호 {invoicerHP}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e2723]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e2724] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"역발행\" 경우"
+                                    - text: 세금계산서 역발행 요청시점에 알림문자 전송
+                            - 'row "trusteeMgtKey string 24 조건부 수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2725]':
+                              - cell [ref=e2726]
+                              - cell "trusteeMgtKey" [ref=e2727]
+                              - cell "string" [ref=e2728]
+                              - cell "24" [ref=e2729]
+                              - cell "조건부" [ref=e2730]
+                              - 'cell "수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2731]':
+                                - text: 수탁자 문서번호
+                                - generic [ref=e2732]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e2733]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2734] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCorpNum string 10 조건부 수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2735]':
+                              - cell [ref=e2736]
+                              - cell "trusteeCorpNum" [ref=e2737]
+                              - cell "string" [ref=e2738]
+                              - cell "10" [ref=e2739]
+                              - cell "조건부" [ref=e2740]
+                              - 'cell "수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2741]':
+                                - text: 수탁자 사업자번호 ('-' 제외)
+                                - generic [ref=e2742]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2743] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - row "trusteeTaxRegID string 4 N 수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2744]:
+                              - cell [ref=e2745]
+                              - cell "trusteeTaxRegID" [ref=e2746]
+                              - cell "string" [ref=e2747]
+                              - cell "4" [ref=e2748]
+                              - cell "N" [ref=e2749]
+                              - cell "수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e2750]:
+                                - text: 수탁자 종사업장 식별번호
+                                - generic [ref=e2751]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - 'row "trusteeCorpName string 200 조건부 수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2752]':
+                              - cell [ref=e2753]
+                              - cell "trusteeCorpName" [ref=e2754]
+                              - cell "string" [ref=e2755]
+                              - cell "200" [ref=e2756]
+                              - cell "조건부" [ref=e2757]
+                              - 'cell "수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2758]':
+                                - text: 수탁자 상호
+                                - generic [ref=e2759]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2760] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCEOName string 100 조건부 수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2761]':
+                              - cell [ref=e2762]
+                              - cell "trusteeCEOName" [ref=e2763]
+                              - cell "string" [ref=e2764]
+                              - cell "100" [ref=e2765]
+                              - cell "조건부" [ref=e2766]
+                              - 'cell "수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e2767]':
+                                - text: 수탁자 대표자 성명
+                                - generic [ref=e2768]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e2769] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                            - row "trusteeAddr string 300 N 수탁자 주소" [ref=e2770]:
+                              - cell [ref=e2771]
+                              - cell "trusteeAddr" [ref=e2772]
+                              - cell "string" [ref=e2773]
+                              - cell "300" [ref=e2774]
+                              - cell "N" [ref=e2775]
+                              - cell "수탁자 주소" [ref=e2776]
+                            - row "trusteeBizType string 100 N 수탁자 업태" [ref=e2777]:
+                              - cell [ref=e2778]
+                              - cell "trusteeBizType" [ref=e2779]
+                              - cell "string" [ref=e2780]
+                              - cell "100" [ref=e2781]
+                              - cell "N" [ref=e2782]
+                              - cell "수탁자 업태" [ref=e2783]
+                            - row "trusteeBizClass string 100 N 수탁자 종목" [ref=e2784]:
+                              - cell [ref=e2785]
+                              - cell "trusteeBizClass" [ref=e2786]
+                              - cell "string" [ref=e2787]
+                              - cell "100" [ref=e2788]
+                              - cell "N" [ref=e2789]
+                              - cell "수탁자 종목" [ref=e2790]
+                            - row "trusteeContactName string 100 N 수탁자 담당자 성명" [ref=e2791]:
+                              - cell [ref=e2792]
+                              - cell "trusteeContactName" [ref=e2793]
+                              - cell "string" [ref=e2794]
+                              - cell "100" [ref=e2795]
+                              - cell "N" [ref=e2796]
+                              - cell "수탁자 담당자 성명" [ref=e2797]
+                            - row "trusteeDeptName string 100 N 수탁자 담당자 부서명" [ref=e2798]:
+                              - cell [ref=e2799]
+                              - cell "trusteeDeptName" [ref=e2800]
+                              - cell "string" [ref=e2801]
+                              - cell "100" [ref=e2802]
+                              - cell "N" [ref=e2803]
+                              - cell "수탁자 담당자 부서명" [ref=e2804]
+                            - row "trusteeTEL string 20 N 수탁자 담당자 연락처" [ref=e2805]:
+                              - cell [ref=e2806]
+                              - cell "trusteeTEL" [ref=e2807]
+                              - cell "string" [ref=e2808]
+                              - cell "20" [ref=e2809]
+                              - cell "N" [ref=e2810]
+                              - cell "수탁자 담당자 연락처" [ref=e2811]
+                            - row "trusteeHP string 20 N 수탁자 담당자 휴대폰" [ref=e2812]:
+                              - cell [ref=e2813]
+                              - cell "trusteeHP" [ref=e2814]
+                              - cell "string" [ref=e2815]
+                              - cell "20" [ref=e2816]
+                              - cell "N" [ref=e2817]
+                              - cell "수탁자 담당자 휴대폰" [ref=e2818]
+                            - row "trusteeEmail string 100 N 수탁자 담당자 메일" [ref=e2819]:
+                              - cell [ref=e2820]
+                              - cell "trusteeEmail" [ref=e2821]
+                              - cell "string" [ref=e2822]
+                              - cell "100" [ref=e2823]
+                              - cell "N" [ref=e2824]
+                              - cell "수탁자 담당자 메일" [ref=e2825]
+                            - 'row "trusteeSMSSendYN boolean - N 수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2826]':
+                              - cell [ref=e2827]
+                              - cell "trusteeSMSSendYN" [ref=e2828]
+                              - cell "boolean" [ref=e2829]
+                              - cell "-" [ref=e2830]
+                              - cell "N" [ref=e2831]
+                              - 'cell "수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2832]':
+                                - text: 수탁자 알림문자 전송 여부
+                                - generic [ref=e2833]:
+                                  - text: └
+                                  - generic [ref=e2834]: "true"
+                                  - text: 전송
+                                - generic [ref=e2835]:
+                                  - text: └
+                                  - generic [ref=e2836]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e2837]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e2838]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e2839] [cursor=pointer]':
+                                    - /url: "#Update-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"위수탁\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - row "modifyCode number 1 조건부 수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e2840]:
+                              - cell [ref=e2841]
+                              - cell "modifyCode" [ref=e2842]
+                              - cell "number" [ref=e2843]
+                              - cell "1" [ref=e2844]
+                              - cell "조건부" [ref=e2845]
+                              - cell "수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e2846]:
+                                - text: 수정 사유코드
+                                - generic [ref=e2847]:
+                                  - text: → 수정세금계산서 작성시 필수
+                                  - link "[참고] 수정세금계산서" [ref=e2848] [cursor=pointer]:
+                                    - /url: /guide/taxinvoice/introduction/modified-taxinvoice
+                            - row "orgNTSConfirmNum string 24 조건부 당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e2849]:
+                              - cell [ref=e2850]
+                              - cell "orgNTSConfirmNum" [ref=e2851]
+                              - cell "string" [ref=e2852]
+                              - cell "24" [ref=e2853]
+                              - cell "조건부" [ref=e2854]
+                              - cell "당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e2855]:
+                                - text: 당초 국세청승인번호
+                                - generic [ref=e2856]: → 수정세금계산서 작성시 필수
+                            - 'row "businessLicenseYN boolean - N 팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2857]':
+                              - cell [ref=e2858]
+                              - cell "businessLicenseYN" [ref=e2859]
+                              - cell "boolean" [ref=e2860]
+                              - cell "-" [ref=e2861]
+                              - cell "N" [ref=e2862]
+                              - 'cell "팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2863]':
+                                - text: 팝빌에 등록된 사업자등록증 첨부 여부
+                                - generic [ref=e2864]:
+                                  - text: └
+                                  - generic [ref=e2865]: "true"
+                                  - text: 첨부
+                                - generic [ref=e2866]:
+                                  - text: └
+                                  - generic [ref=e2867]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e2868]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e2869] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "bankBookYN boolean - N 팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2870]':
+                              - cell [ref=e2871]
+                              - cell "bankBookYN" [ref=e2872]
+                              - cell "boolean" [ref=e2873]
+                              - cell "-" [ref=e2874]
+                              - cell "N" [ref=e2875]
+                              - 'cell "팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e2876]':
+                                - text: 팝빌에 등록된 통장사본 첨부 여부
+                                - generic [ref=e2877]:
+                                  - text: └
+                                  - generic [ref=e2878]: "true"
+                                  - text: 첨부
+                                - generic [ref=e2879]:
+                                  - text: └
+                                  - generic [ref=e2880]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e2881]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e2882] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "detailList List<TaxinvoiceDetail> N 품목 상세정보 → 최대 : 99개" [ref=e2883]':
+                              - cell [ref=e2884]
+                              - cell "detailList" [ref=e2885]
+                              - cell "List<TaxinvoiceDetail>" [ref=e2886]:
+                                - link "List<TaxinvoiceDetail>" [ref=e2887] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceDetail
+                              - cell "N" [ref=e2888]
+                              - 'cell "품목 상세정보 → 최대 : 99개" [ref=e2889]':
+                                - text: 품목 상세정보
+                                - generic [ref=e2890]: "→ 최대 : 99개"
+                            - 'row "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4857]':
+                              - 'cell "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e4858]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e2893]: TaxinvoiceDetail
+                                    - table [ref=e4859]:
+                                      - rowgroup [ref=e4860]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4861]:
+                                          - columnheader "순번" [ref=e4862]
+                                          - columnheader "변수명" [ref=e4863]
+                                          - columnheader "타입" [ref=e4864]
+                                          - columnheader "길이" [ref=e4865]
+                                          - columnheader "필수" [ref=e4866]
+                                          - columnheader "설명" [ref=e4867]
+                                      - rowgroup [ref=e4868]:
+                                        - 'row "serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4869]':
+                                          - cell [ref=e4870]
+                                          - cell "serialNum" [ref=e4871]
+                                          - cell "number" [ref=e4872]
+                                          - cell "2" [ref=e4873]
+                                          - cell "Y" [ref=e4874]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e4875]':
+                                            - text: 일련번호
+                                            - generic [ref=e4876]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 99"
+                                        - 'row "purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd" [ref=e4877]':
+                                          - cell [ref=e4878]
+                                          - cell "purchaseDT" [ref=e4879]
+                                          - cell "string" [ref=e4880]
+                                          - cell "8" [ref=e4881]
+                                          - cell "N" [ref=e4882]
+                                          - 'cell "거래일자 → 형식 : yyyyMMdd" [ref=e4883]':
+                                            - text: 거래일자
+                                            - generic [ref=e4884]: "→ 형식 : yyyyMMdd"
+                                        - row "itemName string 100 N 품명" [ref=e4885]:
+                                          - cell [ref=e4886]
+                                          - cell "itemName" [ref=e4887]
+                                          - cell "string" [ref=e4888]
+                                          - cell "100" [ref=e4889]
+                                          - cell "N" [ref=e4890]
+                                          - cell "품명" [ref=e4891]
+                                        - row "spec string 60 N 규격" [ref=e4892]:
+                                          - cell [ref=e4893]
+                                          - cell "spec" [ref=e4894]
+                                          - cell "string" [ref=e4895]
+                                          - cell "60" [ref=e4896]
+                                          - cell "N" [ref=e4897]
+                                          - cell "규격" [ref=e4898]
+                                        - row "qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4899]:
+                                          - cell [ref=e4900]
+                                          - cell "qty" [ref=e4901]
+                                          - cell "string" [ref=e4902]
+                                          - cell "12" [ref=e4903]
+                                          - cell "N" [ref=e4904]
+                                          - cell "수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4905]:
+                                            - text: 수량
+                                            - generic [ref=e4906]:
+                                              - text: → -99999999.99 ~ 999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4907]:
+                                          - cell [ref=e4908]
+                                          - cell "unitCost" [ref=e4909]
+                                          - cell "string" [ref=e4910]
+                                          - cell "18" [ref=e4911]
+                                          - cell "N" [ref=e4912]
+                                          - cell "단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e4913]:
+                                            - text: 단가
+                                            - generic [ref=e4914]:
+                                              - text: → -99999999999999.99 ~ 999999999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4915]:
+                                          - cell [ref=e4916]
+                                          - cell "supplyCost" [ref=e4917]
+                                          - cell "string" [ref=e4918]
+                                          - cell "18" [ref=e4919]
+                                          - cell "N" [ref=e4920]
+                                          - cell "공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4921]:
+                                            - text: 공급가액
+                                            - generic [ref=e4922]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4923]:
+                                          - cell [ref=e4924]
+                                          - cell "tax" [ref=e4925]
+                                          - cell "string" [ref=e4926]
+                                          - cell "18" [ref=e4927]
+                                          - cell "N" [ref=e4928]
+                                          - cell "세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e4929]:
+                                            - text: 세액
+                                            - generic [ref=e4930]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "remark string 100 N 비고" [ref=e4931]:
+                                          - cell [ref=e4932]
+                                          - cell "remark" [ref=e4933]
+                                          - cell "string" [ref=e4934]
+                                          - cell "100" [ref=e4935]
+                                          - cell "N" [ref=e4936]
+                                          - cell "비고" [ref=e4937]
+                            - 'row "addContactList List<TaxinvoiceAddContact> N 공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e2895]':
+                              - cell [ref=e2896]
+                              - cell "addContactList" [ref=e2897]
+                              - cell "List<TaxinvoiceAddContact>" [ref=e2898]:
+                                - link "List<TaxinvoiceAddContact>" [ref=e2899] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceAddContact
+                              - cell "N" [ref=e2900]
+                              - 'cell "공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e2901]':
+                                - text: 공급받는자 추가담당자 정보
+                                - generic [ref=e2902]:
+                                  - text: → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용
+                                  - text: "최대 : 5명"
+                            - 'row "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4938]':
+                              - 'cell "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e4939]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e2905]: TaxinvoiceAddContact
+                                    - table [ref=e4940]:
+                                      - rowgroup [ref=e4941]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e4942]:
+                                          - columnheader "순번" [ref=e4943]
+                                          - columnheader "변수명" [ref=e4944]
+                                          - columnheader "타입" [ref=e4945]
+                                          - columnheader "길이" [ref=e4946]
+                                          - columnheader "필수" [ref=e4947]
+                                          - columnheader "설명" [ref=e4948]
+                                      - rowgroup [ref=e4949]:
+                                        - 'row "serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4950]':
+                                          - cell [ref=e4951]
+                                          - cell "serialNum" [ref=e4952]
+                                          - cell "number" [ref=e4953]
+                                          - cell "1" [ref=e4954]
+                                          - cell "Y" [ref=e4955]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e4956]':
+                                            - text: 일련번호
+                                            - generic [ref=e4957]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 5"
+                                        - row "contactName string 100 N 담당자 성명" [ref=e4958]:
+                                          - cell [ref=e4959]
+                                          - cell "contactName" [ref=e4960]
+                                          - cell "string" [ref=e4961]
+                                          - cell "100" [ref=e4962]
+                                          - cell "N" [ref=e4963]
+                                          - cell "담당자 성명" [ref=e4964]
+                                        - row "email string 100 Y 메일" [ref=e4965]:
+                                          - cell [ref=e4966]
+                                          - cell "email" [ref=e4967]
+                                          - cell "string" [ref=e4968]
+                                          - cell "100" [ref=e4969]
+                                          - cell "Y" [ref=e4970]
+                                          - cell "메일" [ref=e4971]
+                            - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e2907]:
+                              - cell [ref=e2908]
+                              - cell "memo" [ref=e2909]
+                              - cell "string" [ref=e2910]
+                              - cell "200" [ref=e2911]
+                              - cell "N" [ref=e2912]
+                              - cell "세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e2913]:
+                                - text: 세금계산서 상태 이력을 관리하기 위한 메모
+                                - generic [ref=e2914]: → 대량(Bulk)발행 경우 사용
+                            - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e2915]':
+                              - cell [ref=e2916]
+                              - cell "emailSubject" [ref=e2917]
+                              - cell "string" [ref=e2918]
+                              - cell "300" [ref=e2919]
+                              - cell "N" [ref=e2920]
+                              - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e2921]':
+                                - text: 세금계산서 발행 안내메일 제목
+                                - generic [ref=e2922]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목"
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e2923]:
+                  - cell [ref=e2924]
+                  - cell "UserID" [ref=e2925]
+                  - cell "string" [ref=e2926]
+                  - cell "50" [ref=e2927]
+                  - cell "N" [ref=e2928]
+                  - cell "팝빌회원 아이디" [ref=e2929]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e2930]:
+                  - cell [ref=e2931]
+                  - cell "success" [ref=e2932]
+                  - cell "function" [ref=e2933]
+                  - cell "-" [ref=e2934]
+                  - cell "Y" [ref=e2935]
+                  - cell "성공에 대한 콜백 함수" [ref=e2936]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e2937]:
+                  - cell [ref=e2938]
+                  - cell "error" [ref=e2939]
+                  - cell "function" [ref=e2940]
+                  - cell "-" [ref=e2941]
+                  - cell "Y" [ref=e2942]
+                  - cell "실패에 대한 콜백 함수" [ref=e2943]
+          - heading "응답" [level=6] [ref=e2944]
+          - generic [ref=e2945]:
+            - generic [ref=e2946] [cursor=pointer]: Response
+            - table [ref=e4972]:
+              - rowgroup [ref=e4973]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4974]:
+                  - columnheader "순번" [ref=e4975]
+                  - columnheader "변수명" [ref=e4976]
+                  - columnheader "타입" [ref=e4977]
+                  - columnheader "길이" [ref=e4978]
+                  - columnheader "설명" [ref=e4979]
+              - rowgroup [ref=e4980]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e4981]:
+                  - cell [ref=e4982]
+                  - cell "code" [ref=e4983]
+                  - cell "number" [ref=e4984]
+                  - cell "-" [ref=e4985]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e4986]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e4987]:
+                      - text: └
+                      - generic [ref=e4988]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e4989]:
+                  - cell [ref=e4990]
+                  - cell "message" [ref=e4991]
+                  - cell "string" [ref=e4992]
+                  - cell "-" [ref=e4993]
+                  - cell "API 처리에 대한 응답메시지" [ref=e4994]
+          - heading "예외" [level=6] [ref=e2947]
+          - generic [ref=e2948]:
+            - generic [ref=e2949] [cursor=pointer]: PopbillException
+            - table [ref=e4995]:
+              - rowgroup [ref=e4996]:
+                - row "순번 변수명 타입 길이 설명" [ref=e4997]:
+                  - columnheader "순번" [ref=e4998]
+                  - columnheader "변수명" [ref=e4999]
+                  - columnheader "타입" [ref=e5000]
+                  - columnheader "길이" [ref=e5001]
+                  - columnheader "설명" [ref=e5002]
+              - rowgroup [ref=e5003]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5004]:
+                  - cell [ref=e5005]
+                  - cell "code" [ref=e5006]
+                  - cell "number" [ref=e5007]
+                  - cell "-" [ref=e5008]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5009]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5010]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5011] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5012]:
+                  - cell [ref=e5013]
+                  - cell "message" [ref=e5014]
+                  - cell "string" [ref=e5015]
+                  - cell "-" [ref=e5016]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5017]
+        - generic [ref=e2950]:
+          - heading "6. Issue - 발행" [level=3] [ref=e2951]
+          - list [ref=e2952]:
+            - listitem [ref=e2953]:
+              - text: "\"임시저장\" 또는 \"(역)발행대기\" 상태의 세금계산서를 발행(전자서명)하며, \"발행완료\" 상태로 처리합니다."
+              - link "[참고] 팝빌 국세청 전송 정책" [ref=e2954] [cursor=pointer]:
+                - /url: /guide/taxinvoice/introduction/policy-of-send-to-nts
+            - listitem [ref=e2955]:
+              - text: "\"발행완료\"된 전자세금계산서는 국세청 전송 이전에"
+              - link "[CancelIssue – 발행취소]" [ref=e2956] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/issue#CancelIssue
+              - text: 함수로 국세청 신고 대상에서 제외할 수 있습니다.
+          - code [ref=e2958]: taxinvoiceService.issue(CorpNum, KeyType, MgtKey, Memo, EmailSubject, ForceIssue, UserID, success, error)
+          - list [ref=e2960]:
+            - listitem [ref=e2961]:
+              - text: 세금계산서 발행을 위해서 공급자의 인증서가 팝빌 인증서버에 사전등록 되어야 합니다.
+              - paragraph [ref=e2962]: ※ 위수탁의 경우, 수탁자의 인증서 등록이 필요합니다.
+            - listitem [ref=e2963]: 세금계산서 발행시 포인트가 과금되며, 공급받는자에게 발행 메일이 발송됩니다.
+          - heading "요청" [level=6] [ref=e2964]
+          - generic [ref=e2965]:
+            - generic [ref=e2966] [cursor=pointer]: Parameters
+            - table [ref=e2967]:
+              - rowgroup [ref=e2968]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e2969]:
+                  - columnheader "순번" [ref=e2970]
+                  - columnheader "변수명" [ref=e2971]
+                  - columnheader "타입" [ref=e2972]
+                  - columnheader "길이" [ref=e2973]
+                  - columnheader "필수" [ref=e2974]
+                  - columnheader "설명" [ref=e2975]
+              - rowgroup [ref=e2976]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e2977]:
+                  - cell [ref=e2978]
+                  - cell "CorpNum" [ref=e2979]
+                  - cell "string" [ref=e2980]
+                  - cell "10" [ref=e2981]
+                  - cell "Y" [ref=e2982]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e2983]
+                - row "KeyType string - Y 문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e2984]:
+                  - cell [ref=e2985]
+                  - cell "KeyType" [ref=e2986]
+                  - cell "string" [ref=e2987]
+                  - cell "-" [ref=e2988]
+                  - cell "Y" [ref=e2989]
+                  - cell "문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e2990]:
+                    - text: 문서번호 유형 (택 1)
+                    - generic [ref=e2991]:
+                      - text: └
+                      - generic [ref=e2992]: SELL
+                      - text: 매출
+                    - generic [ref=e2993]:
+                      - text: └
+                      - generic [ref=e2994]: BUY
+                      - text: 매입
+                    - generic [ref=e2995]:
+                      - text: └
+                      - generic [ref=e2996]: TRUSTEE
+                      - text: 위수탁
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e2997]:
+                  - cell [ref=e2998]
+                  - cell "MgtKey" [ref=e2999]
+                  - cell "string" [ref=e3000]
+                  - cell "24" [ref=e3001]
+                  - cell "Y" [ref=e3002]
+                  - cell "파트너가 할당한 문서번호" [ref=e3003]
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3004]:
+                  - cell [ref=e3005]
+                  - cell "Memo" [ref=e3006]
+                  - cell "string" [ref=e3007]
+                  - cell "200" [ref=e3008]
+                  - cell "N" [ref=e3009]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3010]
+                - 'row "EmailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용" [ref=e3011]':
+                  - cell [ref=e3012]
+                  - cell "EmailSubject" [ref=e3013]
+                  - cell "string" [ref=e3014]
+                  - cell "300" [ref=e3015]
+                  - cell "N" [ref=e3016]
+                  - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용" [ref=e3017]':
+                    - text: 세금계산서 발행 안내메일 제목
+                    - generic [ref=e3018]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목 사용"
+                - 'row "ForceIssue boolean - N 지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e3019]':
+                  - cell [ref=e3020]
+                  - cell "ForceIssue" [ref=e3021]
+                  - cell "boolean" [ref=e3022]
+                  - cell "-" [ref=e3023]
+                  - cell "N" [ref=e3024]
+                  - 'cell "지연발행 가능여부 └ true 가능 └ false 불가능 : 기본값" [ref=e3025]':
+                    - text: 지연발행 가능여부
+                    - generic [ref=e3026]:
+                      - text: └
+                      - generic [ref=e3027]: "true"
+                      - text: 가능
+                    - generic [ref=e3028]:
+                      - text: └
+                      - generic [ref=e3029]: "false"
+                      - text: "불가능 : 기본값"
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e3030]:
+                  - cell [ref=e3031]
+                  - cell "UserID" [ref=e3032]
+                  - cell "string" [ref=e3033]
+                  - cell "50" [ref=e3034]
+                  - cell "N" [ref=e3035]
+                  - cell "팝빌회원 아이디" [ref=e3036]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e3037]:
+                  - cell [ref=e3038]
+                  - cell "success" [ref=e3039]
+                  - cell "function" [ref=e3040]
+                  - cell "-" [ref=e3041]
+                  - cell "Y" [ref=e3042]
+                  - cell "성공에 대한 콜백 함수" [ref=e3043]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e3044]:
+                  - cell [ref=e3045]
+                  - cell "error" [ref=e3046]
+                  - cell "function" [ref=e3047]
+                  - cell "-" [ref=e3048]
+                  - cell "Y" [ref=e3049]
+                  - cell "실패에 대한 콜백 함수" [ref=e3050]
+          - heading "응답" [level=6] [ref=e3051]
+          - generic [ref=e3052]:
+            - generic [ref=e3053] [cursor=pointer]: IssueResponse
+            - table [ref=e5018]:
+              - rowgroup [ref=e5019]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5020]:
+                  - columnheader "순번" [ref=e5021]
+                  - columnheader "변수명" [ref=e5022]
+                  - columnheader "타입" [ref=e5023]
+                  - columnheader "길이" [ref=e5024]
+                  - columnheader "설명" [ref=e5025]
+              - rowgroup [ref=e5026]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5027]:
+                  - cell [ref=e5028]
+                  - cell "code" [ref=e5029]
+                  - cell "number" [ref=e5030]
+                  - cell "-" [ref=e5031]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5032]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5033]:
+                      - text: └
+                      - generic [ref=e5034]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5035]:
+                  - cell [ref=e5036]
+                  - cell "message" [ref=e5037]
+                  - cell "string" [ref=e5038]
+                  - cell "-" [ref=e5039]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5040]
+                - row "ntsConfirmNum string 24 국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e5041]:
+                  - cell [ref=e5042]
+                  - cell "ntsConfirmNum" [ref=e5043]
+                  - cell "string" [ref=e5044]
+                  - cell "24" [ref=e5045]
+                  - cell "국세청승인번호 → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당" [ref=e5046]:
+                    - text: 국세청승인번호
+                    - generic [ref=e5047]: → 전자세금계산서 발행 시점에 팝빌에서 자동으로 할당
+          - heading "예외" [level=6] [ref=e3054]
+          - generic [ref=e3055]:
+            - generic [ref=e3056] [cursor=pointer]: PopbillException
+            - table [ref=e5048]:
+              - rowgroup [ref=e5049]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5050]:
+                  - columnheader "순번" [ref=e5051]
+                  - columnheader "변수명" [ref=e5052]
+                  - columnheader "타입" [ref=e5053]
+                  - columnheader "길이" [ref=e5054]
+                  - columnheader "설명" [ref=e5055]
+              - rowgroup [ref=e5056]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5057]:
+                  - cell [ref=e5058]
+                  - cell "code" [ref=e5059]
+                  - cell "number" [ref=e5060]
+                  - cell "-" [ref=e5061]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5062]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5063]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5064] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5065]:
+                  - cell [ref=e5066]
+                  - cell "message" [ref=e5067]
+                  - cell "string" [ref=e5068]
+                  - cell "-" [ref=e5069]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5070]
+        - generic [ref=e3057]:
+          - heading "7. CancelIssue - 발행취소" [level=3] [ref=e3058]
+          - list [ref=e3059]:
+            - listitem [ref=e3060]: 국세청 전송 이전 "발행완료" 상태의 전자세금계산서를 "발행취소"하고 국세청 신고대상에서 제외합니다.
+          - code [ref=e3062]: taxinvoiceService.cancelIssue(CorpNum, KeyType, MgtKey, Memo, UserID, success, error)
+          - paragraph [ref=e3064]:
+            - link "[Delete – 삭제]" [ref=e3065] [cursor=pointer]:
+              - /url: /reference/taxinvoice/node/api/issue#Delete
+            - text: 함수를 호출하여 "발행취소" 상태의 전자세금계산서를 삭제하면, 문서번호 재사용이 가능합니다.
+          - heading "요청" [level=6] [ref=e3066]
+          - generic [ref=e3067]:
+            - generic [ref=e3068] [cursor=pointer]: Parameters
+            - table [ref=e3069]:
+              - rowgroup [ref=e3070]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e3071]:
+                  - columnheader "순번" [ref=e3072]
+                  - columnheader "변수명" [ref=e3073]
+                  - columnheader "타입" [ref=e3074]
+                  - columnheader "길이" [ref=e3075]
+                  - columnheader "필수" [ref=e3076]
+                  - columnheader "설명" [ref=e3077]
+              - rowgroup [ref=e3078]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e3079]:
+                  - cell [ref=e3080]
+                  - cell "CorpNum" [ref=e3081]
+                  - cell "string" [ref=e3082]
+                  - cell "10" [ref=e3083]
+                  - cell "Y" [ref=e3084]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e3085]
+                - row "KeyType string - Y 문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e3086]:
+                  - cell [ref=e3087]
+                  - cell "KeyType" [ref=e3088]
+                  - cell "string" [ref=e3089]
+                  - cell "-" [ref=e3090]
+                  - cell "Y" [ref=e3091]
+                  - cell "문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e3092]:
+                    - text: 문서번호 유형 (택 1)
+                    - generic [ref=e3093]:
+                      - text: └
+                      - generic [ref=e3094]: SELL
+                      - text: 매출
+                    - generic [ref=e3095]:
+                      - text: └
+                      - generic [ref=e3096]: BUY
+                      - text: 매입
+                    - generic [ref=e3097]:
+                      - text: └
+                      - generic [ref=e3098]: TRUSTEE
+                      - text: 위수탁
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e3099]:
+                  - cell [ref=e3100]
+                  - cell "MgtKey" [ref=e3101]
+                  - cell "string" [ref=e3102]
+                  - cell "24" [ref=e3103]
+                  - cell "Y" [ref=e3104]
+                  - cell "파트너가 할당한 문서번호" [ref=e3105]
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3106]:
+                  - cell [ref=e3107]
+                  - cell "Memo" [ref=e3108]
+                  - cell "string" [ref=e3109]
+                  - cell "200" [ref=e3110]
+                  - cell "N" [ref=e3111]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3112]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e3113]:
+                  - cell [ref=e3114]
+                  - cell "UserID" [ref=e3115]
+                  - cell "string" [ref=e3116]
+                  - cell "50" [ref=e3117]
+                  - cell "N" [ref=e3118]
+                  - cell "팝빌회원 아이디" [ref=e3119]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e3120]:
+                  - cell [ref=e3121]
+                  - cell "success" [ref=e3122]
+                  - cell "function" [ref=e3123]
+                  - cell "-" [ref=e3124]
+                  - cell "Y" [ref=e3125]
+                  - cell "성공에 대한 콜백 함수" [ref=e3126]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e3127]:
+                  - cell [ref=e3128]
+                  - cell "error" [ref=e3129]
+                  - cell "function" [ref=e3130]
+                  - cell "-" [ref=e3131]
+                  - cell "Y" [ref=e3132]
+                  - cell "실패에 대한 콜백 함수" [ref=e3133]
+          - heading "응답" [level=6] [ref=e3134]
+          - generic [ref=e3135]:
+            - generic [ref=e3136] [cursor=pointer]: Response
+            - table [ref=e5071]:
+              - rowgroup [ref=e5072]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5073]:
+                  - columnheader "순번" [ref=e5074]
+                  - columnheader "변수명" [ref=e5075]
+                  - columnheader "타입" [ref=e5076]
+                  - columnheader "길이" [ref=e5077]
+                  - columnheader "설명" [ref=e5078]
+              - rowgroup [ref=e5079]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5080]:
+                  - cell [ref=e5081]
+                  - cell "code" [ref=e5082]
+                  - cell "number" [ref=e5083]
+                  - cell "-" [ref=e5084]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5085]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5086]:
+                      - text: └
+                      - generic [ref=e5087]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5088]:
+                  - cell [ref=e5089]
+                  - cell "message" [ref=e5090]
+                  - cell "string" [ref=e5091]
+                  - cell "-" [ref=e5092]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5093]
+          - heading "예외" [level=6] [ref=e3137]
+          - generic [ref=e3138]:
+            - generic [ref=e3139] [cursor=pointer]: PopbillException
+            - table [ref=e5094]:
+              - rowgroup [ref=e5095]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5096]:
+                  - columnheader "순번" [ref=e5097]
+                  - columnheader "변수명" [ref=e5098]
+                  - columnheader "타입" [ref=e5099]
+                  - columnheader "길이" [ref=e5100]
+                  - columnheader "설명" [ref=e5101]
+              - rowgroup [ref=e5102]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5103]:
+                  - cell [ref=e5104]
+                  - cell "code" [ref=e5105]
+                  - cell "number" [ref=e5106]
+                  - cell "-" [ref=e5107]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5108]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5109]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5110] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5111]:
+                  - cell [ref=e5112]
+                  - cell "message" [ref=e5113]
+                  - cell "string" [ref=e5114]
+                  - cell "-" [ref=e5115]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5116]
+        - generic [ref=e3140]:
+          - heading "8. RegistRequest - 역발행 즉시 요청" [level=3] [ref=e3141]
+          - list [ref=e3142]:
+            - listitem [ref=e3143]: 공급받는자가 작성한 세금계산서 데이터를 팝빌에 저장하고 공급자에게 송부하여 발행을 요청합니다.
+            - listitem [ref=e3144]: 역발행 요청된 세금계산서는 "(역)발행대기" 상태이며, 공급자가 팝빌 사이트 또는 함수를 호출하여 발행한 경우에만 국세청으로 전송됩니다.
+            - listitem [ref=e3145]:
+              - text: 공급자는 팝빌 사이트의 "매출 발행 대기함"에서 발행대기 상태의 역발행 세금계산서를 확인할 수 있습니다.
+              - paragraph [ref=e3146]:
+                - text: ※
+                - link "[Register – 임시저장]" [ref=e3147] [cursor=pointer]:
+                  - /url: /reference/taxinvoice/node/api/issue#Register
+                - text: 과
+                - link "[Request – 역발행 요청]" [ref=e3148] [cursor=pointer]:
+                  - /url: /reference/taxinvoice/node/api/issue#Request
+                - text: 함수 기능을 한 번의 프로세스로 처리합니다.
+          - code [ref=e3150]: taxinvoiceService.registRequest(CorpNum, Taxinvoice, Memo, UserID, success, error)
+          - list [ref=e3152]:
+            - listitem [ref=e3153]: 역발행 요청시 공급자에게 역발행 요청 메일이 발송됩니다.
+            - listitem [ref=e3154]:
+              - text: 공급자가 역발행 세금계산서 발행시 포인트가 과금되며, 객체 Taxinvoice 의 변수 'chargeDirection' 값에 따라 과금 주체를 변경할 수 있습니다.
+              - paragraph [ref=e3155]: "※ 정과금 : 공급자 과금, 역과금 : 공급받는자 과금"
+          - heading "요청" [level=6] [ref=e3156]
+          - generic [ref=e3157]:
+            - generic [ref=e3158] [cursor=pointer]: Parameters
+            - table [ref=e3159]:
+              - rowgroup [ref=e3160]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e3161]:
+                  - columnheader "순번" [ref=e3162]
+                  - columnheader "변수명" [ref=e3163]
+                  - columnheader "타입" [ref=e3164]
+                  - columnheader "길이" [ref=e3165]
+                  - columnheader "필수" [ref=e3166]
+                  - columnheader "설명" [ref=e3167]
+              - rowgroup [ref=e3168]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e3169]:
+                  - cell [ref=e3170]
+                  - cell "CorpNum" [ref=e3171]
+                  - cell "string" [ref=e3172]
+                  - cell "10" [ref=e3173]
+                  - cell "Y" [ref=e3174]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e3175]
+                - row "Taxinvoice Taxinvoice - Y 전자세금계산서 정보" [ref=e3176]:
+                  - cell [ref=e3177]
+                  - cell "Taxinvoice" [ref=e3178]
+                  - cell "Taxinvoice" [ref=e3179]:
+                    - link "Taxinvoice" [ref=e3180] [cursor=pointer]:
+                      - /url: /reference/taxinvoice/node/api/object#Taxinvoice_Input
+                  - cell "-" [ref=e3181]
+                  - cell "Y" [ref=e3182]
+                  - cell "전자세금계산서 정보" [ref=e3183]
+                - row [ref=e5117]:
+                  - cell [ref=e5118]:
+                    - generic:
+                      - generic:
+                        - generic [ref=e3186]: Taxinvoice
+                        - table [ref=e3188]:
+                          - rowgroup [ref=e3189]:
+                            - row "순번 변수명 타입 길이 필수 설명" [ref=e3190]:
+                              - columnheader "순번" [ref=e3191]
+                              - columnheader "변수명" [ref=e3192]
+                              - columnheader "타입" [ref=e3193]
+                              - columnheader "길이" [ref=e3194]
+                              - columnheader "필수" [ref=e3195]
+                              - columnheader "설명" [ref=e3196]
+                          - rowgroup [ref=e3197]:
+                            - row "issueType string 3 Y 발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e3198]:
+                              - cell [ref=e3199]
+                              - cell "issueType" [ref=e3200]
+                              - cell "string" [ref=e3201]
+                              - cell "3" [ref=e3202]
+                              - cell "Y" [ref=e3203]
+                              - cell "발행형태 (택 1) └ 정발행 └ 역발행 └ 위수탁" [ref=e3204]:
+                                - text: 발행형태 (택 1)
+                                - generic [ref=e3205]:
+                                  - text: └
+                                  - generic [ref=e3206]: 정발행
+                                - generic [ref=e3207]:
+                                  - text: └
+                                  - generic [ref=e3208]: 역발행
+                                - generic [ref=e3209]:
+                                  - text: └
+                                  - generic [ref=e3210]: 위수탁
+                            - row "taxType string 2 Y 과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e3211]:
+                              - cell [ref=e3212]
+                              - cell "taxType" [ref=e3213]
+                              - cell "string" [ref=e3214]
+                              - cell "2" [ref=e3215]
+                              - cell "Y" [ref=e3216]
+                              - cell "과세형태 (택 1) └ 과세 └ 영세 └ 면세" [ref=e3217]:
+                                - text: 과세형태 (택 1)
+                                - generic [ref=e3218]:
+                                  - text: └
+                                  - generic [ref=e3219]: 과세
+                                - generic [ref=e3220]:
+                                  - text: └
+                                  - generic [ref=e3221]: 영세
+                                - generic [ref=e3222]:
+                                  - text: └
+                                  - generic [ref=e3223]: 면세
+                            - 'row "chargeDirection string 3 Y 과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e3224]':
+                              - cell [ref=e3225]
+                              - cell "chargeDirection" [ref=e3226]
+                              - cell "string" [ref=e3227]
+                              - cell "3" [ref=e3228]
+                              - cell "Y" [ref=e3229]
+                              - 'cell "과금방향 (택 1) └ 정과금 공급자 과금 └ 역과금 공급받는자 과금 -{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능 -{issueType}=\"역발행\" 경우 역과금 가능" [ref=e3230]':
+                                - text: 과금방향 (택 1)
+                                - generic [ref=e3231]:
+                                  - text: └
+                                  - generic [ref=e3232]: 정과금
+                                  - text: 공급자 과금
+                                - generic [ref=e3233]:
+                                  - text: └
+                                  - generic [ref=e3234]: 역과금
+                                  - text: 공급받는자 과금
+                                - text: "-{issueType}=\"정발행\", \"역발행\", \"위수탁\" 경우 정과금 가능"
+                                - text: "-{issueType}=\"역발행\" 경우 역과금 가능"
+                            - row "serialNum string 30 N 일련번호" [ref=e3235]:
+                              - cell [ref=e3236]
+                              - cell "serialNum" [ref=e3237]
+                              - cell "string" [ref=e3238]
+                              - cell "30" [ref=e3239]
+                              - cell "N" [ref=e3240]
+                              - cell "일련번호" [ref=e3241]
+                            - row "kwon number 4 N 책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e3242]:
+                              - cell [ref=e3243]
+                              - cell "kwon" [ref=e3244]
+                              - cell "number" [ref=e3245]
+                              - cell "4" [ref=e3246]
+                              - cell "N" [ref=e3247]
+                              - cell "책번호 \"권\" 항목 → 정수만 입력 가능" [ref=e3248]:
+                                - text: 책번호 "권" 항목
+                                - generic [ref=e3249]: → 정수만 입력 가능
+                            - row "ho number 4 N 책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e3250]:
+                              - cell [ref=e3251]
+                              - cell "ho" [ref=e3252]
+                              - cell "number" [ref=e3253]
+                              - cell "4" [ref=e3254]
+                              - cell "N" [ref=e3255]
+                              - cell "책번호 \"호\" 항목 → 정수만 입력 가능" [ref=e3256]:
+                                - text: 책번호 "호" 항목
+                                - generic [ref=e3257]: → 정수만 입력 가능
+                            - 'row "writeDate string 8 Y 작성일자 → 형식 : yyyyMMdd" [ref=e3258]':
+                              - cell [ref=e3259]
+                              - cell "writeDate" [ref=e3260]
+                              - cell "string" [ref=e3261]
+                              - cell "8" [ref=e3262]
+                              - cell "Y" [ref=e3263]
+                              - 'cell "작성일자 → 형식 : yyyyMMdd" [ref=e3264]':
+                                - text: 작성일자
+                                - generic [ref=e3265]: "→ 형식 : yyyyMMdd"
+                            - row "purposeType string 2 Y 영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e3266]:
+                              - cell [ref=e3267]
+                              - cell "purposeType" [ref=e3268]
+                              - cell "string" [ref=e3269]
+                              - cell "2" [ref=e3270]
+                              - cell "Y" [ref=e3271]
+                              - cell "영수/청구 (택 1) └ 영수 └ 청구 └ 없음" [ref=e3272]:
+                                - text: 영수/청구 (택 1)
+                                - generic [ref=e3273]:
+                                  - text: └
+                                  - generic [ref=e3274]: 영수
+                                - generic [ref=e3275]:
+                                  - text: └
+                                  - generic [ref=e3276]: 청구
+                                - generic [ref=e3277]:
+                                  - text: └
+                                  - generic [ref=e3278]: 없음
+                            - row "supplyCostTotal string 18 Y 공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3279]:
+                              - cell [ref=e3280]
+                              - cell "supplyCostTotal" [ref=e3281]
+                              - cell "string" [ref=e3282]
+                              - cell "18" [ref=e3283]
+                              - cell "Y" [ref=e3284]
+                              - cell "공급가액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3285]:
+                                - text: 공급가액 합계
+                                - generic [ref=e3286]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "taxTotal string 18 Y 세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3287]:
+                              - cell [ref=e3288]
+                              - cell "taxTotal" [ref=e3289]
+                              - cell "string" [ref=e3290]
+                              - cell "18" [ref=e3291]
+                              - cell "Y" [ref=e3292]
+                              - cell "세액 합계 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3293]:
+                                - text: 세액 합계
+                                - generic [ref=e3294]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "totalAmount string 18 Y 합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3295]:
+                              - cell [ref=e3296]
+                              - cell "totalAmount" [ref=e3297]
+                              - cell "string" [ref=e3298]
+                              - cell "18" [ref=e3299]
+                              - cell "Y" [ref=e3300]
+                              - cell "합계금액 → 정수만 입력 가능(소수점 자동 절사)" [ref=e3301]:
+                                - text: 합계금액
+                                - generic [ref=e3302]: → 정수만 입력 가능(소수점 자동 절사)
+                            - row "cash string 18 N 현금" [ref=e3303]:
+                              - cell [ref=e3304]
+                              - cell "cash" [ref=e3305]
+                              - cell "string" [ref=e3306]
+                              - cell "18" [ref=e3307]
+                              - cell "N" [ref=e3308]
+                              - cell "현금" [ref=e3309]
+                            - row "chkBill string 18 N 수표" [ref=e3310]:
+                              - cell [ref=e3311]
+                              - cell "chkBill" [ref=e3312]
+                              - cell "string" [ref=e3313]
+                              - cell "18" [ref=e3314]
+                              - cell "N" [ref=e3315]
+                              - cell "수표" [ref=e3316]
+                            - row "credit string 18 N 외상" [ref=e3317]:
+                              - cell [ref=e3318]
+                              - cell "credit" [ref=e3319]
+                              - cell "string" [ref=e3320]
+                              - cell "18" [ref=e3321]
+                              - cell "N" [ref=e3322]
+                              - cell "외상" [ref=e3323]
+                            - row "note string 18 N 어음" [ref=e3324]:
+                              - cell [ref=e3325]
+                              - cell "note" [ref=e3326]
+                              - cell "string" [ref=e3327]
+                              - cell "18" [ref=e3328]
+                              - cell "N" [ref=e3329]
+                              - cell "어음" [ref=e3330]
+                            - 'row "remark1 string 150 조건부 비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e3331]':
+                              - cell [ref=e3332]
+                              - cell "remark1" [ref=e3333]
+                              - cell "string" [ref=e3334]
+                              - cell "150" [ref=e3335]
+                              - cell "조건부" [ref=e3336]
+                              - 'cell "비고1 ✓ {invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e3337]':
+                                - text: 비고1
+                                - generic [ref=e3338]:
+                                  - text: ✓
+                                  - 'link "{invoiceeType}=\"외국인\" 경우 외국인등록번호 또는 여권번호 필수 입력" [ref=e3339] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-invoiceeType"
+                                    - text: "{invoiceeType}=\"외국인\" 경우"
+                                    - text: 외국인등록번호 또는 여권번호 필수 입력
+                            - row "remark2 string 150 N 비고2" [ref=e3340]:
+                              - cell [ref=e3341]
+                              - cell "remark2" [ref=e3342]
+                              - cell "string" [ref=e3343]
+                              - cell "150" [ref=e3344]
+                              - cell "N" [ref=e3345]
+                              - cell "비고2" [ref=e3346]
+                            - row "remark3 string 150 N 비고3" [ref=e3347]:
+                              - cell [ref=e3348]
+                              - cell "remark3" [ref=e3349]
+                              - cell "string" [ref=e3350]
+                              - cell "150" [ref=e3351]
+                              - cell "N" [ref=e3352]
+                              - cell "비고3" [ref=e3353]
+                            - 'row "invoicerMgtKey string 24 조건부 공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e3354]':
+                              - cell [ref=e3355]
+                              - cell "invoicerMgtKey" [ref=e3356]
+                              - cell "string" [ref=e3357]
+                              - cell "24" [ref=e3358]
+                              - cell "조건부" [ref=e3359]
+                              - 'cell "공급자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"정발행\" 경우 필수" [ref=e3360]':
+                                - text: 공급자 문서번호
+                                - generic [ref=e3361]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e3362]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 필수" [ref=e3363] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - row "invoicerCorpNum string 10 Y 공급자 사업자번호 ('-' 제외)" [ref=e3364]:
+                              - cell [ref=e3365]
+                              - cell "invoicerCorpNum" [ref=e3366]
+                              - cell "string" [ref=e3367]
+                              - cell "10" [ref=e3368]
+                              - cell "Y" [ref=e3369]
+                              - cell "공급자 사업자번호 ('-' 제외)" [ref=e3370]
+                            - row "invoicerTaxRegID string 4 N 공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3371]:
+                              - cell [ref=e3372]
+                              - cell "invoicerTaxRegID" [ref=e3373]
+                              - cell "string" [ref=e3374]
+                              - cell "4" [ref=e3375]
+                              - cell "N" [ref=e3376]
+                              - cell "공급자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3377]:
+                                - text: 공급자 종사업장 식별번호
+                                - generic [ref=e3378]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoicerCorpName string 200 Y 공급자 상호" [ref=e3379]:
+                              - cell [ref=e3380]
+                              - cell "invoicerCorpName" [ref=e3381]
+                              - cell "string" [ref=e3382]
+                              - cell "200" [ref=e3383]
+                              - cell "Y" [ref=e3384]
+                              - cell "공급자 상호" [ref=e3385]
+                            - row "invoicerCEOName string 100 Y 공급자 대표자 성명" [ref=e3386]:
+                              - cell [ref=e3387]
+                              - cell "invoicerCEOName" [ref=e3388]
+                              - cell "string" [ref=e3389]
+                              - cell "100" [ref=e3390]
+                              - cell "Y" [ref=e3391]
+                              - cell "공급자 대표자 성명" [ref=e3392]
+                            - row "invoicerAddr string 300 N 공급자 주소" [ref=e3393]:
+                              - cell [ref=e3394]
+                              - cell "invoicerAddr" [ref=e3395]
+                              - cell "string" [ref=e3396]
+                              - cell "300" [ref=e3397]
+                              - cell "N" [ref=e3398]
+                              - cell "공급자 주소" [ref=e3399]
+                            - row "invoicerBizType string 100 N 공급자 업태" [ref=e3400]:
+                              - cell [ref=e3401]
+                              - cell "invoicerBizType" [ref=e3402]
+                              - cell "string" [ref=e3403]
+                              - cell "100" [ref=e3404]
+                              - cell "N" [ref=e3405]
+                              - cell "공급자 업태" [ref=e3406]
+                            - row "invoicerBizClass string 100 N 공급자 종목" [ref=e3407]:
+                              - cell [ref=e3408]
+                              - cell "invoicerBizClass" [ref=e3409]
+                              - cell "string" [ref=e3410]
+                              - cell "100" [ref=e3411]
+                              - cell "N" [ref=e3412]
+                              - cell "공급자 종목" [ref=e3413]
+                            - row "invoicerContactName string 100 N 공급자 담당자 성명" [ref=e3414]:
+                              - cell [ref=e3415]
+                              - cell "invoicerContactName" [ref=e3416]
+                              - cell "string" [ref=e3417]
+                              - cell "100" [ref=e3418]
+                              - cell "N" [ref=e3419]
+                              - cell "공급자 담당자 성명" [ref=e3420]
+                            - row "invoicerDeptName string 100 N 공급자 담당자 부서명" [ref=e3421]:
+                              - cell [ref=e3422]
+                              - cell "invoicerDeptName" [ref=e3423]
+                              - cell "string" [ref=e3424]
+                              - cell "100" [ref=e3425]
+                              - cell "N" [ref=e3426]
+                              - cell "공급자 담당자 부서명" [ref=e3427]
+                            - row "invoicerTEL string 20 N 공급자 담당자 연락처" [ref=e3428]:
+                              - cell [ref=e3429]
+                              - cell "invoicerTEL" [ref=e3430]
+                              - cell "string" [ref=e3431]
+                              - cell "20" [ref=e3432]
+                              - cell "N" [ref=e3433]
+                              - cell "공급자 담당자 연락처" [ref=e3434]
+                            - row "invoicerHP string 20 N 공급자 담당자 휴대폰" [ref=e3435]:
+                              - cell [ref=e3436]
+                              - cell "invoicerHP" [ref=e3437]
+                              - cell "string" [ref=e3438]
+                              - cell "20" [ref=e3439]
+                              - cell "N" [ref=e3440]
+                              - cell "공급자 담당자 휴대폰" [ref=e3441]
+                            - row "invoicerEmail string 100 N 공급자 담당자 메일" [ref=e3442]:
+                              - cell [ref=e3443]
+                              - cell "invoicerEmail" [ref=e3444]
+                              - cell "string" [ref=e3445]
+                              - cell "100" [ref=e3446]
+                              - cell "N" [ref=e3447]
+                              - cell "공급자 담당자 메일" [ref=e3448]
+                            - 'row "invoicerSMSSendYN boolean - N 공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3449]':
+                              - cell [ref=e3450]
+                              - cell "invoicerSMSSendYN" [ref=e3451]
+                              - cell "boolean" [ref=e3452]
+                              - cell "-" [ref=e3453]
+                              - cell "N" [ref=e3454]
+                              - 'cell "공급자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3455]':
+                                - text: 공급자 알림문자 전송 여부
+                                - generic [ref=e3456]:
+                                  - text: └
+                                  - generic [ref=e3457]: "true"
+                                  - text: 전송
+                                - generic [ref=e3458]:
+                                  - text: └
+                                  - generic [ref=e3459]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e3460]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e3461]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"정발행\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3462] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"정발행\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - 'row "invoiceeMgtKey string 24 조건부 공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e3463]':
+                              - cell [ref=e3464]
+                              - cell "invoiceeMgtKey" [ref=e3465]
+                              - cell "string" [ref=e3466]
+                              - cell "24" [ref=e3467]
+                              - cell "조건부" [ref=e3468]
+                              - 'cell "공급받는자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"역발행\" 경우 필수" [ref=e3469]':
+                                - text: 공급받는자 문서번호
+                                - generic [ref=e3470]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e3471]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 필수" [ref=e3472] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - row "invoiceeType string - Y 공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e3473]:
+                              - cell [ref=e3474]
+                              - cell "invoiceeType" [ref=e3475]
+                              - cell "string" [ref=e3476]
+                              - cell "-" [ref=e3477]
+                              - cell "Y" [ref=e3478]
+                              - cell "공급받는자 유형 (택 1) └ 사업자 └ 개인 └ 외국인" [ref=e3479]:
+                                - text: 공급받는자 유형 (택 1)
+                                - generic [ref=e3480]:
+                                  - text: └
+                                  - generic [ref=e3481]: 사업자
+                                - generic [ref=e3482]:
+                                  - text: └
+                                  - generic [ref=e3483]: 개인
+                                - generic [ref=e3484]:
+                                  - text: └
+                                  - generic [ref=e3485]: 외국인
+                            - 'row "invoiceeCorpNum string 13 Y 공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e3486]':
+                              - cell [ref=e3487]
+                              - cell "invoiceeCorpNum" [ref=e3488]
+                              - cell "string" [ref=e3489]
+                              - cell "13" [ref=e3490]
+                              - cell "Y" [ref=e3491]
+                              - 'cell "공급받는자 등록번호 (''-'' 제외) - {invoiceeType}=\"사업자\" 경우 사업자번호 - {invoiceeType}=\"개인\" 경우 주민등록번호 - {invoiceeType}=\"외국인\" 경우 \"9999999999999\"" [ref=e3492]':
+                                - text: 공급받는자 등록번호 ('-' 제외)
+                                - text: "- {invoiceeType}=\"사업자\" 경우 사업자번호"
+                                - text: "- {invoiceeType}=\"개인\" 경우 주민등록번호"
+                                - text: "- {invoiceeType}=\"외국인\" 경우 \"9999999999999\""
+                            - row "invoiceeTaxRegID string 4 N 공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3493]:
+                              - cell [ref=e3494]
+                              - cell "invoiceeTaxRegID" [ref=e3495]
+                              - cell "string" [ref=e3496]
+                              - cell "4" [ref=e3497]
+                              - cell "N" [ref=e3498]
+                              - cell "공급받는자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3499]:
+                                - text: 공급받는자 종사업장 식별번호
+                                - generic [ref=e3500]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - row "invoiceeCorpName string 200 Y 공급받는자 상호" [ref=e3501]:
+                              - cell [ref=e3502]
+                              - cell "invoiceeCorpName" [ref=e3503]
+                              - cell "string" [ref=e3504]
+                              - cell "200" [ref=e3505]
+                              - cell "Y" [ref=e3506]
+                              - cell "공급받는자 상호" [ref=e3507]
+                            - row "invoiceeCEOName string 100 Y 공급받는자 대표자 성명" [ref=e3508]:
+                              - cell [ref=e3509]
+                              - cell "invoiceeCEOName" [ref=e3510]
+                              - cell "string" [ref=e3511]
+                              - cell "100" [ref=e3512]
+                              - cell "Y" [ref=e3513]
+                              - cell "공급받는자 대표자 성명" [ref=e3514]
+                            - row "invoiceeAddr string 300 N 공급받는자 주소" [ref=e3515]:
+                              - cell [ref=e3516]
+                              - cell "invoiceeAddr" [ref=e3517]
+                              - cell "string" [ref=e3518]
+                              - cell "300" [ref=e3519]
+                              - cell "N" [ref=e3520]
+                              - cell "공급받는자 주소" [ref=e3521]
+                            - row "invoiceeBizType string 100 N 공급받는자 업태" [ref=e3522]:
+                              - cell [ref=e3523]
+                              - cell "invoiceeBizType" [ref=e3524]
+                              - cell "string" [ref=e3525]
+                              - cell "100" [ref=e3526]
+                              - cell "N" [ref=e3527]
+                              - cell "공급받는자 업태" [ref=e3528]
+                            - row "invoiceeBizClass string 100 N 공급받는자 종목" [ref=e3529]:
+                              - cell [ref=e3530]
+                              - cell "invoiceeBizClass" [ref=e3531]
+                              - cell "string" [ref=e3532]
+                              - cell "100" [ref=e3533]
+                              - cell "N" [ref=e3534]
+                              - cell "공급받는자 종목" [ref=e3535]
+                            - row "invoiceeContactName1 string 100 N 공급받는자 담당자 성명" [ref=e3536]:
+                              - cell [ref=e3537]
+                              - cell "invoiceeContactName1" [ref=e3538]
+                              - cell "string" [ref=e3539]
+                              - cell "100" [ref=e3540]
+                              - cell "N" [ref=e3541]
+                              - cell "공급받는자 담당자 성명" [ref=e3542]
+                            - row "invoiceeDeptName1 string 100 N 공급받는자 담당자 부서명" [ref=e3543]:
+                              - cell [ref=e3544]
+                              - cell "invoiceeDeptName1" [ref=e3545]
+                              - cell "string" [ref=e3546]
+                              - cell "100" [ref=e3547]
+                              - cell "N" [ref=e3548]
+                              - cell "공급받는자 담당자 부서명" [ref=e3549]
+                            - row "invoiceeTEL1 string 20 N 공급받는자 담당자 연락처" [ref=e3550]:
+                              - cell [ref=e3551]
+                              - cell "invoiceeTEL1" [ref=e3552]
+                              - cell "string" [ref=e3553]
+                              - cell "20" [ref=e3554]
+                              - cell "N" [ref=e3555]
+                              - cell "공급받는자 담당자 연락처" [ref=e3556]
+                            - row "invoiceeHP1 string 20 N 공급받는자 담당자 휴대폰" [ref=e3557]:
+                              - cell [ref=e3558]
+                              - cell "invoiceeHP1" [ref=e3559]
+                              - cell "string" [ref=e3560]
+                              - cell "20" [ref=e3561]
+                              - cell "N" [ref=e3562]
+                              - cell "공급받는자 담당자 휴대폰" [ref=e3563]
+                            - row "invoiceeEmail1 string 100 N 공급받는자 담당자 메일" [ref=e3564]:
+                              - cell [ref=e3565]
+                              - cell "invoiceeEmail1" [ref=e3566]
+                              - cell "string" [ref=e3567]
+                              - cell "100" [ref=e3568]
+                              - cell "N" [ref=e3569]
+                              - cell "공급받는자 담당자 메일" [ref=e3570]
+                            - 'row "invoiceeSMSSendYN boolean - N 공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e3571]':
+                              - cell [ref=e3572]
+                              - cell "invoiceeSMSSendYN" [ref=e3573]
+                              - cell "boolean" [ref=e3574]
+                              - cell "-" [ref=e3575]
+                              - cell "N" [ref=e3576]
+                              - 'cell "공급받는자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급자 휴대폰번호 {invoicerHP} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e3577]':
+                                - text: 공급받는자 알림문자 전송 여부
+                                - generic [ref=e3578]:
+                                  - text: └
+                                  - generic [ref=e3579]: "true"
+                                  - text: 전송
+                                - generic [ref=e3580]:
+                                  - text: └
+                                  - generic [ref=e3581]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e3582]:
+                                  - text: "→ 수신자 : 공급자 휴대폰번호 {invoicerHP}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e3583]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"역발행\" 경우 세금계산서 역발행 요청시점에 알림문자 전송" [ref=e3584] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"역발행\" 경우"
+                                    - text: 세금계산서 역발행 요청시점에 알림문자 전송
+                            - 'row "trusteeMgtKey string 24 조건부 수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3585]':
+                              - cell [ref=e3586]
+                              - cell "trusteeMgtKey" [ref=e3587]
+                              - cell "string" [ref=e3588]
+                              - cell "24" [ref=e3589]
+                              - cell "조건부" [ref=e3590]
+                              - 'cell "수탁자 문서번호 → 문서 관리를 위해 파트너가 할당하는 고유 식별번호 영문 대소문자, 숫자, 특수문자(''-'', ''_'')만 입력 가능 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3591]':
+                                - text: 수탁자 문서번호
+                                - generic [ref=e3592]:
+                                  - text: → 문서 관리를 위해 파트너가 할당하는 고유 식별번호
+                                  - text: 영문 대소문자, 숫자, 특수문자('-', '_')만 입력 가능
+                                - generic [ref=e3593]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e3594] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCorpNum string 10 조건부 수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3595]':
+                              - cell [ref=e3596]
+                              - cell "trusteeCorpNum" [ref=e3597]
+                              - cell "string" [ref=e3598]
+                              - cell "10" [ref=e3599]
+                              - cell "조건부" [ref=e3600]
+                              - 'cell "수탁자 사업자번호 (''-'' 제외) ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3601]':
+                                - text: 수탁자 사업자번호 ('-' 제외)
+                                - generic [ref=e3602]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e3603] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - row "trusteeTaxRegID string 4 N 수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3604]:
+                              - cell [ref=e3605]
+                              - cell "trusteeTaxRegID" [ref=e3606]
+                              - cell "string" [ref=e3607]
+                              - cell "4" [ref=e3608]
+                              - cell "N" [ref=e3609]
+                              - cell "수탁자 종사업장 식별번호 → 종사업장 식별번호는 4자리 숫자로만 구성" [ref=e3610]:
+                                - text: 수탁자 종사업장 식별번호
+                                - generic [ref=e3611]: → 종사업장 식별번호는 4자리 숫자로만 구성
+                            - 'row "trusteeCorpName string 200 조건부 수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3612]':
+                              - cell [ref=e3613]
+                              - cell "trusteeCorpName" [ref=e3614]
+                              - cell "string" [ref=e3615]
+                              - cell "200" [ref=e3616]
+                              - cell "조건부" [ref=e3617]
+                              - 'cell "수탁자 상호 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3618]':
+                                - text: 수탁자 상호
+                                - generic [ref=e3619]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e3620] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - 'row "trusteeCEOName string 100 조건부 수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3621]':
+                              - cell [ref=e3622]
+                              - cell "trusteeCEOName" [ref=e3623]
+                              - cell "string" [ref=e3624]
+                              - cell "100" [ref=e3625]
+                              - cell "조건부" [ref=e3626]
+                              - 'cell "수탁자 대표자 성명 ✓ {issueType}=\"위수탁\" 경우 필수" [ref=e3627]':
+                                - text: 수탁자 대표자 성명
+                                - generic [ref=e3628]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 필수" [ref=e3629] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                            - row "trusteeAddr string 300 N 수탁자 주소" [ref=e3630]:
+                              - cell [ref=e3631]
+                              - cell "trusteeAddr" [ref=e3632]
+                              - cell "string" [ref=e3633]
+                              - cell "300" [ref=e3634]
+                              - cell "N" [ref=e3635]
+                              - cell "수탁자 주소" [ref=e3636]
+                            - row "trusteeBizType string 100 N 수탁자 업태" [ref=e3637]:
+                              - cell [ref=e3638]
+                              - cell "trusteeBizType" [ref=e3639]
+                              - cell "string" [ref=e3640]
+                              - cell "100" [ref=e3641]
+                              - cell "N" [ref=e3642]
+                              - cell "수탁자 업태" [ref=e3643]
+                            - row "trusteeBizClass string 100 N 수탁자 종목" [ref=e3644]:
+                              - cell [ref=e3645]
+                              - cell "trusteeBizClass" [ref=e3646]
+                              - cell "string" [ref=e3647]
+                              - cell "100" [ref=e3648]
+                              - cell "N" [ref=e3649]
+                              - cell "수탁자 종목" [ref=e3650]
+                            - row "trusteeContactName string 100 N 수탁자 담당자 성명" [ref=e3651]:
+                              - cell [ref=e3652]
+                              - cell "trusteeContactName" [ref=e3653]
+                              - cell "string" [ref=e3654]
+                              - cell "100" [ref=e3655]
+                              - cell "N" [ref=e3656]
+                              - cell "수탁자 담당자 성명" [ref=e3657]
+                            - row "trusteeDeptName string 100 N 수탁자 담당자 부서명" [ref=e3658]:
+                              - cell [ref=e3659]
+                              - cell "trusteeDeptName" [ref=e3660]
+                              - cell "string" [ref=e3661]
+                              - cell "100" [ref=e3662]
+                              - cell "N" [ref=e3663]
+                              - cell "수탁자 담당자 부서명" [ref=e3664]
+                            - row "trusteeTEL string 20 N 수탁자 담당자 연락처" [ref=e3665]:
+                              - cell [ref=e3666]
+                              - cell "trusteeTEL" [ref=e3667]
+                              - cell "string" [ref=e3668]
+                              - cell "20" [ref=e3669]
+                              - cell "N" [ref=e3670]
+                              - cell "수탁자 담당자 연락처" [ref=e3671]
+                            - row "trusteeHP string 20 N 수탁자 담당자 휴대폰" [ref=e3672]:
+                              - cell [ref=e3673]
+                              - cell "trusteeHP" [ref=e3674]
+                              - cell "string" [ref=e3675]
+                              - cell "20" [ref=e3676]
+                              - cell "N" [ref=e3677]
+                              - cell "수탁자 담당자 휴대폰" [ref=e3678]
+                            - row "trusteeEmail string 100 N 수탁자 담당자 메일" [ref=e3679]:
+                              - cell [ref=e3680]
+                              - cell "trusteeEmail" [ref=e3681]
+                              - cell "string" [ref=e3682]
+                              - cell "100" [ref=e3683]
+                              - cell "N" [ref=e3684]
+                              - cell "수탁자 담당자 메일" [ref=e3685]
+                            - 'row "trusteeSMSSendYN boolean - N 수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3686]':
+                              - cell [ref=e3687]
+                              - cell "trusteeSMSSendYN" [ref=e3688]
+                              - cell "boolean" [ref=e3689]
+                              - cell "-" [ref=e3690]
+                              - cell "N" [ref=e3691]
+                              - 'cell "수탁자 알림문자 전송 여부 └ true 전송 └ false 미전송 : 기본값 → 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1} 문자 전송 포인트가 차감(단, 전송실패 건은 환불) ✓ {issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3692]':
+                                - text: 수탁자 알림문자 전송 여부
+                                - generic [ref=e3693]:
+                                  - text: └
+                                  - generic [ref=e3694]: "true"
+                                  - text: 전송
+                                - generic [ref=e3695]:
+                                  - text: └
+                                  - generic [ref=e3696]: "false"
+                                  - text: "미전송 : 기본값"
+                                - generic [ref=e3697]:
+                                  - text: "→ 수신자 : 공급받는자 휴대폰번호 {invoiceeHP1}"
+                                  - text: 문자 전송 포인트가 차감(단, 전송실패 건은 환불)
+                                - generic [ref=e3698]:
+                                  - text: ✓
+                                  - 'link "{issueType}=\"위수탁\" 경우 세금계산서 발행시점에 알림문자 전송" [ref=e3699] [cursor=pointer]':
+                                    - /url: "#RegistRequest-Taxinvoice_Input-issueType"
+                                    - text: "{issueType}=\"위수탁\" 경우"
+                                    - text: 세금계산서 발행시점에 알림문자 전송
+                            - row "modifyCode number 1 조건부 수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e3700]:
+                              - cell [ref=e3701]
+                              - cell "modifyCode" [ref=e3702]
+                              - cell "number" [ref=e3703]
+                              - cell "1" [ref=e3704]
+                              - cell "조건부" [ref=e3705]
+                              - cell "수정 사유코드 → 수정세금계산서 작성시 필수 [참고] 수정세금계산서" [ref=e3706]:
+                                - text: 수정 사유코드
+                                - generic [ref=e3707]:
+                                  - text: → 수정세금계산서 작성시 필수
+                                  - link "[참고] 수정세금계산서" [ref=e3708] [cursor=pointer]:
+                                    - /url: /guide/taxinvoice/introduction/modified-taxinvoice
+                            - row "orgNTSConfirmNum string 24 조건부 당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e3709]:
+                              - cell [ref=e3710]
+                              - cell "orgNTSConfirmNum" [ref=e3711]
+                              - cell "string" [ref=e3712]
+                              - cell "24" [ref=e3713]
+                              - cell "조건부" [ref=e3714]
+                              - cell "당초 국세청승인번호 → 수정세금계산서 작성시 필수" [ref=e3715]:
+                                - text: 당초 국세청승인번호
+                                - generic [ref=e3716]: → 수정세금계산서 작성시 필수
+                            - 'row "businessLicenseYN boolean - N 팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e3717]':
+                              - cell [ref=e3718]
+                              - cell "businessLicenseYN" [ref=e3719]
+                              - cell "boolean" [ref=e3720]
+                              - cell "-" [ref=e3721]
+                              - cell "N" [ref=e3722]
+                              - 'cell "팝빌에 등록된 사업자등록증 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e3723]':
+                                - text: 팝빌에 등록된 사업자등록증 첨부 여부
+                                - generic [ref=e3724]:
+                                  - text: └
+                                  - generic [ref=e3725]: "true"
+                                  - text: 첨부
+                                - generic [ref=e3726]:
+                                  - text: └
+                                  - generic [ref=e3727]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e3728]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e3729] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "bankBookYN boolean - N 팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e3730]':
+                              - cell [ref=e3731]
+                              - cell "bankBookYN" [ref=e3732]
+                              - cell "boolean" [ref=e3733]
+                              - cell "-" [ref=e3734]
+                              - cell "N" [ref=e3735]
+                              - 'cell "팝빌에 등록된 통장사본 첨부 여부 └ true 첨부 └ false 미첨부 : 기본값 → 팝빌 사이트 또는 [GetSealURL - 인감 및 첨부문서 등록 팝업 URL]을 이용하여 등록" [ref=e3736]':
+                                - text: 팝빌에 등록된 통장사본 첨부 여부
+                                - generic [ref=e3737]:
+                                  - text: └
+                                  - generic [ref=e3738]: "true"
+                                  - text: 첨부
+                                - generic [ref=e3739]:
+                                  - text: └
+                                  - generic [ref=e3740]: "false"
+                                  - text: "미첨부 : 기본값"
+                                - generic [ref=e3741]:
+                                  - text: → 팝빌 사이트 또는
+                                  - link "[GetSealURL - 인감 및 첨부문서 등록 팝업 URL]" [ref=e3742] [cursor=pointer]:
+                                    - /url: /reference/taxinvoice/node/api/etc#GetSealURL
+                                  - text: 을 이용하여 등록
+                            - 'row "detailList List<TaxinvoiceDetail> N 품목 상세정보 → 최대 : 99개" [ref=e3743]':
+                              - cell [ref=e3744]
+                              - cell "detailList" [ref=e3745]
+                              - cell "List<TaxinvoiceDetail>" [ref=e3746]:
+                                - link "List<TaxinvoiceDetail>" [ref=e3747] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceDetail
+                              - cell "N" [ref=e3748]
+                              - 'cell "품목 상세정보 → 최대 : 99개" [ref=e3749]':
+                                - text: 품목 상세정보
+                                - generic [ref=e3750]: "→ 최대 : 99개"
+                            - 'row "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e5119]':
+                              - 'cell "TaxinvoiceDetail 순번 변수명 타입 길이 필수 설명 serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99 purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd itemName string 100 N 품명 spec string 60 N 규격 qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능 unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능 supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사 remark string 100 N 비고" [ref=e5120]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e3753]: TaxinvoiceDetail
+                                    - table [ref=e5121]:
+                                      - rowgroup [ref=e5122]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e5123]:
+                                          - columnheader "순번" [ref=e5124]
+                                          - columnheader "변수명" [ref=e5125]
+                                          - columnheader "타입" [ref=e5126]
+                                          - columnheader "길이" [ref=e5127]
+                                          - columnheader "필수" [ref=e5128]
+                                          - columnheader "설명" [ref=e5129]
+                                      - rowgroup [ref=e5130]:
+                                        - 'row "serialNum number 2 Y 일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e5131]':
+                                          - cell [ref=e5132]
+                                          - cell "serialNum" [ref=e5133]
+                                          - cell "number" [ref=e5134]
+                                          - cell "2" [ref=e5135]
+                                          - cell "Y" [ref=e5136]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 99" [ref=e5137]':
+                                            - text: 일련번호
+                                            - generic [ref=e5138]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 99"
+                                        - 'row "purchaseDT string 8 N 거래일자 → 형식 : yyyyMMdd" [ref=e5139]':
+                                          - cell [ref=e5140]
+                                          - cell "purchaseDT" [ref=e5141]
+                                          - cell "string" [ref=e5142]
+                                          - cell "8" [ref=e5143]
+                                          - cell "N" [ref=e5144]
+                                          - 'cell "거래일자 → 형식 : yyyyMMdd" [ref=e5145]':
+                                            - text: 거래일자
+                                            - generic [ref=e5146]: "→ 형식 : yyyyMMdd"
+                                        - row "itemName string 100 N 품명" [ref=e5147]:
+                                          - cell [ref=e5148]
+                                          - cell "itemName" [ref=e5149]
+                                          - cell "string" [ref=e5150]
+                                          - cell "100" [ref=e5151]
+                                          - cell "N" [ref=e5152]
+                                          - cell "품명" [ref=e5153]
+                                        - row "spec string 60 N 규격" [ref=e5154]:
+                                          - cell [ref=e5155]
+                                          - cell "spec" [ref=e5156]
+                                          - cell "string" [ref=e5157]
+                                          - cell "60" [ref=e5158]
+                                          - cell "N" [ref=e5159]
+                                          - cell "규격" [ref=e5160]
+                                        - row "qty string 12 N 수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e5161]:
+                                          - cell [ref=e5162]
+                                          - cell "qty" [ref=e5163]
+                                          - cell "string" [ref=e5164]
+                                          - cell "12" [ref=e5165]
+                                          - cell "N" [ref=e5166]
+                                          - cell "수량 → -99999999.99 ~ 999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e5167]:
+                                            - text: 수량
+                                            - generic [ref=e5168]:
+                                              - text: → -99999999.99 ~ 999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "unitCost string 18 N 단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e5169]:
+                                          - cell [ref=e5170]
+                                          - cell "unitCost" [ref=e5171]
+                                          - cell "string" [ref=e5172]
+                                          - cell "18" [ref=e5173]
+                                          - cell "N" [ref=e5174]
+                                          - cell "단가 → -99999999999999.99 ~ 999999999999999.99 소수점 아래 2번째 자리까지 입력 가능" [ref=e5175]:
+                                            - text: 단가
+                                            - generic [ref=e5176]:
+                                              - text: → -99999999999999.99 ~ 999999999999999.99
+                                              - text: 소수점 아래 2번째 자리까지 입력 가능
+                                        - row "supplyCost string 18 N 공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e5177]:
+                                          - cell [ref=e5178]
+                                          - cell "supplyCost" [ref=e5179]
+                                          - cell "string" [ref=e5180]
+                                          - cell "18" [ref=e5181]
+                                          - cell "N" [ref=e5182]
+                                          - cell "공급가액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e5183]:
+                                            - text: 공급가액
+                                            - generic [ref=e5184]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "tax string 18 N 세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e5185]:
+                                          - cell [ref=e5186]
+                                          - cell "tax" [ref=e5187]
+                                          - cell "string" [ref=e5188]
+                                          - cell "18" [ref=e5189]
+                                          - cell "N" [ref=e5190]
+                                          - cell "세액 → 정수만 입력 가능 마이너스 금액 입력 가능, 소수점 자동 절사" [ref=e5191]:
+                                            - text: 세액
+                                            - generic [ref=e5192]:
+                                              - text: → 정수만 입력 가능
+                                              - text: 마이너스 금액 입력 가능, 소수점 자동 절사
+                                        - row "remark string 100 N 비고" [ref=e5193]:
+                                          - cell [ref=e5194]
+                                          - cell "remark" [ref=e5195]
+                                          - cell "string" [ref=e5196]
+                                          - cell "100" [ref=e5197]
+                                          - cell "N" [ref=e5198]
+                                          - cell "비고" [ref=e5199]
+                            - 'row "addContactList List<TaxinvoiceAddContact> N 공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e3755]':
+                              - cell [ref=e3756]
+                              - cell "addContactList" [ref=e3757]
+                              - cell "List<TaxinvoiceAddContact>" [ref=e3758]:
+                                - link "List<TaxinvoiceAddContact>" [ref=e3759] [cursor=pointer]:
+                                  - /url: /reference/taxinvoice/node/api/object#TaxinvoiceAddContact
+                              - cell "N" [ref=e3760]
+                              - 'cell "공급받는자 추가담당자 정보 → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용 최대 : 5명" [ref=e3761]':
+                                - text: 공급받는자 추가담당자 정보
+                                - generic [ref=e3762]:
+                                  - text: → 여러 담당자에게 발행 안내 메일을 보내야할 경우 사용
+                                  - text: "최대 : 5명"
+                            - 'row "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e5200]':
+                              - 'cell "TaxinvoiceAddContact 순번 변수명 타입 길이 필수 설명 serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5 contactName string 100 N 담당자 성명 email string 100 Y 메일" [ref=e5201]':
+                                - generic:
+                                  - generic:
+                                    - generic [ref=e3765]: TaxinvoiceAddContact
+                                    - table [ref=e5202]:
+                                      - rowgroup [ref=e5203]:
+                                        - row "순번 변수명 타입 길이 필수 설명" [ref=e5204]:
+                                          - columnheader "순번" [ref=e5205]
+                                          - columnheader "변수명" [ref=e5206]
+                                          - columnheader "타입" [ref=e5207]
+                                          - columnheader "길이" [ref=e5208]
+                                          - columnheader "필수" [ref=e5209]
+                                          - columnheader "설명" [ref=e5210]
+                                      - rowgroup [ref=e5211]:
+                                        - 'row "serialNum number 1 Y 일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e5212]':
+                                          - cell [ref=e5213]
+                                          - cell "serialNum" [ref=e5214]
+                                          - cell "number" [ref=e5215]
+                                          - cell "1" [ref=e5216]
+                                          - cell "Y" [ref=e5217]
+                                          - 'cell "일련번호 → 1부터 순차적으로 입력 최대 : 5" [ref=e5218]':
+                                            - text: 일련번호
+                                            - generic [ref=e5219]:
+                                              - text: → 1부터 순차적으로 입력
+                                              - text: "최대 : 5"
+                                        - row "contactName string 100 N 담당자 성명" [ref=e5220]:
+                                          - cell [ref=e5221]
+                                          - cell "contactName" [ref=e5222]
+                                          - cell "string" [ref=e5223]
+                                          - cell "100" [ref=e5224]
+                                          - cell "N" [ref=e5225]
+                                          - cell "담당자 성명" [ref=e5226]
+                                        - row "email string 100 Y 메일" [ref=e5227]:
+                                          - cell [ref=e5228]
+                                          - cell "email" [ref=e5229]
+                                          - cell "string" [ref=e5230]
+                                          - cell "100" [ref=e5231]
+                                          - cell "Y" [ref=e5232]
+                                          - cell "메일" [ref=e5233]
+                            - row "memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e3767]:
+                              - cell [ref=e3768]
+                              - cell "memo" [ref=e3769]
+                              - cell "string" [ref=e3770]
+                              - cell "200" [ref=e3771]
+                              - cell "N" [ref=e3772]
+                              - cell "세금계산서 상태 이력을 관리하기 위한 메모 → 대량(Bulk)발행 경우 사용" [ref=e3773]:
+                                - text: 세금계산서 상태 이력을 관리하기 위한 메모
+                                - generic [ref=e3774]: → 대량(Bulk)발행 경우 사용
+                            - 'row "emailSubject string 300 N 세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e3775]':
+                              - cell [ref=e3776]
+                              - cell "emailSubject" [ref=e3777]
+                              - cell "string" [ref=e3778]
+                              - cell "300" [ref=e3779]
+                              - cell "N" [ref=e3780]
+                              - 'cell "세금계산서 발행 안내메일 제목 ※ 기본값 : 팝빌에서 설정한 안내메일 제목" [ref=e3781]':
+                                - text: 세금계산서 발행 안내메일 제목
+                                - generic [ref=e3782]: "※ 기본값 : 팝빌에서 설정한 안내메일 제목"
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3783]:
+                  - cell [ref=e3784]
+                  - cell "Memo" [ref=e3785]
+                  - cell "string" [ref=e3786]
+                  - cell "200" [ref=e3787]
+                  - cell "N" [ref=e3788]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3789]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e3790]:
+                  - cell [ref=e3791]
+                  - cell "UserID" [ref=e3792]
+                  - cell "string" [ref=e3793]
+                  - cell "50" [ref=e3794]
+                  - cell "N" [ref=e3795]
+                  - cell "팝빌회원 아이디" [ref=e3796]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e3797]:
+                  - cell [ref=e3798]
+                  - cell "success" [ref=e3799]
+                  - cell "function" [ref=e3800]
+                  - cell "-" [ref=e3801]
+                  - cell "Y" [ref=e3802]
+                  - cell "성공에 대한 콜백 함수" [ref=e3803]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e3804]:
+                  - cell [ref=e3805]
+                  - cell "error" [ref=e3806]
+                  - cell "function" [ref=e3807]
+                  - cell "-" [ref=e3808]
+                  - cell "Y" [ref=e3809]
+                  - cell "실패에 대한 콜백 함수" [ref=e3810]
+          - heading "응답" [level=6] [ref=e3811]
+          - generic [ref=e3812]:
+            - generic [ref=e3813] [cursor=pointer]: Response
+            - table [ref=e5234]:
+              - rowgroup [ref=e5235]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5236]:
+                  - columnheader "순번" [ref=e5237]
+                  - columnheader "변수명" [ref=e5238]
+                  - columnheader "타입" [ref=e5239]
+                  - columnheader "길이" [ref=e5240]
+                  - columnheader "설명" [ref=e5241]
+              - rowgroup [ref=e5242]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5243]:
+                  - cell [ref=e5244]
+                  - cell "code" [ref=e5245]
+                  - cell "number" [ref=e5246]
+                  - cell "-" [ref=e5247]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5248]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5249]:
+                      - text: └
+                      - generic [ref=e5250]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5251]:
+                  - cell [ref=e5252]
+                  - cell "message" [ref=e5253]
+                  - cell "string" [ref=e5254]
+                  - cell "-" [ref=e5255]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5256]
+          - heading "예외" [level=6] [ref=e3814]
+          - generic [ref=e3815]:
+            - generic [ref=e3816] [cursor=pointer]: PopbillException
+            - table [ref=e5257]:
+              - rowgroup [ref=e5258]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5259]:
+                  - columnheader "순번" [ref=e5260]
+                  - columnheader "변수명" [ref=e5261]
+                  - columnheader "타입" [ref=e5262]
+                  - columnheader "길이" [ref=e5263]
+                  - columnheader "설명" [ref=e5264]
+              - rowgroup [ref=e5265]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5266]:
+                  - cell [ref=e5267]
+                  - cell "code" [ref=e5268]
+                  - cell "number" [ref=e5269]
+                  - cell "-" [ref=e5270]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5271]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5272]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5273] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5274]:
+                  - cell [ref=e5275]
+                  - cell "message" [ref=e5276]
+                  - cell "string" [ref=e5277]
+                  - cell "-" [ref=e5278]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5279]
+        - generic [ref=e3817]:
+          - heading "9. Request - 역발행 요청" [level=3] [ref=e3818]
+          - list [ref=e3819]:
+            - listitem [ref=e3820]: 공급받는자가 저장된 역발행 세금계산서를 공급자에게 송부하여 발행 요청합니다.
+            - listitem [ref=e3821]: 역발행 요청된 세금계산서는 "(역)발행대기" 상태이며, 공급자가 팝빌 사이트 또는 함수를 호출하여 발행한 경우에만 국세청으로 전송됩니다.
+            - listitem [ref=e3822]: 공급자는 팝빌 사이트의 "매출 발행 대기함"에서 발행대기 상태의 역발행 세금계산서를 확인할 수 있습니다.
+          - code [ref=e3824]: taxinvoiceService.request(CorpNum, KeyType, MgtKey, Memo, UserID, success, error)
+          - list [ref=e3826]:
+            - listitem [ref=e3827]: 역발행 요청시 공급자에게 역발행 요청 메일이 발송됩니다.
+            - listitem [ref=e3828]: 공급자가 역발행 세금계산서 발행시 포인트가 과금됩니다.
+          - heading "요청" [level=6] [ref=e3829]
+          - generic [ref=e3830]:
+            - generic [ref=e3831] [cursor=pointer]: Parameters
+            - table [ref=e3832]:
+              - rowgroup [ref=e3833]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e3834]:
+                  - columnheader "순번" [ref=e3835]
+                  - columnheader "변수명" [ref=e3836]
+                  - columnheader "타입" [ref=e3837]
+                  - columnheader "길이" [ref=e3838]
+                  - columnheader "필수" [ref=e3839]
+                  - columnheader "설명" [ref=e3840]
+              - rowgroup [ref=e3841]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e3842]:
+                  - cell [ref=e3843]
+                  - cell "CorpNum" [ref=e3844]
+                  - cell "string" [ref=e3845]
+                  - cell "10" [ref=e3846]
+                  - cell "Y" [ref=e3847]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e3848]
+                - row "KeyType string - Y 문서 번호 유형 → BUY(매입) 입력" [ref=e3849]:
+                  - cell [ref=e3850]
+                  - cell "KeyType" [ref=e3851]
+                  - cell "string" [ref=e3852]
+                  - cell "-" [ref=e3853]
+                  - cell "Y" [ref=e3854]
+                  - cell "문서 번호 유형 → BUY(매입) 입력" [ref=e3855]:
+                    - text: 문서 번호 유형
+                    - generic [ref=e3856]: → BUY(매입) 입력
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e3857]:
+                  - cell [ref=e3858]
+                  - cell "MgtKey" [ref=e3859]
+                  - cell "string" [ref=e3860]
+                  - cell "24" [ref=e3861]
+                  - cell "Y" [ref=e3862]
+                  - cell "파트너가 할당한 문서번호" [ref=e3863]
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3864]:
+                  - cell [ref=e3865]
+                  - cell "Memo" [ref=e3866]
+                  - cell "string" [ref=e3867]
+                  - cell "200" [ref=e3868]
+                  - cell "N" [ref=e3869]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3870]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e3871]:
+                  - cell [ref=e3872]
+                  - cell "UserID" [ref=e3873]
+                  - cell "string" [ref=e3874]
+                  - cell "50" [ref=e3875]
+                  - cell "N" [ref=e3876]
+                  - cell "팝빌회원 아이디" [ref=e3877]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e3878]:
+                  - cell [ref=e3879]
+                  - cell "success" [ref=e3880]
+                  - cell "function" [ref=e3881]
+                  - cell "-" [ref=e3882]
+                  - cell "Y" [ref=e3883]
+                  - cell "성공에 대한 콜백 함수" [ref=e3884]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e3885]:
+                  - cell [ref=e3886]
+                  - cell "error" [ref=e3887]
+                  - cell "function" [ref=e3888]
+                  - cell "-" [ref=e3889]
+                  - cell "Y" [ref=e3890]
+                  - cell "실패에 대한 콜백 함수" [ref=e3891]
+          - heading "응답" [level=6] [ref=e3892]
+          - generic [ref=e3893]:
+            - generic [ref=e3894] [cursor=pointer]: Response
+            - table [ref=e5280]:
+              - rowgroup [ref=e5281]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5282]:
+                  - columnheader "순번" [ref=e5283]
+                  - columnheader "변수명" [ref=e5284]
+                  - columnheader "타입" [ref=e5285]
+                  - columnheader "길이" [ref=e5286]
+                  - columnheader "설명" [ref=e5287]
+              - rowgroup [ref=e5288]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5289]:
+                  - cell [ref=e5290]
+                  - cell "code" [ref=e5291]
+                  - cell "number" [ref=e5292]
+                  - cell "-" [ref=e5293]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5294]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5295]:
+                      - text: └
+                      - generic [ref=e5296]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5297]:
+                  - cell [ref=e5298]
+                  - cell "message" [ref=e5299]
+                  - cell "string" [ref=e5300]
+                  - cell "-" [ref=e5301]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5302]
+          - heading "예외" [level=6] [ref=e3895]
+          - generic [ref=e3896]:
+            - generic [ref=e3897] [cursor=pointer]: PopbillException
+            - table [ref=e5303]:
+              - rowgroup [ref=e5304]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5305]:
+                  - columnheader "순번" [ref=e5306]
+                  - columnheader "변수명" [ref=e5307]
+                  - columnheader "타입" [ref=e5308]
+                  - columnheader "길이" [ref=e5309]
+                  - columnheader "설명" [ref=e5310]
+              - rowgroup [ref=e5311]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5312]:
+                  - cell [ref=e5313]
+                  - cell "code" [ref=e5314]
+                  - cell "number" [ref=e5315]
+                  - cell "-" [ref=e5316]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5317]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5318]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5319] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5320]:
+                  - cell [ref=e5321]
+                  - cell "message" [ref=e5322]
+                  - cell "string" [ref=e5323]
+                  - cell "-" [ref=e5324]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5325]
+        - generic [ref=e3898]:
+          - heading "10. CancelRequest - 역발행 요청취소" [level=3] [ref=e3899]
+          - list [ref=e3900]:
+            - listitem [ref=e3901]: 공급자가 요청받은 역발행 세금계산서를 발행하기 전, 공급받는자가 역발행요청을 취소합니다.
+            - listitem [ref=e3902]: 함수 호출시 "취소" 상태로 변경되고, 해당 역발행 세금계산서는 공급자에 의해 발행 될 수 없습니다.
+          - code [ref=e3904]: taxinvoiceService.cancelRequest(CorpNum, KeyType, MgtKey, Memo, UserID, success, error)
+          - heading "요청" [level=6] [ref=e3905]
+          - generic [ref=e3906]:
+            - generic [ref=e3907] [cursor=pointer]: Parameters
+            - table [ref=e3908]:
+              - rowgroup [ref=e3909]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e3910]:
+                  - columnheader "순번" [ref=e3911]
+                  - columnheader "변수명" [ref=e3912]
+                  - columnheader "타입" [ref=e3913]
+                  - columnheader "길이" [ref=e3914]
+                  - columnheader "필수" [ref=e3915]
+                  - columnheader "설명" [ref=e3916]
+              - rowgroup [ref=e3917]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e3918]:
+                  - cell [ref=e3919]
+                  - cell "CorpNum" [ref=e3920]
+                  - cell "string" [ref=e3921]
+                  - cell "10" [ref=e3922]
+                  - cell "Y" [ref=e3923]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e3924]
+                - row "KeyType string - Y 문서 번호 유형 → BUY(매입) 입력" [ref=e3925]:
+                  - cell [ref=e3926]
+                  - cell "KeyType" [ref=e3927]
+                  - cell "string" [ref=e3928]
+                  - cell "-" [ref=e3929]
+                  - cell "Y" [ref=e3930]
+                  - cell "문서 번호 유형 → BUY(매입) 입력" [ref=e3931]:
+                    - text: 문서 번호 유형
+                    - generic [ref=e3932]: → BUY(매입) 입력
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e3933]:
+                  - cell [ref=e3934]
+                  - cell "MgtKey" [ref=e3935]
+                  - cell "string" [ref=e3936]
+                  - cell "24" [ref=e3937]
+                  - cell "Y" [ref=e3938]
+                  - cell "파트너가 할당한 문서번호" [ref=e3939]
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3940]:
+                  - cell [ref=e3941]
+                  - cell "Memo" [ref=e3942]
+                  - cell "string" [ref=e3943]
+                  - cell "200" [ref=e3944]
+                  - cell "N" [ref=e3945]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e3946]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e3947]:
+                  - cell [ref=e3948]
+                  - cell "UserID" [ref=e3949]
+                  - cell "string" [ref=e3950]
+                  - cell "50" [ref=e3951]
+                  - cell "N" [ref=e3952]
+                  - cell "팝빌회원 아이디" [ref=e3953]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e3954]:
+                  - cell [ref=e3955]
+                  - cell "success" [ref=e3956]
+                  - cell "function" [ref=e3957]
+                  - cell "-" [ref=e3958]
+                  - cell "Y" [ref=e3959]
+                  - cell "성공에 대한 콜백 함수" [ref=e3960]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e3961]:
+                  - cell [ref=e3962]
+                  - cell "error" [ref=e3963]
+                  - cell "function" [ref=e3964]
+                  - cell "-" [ref=e3965]
+                  - cell "Y" [ref=e3966]
+                  - cell "실패에 대한 콜백 함수" [ref=e3967]
+          - heading "응답" [level=6] [ref=e3968]
+          - generic [ref=e3969]:
+            - generic [ref=e3970] [cursor=pointer]: Response
+            - table [ref=e5326]:
+              - rowgroup [ref=e5327]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5328]:
+                  - columnheader "순번" [ref=e5329]
+                  - columnheader "변수명" [ref=e5330]
+                  - columnheader "타입" [ref=e5331]
+                  - columnheader "길이" [ref=e5332]
+                  - columnheader "설명" [ref=e5333]
+              - rowgroup [ref=e5334]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5335]:
+                  - cell [ref=e5336]
+                  - cell "code" [ref=e5337]
+                  - cell "number" [ref=e5338]
+                  - cell "-" [ref=e5339]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5340]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5341]:
+                      - text: └
+                      - generic [ref=e5342]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5343]:
+                  - cell [ref=e5344]
+                  - cell "message" [ref=e5345]
+                  - cell "string" [ref=e5346]
+                  - cell "-" [ref=e5347]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5348]
+          - heading "예외" [level=6] [ref=e3971]
+          - generic [ref=e3972]:
+            - generic [ref=e3973] [cursor=pointer]: PopbillException
+            - table [ref=e5349]:
+              - rowgroup [ref=e5350]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5351]:
+                  - columnheader "순번" [ref=e5352]
+                  - columnheader "변수명" [ref=e5353]
+                  - columnheader "타입" [ref=e5354]
+                  - columnheader "길이" [ref=e5355]
+                  - columnheader "설명" [ref=e5356]
+              - rowgroup [ref=e5357]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5358]:
+                  - cell [ref=e5359]
+                  - cell "code" [ref=e5360]
+                  - cell "number" [ref=e5361]
+                  - cell "-" [ref=e5362]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5363]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5364]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5365] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5366]:
+                  - cell [ref=e5367]
+                  - cell "message" [ref=e5368]
+                  - cell "string" [ref=e5369]
+                  - cell "-" [ref=e5370]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5371]
+        - generic [ref=e3974]:
+          - heading "11. Refuse - 역발행 요청거부" [level=3] [ref=e3975]
+          - list [ref=e3976]:
+            - listitem [ref=e3977]: 공급자가 공급받는자에게 역발행 요청 받은 세금계산서의 발행을 거부합니다.
+          - code [ref=e3979]: taxinvoiceService.refuse(CorpNum, KeyType, MgtKey, Memo, UserID, success, error)
+          - heading "요청" [level=6] [ref=e3980]
+          - generic [ref=e3981]:
+            - generic [ref=e3982] [cursor=pointer]: Parameters
+            - table [ref=e3983]:
+              - rowgroup [ref=e3984]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e3985]:
+                  - columnheader "순번" [ref=e3986]
+                  - columnheader "변수명" [ref=e3987]
+                  - columnheader "타입" [ref=e3988]
+                  - columnheader "길이" [ref=e3989]
+                  - columnheader "필수" [ref=e3990]
+                  - columnheader "설명" [ref=e3991]
+              - rowgroup [ref=e3992]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e3993]:
+                  - cell [ref=e3994]
+                  - cell "CorpNum" [ref=e3995]
+                  - cell "string" [ref=e3996]
+                  - cell "10" [ref=e3997]
+                  - cell "Y" [ref=e3998]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e3999]
+                - row "KeyType string - Y 문서 번호 유형 → SELL(매출) 입력" [ref=e4000]:
+                  - cell [ref=e4001]
+                  - cell "KeyType" [ref=e4002]
+                  - cell "string" [ref=e4003]
+                  - cell "-" [ref=e4004]
+                  - cell "Y" [ref=e4005]
+                  - cell "문서 번호 유형 → SELL(매출) 입력" [ref=e4006]:
+                    - text: 문서 번호 유형
+                    - generic [ref=e4007]: → SELL(매출) 입력
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e4008]:
+                  - cell [ref=e4009]
+                  - cell "MgtKey" [ref=e4010]
+                  - cell "string" [ref=e4011]
+                  - cell "24" [ref=e4012]
+                  - cell "Y" [ref=e4013]
+                  - cell "파트너가 할당한 문서번호" [ref=e4014]
+                - row "Memo string 200 N 세금계산서 상태 이력을 관리하기 위한 메모" [ref=e4015]:
+                  - cell [ref=e4016]
+                  - cell "Memo" [ref=e4017]
+                  - cell "string" [ref=e4018]
+                  - cell "200" [ref=e4019]
+                  - cell "N" [ref=e4020]
+                  - cell "세금계산서 상태 이력을 관리하기 위한 메모" [ref=e4021]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e4022]:
+                  - cell [ref=e4023]
+                  - cell "UserID" [ref=e4024]
+                  - cell "string" [ref=e4025]
+                  - cell "50" [ref=e4026]
+                  - cell "N" [ref=e4027]
+                  - cell "팝빌회원 아이디" [ref=e4028]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e4029]:
+                  - cell [ref=e4030]
+                  - cell "success" [ref=e4031]
+                  - cell "function" [ref=e4032]
+                  - cell "-" [ref=e4033]
+                  - cell "Y" [ref=e4034]
+                  - cell "성공에 대한 콜백 함수" [ref=e4035]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e4036]:
+                  - cell [ref=e4037]
+                  - cell "error" [ref=e4038]
+                  - cell "function" [ref=e4039]
+                  - cell "-" [ref=e4040]
+                  - cell "Y" [ref=e4041]
+                  - cell "실패에 대한 콜백 함수" [ref=e4042]
+          - heading "응답" [level=6] [ref=e4043]
+          - generic [ref=e4044]:
+            - generic [ref=e4045] [cursor=pointer]: Response
+            - table [ref=e5372]:
+              - rowgroup [ref=e5373]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5374]:
+                  - columnheader "순번" [ref=e5375]
+                  - columnheader "변수명" [ref=e5376]
+                  - columnheader "타입" [ref=e5377]
+                  - columnheader "길이" [ref=e5378]
+                  - columnheader "설명" [ref=e5379]
+              - rowgroup [ref=e5380]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5381]:
+                  - cell [ref=e5382]
+                  - cell "code" [ref=e5383]
+                  - cell "number" [ref=e5384]
+                  - cell "-" [ref=e5385]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5386]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5387]:
+                      - text: └
+                      - generic [ref=e5388]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5389]:
+                  - cell [ref=e5390]
+                  - cell "message" [ref=e5391]
+                  - cell "string" [ref=e5392]
+                  - cell "-" [ref=e5393]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5394]
+          - heading "예외" [level=6] [ref=e4046]
+          - generic [ref=e4047]:
+            - generic [ref=e4048] [cursor=pointer]: PopbillException
+            - table [ref=e5395]:
+              - rowgroup [ref=e5396]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5397]:
+                  - columnheader "순번" [ref=e5398]
+                  - columnheader "변수명" [ref=e5399]
+                  - columnheader "타입" [ref=e5400]
+                  - columnheader "길이" [ref=e5401]
+                  - columnheader "설명" [ref=e5402]
+              - rowgroup [ref=e5403]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5404]:
+                  - cell [ref=e5405]
+                  - cell "code" [ref=e5406]
+                  - cell "number" [ref=e5407]
+                  - cell "-" [ref=e5408]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5409]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5410]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5411] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5412]:
+                  - cell [ref=e5413]
+                  - cell "message" [ref=e5414]
+                  - cell "string" [ref=e5415]
+                  - cell "-" [ref=e5416]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5417]
+        - generic [ref=e4049]:
+          - heading "12. Delete - 삭제" [level=3] [ref=e4050]
+          - list [ref=e4051]:
+            - listitem [ref=e4052]:
+              - text: 삭제 가능한 상태의 세금계산서를 삭제합니다.
+              - paragraph [ref=e4053]: "※ 삭제 가능한 상태: \"임시저장\", \"발행취소\", \"역발행거부\", \"역발행취소\", \"전송실패\""
+          - code [ref=e4055]: taxinvoiceService.delete(CorpNum, KeyType, MgtKey, UserID, success, error)
+          - list [ref=e4057]:
+            - listitem [ref=e4058]: 삭제 처리된 세금계산서의 문서번호는 재사용이 가능합니다.
+          - heading "요청" [level=6] [ref=e4059]
+          - generic [ref=e4060]:
+            - generic [ref=e4061] [cursor=pointer]: Parameters
+            - table [ref=e4062]:
+              - rowgroup [ref=e4063]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e4064]:
+                  - columnheader "순번" [ref=e4065]
+                  - columnheader "변수명" [ref=e4066]
+                  - columnheader "타입" [ref=e4067]
+                  - columnheader "길이" [ref=e4068]
+                  - columnheader "필수" [ref=e4069]
+                  - columnheader "설명" [ref=e4070]
+              - rowgroup [ref=e4071]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e4072]:
+                  - cell [ref=e4073]
+                  - cell "CorpNum" [ref=e4074]
+                  - cell "string" [ref=e4075]
+                  - cell "10" [ref=e4076]
+                  - cell "Y" [ref=e4077]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e4078]
+                - row "KeyType string - Y 문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e4079]:
+                  - cell [ref=e4080]
+                  - cell "KeyType" [ref=e4081]
+                  - cell "string" [ref=e4082]
+                  - cell "-" [ref=e4083]
+                  - cell "Y" [ref=e4084]
+                  - cell "문서번호 유형 (택 1) └ SELL 매출 └ BUY 매입 └ TRUSTEE 위수탁" [ref=e4085]:
+                    - text: 문서번호 유형 (택 1)
+                    - generic [ref=e4086]:
+                      - text: └
+                      - generic [ref=e4087]: SELL
+                      - text: 매출
+                    - generic [ref=e4088]:
+                      - text: └
+                      - generic [ref=e4089]: BUY
+                      - text: 매입
+                    - generic [ref=e4090]:
+                      - text: └
+                      - generic [ref=e4091]: TRUSTEE
+                      - text: 위수탁
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e4092]:
+                  - cell [ref=e4093]
+                  - cell "MgtKey" [ref=e4094]
+                  - cell "string" [ref=e4095]
+                  - cell "24" [ref=e4096]
+                  - cell "Y" [ref=e4097]
+                  - cell "파트너가 할당한 문서번호" [ref=e4098]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e4099]:
+                  - cell [ref=e4100]
+                  - cell "UserID" [ref=e4101]
+                  - cell "string" [ref=e4102]
+                  - cell "50" [ref=e4103]
+                  - cell "N" [ref=e4104]
+                  - cell "팝빌회원 아이디" [ref=e4105]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e4106]:
+                  - cell [ref=e4107]
+                  - cell "success" [ref=e4108]
+                  - cell "function" [ref=e4109]
+                  - cell "-" [ref=e4110]
+                  - cell "Y" [ref=e4111]
+                  - cell "성공에 대한 콜백 함수" [ref=e4112]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e4113]:
+                  - cell [ref=e4114]
+                  - cell "error" [ref=e4115]
+                  - cell "function" [ref=e4116]
+                  - cell "-" [ref=e4117]
+                  - cell "Y" [ref=e4118]
+                  - cell "실패에 대한 콜백 함수" [ref=e4119]
+          - heading "응답" [level=6] [ref=e4120]
+          - generic [ref=e4121]:
+            - generic [ref=e4122] [cursor=pointer]: Response
+            - table [ref=e5418]:
+              - rowgroup [ref=e5419]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5420]:
+                  - columnheader "순번" [ref=e5421]
+                  - columnheader "변수명" [ref=e5422]
+                  - columnheader "타입" [ref=e5423]
+                  - columnheader "길이" [ref=e5424]
+                  - columnheader "설명" [ref=e5425]
+              - rowgroup [ref=e5426]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5427]:
+                  - cell [ref=e5428]
+                  - cell "code" [ref=e5429]
+                  - cell "number" [ref=e5430]
+                  - cell "-" [ref=e5431]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5432]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5433]:
+                      - text: └
+                      - generic [ref=e5434]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5435]:
+                  - cell [ref=e5436]
+                  - cell "message" [ref=e5437]
+                  - cell "string" [ref=e5438]
+                  - cell "-" [ref=e5439]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5440]
+          - heading "예외" [level=6] [ref=e4123]
+          - generic [ref=e4124]:
+            - generic [ref=e4125] [cursor=pointer]: PopbillException
+            - table [ref=e5441]:
+              - rowgroup [ref=e5442]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5443]:
+                  - columnheader "순번" [ref=e5444]
+                  - columnheader "변수명" [ref=e5445]
+                  - columnheader "타입" [ref=e5446]
+                  - columnheader "길이" [ref=e5447]
+                  - columnheader "설명" [ref=e5448]
+              - rowgroup [ref=e5449]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5450]:
+                  - cell [ref=e5451]
+                  - cell "code" [ref=e5452]
+                  - cell "number" [ref=e5453]
+                  - cell "-" [ref=e5454]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5455]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5456]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5457] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5458]:
+                  - cell [ref=e5459]
+                  - cell "message" [ref=e5460]
+                  - cell "string" [ref=e5461]
+                  - cell "-" [ref=e5462]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5463]
+        - generic [ref=e4126]:
+          - heading "13. SendToNTS - 국세청 즉시 전송" [level=3] [ref=e4127]
+          - list [ref=e4128]:
+            - listitem [ref=e4129]: "\"발행완료\" 상태의 전자세금계산서를 국세청에 즉시 전송하며, 함수 호출 후 최대 30분 이내에 전송 처리가 완료됩니다."
+          - code [ref=e4131]: taxinvoiceService.sendToNTS(CorpNum, KeyType, MgtKey, UserID, success, error)
+          - list [ref=e4133]:
+            - listitem [ref=e4134]:
+              - text: 함수
+              - link "[GetInfo – 상태확인]" [ref=e4135] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/api/info#GetInfo
+              - text: 또는
+              - link "Webhook" [ref=e4136] [cursor=pointer]:
+                - /url: /reference/taxinvoice/node/webhook/introduction
+              - text: 을 통해 국세청 전송 결과를 확인 합니다.
+          - heading "요청" [level=6] [ref=e4137]
+          - generic [ref=e4138]:
+            - generic [ref=e4139] [cursor=pointer]: Parameters
+            - table [ref=e4140]:
+              - rowgroup [ref=e4141]:
+                - row "순번 변수명 타입 길이 필수 설명" [ref=e4142]:
+                  - columnheader "순번" [ref=e4143]
+                  - columnheader "변수명" [ref=e4144]
+                  - columnheader "타입" [ref=e4145]
+                  - columnheader "길이" [ref=e4146]
+                  - columnheader "필수" [ref=e4147]
+                  - columnheader "설명" [ref=e4148]
+              - rowgroup [ref=e4149]:
+                - row "CorpNum string 10 Y 팝빌회원 사업자번호 ('-' 제외)" [ref=e4150]:
+                  - cell [ref=e4151]
+                  - cell "CorpNum" [ref=e4152]
+                  - cell "string" [ref=e4153]
+                  - cell "10" [ref=e4154]
+                  - cell "Y" [ref=e4155]
+                  - cell "팝빌회원 사업자번호 ('-' 제외)" [ref=e4156]
+                - row "KeyType string - Y 문서번호 유형 (택 1) └ SELL 매출 └ TRUSTEE 위수탁" [ref=e4157]:
+                  - cell [ref=e4158]
+                  - cell "KeyType" [ref=e4159]
+                  - cell "string" [ref=e4160]
+                  - cell "-" [ref=e4161]
+                  - cell "Y" [ref=e4162]
+                  - cell "문서번호 유형 (택 1) └ SELL 매출 └ TRUSTEE 위수탁" [ref=e4163]:
+                    - text: 문서번호 유형 (택 1)
+                    - generic [ref=e4164]:
+                      - text: └
+                      - generic [ref=e4165]: SELL
+                      - text: 매출
+                    - generic [ref=e4166]:
+                      - text: └
+                      - generic [ref=e4167]: TRUSTEE
+                      - text: 위수탁
+                - row "MgtKey string 24 Y 파트너가 할당한 문서번호" [ref=e4168]:
+                  - cell [ref=e4169]
+                  - cell "MgtKey" [ref=e4170]
+                  - cell "string" [ref=e4171]
+                  - cell "24" [ref=e4172]
+                  - cell "Y" [ref=e4173]
+                  - cell "파트너가 할당한 문서번호" [ref=e4174]
+                - row "UserID string 50 N 팝빌회원 아이디" [ref=e4175]:
+                  - cell [ref=e4176]
+                  - cell "UserID" [ref=e4177]
+                  - cell "string" [ref=e4178]
+                  - cell "50" [ref=e4179]
+                  - cell "N" [ref=e4180]
+                  - cell "팝빌회원 아이디" [ref=e4181]
+                - row "success function - Y 성공에 대한 콜백 함수" [ref=e4182]:
+                  - cell [ref=e4183]
+                  - cell "success" [ref=e4184]
+                  - cell "function" [ref=e4185]
+                  - cell "-" [ref=e4186]
+                  - cell "Y" [ref=e4187]
+                  - cell "성공에 대한 콜백 함수" [ref=e4188]
+                - row "error function - Y 실패에 대한 콜백 함수" [ref=e4189]:
+                  - cell [ref=e4190]
+                  - cell "error" [ref=e4191]
+                  - cell "function" [ref=e4192]
+                  - cell "-" [ref=e4193]
+                  - cell "Y" [ref=e4194]
+                  - cell "실패에 대한 콜백 함수" [ref=e4195]
+          - heading "응답" [level=6] [ref=e4196]
+          - generic [ref=e4197]:
+            - generic [ref=e4198] [cursor=pointer]: Response
+            - table [ref=e5464]:
+              - rowgroup [ref=e5465]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5466]:
+                  - columnheader "순번" [ref=e5467]
+                  - columnheader "변수명" [ref=e5468]
+                  - columnheader "타입" [ref=e5469]
+                  - columnheader "길이" [ref=e5470]
+                  - columnheader "설명" [ref=e5471]
+              - rowgroup [ref=e5472]:
+                - row "code number - API 처리에 대한 응답코드 └ 1 성공" [ref=e5473]:
+                  - cell [ref=e5474]
+                  - cell "code" [ref=e5475]
+                  - cell "number" [ref=e5476]
+                  - cell "-" [ref=e5477]
+                  - cell "API 처리에 대한 응답코드 └ 1 성공" [ref=e5478]:
+                    - text: API 처리에 대한 응답코드
+                    - generic [ref=e5479]:
+                      - text: └
+                      - generic [ref=e5480]: "1"
+                      - text: 성공
+                - row "message string - API 처리에 대한 응답메시지" [ref=e5481]:
+                  - cell [ref=e5482]
+                  - cell "message" [ref=e5483]
+                  - cell "string" [ref=e5484]
+                  - cell "-" [ref=e5485]
+                  - cell "API 처리에 대한 응답메시지" [ref=e5486]
+          - heading "예외" [level=6] [ref=e4199]
+          - generic [ref=e4200]:
+            - generic [ref=e4201] [cursor=pointer]: PopbillException
+            - table [ref=e5487]:
+              - rowgroup [ref=e5488]:
+                - row "순번 변수명 타입 길이 설명" [ref=e5489]:
+                  - columnheader "순번" [ref=e5490]
+                  - columnheader "변수명" [ref=e5491]
+                  - columnheader "타입" [ref=e5492]
+                  - columnheader "길이" [ref=e5493]
+                  - columnheader "설명" [ref=e5494]
+              - rowgroup [ref=e5495]:
+                - row "code number - API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5496]:
+                  - cell [ref=e5497]
+                  - cell "code" [ref=e5498]
+                  - cell "number" [ref=e5499]
+                  - cell "-" [ref=e5500]
+                  - cell "API 처리 실패에 대한 오류코드 → 음의 정수 8자리 숫자값 [참고] 오류코드" [ref=e5501]:
+                    - text: API 처리 실패에 대한 오류코드
+                    - generic [ref=e5502]:
+                      - text: → 음의 정수 8자리 숫자값
+                      - link "[참고] 오류코드" [ref=e5503] [cursor=pointer]:
+                        - /url: /error-code
+                - row "message string - API 처리 실패에 대한 오류메시지" [ref=e5504]:
+                  - cell [ref=e5505]
+                  - cell "message" [ref=e5506]
+                  - cell "string" [ref=e5507]
+                  - cell "-" [ref=e5508]
+                  - cell "API 처리 실패에 대한 오류메시지" [ref=e5509]
+  - contentinfo [ref=e4202]:
+    - paragraph [ref=e4203]: © LinkHub Corp. All Rights Reserved.
+    - generic [ref=e4205] [cursor=pointer]: Family Site
