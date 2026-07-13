@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>dispatches 와이어프레임 — nbbb1.vercel.app 역설계</title>
+<style>
+  :root{
+    --ink:#333; --line:#9aa4b0; --line-soft:#c9d1d9; --fill:#eef1f4; --fill-2:#f7f9fa;
+    --note:#d4380d; --accent:#2f54eb;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:Pretendard,-apple-system,system-ui,sans-serif; background:#e9ecef; color:var(--ink); padding:24px; font-size:13px;}
+  h1{font-size:20px; margin-bottom:4px;}
+  .meta{color:#666; margin-bottom:16px; font-size:12px;}
+  /* tabs */
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;}
+  .tabs button{padding:8px 14px; border:1px solid var(--line); background:#fff; border-radius:6px; cursor:pointer; font-size:13px; font-weight:600;}
+  .tabs button.on{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .screen{display:none;}
+  .screen.on{display:block;}
+  /* wireframe primitives */
+  .wf{background:#fff; border:2px solid var(--ink); border-radius:8px; padding:12px; max-width:1280px;}
+  .row{display:flex; gap:12px;}
+  .panel{border:1.5px solid var(--line); border-radius:10px; background:#fff; padding:10px; position:relative;}
+  .panel-title{font-weight:800; font-size:13px; border-left:4px solid var(--ink); padding-left:6px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;}
+  .sect{border-top:1px dashed var(--line-soft); padding-top:8px; margin-top:8px;}
+  .lbl{font-size:11px; font-weight:700; color:#555; margin-bottom:4px;}
+  .input{background:var(--fill); border:1px solid var(--line-soft); border-radius:6px; height:26px; display:flex; align-items:center; padding:0 8px; color:#98a2ad; font-size:11px; flex:1;}
+  .chip{display:inline-flex; align-items:center; border:1px solid var(--line); border-radius:999px; padding:2px 8px; font-size:10px; background:var(--fill-2); margin:1px;}
+  .chip.sel{background:#dfe4ea; border-color:var(--ink); font-weight:700;}
+  .btn{display:inline-flex; align-items:center; justify-content:center; border:1.5px solid var(--ink); border-radius:6px; padding:5px 12px; font-size:11px; font-weight:700; background:#fff;}
+  .btn.pri{background:var(--ink); color:#fff;}
+  .badge{display:inline-block; border:1px solid var(--line); border-radius:999px; padding:2px 8px; font-size:10px; font-weight:700; background:var(--fill);}
+  .table{width:100%; border-collapse:collapse; margin-top:6px;}
+  .table th{font-size:10px; color:#888; text-align:left; padding:6px 6px; border-bottom:1.5px solid var(--line);}
+  .table td{padding:8px 6px; border-bottom:1px solid var(--line-soft); font-size:11px; vertical-align:middle;}
+  .dots span{display:inline-block; width:7px; height:7px; border-radius:50%; border:1px solid var(--line); margin-right:2px;}
+  .dots .f{background:#666;}
+  .card{border:1px solid var(--line-soft); border-radius:8px; padding:8px; background:var(--fill-2);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  /* annotation */
+  .an{display:inline-flex; align-items:center; justify-content:center; min-width:17px; height:17px; border-radius:50%; background:var(--note); color:#fff; font-size:10px; font-weight:800; margin-left:4px; vertical-align:middle; flex:none;}
+  .legend{max-width:1280px; margin-top:12px; background:#fff; border:1px dashed var(--note); border-radius:8px; padding:12px; column-count:2; column-gap:24px;}
+  .legend div{font-size:11.5px; margin-bottom:5px; break-inside:avoid;}
+  .legend b{color:var(--note);}
+  .flex{display:flex; gap:6px; align-items:center; flex-wrap:wrap;}
+  .spacer{flex:1;}
+  .side{width:44px; border:1.5px solid var(--line); border-radius:10px; display:flex; flex-direction:column; align-items:center; padding:8px 0; gap:10px; background:#fff;}
+  .ico{width:22px; height:22px; border:1.5px solid var(--line); border-radius:6px;}
+  .ico.on{background:#dfe4ea; border-color:var(--ink);}
+  .note-inline{font-size:10px; color:var(--note); font-weight:700;}
+  .vtab{writing-mode:vertical-rl; border:1.5px solid var(--ink); border-radius:8px 0 0 8px; padding:10px 4px; font-size:10px; font-weight:800; background:var(--fill); align-self:center;}
+  .bubble{border:1.5px solid var(--line); border-radius:10px; padding:6px 10px; font-size:11px; max-width:70%;}
+  .bubble.me{margin-left:auto; background:#dfe4ea; border-color:var(--ink);}
+  .phone{width:280px; border:2px solid var(--ink); border-radius:18px; padding:10px; background:#fff;}
+  .subttl{font-weight:800; font-size:14px; margin:14px 0 6px;}
+</style>
+</head>
+<body>
+<h1>배차 관리(/dispatches) 와이어프레임 — 역설계</h1>
+<div class="meta">원본: https://nbbb1.vercel.app/dispatches · 2026-07-08 실조작 기반 · 번호 주석(●)은 하단 이벤트 범례와 대응</div>
+
+<div class="tabs">
+  <button class="on" data-t="s1">① 기본 화면</button>
+  <button data-t="s2">② 행 확장 (상세/제어)</button>
+  <button data-t="s3">③ 차량/차주 배정 모드</button>
+  <button data-t="s4">④ 대화방 모드</button>
+  <button data-t="s5">⑤ 추천 목록 모드</button>
+  <button data-t="s6">⑥ 접힘 · 모바일</button>
+</div>
+
+<!-- ========== ① 기본 ========== -->
+<section class="screen on" id="s1">
+<div class="wf"><div class="row">
+  <div class="side"><div class="ico on" title="배차 관리"></div><div class="ico"></div><div class="ico"></div><div class="ico"></div><div class="ico"></div><div class="ico"></div><div class="ico"></div><div class="spacer"></div><div class="ico" style="border-radius:50%" title="프로필"></div></div>
+
+  <!-- 좌: 운행 등록 -->
+  <div class="panel" style="width:40%">
+    <div class="panel-title">운행 등록</div>
+    <div class="lbl">거래처 정보 <span style="float:right"><span class="chip">가온물류</span><span class="chip">나래물산</span><span class="chip">다솜유통</span><span class="an">1</span></span></div>
+    <div class="flex"><div class="input">거래처명</div><div class="input">전화번호</div><div class="input">담당자명</div><span class="btn">🔍 검색</span><span class="an">2</span></div>
+    <div class="sect"><div class="lbl">자주 쓰는 구간 <span class="an">3</span></div>
+      <div class="flex"><span class="chip">서울 마포구 → 경북 구미시</span><span class="chip">경기 화성시 → 대구 달서구</span><span class="chip">경기 안산시 → 경남 창원시</span><span class="chip">...</span><span class="an">4</span></div></div>
+    <div class="sect grid2">
+      <div><div class="lbl">상차지 * <span class="chip">서울 마포구</span><span class="chip">경기 화성시</span><span class="an">5</span></div><div class="input">상차지 주소 검색 (클릭→카카오 우편번호)</div><span class="an">6</span></div>
+      <div><div class="lbl">상차일시 <span class="chip">월요일</span><span class="chip">내일</span><span class="chip">오늘</span><span class="chip">지금</span><span class="an">7</span></div><div class="input">2026-07-08 오후 04:32 📅</div></div>
+      <div><div class="lbl">하차지 * <span class="chip">경북 구미시</span><span class="chip">대구 달서구</span></div><div class="input">하차지 주소 검색</div><div style="margin-top:4px"><span class="note-inline">+ 경유지 추가 (최대 3개)</span><span class="an">8</span></div></div>
+      <div><div class="lbl">하차일시 <span class="chip">월요일</span><span class="chip">내일</span><span class="chip">오늘</span></div><div class="input">2026-07-08 오후 07:32 📅</div></div>
+    </div>
+    <div class="sect"><div class="lbl">차량 스펙 <span style="float:right"><span class="chip">2.5톤 카고</span><span class="chip">1톤 탑차</span><span class="chip">5톤 윙바디</span><span class="an">9</span></span></div>
+      <div class="flex"><div class="input">톤급 * ▾ (9종)</div><div class="input">차종 * ▾ (8종)</div><div class="input">화물실중량</div></div></div>
+    <div class="sect grid2">
+      <div><div class="lbl">정산 방법 <span class="an">10</span></div><div class="flex"><span class="chip sel">인수증</span><span class="chip">선불</span><span class="chip">착불</span><span class="chip">카드</span></div></div>
+      <div><div class="lbl">정산 예정일 <span class="chip">미지정</span><span class="chip">바로</span><span class="chip">15일</span><span class="chip">당월말</span><span class="chip">45일</span><span class="chip">익월말</span><span class="an">11</span></div><div class="input">년-월-일 📅</div></div>
+      <div><div class="lbl">수수료 (원) <span class="note-inline">인수증 선택 시 disabled</span></div><div class="input">예: 30,000</div></div>
+      <div><div class="lbl">운임 (원) * <span class="chip">최근: 20만</span><span class="chip">최빈: 20만</span><span class="an">12</span></div><div class="input">예: 300,000 (콤마 자동)</div></div>
+      <div><div class="lbl">메모</div><div class="input">추가 요청 사항 입력</div></div>
+      <div><div class="lbl">화물품목 <span class="chip">철강</span><span class="chip">기계</span><span class="chip">박스</span><span class="chip">빠레트</span><span class="an">13</span></div><div class="input">예: 철강, 기계부품 등</div></div>
+    </div>
+    <div class="sect flex"><span class="btn pri" style="flex:1; padding:9px">+ 배차 등록</span><span class="an">14</span><span class="btn">초기화</span><span class="an">15</span></div>
+  </div>
+
+  <!-- 우: 운행 내역 -->
+  <div class="panel" style="flex:1">
+    <div class="panel-title">운행 내역 <span><span class="btn">접기 ➔</span><span class="an">16</span></span></div>
+    <div class="flex"><span class="lbl" style="margin:0">날짜:</span><span class="chip sel">전체 (50)</span><span class="chip">오늘 (0)</span><span class="chip">이번주 (8)</span><span class="chip">지난주 (42)</span><span class="chip">이번달 (50)</span><span class="chip">지난달 (0)</span><span class="chip">직접선택</span><span class="an">17</span></div>
+    <div class="flex" style="margin-top:4px"><span class="lbl" style="margin:0">상태:</span><span class="chip sel">전체 (50)</span><span class="chip">배차중 (10)</span><span class="chip">배차완료 (10)</span><span class="chip">배차취소 (10)</span><span class="chip">상차완료 (10)</span><span class="chip">하차완료 (0)</span><span class="chip">운행완료 (10)</span><span class="an">18</span>
+      <div class="input" style="max-width:110px">검색어...</div><span class="btn">🔍 검색</span><span class="btn">초기화</span><span class="an">19</span></div>
+    <table class="table">
+      <tr><th>상태</th><th>화주</th><th>노선 (상차 → 하차)</th><th>차량스펙</th><th>차주 정보</th><th>운임</th><th></th></tr>
+      <tr><td><span class="badge">상차완료</span></td><td><b>가온물류</b></td><td>서울 마포구<br>→ 경북 구미시</td><td>11톤 카고</td><td>서울81바1001<br>김차주 (010-…)</td><td><b>200,000원</b></td><td>⌄<span class="an">20</span></td></tr>
+      <tr><td><span class="badge">배차중</span><br><span class="dots"><span class="f"></span><span></span><span></span></span><span class="an">21</span></td><td><b>다솜유통</b></td><td>경기 안산시<br>→ 경남 창원시</td><td>11톤 카고</td><td><i style="color:#999">차주 미지정</i></td><td><b>300,000원</b></td><td>⌄</td></tr>
+      <tr><td><span class="badge">배차취소</span></td><td><b>라온제나</b></td><td>서울 영등포구<br>→ 부산 강서구</td><td>5톤 윙바디</td><td><i style="color:#999">배차 취소됨</i></td><td><b>350,000원</b></td><td>⌄</td></tr>
+      <tr><td><span class="badge">운행완료</span></td><td><b>마루아라</b></td><td>부산 강서구<br>→ 경북 포항시</td><td>11톤 카고</td><td>대구85사1005<br>정기사 (010-…)</td><td><b>400,000원</b></td><td>⌄</td></tr>
+      <tr><td colspan="7" style="text-align:center; color:#999">… 총 50건 전체 스크롤 (페이지네이션 없음)</td></tr>
+    </table>
+  </div>
+</div></div>
+
+<div class="legend">
+  <div><b>1</b> 최근 거래처 칩 클릭 → 거래처명/전화/담당자 자동입력 + 자주 쓰는 구간 갱신</div>
+  <div><b>2</b> 검색 → 우측 패널이 "주요 상하차지 추천 목록"으로 전환 (⑤)</div>
+  <div><b>3</b> 구간 칩 클릭 → 상·하차지 주소 동시 입력 + 운임 추천 버튼(12) 노출</div>
+  <div><b>4</b> "..." → 추천 목록 패널 열기 (⑤)</div>
+  <div><b>5</b> 지역 칩 → 주소란 입력</div>
+  <div><b>6</b> 주소란 focus → 카카오 우편번호 위젯 임베디드 레이어</div>
+  <div><b>7</b> 날짜 퀵버튼: 지금=현재 / 오늘·내일=12:00 / 월요일=차주 월 12:00</div>
+  <div><b>8</b> 경유지 최대 3개, 도달 시 버튼 소멸, 행별 ✕ 삭제</div>
+  <div><b>9</b> 스펙 칩 → 톤급+차종 셀렉트 동시 설정</div>
+  <div><b>10</b> 인수증 선택 → 수수료 입력 disabled</div>
+  <div><b>11</b> 정산 예정일 퀵버튼 → date 자동 설정 / 미지정=삭제</div>
+  <div><b>12</b> 구간 선택 시에만 노출, 클릭 → 운임 자동 입력</div>
+  <div><b>13</b> 품목 칩 → 입력값 대체</div>
+  <div><b>14</b> 필수값(상차지·하차지·톤급·차종·운임) 누락 시 alert / 성공 시 리스트 최상단 '배차중' 행 추가 + 폼 리셋</div>
+  <div><b>15</b> 전 필드 초기화</div>
+  <div><b>16</b> 우측 패널 접힘 → 가장자리 세로 탭 (⑥)</div>
+  <div><b>17</b> 기간 필터 — 상태 필터와 교차 카운트 실시간 갱신 / 직접선택 → date range 노출</div>
+  <div><b>18</b> 상태 필터 7종 (칩+건수)</div>
+  <div><b>19</b> 검색 버튼 클릭 시 적용(라이브 아님) / 초기화로 복원</div>
+  <div><b>20</b> 행 클릭 → 아코디언 확장 (②)</div>
+  <div><b>21</b> 배차 난이도 신호등 (hover 툴팁: "배차 난이도: 쉬움…")</div>
+</div>
+</section>
+
+<!-- ========== ② 행 확장 ========== -->
+<section class="screen" id="s2">
+<div class="wf">
+  <div class="panel">
+    <table class="table"><tr>
+      <td><span class="badge">배차중</span><br><span class="dots"><span class="f"></span><span></span><span></span></span></td>
+      <td><b>다솜유통</b></td><td>경기 안산시 → 경남 창원시</td><td>11톤 카고</td><td><i style="color:#999">차주 미지정</i></td><td><b>300,000원</b></td><td>⌃</td>
+    </tr></table>
+
+    <div class="card" style="margin:8px 0; border-left:4px solid var(--ink)">
+      <b>🟢 배차 원활</b> <span style="float:right; font-size:10px; color:#888">AI 실시간 배차 분석 어드바이저</span><span class="an">22</span>
+      <div style="margin-top:4px">현재 주변 가용 차주가 충분하여 원활하게 배차될 것으로 보입니다. 현재 운임을 유지하셔도 좋습니다.</div>
+      <div style="margin-top:4px; font-size:10.5px">• 대기 차주: 인근 22명 공차 대기 &nbsp; • 경쟁 화물: 없음 &nbsp; • 구간 평균 운임: 290,000원 (적정)</div>
+      <div class="note-inline" style="margin-top:4px">상태 3종: 🟢 원활 / 🟡 지연 주의 / 🔴 지연 우려 — '배차중'에서만 표시</div>
+    </div>
+
+    <div class="row">
+      <div class="card" style="flex:1.2">
+        <div class="panel-title" style="border:none; padding:0">상세 정보 <span><span class="chip">+ 경유지 추가</span><span class="chip">대화방</span><span class="an">23</span></span></div>
+        <div class="grid2">
+          <div><span class="badge">상차지</span> 경기 안산시 단원구<br><span style="font-size:10px">📅 2026.7.3 오전 11:00</span></div>
+          <div><span class="badge">하차지</span> 경남 창원시 성산구<br><span style="font-size:10px">📅 2026.7.3 오후 4:00</span></div>
+          <div><div class="lbl">정산 수단/수수료</div>착불 (수수료: 15,000원)</div>
+          <div><div class="lbl">정산 예정일</div>2026-08-03</div>
+          <div><div class="lbl">화물품목</div>박스</div>
+          <div><div class="lbl">기사 전달사항·메모</div>지게차 하차 필요</div>
+        </div>
+      </div>
+      <div style="flex:1; display:flex; flex-direction:column; gap:8px">
+        <div class="card">
+          <div class="panel-title" style="border:none; padding:0">운임 및 수수료 정보 수정 <span style="font-size:10px">(정산방법: 착불)</span></div>
+          <div class="flex">운임: <div class="input" style="max-width:90px">300,000</div><span class="chip sel">운</span><span class="chip">수</span><span class="an">24</span><span class="chip">+1만</span><span class="chip">+5천</span><span class="chip">+1천</span><span class="an">25</span></div>
+          <div class="flex" style="margin-top:4px">수수료: <div class="input" style="max-width:90px">15,000</div><span class="chip">-1만</span><span class="chip">-5천</span><span class="chip">-1천</span><span class="btn pri">수정</span><span class="an">26</span></div>
+        </div>
+        <div class="card">
+          <div class="panel-title" style="border:none; padding:0">차주 배정 및 상태 제어</div>
+          <div class="flex"><div class="input">차량번호 (예: 서울 12가 3456)</div><span class="btn pri">차량배정</span><span class="an">27</span></div>
+          <div class="flex" style="margin-top:4px"><div class="input">차주명</div><div class="input">연락처</div><span class="note-inline">배정 시 프리필+대화방 버튼</span></div>
+          <div class="flex" style="margin-top:6px"><span class="chip">배차완료</span><span class="chip">상차완료</span><span class="chip">하차완료</span><span class="chip">운행완료</span><span class="chip sel">배차대기</span><span class="chip">배차취소</span><span class="an">28</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="legend">
+  <div><b>22</b> AI 어드바이저: 대기 차주/경쟁 화물/평균 운임 지표 + 운임 조정 권고 (배차중 전용)</div>
+  <div><b>23</b> 대화방 → 좌측 패널이 대화방 모드로 전환 (④)</div>
+  <div><b>24</b> 운/수 토글: 스테퍼 적용 대상 선택</div>
+  <div><b>25</b> 증감 스테퍼 ±1만/±5천/±1천 → 대상 금액 즉시 증감</div>
+  <div><b>26</b> 수정 → 토스트 "운임 및 수수료 정보가 수정 완료되었습니다!" + 리스트 행 운임 즉시 갱신</div>
+  <div><b>27</b> 차량배정 → 좌측 패널이 차량/차주 배정 모드로 전환 (③)</div>
+  <div><b>28</b> 상태 6버튼 — 현재 상태 하이라이트, 클릭 즉시 전환 + 전체 필터 카운트 재계산</div>
+</div>
+</section>
+
+<!-- ========== ③ 배정 모드 ========== -->
+<section class="screen" id="s3">
+<div class="wf"><div class="row">
+  <div class="panel" style="width:44%">
+    <div class="panel-title">차량/차주 배정 <span class="btn">닫기</span></div>
+    <div class="card"><div class="lbl">선택된 배차 정보</div><b>다솜유통</b> <span style="float:right"><b>310,000원</b></span><br>노선: 경기 안산시 → 경남 창원시 · 스펙: 11톤 카고</div>
+    <div class="sect"><div class="lbl">⭐ AI 최적 추천 차주 (최대 3명) <span class="an">29</span></div>
+      <div class="card" style="margin-bottom:6px">
+        <b>정기사</b> <span class="badge">지입</span> <span class="badge">⭐ AI 추천</span><span style="float:right"><span class="btn pri">선택 배정</span><span class="an">30</span></span>
+        <div style="font-size:10.5px; margin-top:4px">차량번호: 대구85사1005 · 현위치 거리: 9km · 스펙: 3.5톤 윙바디 · 월 총운임: 3,400,000원</div>
+        <div class="flex" style="margin-top:3px"><span class="chip">동종화물 유경험</span><span class="chip">상차지 인접</span><span class="chip">현재 대기중</span></div>
+        <div style="font-size:10.5px; margin-top:3px">상태: 대기중(배정 가능) · 대기위치: 경기 평택시 포승읍<br>계좌: 농협은행 567-890-123005</div>
+        <div style="font-size:10.5px; margin-top:3px">최근 이력: 강서구→포항시(마루아라) <span class="badge">완료</span> 외 2건 <span class="an">31</span></div>
+      </div>
+      <div class="card" style="margin-bottom:6px; color:#888">전기사 <span class="badge">소속</span> — 동일 카드 구조 …</div>
+    </div>
+    <div class="sect"><div class="lbl">전체 배정 가능 차주 목록 (~20명) <span class="an">32</span></div>
+      <div class="card" style="color:#888; margin-bottom:4px">안기사 <span class="badge">지입</span> — <b>운행중</b>(북구→군산시) · <u>연계지 거리: 150km</u> <span class="an">33</span></div>
+      <div class="card" style="color:#888">… 동일 카드 반복 (스크롤)</div>
+    </div>
+  </div>
+  <div class="panel" style="flex:1; opacity:.55">
+    <div class="panel-title">운행 내역 (유지)</div>
+    <div style="text-align:center; padding:40px; color:#999">확장된 행이 열린 채 유지 —<br>배정 완료 시 상태 배차중→배차완료 자동 전환</div>
+  </div>
+</div></div>
+<div class="legend">
+  <div><b>29</b> AI 추천 3명: 추천 사유 태그(동종화물/인접/대기중) 포함</div>
+  <div><b>30</b> 선택 배정 → 차주 배정 + 상태 배차완료 전환 + 좌측 패널 복귀</div>
+  <div><b>31</b> 차주 카드: 소속 구분(소속/외부/지입)·계좌·최근 배차 이력(완료/취소/진행중)까지 의사결정 정보 집약</div>
+  <div><b>32</b> 추천 외 전체 가용 차주 동일 카드로 나열</div>
+  <div><b>33</b> 운행중 차주는 "현위치" 대신 "연계지 거리"(하차 예정지 기준) 표시</div>
+</div>
+</section>
+
+<!-- ========== ④ 대화방 ========== -->
+<section class="screen" id="s4">
+<div class="wf"><div class="row">
+  <div class="panel" style="width:44%; display:flex; flex-direction:column; min-height:420px">
+    <div class="panel-title">대화방: 마루아라 <span><span class="chip">전체 화면</span><span class="an">34</span><span class="chip">운행등록으로 복귀</span><span class="an">35</span></span></div>
+    <div class="card" style="font-size:11px">마루아라 | 거래처 | 02-8877-2233</div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:6px; padding:10px 0">
+      <div class="bubble me">안녕하세요, 마루아라님. 이번 배차 관련하여 문의사항 있으시면 남겨주세요. <span style="font-size:9px; color:#888">오후 04:37</span></div>
+      <div class="bubble me">테스트 메시지입니다 <span style="font-size:9px; color:#888">오후 04:39</span></div>
+    </div>
+    <div class="flex"><span class="chip">📄</span><span class="chip">☆</span><div class="input">대화 입력...</div><span class="btn pri">전송</span><span class="an">36</span></div>
+  </div>
+  <div class="panel" style="flex:1; opacity:.55">
+    <div class="panel-title">운행 내역 (유지)</div>
+    <div style="text-align:center; padding:40px; color:#999">해당 운행 행이 확장된 채 유지</div>
+  </div>
+</div></div>
+<div class="legend">
+  <div><b>34</b> 전체 화면 → /chats 페이지로 이동</div>
+  <div><b>35</b> 좌측 패널 운행 등록 모드로 복귀</div>
+  <div><b>36</b> 전송 → 내 메시지 버블 즉시 추가 + 타임스탬프 (📄/☆는 첨부·템플릿성 보조 버튼)</div>
+</div>
+</section>
+
+<!-- ========== ⑤ 추천 목록 ========== -->
+<section class="screen" id="s5">
+<div class="wf"><div class="row">
+  <div class="panel" style="width:40%; opacity:.55">
+    <div class="panel-title">운행 등록 (유지)</div>
+    <div style="text-align:center; padding:40px; color:#999">거래처 [검색] 또는 구간 [...] 클릭으로<br>우측 패널 전환됨</div>
+  </div>
+  <div class="panel" style="flex:1">
+    <div class="panel-title">주요 상하차지 추천 목록 <span class="btn">닫기</span></div>
+    <div style="font-size:11px; color:#777; margin-bottom:8px">[나래] 거래처의 주요 상하차지 추천 주소 목록입니다.</div>
+    <div class="card" style="border-left:4px solid var(--ink); margin-bottom:8px">
+      <div class="lbl">⚡ 운행데이터기반 주요구간 (상하차 동시선택) <span class="an">37</span></div>
+      <div class="flex" style="justify-content:space-between"><span>① 서울 마포구 → 경북 구미시</span><span class="btn">선택</span></div>
+      <div class="flex" style="justify-content:space-between; margin-top:3px"><span>② 경기 화성시 → 대구 달서구</span><span class="btn">선택</span></div>
+      <div style="color:#999; font-size:10px; margin-top:3px">… 순위 Top 5</div>
+    </div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="lbl">📍 거래처 저장기반 주요상차지 <span class="an">38</span></div>
+      <div class="flex" style="justify-content:space-between"><span>① 서울 마포구 독막로</span><span class="btn">선택</span></div>
+      <div style="color:#999; font-size:10px; margin-top:3px">… Top 5</div>
+    </div>
+    <div class="card">
+      <div class="lbl">거래처 저장기반 주요하차지 <span class="an">38</span></div>
+      <div class="flex" style="justify-content:space-between"><span>① 경북 구미시 3공단로</span><span class="btn">선택</span></div>
+      <div style="color:#999; font-size:10px; margin-top:3px">… Top 5</div>
+    </div>
+  </div>
+</div></div>
+<div class="legend">
+  <div><b>37</b> 구간 선택 → 상차지+하차지 폼 동시 입력</div>
+  <div><b>38</b> 상차지/하차지 개별 선택 → 해당 필드만 입력</div>
+</div>
+</section>
+
+<!-- ========== ⑥ 접힘 · 모바일 ========== -->
+<section class="screen" id="s6">
+<div class="subttl">우측 패널 접힘 상태</div>
+<div class="wf"><div class="row">
+  <div class="side"><div class="ico on"></div><div class="ico"></div><div class="ico"></div></div>
+  <div class="panel" style="width:40%"><div class="panel-title">운행 등록</div><div style="text-align:center; padding:30px; color:#999">폼 전체 유지</div></div>
+  <div class="spacer"></div>
+  <div class="vtab">운행내역 펼치기 <span class="an">39</span></div>
+</div></div>
+
+<div class="subttl">모바일 (~390px)</div>
+<div class="phone">
+  <div class="panel-title">운행 내역 <span class="btn" style="font-size:9px">접기 ➔</span></div>
+  <div class="flex"><span class="chip sel">전체 (50)</span><span class="chip">오늘 (0)</span><span class="chip">이번주 (8)</span></div>
+  <div class="flex" style="margin-top:3px"><div class="input" style="height:22px">검색어...</div><span class="btn" style="font-size:9px">검색</span><span class="an">40</span></div>
+  <table class="table">
+    <tr><th>상태</th><th>화주</th><th>노선</th></tr>
+    <tr><td><span class="badge" style="font-size:8px">상차완료</span></td><td>가온물류</td><td style="font-size:9px">서울 마포구<br>→ 경북 구미시</td></tr>
+    <tr><td><span class="badge" style="font-size:8px">배차중</span><br><span class="dots"><span class="f"></span><span></span><span></span></span></td><td>다솜유통</td><td style="font-size:9px">경기 안산시<br>→ 경남 창원시</td></tr>
+  </table>
+</div>
+<div class="legend">
+  <div><b>39</b> 접기 시 우측 가장자리 세로 플로팅 탭 — 클릭 시 복원</div>
+  <div><b>40</b> 모바일: 단일 컬럼 · 테이블 3컬럼 축소(상태/화주/노선) · 상태 필터 칩 숨김(검색만)</div>
+</div>
+</section>
+
+<script>
+document.querySelectorAll('.tabs button').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));
+    document.querySelectorAll('.screen').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    document.getElementById(b.dataset.t).classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
