@@ -1,0 +1,1838 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>차주용 배차/운행/정산 Phase 1 MVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+
+      /* Phase 1 MVP design system */
+      --brand: #1668e8;
+      --brand-strong: #0c4bc6;
+      --brand-soft: #eaf2ff;
+      --ink: #172033;
+      --ink-muted: #657084;
+      --ink-subtle: #8993a5;
+      --line: #e3e8f0;
+      --line-strong: #d2dae6;
+      --surface: #ffffff;
+      --surface-alt: #f6f8fb;
+      --page: #e8eef8;
+      --success: #0d8a5b;
+      --success-soft: #e7f7ef;
+      --warning: #a86500;
+      --warning-soft: #fff3d6;
+      --danger: #c44032;
+      --danger-soft: #ffebe8;
+      --violet: #635bff;
+      --violet-soft: #efedff;
+      --shadow: 0 24px 60px rgba(25, 38, 62, .18);
+      --shadow-soft: 0 12px 28px rgba(28, 45, 74, .08);
+      --radius-card: 8px;
+      --radius-control: 8px;
+      --tap: 44px;
+      --font: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-display: Outfit, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-height: 100%;
+      margin: 0;
+      font-family: var(--font);
+      background: var(--page);
+      color: var(--ink);
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 28px;
+    }
+
+    .stage {
+      width: min(100%, 1060px);
+      display: grid;
+      grid-template-columns: minmax(360px, 412px) minmax(280px, 360px);
+      gap: 32px;
+      align-items: center;
+    }
+
+    .phone-shell {
+      position: relative;
+      width: 412px;
+      height: min(874px, calc(100vh - 56px));
+      min-height: 720px;
+      border: 11px solid #0b0d12;
+      border-radius: 44px;
+      background: #0b0d12;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .camera-pill {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      z-index: 5;
+      width: 86px;
+      height: 26px;
+      transform: translateX(-50%);
+      border-radius: 999px;
+      background: #0b0d12;
+    }
+
+    .phone-screen {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border-radius: 32px;
+      background: var(--surface-alt);
+    }
+
+    .statusbar {
+      height: 52px;
+      flex: 0 0 52px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      padding: 0 23px 11px;
+      background: var(--surface);
+      color: #111827;
+      font: 700 14px/1 var(--font-display);
+    }
+
+    .status-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: #111827;
+    }
+
+    .app {
+      min-height: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .screen {
+      min-height: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-header {
+      flex: 0 0 auto;
+      padding: 14px 16px 12px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .header-row,
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .title-block {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 4px;
+      color: var(--ink-subtle);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .screen-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 800;
+      letter-spacing: 0;
+    }
+
+    .screen-subtitle {
+      margin: 5px 0 0;
+      color: var(--ink-muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .icon-button {
+      width: var(--tap);
+      height: var(--tap);
+      flex: 0 0 var(--tap);
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    .icon-button svg,
+    .nav-item svg,
+    .button svg,
+    .mini-action svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .scroll {
+      min-height: 0;
+      flex: 1;
+      overflow: auto;
+      padding: 14px 16px 92px;
+      scrollbar-width: none;
+    }
+
+    .scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .scroll.with-action {
+      padding-bottom: 150px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .metric {
+      min-height: 70px;
+      padding: 11px 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 4px;
+      font: 800 22px/1 var(--font-display);
+    }
+
+    .metric span {
+      color: var(--ink-muted);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding: 2px 0 12px;
+      scrollbar-width: none;
+    }
+
+    .chip-row::-webkit-scrollbar {
+      display: none;
+    }
+
+    .chip {
+      min-height: 36px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink-muted);
+      white-space: nowrap;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .chip.is-active {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .card-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .dispatch-card,
+    .section,
+    .history-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .dispatch-card {
+      padding: 14px;
+    }
+
+    .card-top,
+    .card-footer,
+    .row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .company {
+      min-width: 0;
+    }
+
+    .company strong {
+      display: block;
+      overflow: hidden;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .company span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 0 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge.ready,
+    .badge.progress {
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+    }
+
+    .badge.success,
+    .badge.paid {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .badge.pending {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .badge.hold {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .badge.neutral {
+      background: #eef2f7;
+      color: var(--ink-muted);
+    }
+
+    .route {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 10px;
+      align-items: center;
+      margin: 16px 0 12px;
+    }
+
+    .route-point small,
+    .field-label {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink-subtle);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .route-point strong {
+      display: block;
+      color: var(--ink);
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .route-point span,
+    .field-value {
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .route-line {
+      width: 52px;
+      display: grid;
+      justify-items: center;
+      gap: 4px;
+      color: var(--brand);
+    }
+
+    .route-line::before,
+    .route-line::after {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .route-line span {
+      width: 44px;
+      border-top: 2px dashed currentColor;
+    }
+
+    .amount {
+      color: var(--brand-strong);
+      font: 800 18px/1 var(--font-display);
+      white-space: nowrap;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 13px;
+    }
+
+    .tag {
+      min-height: 26px;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 8px;
+      border-radius: 999px;
+      background: #f0f3f8;
+      color: var(--ink-muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .button-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .button {
+      min-height: var(--tap);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .button.primary {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .button.success {
+      border-color: var(--success);
+      background: var(--success);
+      color: #fff;
+    }
+
+    .button.danger {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: #fff;
+    }
+
+    .button.ghost {
+      background: var(--surface-alt);
+    }
+
+    .button:disabled,
+    .chip:disabled {
+      cursor: not-allowed;
+      opacity: .48;
+    }
+
+    .section {
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0;
+    }
+
+    .timeline-step {
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 9px;
+      min-height: 54px;
+      position: relative;
+    }
+
+    .timeline-step:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 26px;
+      bottom: 0;
+      width: 2px;
+      background: var(--line-strong);
+    }
+
+    .timeline-dot {
+      position: relative;
+      z-index: 1;
+      width: 26px;
+      height: 26px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--line-strong);
+      border-radius: 50%;
+      background: var(--surface);
+      color: var(--ink-subtle);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .timeline-step.done .timeline-dot {
+      border-color: var(--brand);
+      background: var(--brand);
+      color: #fff;
+    }
+
+    .timeline-step.current .timeline-dot {
+      border-color: var(--success);
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .timeline-copy strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .timeline-copy span {
+      display: block;
+      margin-top: 3px;
+      color: var(--ink-muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .info-grid .wide {
+      grid-column: 1 / -1;
+    }
+
+    .field {
+      padding: 11px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      background: var(--surface-alt);
+    }
+
+    .mini-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 7px;
+      margin-top: 10px;
+    }
+
+    .mini-action {
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .notice {
+      margin: 0;
+      padding: 11px;
+      border-radius: var(--radius-card);
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .notice.warning {
+      background: var(--warning-soft);
+      color: var(--warning);
+    }
+
+    .notice.danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .sticky-action {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 70px;
+      padding: 10px 16px 12px;
+      border-top: 1px solid var(--line);
+      background: rgba(255, 255, 255, .92);
+      backdrop-filter: blur(12px);
+    }
+
+    .history-card {
+      width: 100%;
+      padding: 13px;
+      text-align: left;
+    }
+
+    .history-card + .history-card {
+      margin-top: 9px;
+    }
+
+    .history-card .route {
+      margin: 12px 0 0;
+    }
+
+    .settlement-total {
+      padding: 16px;
+      border-radius: var(--radius-card);
+      background: linear-gradient(135deg, #17335f, #1668e8);
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .settlement-total span {
+      display: block;
+      margin-bottom: 7px;
+      color: rgba(255, 255, 255, .76);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .settlement-total strong {
+      font: 800 30px/1 var(--font-display);
+    }
+
+    .amount-row {
+      display: grid;
+      gap: 8px;
+    }
+
+    .amount-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .amount-item:last-child {
+      border-bottom: 0;
+    }
+
+    .amount-item span {
+      color: var(--ink-muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .amount-item strong {
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .issue-type-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .issue-type {
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-control);
+      background: var(--surface);
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .issue-type.is-active {
+      border-color: var(--brand);
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+    }
+
+    .textarea {
+      width: 100%;
+      min-height: 116px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-control);
+      resize: vertical;
+      color: var(--ink);
+      background: var(--surface);
+      outline: none;
+    }
+
+    .textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(22, 104, 232, .12);
+    }
+
+    .upload-box {
+      min-height: 84px;
+      display: grid;
+      place-items: center;
+      gap: 7px;
+      padding: 12px;
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-card);
+      background: var(--surface-alt);
+      color: var(--ink-muted);
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .upload-box svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .upload-box span {
+      display: block;
+    }
+
+    .form-error {
+      display: none;
+      margin: 8px 0 0;
+      color: var(--danger);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .form-error.is-visible {
+      display: block;
+    }
+
+    .bottom-nav {
+      flex: 0 0 70px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+      padding: 8px 12px 10px;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .nav-item {
+      min-height: 52px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: 4px;
+      border: 0;
+      border-radius: var(--radius-control);
+      background: transparent;
+      color: var(--ink-muted);
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .nav-item.is-active {
+      background: var(--brand-soft);
+      color: var(--brand-strong);
+    }
+
+    .modal-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: end;
+      background: rgba(14, 23, 38, .42);
+    }
+
+    .modal-layer.is-visible {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      padding: 18px 16px 16px;
+      border-radius: 18px 18px 0 0;
+      background: var(--surface);
+      box-shadow: 0 -16px 40px rgba(17, 24, 39, .18);
+    }
+
+    .modal-card h2 {
+      margin: 0 0 13px;
+      font-size: 20px;
+      line-height: 1.25;
+      font-weight: 800;
+    }
+
+    .modal-card p {
+      margin: 0 0 12px;
+      color: var(--ink-muted);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .modal-facts {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .modal-fact {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px;
+      border-radius: var(--radius-card);
+      background: var(--surface-alt);
+      font-size: 13px;
+    }
+
+    .modal-fact span {
+      color: var(--ink-muted);
+      font-weight: 700;
+    }
+
+    .modal-fact strong {
+      color: var(--ink);
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .modal-actions {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .toast {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 86px;
+      z-index: 30;
+      display: none;
+      padding: 12px 14px;
+      border-radius: var(--radius-card);
+      background: #111827;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 800;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .toast.is-visible {
+      display: block;
+    }
+
+    .empty-state {
+      display: grid;
+      place-items: center;
+      min-height: 260px;
+      padding: 28px;
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-card);
+      background: var(--surface);
+      color: var(--ink-muted);
+      text-align: center;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .system-panel {
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, .62);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, .62);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+    }
+
+    .system-panel h1 {
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 26px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .system-panel p {
+      margin: 0 0 18px;
+      color: var(--ink-muted);
+      font-size: 14px;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .token-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .token {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-card);
+      background: rgba(255, 255, 255, .72);
+    }
+
+    .swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 7px;
+      border: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .token strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .token span {
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      body {
+        padding: 0;
+        background: var(--surface-alt);
+      }
+
+      .stage {
+        width: 100%;
+        height: 100dvh;
+        display: block;
+      }
+
+      .system-panel {
+        display: none;
+      }
+
+      .phone-shell {
+        width: 100%;
+        height: 100dvh;
+        min-height: 0;
+        border: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .camera-pill {
+        display: none;
+      }
+
+      .phone-screen {
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="stage">
+    <div class="phone-shell" aria-label="차주용 Phase 1 MVP 모바일 화면">
+      <div class="camera-pill" aria-hidden="true"></div>
+      <div class="phone-screen">
+        <div class="statusbar">
+          <span>9:41</span>
+          <span class="status-icons" aria-hidden="true">
+            <svg width="18" height="12" viewBox="0 0 18 12"><path d="M1 11h2V7H1v4Zm4 0h2V5H5v6Zm4 0h2V3H9v8Zm4 0h2V1h-2v10Z" fill="currentColor"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12"><path d="M2 4.5a9 9 0 0 1 12 0M4.5 7a5.5 5.5 0 0 1 7 0M7 9.5a2 2 0 0 1 2 0" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>
+            <svg width="22" height="11" viewBox="0 0 22 11"><rect x="1" y="1" width="18" height="9" rx="2" stroke="currentColor" fill="none"/><rect x="3" y="3" width="13" height="5" rx="1" fill="currentColor"/><path d="M20 4v3" stroke="currentColor" stroke-linecap="round"/></svg>
+          </span>
+        </div>
+        <div id="app" class="app"></div>
+      </div>
+    </div>
+
+    <aside class="system-panel" aria-label="Phase 1 MVP 디자인 시스템 요약">
+      <h1>Phase 1 MVP<br>차주 앱 퍼블리싱</h1>
+      <p>첫 화면은 `내 배차`입니다. 기존 블루 CTA와 카드 질감은 유지하되, 상태 변경과 정산 조회가 빠르게 보이도록 정보 밀도를 재정렬했습니다.</p>
+      <div class="token-list">
+        <div class="token"><span class="swatch" style="background:#1668e8"></span><div><strong>Primary Blue</strong><span>상태 변경, 핵심 CTA</span></div></div>
+        <div class="token"><span class="swatch" style="background:#0d8a5b"></span><div><strong>Success Green</strong><span>완료, 송금완료</span></div></div>
+        <div class="token"><span class="swatch" style="background:#fff3d6"></span><div><strong>Pending Amber</strong><span>정산대기, 확인 필요</span></div></div>
+        <div class="token"><span class="swatch" style="background:#ffebe8"></span><div><strong>Hold Red</strong><span>보류, 특이사항</span></div></div>
+        <div class="token"><span class="swatch" style="background:#ffffff"></span><div><strong>8px Cards</strong><span>운영형 모바일 UI 반경</span></div></div>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const statusMeta = {
+      assigned: { label: "배차됨", tone: "neutral" },
+      driver_confirmed: { label: "운행 준비", tone: "ready" },
+      pickup_done: { label: "상차완료", tone: "progress" },
+      dropoff_done: { label: "하차완료", tone: "success" },
+      operation_completed: { label: "운행완료", tone: "success" },
+      settlement_pending: { label: "정산대기", tone: "pending" },
+      paid: { label: "송금완료", tone: "paid" },
+      issue_hold: { label: "보류", tone: "hold" }
+    };
+
+    const shipments = [
+      {
+        id: "DT-12344",
+        company: "한진로지스",
+        client: "화주사 A",
+        status: "driver_confirmed",
+        pickup: {
+          city: "서울 금천",
+          name: "가산 물류센터",
+          address: "서울 금천구 가산디지털1로 88",
+          time: "오늘 13:05",
+          contact: "상차 담당 010-****-1820"
+        },
+        dropoff: {
+          city: "부산 강서",
+          name: "녹산 산단 3문",
+          address: "부산 강서구 녹산산단로 24",
+          time: "오늘 20:20",
+          contact: "하차 담당 010-****-7344"
+        },
+        item: "철재",
+        weight: "5톤",
+        truck: "카고",
+        fee: 450000,
+        adjust: "+20,000 대기료 검토",
+        settlement: {
+          status: "정산대기",
+          tone: "pending",
+          amount: null,
+          date: "확정 전"
+        },
+        timeline: {
+          assigned: "09:10 배차 공유",
+          driver_confirmed: "09:14 차주 확인",
+          pickup_done: "",
+          dropoff_done: "",
+          operation_completed: ""
+        },
+        note: "지게차 상차, 팔레트 고정 확인"
+      },
+      {
+        id: "DT-12345",
+        company: "대한통운 직영",
+        client: "화주사 B",
+        status: "pickup_done",
+        pickup: {
+          city: "인천 서구",
+          name: "원창동 창고",
+          address: "인천 서구 북항로 112",
+          time: "오늘 08:40",
+          contact: "상차 담당 010-****-2911"
+        },
+        dropoff: {
+          city: "대전 유성",
+          name: "대덕 물류단지",
+          address: "대전 유성구 테크노2로 11",
+          time: "오늘 16:10",
+          contact: "하차 담당 010-****-6628"
+        },
+        item: "공산품",
+        weight: "3.5톤",
+        truck: "윙바디",
+        fee: 380000,
+        adjust: "조정 없음",
+        settlement: {
+          status: "정산대기",
+          tone: "pending",
+          amount: null,
+          date: "확정 전"
+        },
+        timeline: {
+          assigned: "07:30 배차 공유",
+          driver_confirmed: "07:36 차주 확인",
+          pickup_done: "09:02 상차완료 등록",
+          dropoff_done: "",
+          operation_completed: ""
+        },
+        note: "박스 파손 여부 확인"
+      },
+      {
+        id: "DT-12346",
+        company: "동서운수",
+        client: "화주사 C",
+        status: "issue_hold",
+        pickup: {
+          city: "평택 포승",
+          name: "포승 공단",
+          address: "경기 평택시 포승읍 포승공단로 71",
+          time: "어제 11:20",
+          contact: "상차 담당 010-****-4381"
+        },
+        dropoff: {
+          city: "광주 광산",
+          name: "하남 물류센터",
+          address: "광주 광산구 하남산단천변좌로 23",
+          time: "어제 18:50",
+          contact: "하차 담당 010-****-5520"
+        },
+        item: "전자부품",
+        weight: "2.5톤",
+        truck: "탑차",
+        fee: 310000,
+        adjust: "수량 차이 확인 중",
+        settlement: {
+          status: "보류",
+          tone: "hold",
+          amount: null,
+          date: "확인 후 안내"
+        },
+        timeline: {
+          assigned: "어제 08:20 배차 공유",
+          driver_confirmed: "어제 08:33 차주 확인",
+          pickup_done: "어제 11:45 상차완료 등록",
+          dropoff_done: "어제 19:04 하차완료 등록",
+          operation_completed: ""
+        },
+        issue: "수량 차이 확인 필요",
+        note: "담당자 확인 후 정산 가능"
+      }
+    ];
+
+    const historyItems = [
+      {
+        id: "DT-12330",
+        company: "한진로지스",
+        status: "paid",
+        from: "서울 금천",
+        to: "부산 강서",
+        date: "2026.06.18",
+        fee: 450000,
+        adjust: "+20,000 대기료 승인",
+        payment: 470000,
+        paymentDate: "2026.06.28"
+      },
+      {
+        id: "DT-12331",
+        company: "대신물류",
+        status: "settlement_pending",
+        from: "안산 단원",
+        to: "대구 달성",
+        date: "2026.06.21",
+        fee: 410000,
+        adjust: "조정 없음",
+        payment: null,
+        paymentDate: "확정 전"
+      },
+      {
+        id: "DT-12346",
+        company: "동서운수",
+        status: "issue_hold",
+        from: "평택 포승",
+        to: "광주 광산",
+        date: "2026.06.23",
+        fee: 310000,
+        adjust: "수량 차이 확인 중",
+        payment: null,
+        paymentDate: "확인 후 안내"
+      }
+    ];
+
+    const state = {
+      screen: "dispatch",
+      selectedId: "DT-12344",
+      settlementId: "DT-12330",
+      dispatchFilter: "오늘",
+      historyFilter: "전체",
+      modal: null,
+      issueType: "파손",
+      issueMemo: "",
+      issueTouched: false
+    };
+
+    const app = document.getElementById("app");
+    let toastTimer;
+
+    function icon(name) {
+      const icons = {
+        truck: '<svg viewBox="0 0 24 24"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>',
+        list: '<svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><path d="M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+        wallet: '<svg viewBox="0 0 24 24"><path d="M3 7h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M16 12h5v4h-5a2 2 0 0 1 0-4z"/><path d="M3 7l13-3v3"/></svg>',
+        phone: '<svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.62 2.61a2 2 0 0 1-.45 2.11L8 9.72a16 16 0 0 0 6.28 6.28l1.28-1.28a2 2 0 0 1 2.11-.45c.84.29 1.71.5 2.61.62A2 2 0 0 1 22 16.92z"/></svg>',
+        map: '<svg viewBox="0 0 24 24"><path d="M12 21s7-5.2 7-12A7 7 0 0 0 5 9c0 6.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>',
+        copy: '<svg viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+        back: '<svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg>',
+        check: '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>',
+        alert: '<svg viewBox="0 0 24 24"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>',
+        camera: '<svg viewBox="0 0 24 24"><path d="M14.5 4 16 7h3a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3l1.5-3z"/><circle cx="12" cy="13" r="3"/></svg>',
+        calendar: '<svg viewBox="0 0 24 24"><path d="M8 2v4M16 2v4M3 10h18"/><rect x="3" y="4" width="18" height="18" rx="2"/></svg>'
+      };
+      return icons[name] || "";
+    }
+
+    function money(value) {
+      if (value === null || value === undefined) return "미확정";
+      return `${value.toLocaleString("ko-KR")}원`;
+    }
+
+    function selectedShipment() {
+      return shipments.find((item) => item.id === state.selectedId) || shipments[0];
+    }
+
+    function selectedSettlement() {
+      const historyItem = historyItems.find((item) => item.id === state.settlementId);
+      if (historyItem) return historyItem;
+
+      const shipment = shipments.find((item) => item.id === state.settlementId) || selectedShipment();
+      const settlementStatus = shipment.status === "issue_hold"
+        ? "issue_hold"
+        : shipment.settlement.status === "송금완료"
+          ? "paid"
+          : "settlement_pending";
+
+      return {
+        id: shipment.id,
+        company: shipment.company,
+        status: settlementStatus,
+        from: shipment.pickup.city,
+        to: shipment.dropoff.city,
+        date: shipment.pickup.time,
+        fee: shipment.fee,
+        adjust: shipment.adjust,
+        payment: shipment.settlement.amount,
+        paymentDate: shipment.settlement.date
+      };
+    }
+
+    function badge(status) {
+      const meta = statusMeta[status] || statusMeta.assigned;
+      return `<span class="badge ${meta.tone}">${meta.label}</span>`;
+    }
+
+    function actionFor(shipment) {
+      if (shipment.status === "driver_confirmed") {
+        return { label: "상차완료", action: "openPickup", tone: "primary", icon: "check" };
+      }
+      if (shipment.status === "pickup_done") {
+        return { label: "하차완료", action: "openDropoff", tone: "success", icon: "check" };
+      }
+      if (shipment.status === "issue_hold") {
+        return { label: "담당자 문의", action: "contact", tone: "danger", icon: "phone" };
+      }
+      return { label: "정산 확인", action: "openSettlement", tone: "ghost", icon: "wallet" };
+    }
+
+    function layout(header, body, sticky = "", navActive = state.screen) {
+      return `
+        <section class="screen">
+          ${header}
+          ${body}
+          ${sticky}
+          ${nav(navActive)}
+          ${modal()}
+          <div id="toast" class="toast" role="status" aria-live="polite"></div>
+        </section>
+      `;
+    }
+
+    function mainHeader(title, subtitle, eyebrow = "차주 운행") {
+      return `
+        <header class="app-header">
+          <div class="header-row">
+            <div class="title-block">
+              <p class="eyebrow">${eyebrow}</p>
+              <h1 class="screen-title">${title}</h1>
+              ${subtitle ? `<p class="screen-subtitle">${subtitle}</p>` : ""}
+            </div>
+            <button class="icon-button" type="button" data-action="contact" aria-label="담당자 문의">${icon("phone")}</button>
+          </div>
+        </header>
+      `;
+    }
+
+    function subHeader(title, subtitle, right = "") {
+      return `
+        <header class="app-header">
+          <div class="header-row">
+            <button class="icon-button" type="button" data-action="back" aria-label="뒤로가기">${icon("back")}</button>
+            <div class="title-block" style="flex:1">
+              <h1 class="screen-title">${title}</h1>
+              ${subtitle ? `<p class="screen-subtitle">${subtitle}</p>` : ""}
+            </div>
+            ${right || `<button class="icon-button" type="button" data-action="contact" aria-label="담당자 문의">${icon("phone")}</button>`}
+          </div>
+        </header>
+      `;
+    }
+
+    function nav(active) {
+      const items = [
+        ["dispatch", "내 배차", "truck"],
+        ["history", "운행 내역", "list"],
+        ["settlement", "정산", "wallet"]
+      ];
+      return `
+        <nav class="bottom-nav" aria-label="주요 탭">
+          ${items.map(([id, label, iconName]) => `
+            <button class="nav-item ${active === id ? "is-active" : ""}" type="button" data-nav="${id}" aria-label="${label}">
+              ${icon(iconName)}
+              <span>${label}</span>
+            </button>
+          `).join("")}
+        </nav>
+      `;
+    }
+
+    function renderDispatch() {
+      const header = mainHeader("내 배차", "오늘 2건 · 진행 1건 · 보류 1건");
+      const body = `
+        <div class="scroll">
+          <div class="summary-grid">
+            <div class="metric"><strong>2</strong><span>오늘 운행</span></div>
+            <div class="metric"><strong>1</strong><span>진행 중</span></div>
+            <div class="metric"><strong>1</strong><span>보류 확인</span></div>
+          </div>
+          <div class="chip-row" aria-label="배차 필터">
+            ${["오늘", "예정", "진행", "완료"].map((label) => `<button class="chip ${state.dispatchFilter === label ? "is-active" : ""}" type="button" data-dispatch-filter="${label}">${label}</button>`).join("")}
+          </div>
+          <div class="card-list">
+            ${shipments.map(renderDispatchCard).join("")}
+          </div>
+        </div>
+      `;
+      return layout(header, body, "", "dispatch");
+    }
+
+    function renderDispatchCard(shipment) {
+      const action = actionFor(shipment);
+      return `
+        <article class="dispatch-card">
+          <div class="card-top">
+            <div class="company">
+              <strong>${shipment.company}</strong>
+              <span>${shipment.id} · ${shipment.item} ${shipment.weight}</span>
+            </div>
+            ${badge(shipment.status)}
+          </div>
+          <div class="route">
+            <div class="route-point"><small>상차</small><strong>${shipment.pickup.city}</strong><span>${shipment.pickup.time}</span></div>
+            <div class="route-line" aria-hidden="true"><span></span></div>
+            <div class="route-point" style="text-align:right"><small>하차</small><strong>${shipment.dropoff.city}</strong><span>${shipment.dropoff.time}</span></div>
+          </div>
+          <div class="tag-row">
+            <span class="tag">${shipment.truck}</span>
+            <span class="tag">${shipment.note}</span>
+            ${shipment.issue ? `<span class="tag" style="color:var(--danger);background:var(--danger-soft)">${shipment.issue}</span>` : ""}
+          </div>
+          <div class="card-footer">
+            <span class="amount">${money(shipment.fee)}</span>
+          </div>
+          <div class="button-row" style="margin-top:12px">
+            <button class="button ghost" type="button" data-open-detail="${shipment.id}">상세보기</button>
+            <button class="button ${action.tone}" type="button" data-shipment="${shipment.id}" data-action="${action.action}">${icon(action.icon)}${action.label}</button>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderDetail() {
+      const shipment = selectedShipment();
+      const action = actionFor(shipment);
+      const header = subHeader("배차 상세", `${shipment.id} · ${shipment.company}`, badge(shipment.status));
+      const body = `
+        <div class="scroll with-action">
+          <section class="section">
+            <div class="section-title">
+              <h2>${shipment.pickup.city} → ${shipment.dropoff.city}</h2>
+              <span class="amount">${money(shipment.fee)}</span>
+            </div>
+            <div class="timeline">${renderTimeline(shipment)}</div>
+          </section>
+
+          <section class="section">
+            <div class="section-title"><h2>상차지</h2><span class="field-label">${shipment.pickup.time}</span></div>
+            ${renderPlace(shipment.pickup)}
+          </section>
+
+          <section class="section">
+            <div class="section-title"><h2>하차지</h2><span class="field-label">${shipment.dropoff.time}</span></div>
+            ${renderPlace(shipment.dropoff)}
+          </section>
+
+          <section class="section">
+            <div class="section-title"><h2>화물/운임</h2></div>
+            <div class="info-grid">
+              <div class="field"><span class="field-label">품목</span><strong class="field-value">${shipment.item}</strong></div>
+              <div class="field"><span class="field-label">중량</span><strong class="field-value">${shipment.weight}</strong></div>
+              <div class="field"><span class="field-label">차량</span><strong class="field-value">${shipment.truck}</strong></div>
+              <div class="field"><span class="field-label">배차금</span><strong class="field-value">${money(shipment.fee)}</strong></div>
+              <div class="field wide"><span class="field-label">조정 요약</span><strong class="field-value">${shipment.adjust}</strong></div>
+            </div>
+          </section>
+
+          <section class="section">
+            <div class="section-title"><h2>특이사항</h2>${shipment.issue ? badge("issue_hold") : ""}</div>
+            <p class="notice ${shipment.issue ? "danger" : ""}">${shipment.issue || "보고된 특이사항이 없습니다. 현장 이슈가 있으면 바로 남겨 주세요."}</p>
+            <div class="button-row" style="margin-top:10px">
+              <button class="button ghost" type="button" data-action="openIssue">${icon("alert")}특이사항 보고</button>
+              <button class="button ghost" type="button" data-action="contact">${icon("phone")}담당자 문의</button>
+            </div>
+          </section>
+
+          ${shipment.status === "dropoff_done" ? `<p class="notice warning">하차완료는 차주의 현장 완료 등록입니다. 주선사 확인 후 운행완료/정산대기로 전환됩니다.</p>` : ""}
+        </div>
+      `;
+      const sticky = `
+        <div class="sticky-action">
+          <div class="button-row">
+            <button class="button ghost" type="button" data-action="openSettlement">${icon("wallet")}정산 확인</button>
+            <button class="button ${action.tone}" type="button" data-action="${action.action}" data-shipment="${shipment.id}">${icon(action.icon)}${action.label}</button>
+          </div>
+        </div>
+      `;
+      return layout(header, body, sticky, "dispatch");
+    }
+
+    function renderPlace(place) {
+      return `
+        <div class="info-grid">
+          <div class="field wide"><span class="field-label">주소</span><strong class="field-value">${place.name}<br>${place.address}</strong></div>
+          <div class="field wide"><span class="field-label">담당자</span><strong class="field-value">${place.contact}</strong></div>
+        </div>
+        <div class="mini-actions">
+          <button class="mini-action" type="button" data-action="contact">${icon("phone")}전화</button>
+          <button class="mini-action" type="button" data-action="route">${icon("map")}길안내</button>
+          <button class="mini-action" type="button" data-action="copyAddress">${icon("copy")}복사</button>
+        </div>
+      `;
+    }
+
+    function renderTimeline(shipment) {
+      const order = [
+        ["driver_confirmed", "운행 준비"],
+        ["pickup_done", "상차완료"],
+        ["dropoff_done", "하차완료"],
+        ["operation_completed", "운행완료"]
+      ];
+      const indexMap = {
+        assigned: -1,
+        driver_confirmed: 0,
+        pickup_done: 1,
+        dropoff_done: 2,
+        operation_completed: 3,
+        settlement_pending: 3,
+        paid: 3,
+        issue_hold: 2
+      };
+      const currentIndex = indexMap[shipment.status] ?? 0;
+      return order.map(([key, label], index) => {
+        const stateClass = index < currentIndex ? "done" : index === currentIndex ? "current" : "";
+        const time = shipment.timeline[key] || (key === "operation_completed" ? "주선사 확인 대기" : "대기 중");
+        return `
+          <div class="timeline-step ${stateClass}">
+            <div class="timeline-dot">${index + 1}</div>
+            <div class="timeline-copy"><strong>${label}</strong><span>${time}</span></div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderHistory() {
+      const header = mainHeader("운행 내역", "2026년 6월 · 운행 12건 · 송금 8건", "정산 조회");
+      const body = `
+        <div class="scroll">
+          <div class="toolbar" style="margin-bottom:12px">
+            <button class="button ghost" type="button">${icon("calendar")}2026.06</button>
+            <button class="button ghost" type="button">기간 설정</button>
+          </div>
+          <div class="chip-row" aria-label="운행 상태 필터">
+            ${["전체", "운행완료", "정산대기", "송금완료", "보류"].map((label) => `<button class="chip ${state.historyFilter === label ? "is-active" : ""}" type="button" data-history-filter="${label}">${label}</button>`).join("")}
+          </div>
+          <div class="summary-grid">
+            <div class="metric"><strong>12</strong><span>운행</span></div>
+            <div class="metric"><strong>8</strong><span>송금완료</span></div>
+            <div class="metric"><strong>2</strong><span>정산대기</span></div>
+          </div>
+          ${historyItems.map(renderHistoryCard).join("")}
+        </div>
+      `;
+      return layout(header, body, "", "history");
+    }
+
+    function renderHistoryCard(item) {
+      const meta = statusMeta[item.status];
+      return `
+        <button class="history-card" type="button" data-history-id="${item.id}">
+          <div class="card-top">
+            <div class="company"><strong>${item.company}</strong><span>${item.date} · ${item.id}</span></div>
+            <span class="badge ${meta.tone}">${meta.label}</span>
+          </div>
+          <div class="route">
+            <div class="route-point"><small>상차</small><strong>${item.from}</strong><span>${money(item.fee)}</span></div>
+            <div class="route-line" aria-hidden="true"><span></span></div>
+            <div class="route-point" style="text-align:right"><small>하차</small><strong>${item.to}</strong><span>${item.paymentDate}</span></div>
+          </div>
+        </button>
+      `;
+    }
+
+    function renderSettlement() {
+      const item = selectedSettlement();
+      const meta = statusMeta[item.status];
+      const paymentAmount = item.payment === null ? "미확정" : money(item.payment);
+      const header = subHeader("정산/송금 상세", `${item.id} · ${item.date}`, `<span class="badge ${meta.tone}">${meta.label}</span>`);
+      const body = `
+        <div class="scroll">
+          <div class="settlement-total">
+            <span>송금금액</span>
+            <strong>${paymentAmount}</strong>
+          </div>
+          <section class="section">
+            <div class="section-title"><h2>운행 정보</h2></div>
+            <div class="info-grid">
+              <div class="field wide"><span class="field-label">구간</span><strong class="field-value">${item.from} → ${item.to}</strong></div>
+              <div class="field"><span class="field-label">운행일</span><strong class="field-value">${item.date}</strong></div>
+              <div class="field"><span class="field-label">배차번호</span><strong class="field-value">${item.id}</strong></div>
+            </div>
+          </section>
+          <section class="section">
+            <div class="section-title"><h2>금액</h2></div>
+            <div class="amount-row">
+              <div class="amount-item"><span>배차금</span><strong>${money(item.fee)}</strong></div>
+              <div class="amount-item"><span>조정 요약</span><strong>${item.adjust}</strong></div>
+              <div class="amount-item"><span>송금금액</span><strong>${paymentAmount}</strong></div>
+            </div>
+          </section>
+          <section class="section">
+            <div class="section-title"><h2>송금 정보</h2></div>
+            <div class="amount-row">
+              <div class="amount-item"><span>송금상태</span><strong>${meta.label}</strong></div>
+              <div class="amount-item"><span>송금일</span><strong>${item.paymentDate}</strong></div>
+            </div>
+          </section>
+          ${item.status === "issue_hold" ? `<p class="notice danger">특이사항 확인이 끝나면 정산 가능 여부가 다시 안내됩니다.</p>` : ""}
+          <div class="button-row" style="margin-top:10px">
+            <button class="button ghost" type="button" data-action="contact">${icon("phone")}정산 문의</button>
+            <button class="button primary" type="button" data-action="openDetailFromSettlement">운행 상세 보기</button>
+          </div>
+        </div>
+      `;
+      return layout(header, body, "", "settlement");
+    }
+
+    function renderIssue() {
+      const shipment = selectedShipment();
+      const header = subHeader("특이사항 보고", `${shipment.id} · ${shipment.pickup.city} → ${shipment.dropoff.city}`, "");
+      const error = state.issueTouched && state.issueMemo.trim().length === 0;
+      const body = `
+        <div class="scroll with-action">
+          <section class="section">
+            <div class="section-title"><h2>유형 선택</h2></div>
+            <div class="issue-type-grid">
+              ${["파손", "수량 차이", "대기", "주소/담당자", "금액 이견", "기타"].map((label) => `
+                <button class="issue-type ${state.issueType === label ? "is-active" : ""}" type="button" data-issue-type="${label}">${label}</button>
+              `).join("")}
+            </div>
+          </section>
+          <section class="section">
+            <div class="section-title"><h2>메모</h2></div>
+            <textarea id="issueMemo" class="textarea" placeholder="현장 상황을 입력해 주세요.">${escapeHtml(state.issueMemo)}</textarea>
+            <p class="form-error ${error ? "is-visible" : ""}">특이사항 내용을 입력해 주세요.</p>
+          </section>
+          <section class="section">
+            <div class="section-title"><h2>사진 첨부</h2><span class="field-label">선택</span></div>
+            <button class="upload-box" type="button" data-action="mockPhoto">
+              ${icon("camera")}
+              <span>사진 추가<br>사진 없이도 제출할 수 있습니다.</span>
+            </button>
+          </section>
+          <p class="notice warning">제출 후 이 배차는 보류 후보로 표시될 수 있으며, 최종 보류 여부는 주선사가 확인합니다.</p>
+        </div>
+        <div class="sticky-action">
+          <button class="button primary" type="button" data-action="submitIssue" style="width:100%">${icon("check")}제출</button>
+        </div>
+      `;
+      return layout(header, body, "", "dispatch");
+    }
+
+    function modal() {
+      if (!state.modal) return `<div class="modal-layer" aria-hidden="true"></div>`;
+      const shipment = selectedShipment();
+      const isPickup = state.modal === "pickup";
+      const title = isPickup ? "상차완료로 등록할까요?" : "하차완료로 등록할까요?";
+      const place = isPickup ? shipment.pickup : shipment.dropoff;
+      const action = isPickup ? "confirmPickup" : "confirmDropoff";
+      const label = isPickup ? "상차완료 등록" : "하차완료 등록";
+      const notice = isPickup
+        ? "등록 후 주선사에 진행 상태가 공유됩니다."
+        : "하차완료는 차주의 현장 완료 등록입니다. 운행완료와 정산 가능 판단은 주선사가 확인합니다.";
+      return `
+        <div class="modal-layer is-visible" role="dialog" aria-modal="true" aria-labelledby="status-modal-title">
+          <div class="modal-card">
+            <h2 id="status-modal-title">${title}</h2>
+            <p>${notice}</p>
+            <div class="modal-facts">
+              <div class="modal-fact"><span>${isPickup ? "상차지" : "하차지"}</span><strong>${place.name}</strong></div>
+              <div class="modal-fact"><span>예정 시각</span><strong>${place.time}</strong></div>
+              <div class="modal-fact"><span>등록 시각</span><strong>현재 시각</strong></div>
+            </div>
+            ${!isPickup ? `<p class="notice warning">주선사 확인 후 운행완료/정산대기로 전환됩니다.</p>` : ""}
+            <div class="modal-actions">
+              <button class="button ghost" type="button" data-action="closeModal">취소</button>
+              <button class="button primary" type="button" data-action="${action}">${icon("check")}${label}</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;");
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("is-visible");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 2200);
+    }
+
+    function updateStatus(nextStatus, message) {
+      const shipment = selectedShipment();
+      shipment.status = nextStatus;
+      if (nextStatus === "pickup_done") {
+        shipment.timeline.pickup_done = "방금 상차완료 등록";
+      }
+      if (nextStatus === "dropoff_done") {
+        shipment.timeline.dropoff_done = "방금 하차완료 등록";
+      }
+      state.modal = null;
+      state.screen = "detail";
+      render();
+      showToast(message);
+    }
+
+    function submitIssue() {
+      state.issueTouched = true;
+      if (state.issueMemo.trim().length === 0) {
+        render();
+        return;
+      }
+      const shipment = selectedShipment();
+      shipment.status = "issue_hold";
+      shipment.issue = `${state.issueType}: ${state.issueMemo.trim()}`;
+      state.issueMemo = "";
+      state.issueTouched = false;
+      state.screen = "detail";
+      render();
+      showToast("특이사항이 제출되었습니다.");
+    }
+
+    function goBack() {
+      if (state.screen === "detail") state.screen = "dispatch";
+      else if (state.screen === "settlement") state.screen = "history";
+      else if (state.screen === "issue") state.screen = "detail";
+      else state.screen = "dispatch";
+      render();
+    }
+
+    function handleClick(event) {
+      const target = event.target.closest("button");
+      if (!target) return;
+
+      const navTarget = target.dataset.nav;
+      if (navTarget) {
+        state.screen = navTarget;
+        if (navTarget === "settlement") state.settlementId = historyItems[0].id;
+        render();
+        return;
+      }
+
+      if (target.dataset.dispatchFilter) {
+        state.dispatchFilter = target.dataset.dispatchFilter;
+        render();
+        return;
+      }
+
+      if (target.dataset.historyFilter) {
+        state.historyFilter = target.dataset.historyFilter;
+        render();
+        return;
+      }
+
+      if (target.dataset.openDetail) {
+        state.selectedId = target.dataset.openDetail;
+        state.screen = "detail";
+        render();
+        return;
+      }
+
+      if (target.dataset.historyId) {
+        state.settlementId = target.dataset.historyId;
+        state.screen = "settlement";
+        render();
+        return;
+      }
+
+      if (target.dataset.issueType) {
+        state.issueType = target.dataset.issueType;
+        render();
+        return;
+      }
+
+      if (target.dataset.shipment) {
+        state.selectedId = target.dataset.shipment;
+      }
+
+      const action = target.dataset.action;
+      if (!action) return;
+
+      if (action === "back") goBack();
+      if (action === "contact") showToast("담당자 문의 연결을 준비합니다.");
+      if (action === "route") showToast("길안내 앱으로 연결합니다.");
+      if (action === "copyAddress") showToast("주소가 복사되었습니다.");
+      if (action === "mockPhoto") showToast("사진 첨부는 선택 사항입니다.");
+      if (action === "openPickup") { state.modal = "pickup"; state.screen = "detail"; render(); }
+      if (action === "openDropoff") { state.modal = "dropoff"; state.screen = "detail"; render(); }
+      if (action === "closeModal") { state.modal = null; render(); }
+      if (action === "confirmPickup") updateStatus("pickup_done", "상차완료가 등록되었습니다.");
+      if (action === "confirmDropoff") updateStatus("dropoff_done", "하차완료가 등록되었습니다.");
+      if (action === "openIssue") { state.screen = "issue"; render(); }
+      if (action === "submitIssue") submitIssue();
+      if (action === "openSettlement") {
+        state.settlementId = state.selectedId;
+        state.screen = "settlement";
+        render();
+      }
+      if (action === "openDetailFromSettlement") {
+        const matched = shipments.find((item) => item.id === state.settlementId);
+        if (matched) state.selectedId = matched.id;
+        state.screen = "detail";
+        render();
+      }
+    }
+
+    function handleInput(event) {
+      if (event.target.id === "issueMemo") {
+        state.issueMemo = event.target.value;
+      }
+    }
+
+    function render() {
+      if (state.screen === "dispatch") app.innerHTML = renderDispatch();
+      if (state.screen === "detail") app.innerHTML = renderDetail();
+      if (state.screen === "history") app.innerHTML = renderHistory();
+      if (state.screen === "settlement") app.innerHTML = renderSettlement();
+      if (state.screen === "issue") app.innerHTML = renderIssue();
+    }
+
+    document.addEventListener("click", handleClick);
+    document.addEventListener("input", handleInput);
+    render();
+  </script>
+</body>
+</html>
