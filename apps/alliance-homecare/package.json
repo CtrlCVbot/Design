@@ -1,0 +1,27 @@
+{
+  "name": "alliance-homecare",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "tsx --test app/robots.test.ts app/sitemap.test.ts components/home.test.tsx components/site-shell.test.tsx components/content-page.test.tsx components/contact-form.test.tsx lib/__tests__/consultation.test.ts ../../tests/content-page.test.tsx ../../tests/contact-form.test.tsx ../../tests/home.test.tsx"
+  },
+  "dependencies": {
+    "@next/third-parties": "^15.3.1",
+    "next": "^15.3.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "eslint": "^9.25.0",
+    "eslint-config-next": "^15.3.1",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  }
+}
