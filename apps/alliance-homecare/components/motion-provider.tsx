@@ -38,7 +38,7 @@ function playCount(element: HTMLElement, animationFrames: Set<number>) {
 
 export function MotionProvider() {
   useEffect(() => {
-    const navigation = document.querySelector<HTMLElement>(".site-nav");
+    const navigation = document.querySelector<HTMLElement>("[data-motion-nav], .site-nav");
     const updateNavigation = () => { navigation?.toggleAttribute("data-scrolled", window.scrollY > 24); };
     updateNavigation();
     window.addEventListener("scroll", updateNavigation, { passive: true });

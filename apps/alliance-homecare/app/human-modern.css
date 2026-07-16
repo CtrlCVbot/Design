@@ -1,0 +1,1149 @@
+.version-switcher {
+  position: fixed;
+  top: 92px;
+  right: 22px;
+  z-index: 80;
+  display: grid;
+  width: max-content;
+  min-width: 214px;
+  padding: 8px;
+  flex: none;
+  gap: 7px;
+  border: 1px solid color-mix(in srgb, var(--cream) 36%, transparent);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--deep) 88%, transparent);
+  box-shadow: 0 16px 42px color-mix(in srgb, var(--deep) 24%, transparent);
+  backdrop-filter: blur(16px);
+}
+
+.version-switcher > span {
+  padding: 0 8px;
+  color: color-mix(in srgb, var(--cream) 70%, transparent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.version-switcher > div {
+  display: flex;
+  gap: 4px;
+}
+
+.version-switcher a {
+  min-height: 34px;
+  padding: 0 11px;
+  border-radius: 11px;
+  color: color-mix(in srgb, var(--cream) 78%, transparent);
+  font-size: 11px;
+  font-weight: 750;
+  line-height: 34px;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.version-switcher a:hover {
+  color: var(--cream);
+  transform: translateY(-1px);
+}
+
+.version-switcher a[aria-current="page"] {
+  color: var(--on-accent);
+  background: var(--terra);
+}
+
+.human-modern-home {
+  --hm-dark: var(--deep);
+  --hm-ink: var(--ink);
+  --hm-paper: color-mix(in srgb, var(--cream) 82%, var(--sand));
+  --hm-surface: var(--ivory);
+  --hm-accent: var(--terra);
+  --hm-accent-strong: var(--terra-deep);
+  --hm-accent-soft: var(--gold-hover);
+  --hm-muted: color-mix(in srgb, var(--sage) 80%, var(--cream));
+  --hm-line: color-mix(in srgb, var(--ink) 17%, transparent);
+  width: 100%;
+  min-width: 0;
+  overflow: clip;
+  color: var(--hm-ink);
+  background: var(--hm-paper);
+}
+
+.human-modern-home h1,
+.human-modern-home h2,
+.human-modern-home h3,
+.human-modern-home p,
+.human-modern-home figure,
+.human-modern-home blockquote {
+  margin: 0;
+}
+
+.human-modern-home h1,
+.human-modern-home h2,
+.human-modern-home h3 {
+  color: inherit;
+  font-family: "Noto Serif KR", serif;
+  letter-spacing: -.045em;
+}
+
+.human-modern-home p {
+  color: inherit;
+}
+
+.human-modern-nav {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 45;
+  display: flex;
+  height: 78px;
+  padding: 0 clamp(22px, 4vw, 64px);
+  align-items: center;
+  gap: 36px;
+  border-bottom: 1px solid transparent;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--hm-dark) 48%, transparent), transparent);
+  backdrop-filter: blur(0);
+  transition: height 240ms ease, box-shadow 240ms ease, background 240ms ease;
+}
+
+.human-modern-nav[data-scrolled] {
+  height: 62px;
+  border-bottom-color: color-mix(in srgb, var(--cream) 14%, transparent);
+  background: color-mix(in srgb, var(--hm-dark) 96%, transparent);
+  box-shadow: 0 18px 44px color-mix(in srgb, var(--hm-dark) 22%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.human-modern-brand {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--cream);
+  font-family: "Noto Serif KR", serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -.04em;
+  text-decoration: none;
+}
+
+.human-modern-brand > span {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50% 50% 50% 12px;
+  color: var(--on-accent);
+  background: var(--hm-accent);
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.human-modern-nav-links {
+  display: flex;
+  flex: 1;
+  gap: 26px;
+}
+
+.human-modern-nav-links a,
+.human-modern-phone {
+  color: color-mix(in srgb, var(--cream) 76%, transparent);
+  font-size: 13px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.human-modern-nav-links a:hover,
+.human-modern-phone:hover {
+  color: var(--hm-accent-soft);
+}
+
+.human-modern-nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.human-modern-home .theme-switcher {
+  color: color-mix(in srgb, var(--cream) 68%, transparent);
+}
+
+.human-modern-home .theme-switcher select {
+  min-height: 34px;
+  padding: 0 10px;
+  border-color: color-mix(in srgb, var(--cream) 24%, transparent);
+  background: color-mix(in srgb, var(--hm-dark) 70%, black 30%);
+}
+
+.human-modern-nav-cta {
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 999px;
+  color: var(--on-accent);
+  background: var(--hm-accent);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 42px;
+  text-decoration: none;
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.human-modern-nav-cta:hover {
+  background: var(--hm-accent-strong);
+  transform: translateY(-2px);
+}
+
+.human-modern-hero {
+  position: relative;
+  display: grid;
+  min-height: 100svh;
+  isolation: isolate;
+}
+
+.human-modern-hero-image {
+  z-index: -3;
+  object-fit: cover;
+  object-position: center 52%;
+  transform: scale(1.01);
+}
+
+.human-modern-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--hm-dark) 92%, transparent) 0%, color-mix(in srgb, var(--hm-dark) 73%, transparent) 44%, color-mix(in srgb, var(--hm-dark) 14%, transparent) 100%),
+    linear-gradient(0deg, color-mix(in srgb, var(--hm-dark) 34%, transparent), transparent 54%);
+}
+
+.human-modern-hero-inner {
+  position: relative;
+  display: flex;
+  width: min(1280px, 100%);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: clamp(110px, 14vh, 160px) clamp(24px, 6vw, 78px) 92px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.human-modern-kicker,
+.human-modern-eyebrow {
+  color: var(--hm-accent-soft) !important;
+  font-size: 12px !important;
+  font-weight: 850;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.human-modern-hero h1 {
+  max-width: 820px;
+  margin-top: 24px;
+  color: var(--cream);
+  font-size: clamp(54px, 6.3vw, 92px);
+  font-weight: 500;
+  line-height: 1.08;
+}
+
+.human-modern-hero h1 em,
+.human-modern-story em {
+  color: var(--hm-accent-soft);
+  font-style: normal;
+}
+
+.human-modern-hero-copy {
+  max-width: 590px;
+  margin-top: 30px !important;
+  color: color-mix(in srgb, var(--cream) 79%, transparent) !important;
+  font-size: 18px !important;
+  line-height: 1.85;
+}
+
+.human-modern-actions {
+  display: flex;
+  margin-top: 34px;
+  gap: 10px;
+}
+
+.human-modern-button {
+  display: inline-flex;
+  min-height: 54px;
+  padding: 0 22px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.human-modern-button:hover {
+  transform: translateY(-3px);
+}
+
+.human-modern-button:active {
+  transform: translateY(0) scale(.98);
+}
+
+.human-modern-button-primary {
+  color: var(--on-accent);
+  background: var(--hm-accent);
+}
+
+.human-modern-button-primary:hover {
+  background: var(--hm-accent-strong);
+}
+
+.human-modern-button-secondary {
+  border-color: color-mix(in srgb, var(--cream) 48%, transparent);
+  color: var(--cream);
+  background: color-mix(in srgb, var(--hm-dark) 22%, transparent);
+  backdrop-filter: blur(8px);
+}
+
+.human-modern-button-secondary:hover {
+  border-color: var(--cream);
+  background: color-mix(in srgb, var(--hm-dark) 48%, transparent);
+}
+
+.human-modern-hero-aside {
+  position: absolute;
+  right: clamp(24px, 6vw, 78px);
+  bottom: 64px;
+  width: min(300px, 28vw);
+  padding: 22px 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--cream) 42%, transparent);
+  color: color-mix(in srgb, var(--cream) 70%, transparent);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.human-modern-hero-aside strong,
+.human-modern-hero-aside span {
+  display: block;
+}
+
+.human-modern-hero-aside strong {
+  margin-bottom: 8px;
+  color: var(--cream);
+}
+
+.human-modern-hero-aside span {
+  color: var(--hm-accent-soft);
+  font-weight: 800;
+}
+
+.human-modern-trust {
+  display: grid;
+  grid-template-columns: 2.2fr repeat(3, 1fr);
+  padding: 0 max(24px, calc((100% - 1280px) / 2));
+  border-bottom: 1px solid var(--hm-line);
+  background: var(--hm-surface);
+}
+
+.human-modern-trust > div {
+  display: flex;
+  min-height: 118px;
+  padding: 24px 30px;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid var(--hm-line);
+}
+
+.human-modern-trust > div:last-child {
+  border-right: 0;
+}
+
+.human-modern-trust p {
+  max-width: 410px;
+  color: var(--hm-muted);
+  font-family: "Noto Serif KR", serif;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.human-modern-trust strong {
+  color: var(--hm-ink);
+  font-family: "Noto Serif KR", serif;
+  font-size: 28px;
+}
+
+.human-modern-trust span {
+  margin-top: 5px;
+  color: var(--hm-muted);
+  font-size: 12px;
+}
+
+.human-modern-section {
+  padding: 118px clamp(22px, 5vw, 72px);
+  scroll-margin-top: 70px;
+}
+
+.human-modern-section-inner {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.human-modern-section h2,
+.human-modern-final h2 {
+  max-width: 900px;
+  margin-top: 18px;
+  color: var(--hm-ink);
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 500;
+  line-height: 1.24;
+}
+
+.human-modern-lead {
+  max-width: 650px;
+  margin-top: 24px !important;
+  color: var(--hm-muted) !important;
+  font-size: 16px !important;
+  line-height: 1.9;
+}
+
+.human-modern-principles {
+  background: var(--hm-paper);
+}
+
+.human-modern-principles-layout {
+  display: grid;
+  margin-top: 72px;
+  grid-template-columns: minmax(330px, .9fr) 1.1fr;
+  gap: clamp(48px, 8vw, 110px);
+  align-items: start;
+}
+
+.human-modern-portrait {
+  position: sticky;
+  top: 96px;
+}
+
+.human-modern-portrait-media {
+  position: relative;
+  min-height: 620px;
+  overflow: hidden;
+  border-radius: 300px 300px 28px 28px;
+  background: var(--sand);
+}
+
+.human-modern-portrait img,
+.human-modern-sign img {
+  object-fit: cover;
+}
+
+.human-modern-portrait img {
+  object-position: 55% center;
+}
+
+.human-modern-principle {
+  display: grid;
+  min-height: 190px;
+  padding: 32px 0;
+  grid-template-columns: 58px 1fr;
+  gap: 18px;
+  border-top: 1px solid var(--hm-line);
+}
+
+.human-modern-principle > span,
+.human-modern-process-steps > article > span,
+.human-modern-change > span {
+  color: var(--hm-accent-strong);
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: .1em;
+}
+
+.human-modern-principle h3 {
+  font-size: 29px;
+  font-weight: 600;
+}
+
+.human-modern-principle p {
+  margin-top: 13px !important;
+  color: var(--hm-muted);
+  font-size: 15px;
+  line-height: 1.85;
+}
+
+.human-modern-services {
+  background: var(--hm-surface);
+}
+
+.human-modern-service-list {
+  margin-top: 68px;
+  border-top: 1px solid var(--hm-line);
+}
+
+.human-modern-service {
+  border-bottom: 1px solid var(--hm-line);
+}
+
+.human-modern-service h3 {
+  margin: 0;
+}
+
+.human-modern-service button {
+  display: grid;
+  width: 100%;
+  min-height: 112px;
+  padding: 18px 8px;
+  grid-template-columns: 54px minmax(170px, 1fr) minmax(260px, 1.2fr) 44px;
+  align-items: center;
+  gap: 20px;
+  border: 0;
+  color: var(--hm-ink);
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.human-modern-service-index {
+  color: var(--hm-accent-strong);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.human-modern-service-name {
+  font-family: "Noto Serif KR", serif;
+  font-size: 31px;
+  font-weight: 600;
+  letter-spacing: -.04em;
+}
+
+.human-modern-service-summary {
+  color: var(--hm-muted);
+  font-size: 14px;
+}
+
+.human-modern-service-plus {
+  font-family: "Noto Serif KR", serif;
+  font-size: 30px;
+  font-weight: 400;
+  transition: color 220ms ease, transform 260ms ease;
+}
+
+.human-modern-service button:hover .human-modern-service-plus {
+  color: var(--hm-accent-strong);
+}
+
+.human-modern-service button[aria-expanded="true"] .human-modern-service-plus {
+  color: var(--hm-accent-strong);
+  transform: rotate(45deg);
+}
+
+.human-modern-service-panel {
+  padding: 0 72px 34px 82px;
+}
+
+.human-modern-service-panel[hidden] {
+  display: none;
+}
+
+.human-modern-service-panel p {
+  max-width: 720px;
+  color: var(--hm-muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.human-modern-story {
+  display: grid;
+  min-height: 650px;
+  padding: 100px 24px;
+  place-items: center;
+  color: var(--cream);
+  background:
+    radial-gradient(circle at 82% 16%, color-mix(in srgb, var(--hm-accent) 22%, transparent), transparent 34%),
+    var(--hm-dark);
+  text-align: center;
+}
+
+.human-modern-story blockquote {
+  max-width: 1000px;
+  color: var(--cream);
+}
+
+.human-modern-story p {
+  color: var(--cream);
+  font-family: "Noto Serif KR", serif;
+  font-size: clamp(38px, 5vw, 68px);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -.045em;
+}
+
+.human-modern-story cite {
+  display: block;
+  margin-top: 34px;
+  color: color-mix(in srgb, var(--cream) 60%, transparent);
+  font-family: "Pretendard Variable", Pretendard, sans-serif;
+  font-size: 13px;
+  font-style: normal;
+}
+
+.human-modern-process {
+  background: var(--hm-paper);
+}
+
+.human-modern-process-steps {
+  display: grid;
+  margin-top: 70px;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--hm-line);
+  border-bottom: 1px solid var(--hm-line);
+}
+
+.human-modern-process-steps article {
+  min-height: 310px;
+  padding: 28px 28px 36px;
+  border-right: 1px solid var(--hm-line);
+}
+
+.human-modern-process-steps article:last-child {
+  border-right: 0;
+}
+
+.human-modern-process-steps h3 {
+  margin-top: 90px;
+  font-size: 25px;
+}
+
+.human-modern-process-steps p {
+  margin-top: 16px !important;
+  color: var(--hm-muted);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.human-modern-local {
+  background: var(--hm-surface);
+}
+
+.human-modern-local-layout {
+  display: grid;
+  grid-template-columns: 1fr .95fr;
+  gap: clamp(48px, 8vw, 100px);
+  align-items: center;
+}
+
+.human-modern-sign {
+  position: relative;
+  min-height: 560px;
+  overflow: hidden;
+  border-radius: 28px 220px 28px 28px;
+  background: var(--sand);
+}
+
+.human-modern-sign img {
+  object-position: 57% center;
+}
+
+.human-modern-local ul {
+  display: grid;
+  margin: 38px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.human-modern-local li {
+  display: grid;
+  padding: 17px 0;
+  grid-template-columns: 130px 1fr;
+  gap: 18px;
+  border-top: 1px solid var(--hm-line);
+  color: var(--hm-muted);
+  font-size: 14px;
+}
+
+.human-modern-local li strong {
+  color: var(--hm-ink);
+}
+
+.human-modern-changes {
+  background: var(--hm-paper);
+}
+
+.human-modern-change-list {
+  margin-top: 64px;
+  border-top: 1px solid var(--hm-line);
+}
+
+.human-modern-change {
+  display: grid;
+  min-height: 96px;
+  padding: 22px 8px;
+  grid-template-columns: 46px 1fr 48px 1.25fr;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid var(--hm-line);
+}
+
+.human-modern-change p {
+  color: var(--hm-muted);
+  font-size: 14px;
+}
+
+.human-modern-change b {
+  color: var(--hm-accent-strong);
+  font-size: 20px;
+}
+
+.human-modern-change strong {
+  color: var(--hm-ink);
+  font-family: "Noto Serif KR", serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.human-modern-rules {
+  color: var(--cream);
+  background: var(--hm-dark);
+}
+
+.human-modern-rules h2 {
+  color: var(--cream);
+}
+
+.human-modern-rule-grid {
+  display: grid;
+  margin-top: 66px;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+.human-modern-rule-grid article {
+  min-height: 330px;
+  padding: 30px 34px 38px 0;
+  border-right: 1px solid color-mix(in srgb, var(--cream) 20%, transparent);
+}
+
+.human-modern-rule-grid article + article {
+  padding-left: 34px;
+}
+
+.human-modern-rule-grid article:last-child {
+  border-right: 0;
+}
+
+.human-modern-rule-grid span {
+  color: var(--hm-accent-soft);
+  font-size: 11px;
+  font-weight: 850;
+  letter-spacing: .13em;
+}
+
+.human-modern-rule-grid h3 {
+  margin-top: 90px;
+  color: var(--cream);
+  font-size: 25px;
+}
+
+.human-modern-rule-grid p {
+  margin-top: 16px !important;
+  color: color-mix(in srgb, var(--cream) 63%, transparent);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.human-modern-final {
+  display: grid;
+  min-height: 620px;
+  padding: 110px 24px;
+  place-items: center;
+  background: var(--hm-accent-soft);
+  text-align: center;
+}
+
+.human-modern-final > div {
+  max-width: 940px;
+}
+
+.human-modern-final p {
+  max-width: 620px;
+  margin: 26px auto 0 !important;
+  color: color-mix(in srgb, var(--hm-ink) 76%, transparent);
+  font-size: 16px;
+  line-height: 1.85;
+}
+
+.human-modern-final .human-modern-actions {
+  justify-content: center;
+}
+
+.human-modern-final .human-modern-button-secondary {
+  border-color: color-mix(in srgb, var(--hm-ink) 45%, transparent);
+  color: var(--hm-ink);
+  background: transparent;
+}
+
+.human-modern-footer {
+  display: grid;
+  padding: 70px max(24px, calc((100% - 1180px) / 2));
+  grid-template-columns: 1fr 1fr;
+  gap: 24px 80px;
+  color: var(--cream);
+  background: var(--hm-dark);
+}
+
+.human-modern-footer p {
+  max-width: 520px;
+  color: color-mix(in srgb, var(--cream) 55%, transparent);
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.human-modern-footer small {
+  grid-column: 1 / -1;
+  padding-top: 24px;
+  border-top: 1px solid color-mix(in srgb, var(--cream) 14%, transparent);
+  color: color-mix(in srgb, var(--cream) 38%, transparent);
+}
+
+.human-modern-mobile-contact {
+  display: none;
+}
+
+.human-modern-home a:focus-visible,
+.human-modern-home button:focus-visible,
+.version-switcher a:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--hm-accent, var(--terra)) 52%, transparent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 1080px) {
+  .human-modern-nav-links,
+  .human-modern-phone {
+    display: none;
+  }
+
+  .human-modern-nav-actions {
+    margin-left: auto;
+  }
+
+  .human-modern-principles-layout,
+  .human-modern-local-layout {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .human-modern-process-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .human-modern-process-steps article:nth-child(2) {
+    border-right: 0;
+  }
+
+  .human-modern-process-steps article:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--hm-line);
+  }
+}
+
+@media (max-width: 767px) {
+  .version-switcher {
+    top: 78px;
+    right: auto;
+    bottom: auto;
+    left: 12px;
+    min-width: 0;
+  }
+
+  .version-switcher > span {
+    display: none;
+  }
+
+  .version-switcher a {
+    min-height: 32px;
+    padding: 0 9px;
+    line-height: 32px;
+  }
+
+  .human-modern-home {
+    padding-bottom: 90px;
+  }
+
+  .human-modern-nav,
+  .human-modern-nav[data-scrolled] {
+    height: 68px;
+    padding: 0 16px;
+  }
+
+  .human-modern-brand {
+    font-size: 16px;
+  }
+
+  .human-modern-brand > span {
+    width: 29px;
+    height: 29px;
+    font-size: 13px;
+  }
+
+  .human-modern-home .theme-switcher > span,
+  .human-modern-nav-cta {
+    display: none;
+  }
+
+  .human-modern-home .theme-switcher select {
+    width: 112px;
+    font-size: 10px;
+  }
+
+  .human-modern-hero {
+    min-height: 790px;
+  }
+
+  .human-modern-hero-image {
+    object-position: 64% center;
+  }
+
+  .human-modern-hero-shade {
+    background: linear-gradient(0deg, color-mix(in srgb, var(--hm-dark) 98%, transparent) 0%, color-mix(in srgb, var(--hm-dark) 76%, transparent) 68%, color-mix(in srgb, var(--hm-dark) 18%, transparent) 100%);
+  }
+
+  .human-modern-hero-inner {
+    padding: 120px 20px 118px;
+    justify-content: flex-end;
+  }
+
+  .human-modern-hero h1 {
+    margin-top: 18px;
+    font-size: clamp(43px, 13vw, 60px);
+  }
+
+  .human-modern-hero-copy {
+    margin-top: 22px !important;
+    font-size: 15px !important;
+  }
+
+  .human-modern-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .human-modern-button {
+    width: 100%;
+  }
+
+  .human-modern-hero-aside {
+    display: none;
+  }
+
+  .human-modern-trust {
+    grid-template-columns: repeat(2, 1fr);
+    padding: 0 20px;
+  }
+
+  .human-modern-trust > div {
+    min-height: 96px;
+    padding: 20px 12px;
+  }
+
+  .human-modern-trust > div:first-child {
+    grid-column: 1 / -1;
+    border-right: 0;
+    border-bottom: 1px solid var(--hm-line);
+  }
+
+  .human-modern-trust > div:nth-child(3) {
+    border-right: 0;
+  }
+
+  .human-modern-trust > div:last-child {
+    grid-column: 1 / -1;
+    border-top: 1px solid var(--hm-line);
+  }
+
+  .human-modern-section {
+    padding: 88px 20px;
+  }
+
+  .human-modern-section h2,
+  .human-modern-final h2 {
+    font-size: clamp(36px, 10vw, 48px);
+  }
+
+  .human-modern-principles-layout,
+  .human-modern-local-layout {
+    margin-top: 50px;
+    grid-template-columns: 1fr;
+  }
+
+  .human-modern-portrait {
+    position: relative;
+    top: auto;
+  }
+
+  .human-modern-portrait-media {
+    min-height: 390px;
+  }
+
+  .human-modern-principle {
+    min-height: 0;
+    padding: 28px 0;
+    grid-template-columns: 40px 1fr;
+    gap: 10px;
+  }
+
+  .human-modern-principle h3 {
+    font-size: 24px;
+  }
+
+  .human-modern-service-list {
+    margin-top: 48px;
+  }
+
+  .human-modern-service button {
+    min-height: 94px;
+    padding: 14px 0;
+    grid-template-columns: 34px 1fr 32px;
+    gap: 10px;
+  }
+
+  .human-modern-service-name {
+    font-size: 23px;
+  }
+
+  .human-modern-service-summary {
+    display: none;
+  }
+
+  .human-modern-service-panel {
+    padding: 0 42px 28px;
+  }
+
+  .human-modern-story {
+    min-height: 560px;
+    padding: 80px 20px;
+  }
+
+  .human-modern-story p {
+    font-size: clamp(33px, 9vw, 44px);
+  }
+
+  .human-modern-process-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .human-modern-process-steps article,
+  .human-modern-process-steps article:nth-child(2) {
+    min-height: 0;
+    padding: 28px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--hm-line);
+  }
+
+  .human-modern-process-steps article:last-child {
+    border-bottom: 0;
+  }
+
+  .human-modern-process-steps h3,
+  .human-modern-rule-grid h3 {
+    margin-top: 36px;
+  }
+
+  .human-modern-sign {
+    min-height: 390px;
+    border-radius: 24px 140px 24px 24px;
+  }
+
+  .human-modern-local li {
+    grid-template-columns: 100px 1fr;
+  }
+
+  .human-modern-change {
+    grid-template-columns: 36px 1fr;
+    gap: 10px;
+  }
+
+  .human-modern-change b {
+    display: none;
+  }
+
+  .human-modern-change strong {
+    grid-column: 2;
+    font-size: 18px;
+  }
+
+  .human-modern-rule-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .human-modern-rule-grid article,
+  .human-modern-rule-grid article + article {
+    min-height: 0;
+    padding: 30px 0;
+    border-right: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 20%, transparent);
+  }
+
+  .human-modern-rule-grid article:last-child {
+    border-bottom: 0;
+  }
+
+  .human-modern-final {
+    min-height: 560px;
+    padding: 90px 20px;
+  }
+
+  .human-modern-footer {
+    padding: 58px 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .human-modern-footer small {
+    grid-column: auto;
+  }
+
+  .human-modern-mobile-contact {
+    position: fixed;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    z-index: 70;
+    display: grid;
+    padding: 8px;
+    grid-template-columns: .7fr 1.3fr;
+    gap: 8px;
+    border: 1px solid color-mix(in srgb, var(--cream) 38%, transparent);
+    border-radius: 21px;
+    background: color-mix(in srgb, var(--hm-dark) 90%, transparent);
+    box-shadow: 0 16px 42px color-mix(in srgb, var(--hm-dark) 28%, transparent);
+    backdrop-filter: blur(16px);
+  }
+
+  .human-modern-mobile-contact a {
+    display: grid;
+    min-height: 50px;
+    place-items: center;
+    border-radius: 14px;
+    color: var(--cream);
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .human-modern-mobile-contact a:last-child {
+    color: var(--on-accent);
+    background: var(--hm-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .human-modern-home *,
+  .human-modern-home *::before,
+  .human-modern-home *::after,
+  .version-switcher a {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
