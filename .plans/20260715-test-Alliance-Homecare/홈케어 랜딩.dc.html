@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FAF6EE; font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C4703F; }
+    a:hover { color: #A85A2E; }
+    @keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    ::selection { background: #EAD9BF; color: #1C3A2E; }
+    section[id] { scroll-margin-top: 98px; }
+    @view-transition { navigation: auto; }
+    [data-arrow] { display: inline-block; transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+    a:hover [data-arrow] { transform: translateX(4px); }
+    [data-card] image-slot { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+    [data-card]:hover image-slot { transform: scale(1.05); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="min-width: 1180px; color: #22302A;">
+
+  <!-- ══════════ NAV ══════════ -->
+  <dc-import name="사이트 내비" active="home" brand="{{ brand }}" phone="{{ phone }}" style="position: sticky; top: 0; z-index: 60;" hint-size="100%,78px"></dc-import>
+
+  <!-- ══════════ HERO ══════════ -->
+  <section id="hero" data-screen-label="히어로" style="background: #1C3A2E; padding: 88px 40px 108px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 1fr 480px; gap: 72px; align-items: center;">
+      <div style="display: flex; flex-direction: column; gap: 26px;">
+        <div style="color: #D9A05B; font-size: 14px; font-weight: 700; letter-spacing: 0.14em; animation: heroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;">더 나은 돌봄 · 더 큰 안심</div>
+        <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 54px; line-height: 1.28; font-weight: 600; color: #FAF6EE; letter-spacing: -0.015em; text-wrap: pretty; animation: heroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.07s both;">돌봄이 가장 필요한 순간,<br>집에서 만나는 프리미엄 홈케어</h1>
+        <p style="margin: 0; font-size: 18px; line-height: 1.75; color: rgba(250,246,238,0.75); max-width: 520px; text-wrap: pretty; animation: heroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.14s both;">2006년부터 이어온 신뢰. 전문 간호사와 숙련된 요양보호사가 24시간 365일, 어르신과 가족의 곁을 지킵니다.</p>
+        <div style="display: flex; align-items: center; gap: 16px; margin-top: 10px; animation: heroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.21s both;">
+          <a href="상담 신청.dc.html" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; outline: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important; transform: translateY(-2px) !important; box-shadow: 0 10px 22px rgba(168,90,46,0.28) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(196,112,63,0.35) !important;">상담 신청하기</a>
+          <a href="{{ telHref }}" style="border: 1.5px solid rgba(250,246,238,0.45); color: #FAF6EE; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; outline: none; transition: border-color 0.2s, transform 0.2s;" style-hover="border-color: #FAF6EE !important; color: #FAF6EE !important; transform: translateY(-2px) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(250,246,238,0.35) !important;">{{ phone }}</a>
+        </div>
+      </div>
+      <div style="position: relative; justify-self: end;">
+        <image-slot id="hero-portrait" style="width: 480px; height: 560px; display: block;" mask="inset(0 round 240px 240px 28px 28px)" placeholder="히어로 사진 — 케어기버와 어르신"></image-slot>
+        <div style="position: absolute; left: -28px; bottom: 36px; background: #FAF6EE; border-radius: 18px; padding: 20px 26px; box-shadow: 0 24px 48px rgba(10,25,18,0.35); display: flex; flex-direction: column; gap: 4px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 700; color: #1C3A2E;">24시간 · 365일</div>
+          <div style="font-size: 13.5px; color: #5E6A61; font-weight: 500;">언제든 상시 케어 대응</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ PRESS ══════════ -->
+  <section data-screen-label="언론 보도" style="background: #FAF6EE; border-bottom: 1px solid #EBE2CF; padding: 34px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 40px;">
+      <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389; flex-shrink: 0;">언론이 주목한 홈케어</div>
+      <div style="display: flex; align-items: center; gap: 48px; flex-wrap: wrap;">
+        <span style="font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 700; color: #A9B0A3;">헬스투데이</span>
+        <span style="font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: #A9B0A3;">시니어저널</span>
+        <span style="font-family: 'Noto Serif KR', serif; font-size: 20px; font-weight: 600; color: #A9B0A3;">메디컬포스트</span>
+        <span style="font-size: 19px; font-weight: 800; letter-spacing: 0.06em; color: #A9B0A3;">위클리케어</span>
+        <span style="display: flex; align-items: center; gap: 8px;">
+          <span style="color: #C98F2B; font-size: 16px; letter-spacing: 2px;">★★★★★</span>
+          <span style="font-size: 14px; font-weight: 700; color: #5E6A61;">보호자 평점 4.9</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 소개 ══════════ -->
+  <section id="about" data-screen-label="소개" style="background: #FAF6EE; padding: 108px 40px 96px;">
+    <div style="max-width: 880px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 22px; align-items: center;" data-reveal="1">
+      <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">가장 신뢰받는 홈케어 파트너</div>
+      <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 42px; line-height: 1.35; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em; text-wrap: pretty;">2006년, 작은 방문간호팀에서<br>시작했습니다</h2>
+      <p style="margin: 0; font-size: 18px; line-height: 1.8; color: #5E6A61; max-width: 700px; text-wrap: pretty;">오늘날 전문 간호사와 요양보호사로 이루어진 케어팀이 서울·경기·인천 전 지역에서 종합 재가 돌봄을 제공합니다. 높은 기준의 돌봄은 고객의 건강으로, 그리고 가족의 안심으로 이어집니다.</p>
+      <div style="display: flex; justify-content: center; gap: 72px; margin-top: 34px;">
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 46px; font-weight: 700; color: #1C3A2E; font-variant-numeric: tabular-nums;" data-count="20" data-count-suffix="년">20년</div>
+          <div style="font-size: 14.5px; font-weight: 600; color: #8A9389;">한결같은 돌봄 경력</div>
+        </div>
+        <div style="width: 1px; background: #E4DCCB;"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 46px; font-weight: 700; color: #1C3A2E; font-variant-numeric: tabular-nums;" data-count="1200" data-count-suffix="+">1,200+</div>
+          <div style="font-size: 14.5px; font-weight: 600; color: #8A9389;">함께해 온 가정</div>
+        </div>
+        <div style="width: 1px; background: #E4DCCB;"></div>
+        <div style="display: flex; flex-direction: column; gap: 6px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 46px; font-weight: 700; color: #1C3A2E; font-variant-numeric: tabular-nums;" data-count="97" data-count-suffix="%">97%</div>
+          <div style="font-size: 14.5px; font-weight: 600; color: #8A9389;">가족 추천 지수</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 이용 후기 ══════════ -->
+  <section id="reviews" data-screen-label="이용 후기" style="background: #F1E8D8; padding: 100px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;" data-reveal="1">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">이용 가족의 이야기</div>
+          <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em;">돌봄을 맡긴 가족들이 말합니다</h2>
+        </div>
+        <a href="이용 후기.dc.html" style="color: #C4703F; font-size: 15.5px; font-weight: 700; text-decoration: none; padding-bottom: 4px;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">전체 후기 보기 <span data-arrow="1">→</span></a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;" data-reveal-group="1">
+        <figure style="margin: 0; background: #FFFDF8; border-radius: 20px; padding: 38px 34px 34px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #EFE6D2;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 54px; line-height: 0.6; color: #C4703F;">“</div>
+          <blockquote style="margin: 0; font-size: 16.5px; line-height: 1.8; color: #35423B; text-wrap: pretty;">파킨슨을 앓는 아버지를 3년째 부탁드리고 있습니다. 담당 간호사님의 세심함 덕분에 온 가족이 처음으로 마음 편히 잠들 수 있었습니다.</blockquote>
+          <figcaption style="border-top: 1px solid #EFE6D2; padding-top: 16px; display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-weight: 700; font-size: 15px; color: #1C3A2E;">김O현 님</span>
+            <span style="font-size: 13.5px; color: #8A9389;">보호자 · 방문 간호 이용</span>
+          </figcaption>
+        </figure>
+        <figure style="margin: 0; background: #FFFDF8; border-radius: 20px; padding: 38px 34px 34px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #EFE6D2;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 54px; line-height: 0.6; color: #C4703F;">“</div>
+          <blockquote style="margin: 0; font-size: 16.5px; line-height: 1.8; color: #35423B; text-wrap: pretty;">95세 어머니의 존엄을 지켜 주는 돌봄이었습니다. 의료진과의 협진, 가족과의 소통까지 무엇 하나 빈틈이 없습니다.</blockquote>
+          <figcaption style="border-top: 1px solid #EFE6D2; padding-top: 16px; display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-weight: 700; font-size: 15px; color: #1C3A2E;">박O순 님 가족</span>
+            <span style="font-size: 13.5px; color: #8A9389;">시니어 케어 이용</span>
+          </figcaption>
+        </figure>
+        <figure style="margin: 0; background: #FFFDF8; border-radius: 20px; padding: 38px 34px 34px; display: flex; flex-direction: column; gap: 18px; border: 1px solid #EFE6D2;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 54px; line-height: 0.6; color: #C4703F;">“</div>
+          <blockquote style="margin: 0; font-size: 16.5px; line-height: 1.8; color: #35423B; text-wrap: pretty;">퇴원 직후 막막했던 시기에 병원에서 집까지, 회복의 전 과정을 함께해 주셨습니다. 주저 없이 추천합니다.</blockquote>
+          <figcaption style="border-top: 1px solid #EFE6D2; padding-top: 16px; display: flex; flex-direction: column; gap: 2px;">
+            <span style="font-weight: 700; font-size: 15px; color: #1C3A2E;">이O든 님</span>
+            <span style="font-size: 13.5px; color: #8A9389;">보호자 · 퇴원 후 회복 케어</span>
+          </figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 서비스 ══════════ -->
+  <section id="services" data-screen-label="서비스" style="background: #FAF6EE; padding: 110px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 52px;">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 14px; align-items: center;" data-reveal="1">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">홈케어 서비스</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 40px; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em;">필요한 돌봄을, 필요한 만큼</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;" data-reveal-group="1">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-nursing" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="방문 간호 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">방문 간호</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">숙련된 전문 간호사가 집에서 제공하는 의료 중심의 케어 매니지먼트.</p>
+            <a href="홈케어 서비스.dc.html#nursing" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-aide" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="요양보호사 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">일상 돌봄</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">요양보호사 파견</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">식사·목욕·이동 등 일상생활 전반을 돕는 따뜻하고 세심한 손길.</p>
+            <a href="홈케어 서비스.dc.html#aide" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-chronic" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="만성질환 관리 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">만성질환 관리</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">장기적인 건강 변화에 맞춘 전문 케어 플랜과 의료 지원.</p>
+            <a href="만성질환 케어.dc.html" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-membership" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="웰니스 멤버십 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">멤버십</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">웰니스 멤버십</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">나에게 맞춘 건강한 일상 설계, 컨시어지 웰니스 멤버십.</p>
+            <a href="홈케어 서비스.dc.html#membership" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-senior" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="시니어 케어 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">일상 돌봄</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">시니어 케어</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">어르신의 존엄과 자립을 지키는 어르신 맞춤 돌봄 서비스.</p>
+            <a href="홈케어 서비스.dc.html#senior" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;" data-card="1">
+          <image-slot id="svc-pediatric" style="width: 100%; height: 210px; display: block;" shape="rect" placeholder="소아 홈케어 사진"></image-slot>
+          <div style="padding: 28px 28px 30px; display: flex; flex-direction: column; gap: 10px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+            <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">소아 홈케어</h3>
+            <p style="margin: 0; font-size: 15.5px; line-height: 1.7; color: #5E6A61;">아이가 집에서 안전하고 건강하게 자라도록 돕는 소아 전문 간호.</p>
+            <a href="홈케어 서비스.dc.html#pediatric" style="margin-top: 8px; color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 <span data-arrow="1">→</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 만성질환 ══════════ -->
+  <section id="conditions" data-screen-label="만성질환 케어" style="background: #1C3A2E; padding: 100px 40px;">
+    <div style="max-width: 1020px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 18px; align-items: center;" data-reveal="1">
+      <div style="color: #D9A05B; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">전문 장기 홈케어</div>
+      <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; font-weight: 600; color: #FAF6EE; letter-spacing: -0.01em;">만성질환, 질환별 전문 케어팀이 함께합니다</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.75; color: rgba(250,246,238,0.7); max-width: 640px; text-wrap: pretty;">질환의 특성을 깊이 이해하는 케어팀이 배정되어, 오래 지속되는 돌봄도 흔들림 없이 이어집니다.</p>
+      <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin-top: 30px; max-width: 860px;">
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">루게릭병 (ALS)</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">다발성 경화증</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">뇌졸중 후 회복</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">욕창·상처 관리</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">알츠하이머·치매</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">파킨슨병</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">기관절개·인공호흡기</a>
+        <a href="만성질환 케어.dc.html" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">외상성 뇌손상</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 우리의 약속 ══════════ -->
+  <section id="promise" data-screen-label="우리의 약속" style="background: #FAF6EE; padding: 112px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 460px 1fr; gap: 84px; align-items: center;" data-reveal="1">
+      <image-slot id="promise-portrait" style="width: 460px; height: 560px; display: block;" mask="inset(0 round 28px 200px 28px 200px)" placeholder="케어기버 인터뷰 사진"></image-slot>
+      <div style="display: flex; flex-direction: column; gap: 22px; max-width: 620px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">우리의 약속</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 40px; line-height: 1.35; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em; text-wrap: pretty;">내 가족에게 맡길 수 있는<br>사람만 모십니다</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.8; color: #5E6A61; text-wrap: pretty;">새로운 케어기버를 만날 때마다 스스로에게 묻습니다. “이분께 우리 부모님을 맡길 수 있을까?” 조금의 망설임도 없이 “네”라고 답할 수 있을 때, 비로소 우리 케어팀의 가족이 됩니다.</p>
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 6px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+            <span style="font-size: 16px; font-weight: 600; color: #35423B;">최고 수준의 케어기버만 선별 채용</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+            <span style="font-size: 16px; font-weight: 600; color: #35423B;">다단계 심층 면접과 채용 검증</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+            <span style="font-size: 16px; font-weight: 600; color: #35423B;">지속적인 교육과 역량 개발</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+            <span style="font-size: 16px; font-weight: 600; color: #35423B;">경력이 검증된 전문 간호 인력</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <span style="width: 26px; height: 26px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+            <span style="font-size: 16px; font-weight: 600; color: #35423B;">신원 조회를 마친 안심 케어 인력</span>
+          </div>
+        </div>
+        <div style="margin-top: 12px;">
+          <a href="회사 소개.dc.html" style="display: inline-block; border: 1.5px solid #1C3A2E; color: #1C3A2E; text-decoration: none; font-size: 15.5px; font-weight: 700; padding: 15px 30px; border-radius: 999px; outline: none; transition: background 0.2s, color 0.2s, transform 0.2s;" style-hover="background: #1C3A2E !important; color: #FAF6EE !important; transform: translateY(-2px) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(28,58,46,0.28) !important;">회사 소개 더 보기</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section id="cta" data-screen-label="상담 CTA" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 760px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 20px; align-items: center;" data-reveal="1">
+      <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; line-height: 1.4; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em; text-wrap: pretty;">돌봄이 필요한 순간,<br>함께 하겠습니다</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #5E6A61; text-wrap: pretty;">전화 한 통이면 충분합니다. 전담 케어 매니저가 24시간 안에 연락드려 상황에 꼭 맞는 케어 플랜을 안내해 드립니다.</p>
+      <div style="display: flex; align-items: center; gap: 16px; margin-top: 12px;">
+        <a href="상담 신청.dc.html" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; outline: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important; transform: translateY(-2px) !important; box-shadow: 0 10px 22px rgba(168,90,46,0.28) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(196,112,63,0.35) !important;">상담 신청하기</a>
+        <a href="{{ telHref }}" style="border: 1.5px solid #1C3A2E; color: #1C3A2E; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; outline: none; transition: background 0.2s, color 0.2s, transform 0.2s;" style-hover="background: #1C3A2E !important; color: #FAF6EE !important; transform: translateY(-2px) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(28,58,46,0.28) !important;">{{ phone }}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 채용 ══════════ -->
+  <section id="careers" data-screen-label="채용" style="background: #C4703F; padding: 64px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 48px;">
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 30px; font-weight: 600; color: #FFF9F0;">훌륭한 간호사·요양보호사님을 찾습니다</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.7; color: rgba(255,249,240,0.85); text-wrap: pretty;">당신의 시간과 전문성이 존중받는 곳, 헌신이 보상으로 이어지는 일터에서 함께하세요.</p>
+      </div>
+      <a href="회사 소개.dc.html#careers" style="flex-shrink: 0; border: 1.5px solid rgba(255,249,240,0.7); color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; transition: background 0.2s, color 0.2s;" style-hover="background: #FFF9F0 !important; color: #C4703F !important;">채용 안내 보기</a>
+    </div>
+  </section>
+
+  <!-- ══════════ 푸터 ══════════ -->
+  <dc-import name="사이트 푸터" brand="{{ brand }}" phone="{{ phone }}" hint-size="100%,620px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;brandName&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;새소망 방문요양&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;브랜드&quot;},
+  &quot;phoneNumber&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;1588-2470&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;브랜드&quot;}
+}">
+class Component extends DCLogic {
+  componentDidMount() {
+    import("./motion.js").then((m) => { this._cleanupMotion = m.initMotion(); });
+  }
+
+  componentWillUnmount() {
+    if (this._cleanupMotion) this._cleanupMotion();
+  }
+
+  renderVals() {
+    const brand = this.props.brandName ?? "새소망 방문요양";
+    const phone = this.props.phoneNumber ?? "1588-2470";
+    return {
+      brand,
+      phone,
+      telHref: "tel:" + phone.split("-").join(""),
+    };
+  }
+}
+</script>
+</body>
+</html>

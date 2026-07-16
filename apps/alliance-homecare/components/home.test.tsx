@@ -19,3 +19,13 @@ test("홈은 핵심 서비스와 상담 CTA를 렌더링한다", () => {
   assert.match(markup, /내 가족에게 맡길 수 있는/);
   assert.match(markup, /훌륭한 간호사·요양보호사님을 찾습니다/);
 });
+
+test("홈의 섹션과 통계는 공용 모션 계약을 노출한다", () => {
+  const markup = renderToStaticMarkup(<HomeContent />);
+  assert.match(markup, /data-reveal="true"/);
+  assert.match(markup, /data-reveal-group="true"/);
+  assert.match(markup, /data-count="20"/);
+  assert.match(markup, /data-count="1200"/);
+  assert.match(markup, /data-count="97"/);
+  assert.match(markup, />1,200\+</);
+});

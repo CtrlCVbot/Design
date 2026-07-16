@@ -7,13 +7,16 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test": "tsx --test app/robots.test.ts app/sitemap.test.ts components/home.test.tsx components/site-shell.test.tsx components/content-page.test.tsx components/contact-form.test.tsx lib/__tests__/consultation.test.ts ../../tests/content-page.test.tsx ../../tests/contact-form.test.tsx ../../tests/home.test.tsx"
+    "test": "tsx --test app/robots.test.ts app/sitemap.test.ts app/ux.test.ts components/home.test.tsx components/site-shell.test.tsx components/content-page.test.tsx components/contact-form.test.tsx components/motion-provider.test.tsx components/mobile-navigation.test.tsx components/theme-switcher.test.tsx lib/__tests__/consultation.test.ts ../../tests/content-page.test.tsx ../../tests/contact-form.test.tsx ../../tests/home.test.tsx"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.4.0",
     "@next/third-parties": "^15.3.1",
     "next": "^15.3.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "react-hook-form": "^7.81.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/node": "^22.15.3",

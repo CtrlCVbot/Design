@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+  <style>
+    body { margin: 0; font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #E2A265; }
+    a:hover { color: #FAF6EE; }
+    @keyframes underlineIn { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+  </style>
+</helmet>
+
+<header data-screen-label="내비게이션" data-comment-anchor="nav" style="background: #1C3A2E; border-bottom: 1px solid rgba(250,246,238,0.12); min-width: 1180px; box-shadow: {{ navShadow }}; transition: box-shadow 0.25s;">
+  <div style="max-width: 1280px; margin: 0 auto; height: {{ navHeight }}; padding: 0 40px; transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: space-between; gap: 32px;">
+    <a href="홈케어 랜딩.dc.html" style="display: flex; align-items: baseline; gap: 6px; text-decoration: none;">
+      <span style="font-family: 'Noto Serif KR', serif; font-size: {{ brandSize }}; font-weight: 700; color: #FAF6EE; letter-spacing: -0.01em; transition: font-size 0.25s;">{{ brand }}</span>
+      <span style="width: 7px; height: 7px; border-radius: 50%; background: #C4703F; display: inline-block;"></span>
+    </a>
+    <nav style="display: flex; align-items: center; gap: 34px;">
+      <a href="홈케어 서비스.dc.html" style="position: relative; color: rgba(250,246,238,0.85); text-decoration: none; font-size: 15px; font-weight: 500;" style-hover="color: #E2A265 !important;">홈케어 서비스<sc-if value="{{ isServices }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; background: #E2A265; border-radius: 2px; transform-origin: left; animation: underlineIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;"></span></sc-if></a>
+      <a href="이용 후기.dc.html" style="position: relative; color: rgba(250,246,238,0.85); text-decoration: none; font-size: 15px; font-weight: 500;" style-hover="color: #E2A265 !important;">이용 후기<sc-if value="{{ isReviews }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; background: #E2A265; border-radius: 2px; transform-origin: left; animation: underlineIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;"></span></sc-if></a>
+      <a href="만성질환 케어.dc.html" style="position: relative; color: rgba(250,246,238,0.85); text-decoration: none; font-size: 15px; font-weight: 500;" style-hover="color: #E2A265 !important;">만성질환 케어<sc-if value="{{ isConditions }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; background: #E2A265; border-radius: 2px; transform-origin: left; animation: underlineIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;"></span></sc-if></a>
+      <a href="회사 소개.dc.html" style="position: relative; color: rgba(250,246,238,0.85); text-decoration: none; font-size: 15px; font-weight: 500;" style-hover="color: #E2A265 !important;">회사 소개<sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; background: #E2A265; border-radius: 2px; transform-origin: left; animation: underlineIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;"></span></sc-if></a>
+    </nav>
+    <div style="display: flex; align-items: center; gap: 20px;">
+      <a href="{{ telHref }}" style="color: #FAF6EE; text-decoration: none; font-size: 16px; font-weight: 700; letter-spacing: 0.02em;" style-hover="color: #E2A265 !important;">{{ phone }}</a>
+      <a href="상담 신청.dc.html" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 15px; font-weight: 700; padding: 13px 26px; border-radius: 999px; outline: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important; transform: translateY(-2px) !important; box-shadow: 0 10px 22px rgba(168,90,46,0.28) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(196,112,63,0.35) !important;">상담 신청</a>
+    </div>
+  </div>
+</header>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: &quot;1440px&quot;, &quot;height&quot;: &quot;78px&quot;},
+  &quot;active&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;home&quot;, &quot;options&quot;: [&quot;home&quot;, &quot;services&quot;, &quot;reviews&quot;, &quot;conditions&quot;, &quot;about&quot;, &quot;contact&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;상태&quot;},
+  &quot;brand&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;새소망 방문요양&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;브랜드&quot;},
+  &quot;phone&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;1588-2470&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;브랜드&quot;}
+}">
+class Component extends DCLogic {
+  state = { compact: false };
+
+  componentDidMount() {
+    this._onScroll = () => {
+      const compact = window.scrollY > 24;
+      if (compact !== this.state.compact) this.setState({ compact });
+    };
+    window.addEventListener("scroll", this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this._onScroll);
+  }
+
+  renderVals() {
+    const active = this.props.active ?? "home";
+    const compact = this.state.compact;
+    const brand = this.props.brand ?? "새소망 방문요양";
+    const phone = this.props.phone ?? "1588-2470";
+    return {
+      brand,
+      phone,
+      telHref: "tel:" + phone.split("-").join(""),
+      navHeight: compact ? "60px" : "78px",
+      brandSize: compact ? "19px" : "23px",
+      navShadow: compact ? "0 10px 24px rgba(10,25,18,0.25)" : "0 0 0 rgba(0,0,0,0)",
+      isServices: active === "services",
+      isReviews: active === "reviews",
+      isConditions: active === "conditions",
+      isAbout: active === "about",
+    };
+  }
+}
+</script>
+</body>
+</html>

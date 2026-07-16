@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FAF6EE; font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C4703F; }
+    a:hover { color: #A85A2E; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes checkPop { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="min-width: 1180px; color: #22302A;">
+
+  <!-- ══════════ 문서 헤더 ══════════ -->
+  <header data-screen-label="문서 헤더" style="background: #1C3A2E; padding: 88px 40px 80px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <span style="background: #C4703F; color: #FFF9F0; font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; padding: 7px 14px; border-radius: 999px;">PROPOSAL v1.1</span>
+        <span style="color: rgba(250,246,238,0.5); font-size: 13.5px; font-weight: 600;">디자인 시스템 고도화 제안 · 2026.07</span>
+      </div>
+      <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 52px; line-height: 1.25; font-weight: 600; color: #FAF6EE; letter-spacing: -0.015em;">모션 · 인터랙션<br>고도화 제안</h1>
+      <p style="margin: 0; font-size: 17.5px; line-height: 1.75; color: rgba(250,246,238,0.75); max-width: 660px; text-wrap: pretty;">정적인 화면에 돌봄의 태도를 닮은 움직임을 더합니다. 모든 제안은 아래에서 직접 만져보고 재생할 수 있는 라이브 데모로 확인하세요.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px;">
+        <a href="#principles" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">01 모션 원칙</a>
+        <a href="#buttons" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">02 버튼 · 링크</a>
+        <a href="#cards" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">03 카드</a>
+        <a href="#transitions" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">04 내비 · 페이지 전환</a>
+        <a href="#reveal" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">05 스크롤 리빌</a>
+        <a href="#forms" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">06 폼 · 피드백</a>
+        <a href="#details" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">07 디테일 · 로드맵</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ 01 모션 원칙 ══════════ -->
+  <section id="principles" data-screen-label="모션 원칙" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">01 · 모션 원칙</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">모션은 돌봄의 태도를 닮아야 합니다</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">조용하고, 예측 가능하고, 재촉하지 않는 움직임. 화려함이 아니라 안심을 위한 모션입니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">조용함</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61;">바운스·회전·번쩍임 금지. 이동은 24px 이하, 스케일은 1.05 이하.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">목적</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61;">시선 유도와 상태 전달에만 사용합니다. 장식을 위한 모션은 없습니다.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">일관성</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61;">같은 컴포넌트는 어느 페이지에서든 같은 시간·같은 곡선으로 움직입니다.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 10px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">존중</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61;">모션 축소 설정 시 이동·스케일을 모두 끄고 120ms 페이드만 남깁니다.</p>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+          <div style="padding: 20px 28px; border-bottom: 1px solid #EFE6D2; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">지속 시간 토큰</div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #C4703F; font-weight: 600;">instant 120ms</div>
+            <div style="font-size: 14.5px; color: #5E6A61;">색상 틴트 — 링크·내비 호버</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #C4703F; font-weight: 600;">quick 200ms</div>
+            <div style="font-size: 14.5px; color: #5E6A61;">버튼 배경·리프트, 칩 채움, 프레스</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #C4703F; font-weight: 600;">standard 300ms</div>
+            <div style="font-size: 14.5px; color: #5E6A61;">카드 부상, 아코디언, 내비 축소(250ms)</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #C4703F; font-weight: 600;">gentle 500ms</div>
+            <div style="font-size: 14.5px; color: #5E6A61;">스크롤 리빌, 페이지 진입 스태거, 이미지 줌(600ms)</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding: 18px 28px; align-items: baseline;">
+            <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #C4703F; font-weight: 600;">slow 700ms</div>
+            <div style="font-size: 14.5px; color: #5E6A61;">페이지 전환 시퀀스 총합의 상한</div>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+          <div style="padding: 20px 28px; border-bottom: 1px solid #EFE6D2; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">이징 & 거리 규칙</div>
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">standard</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">cubic-bezier(0.4, 0, 0.2, 1)</span> — 호버·색상 등 상태 변화</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">enter</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">cubic-bezier(0.22, 1, 0.36, 1)</span> — 등장·리빌, 부드러운 착지</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; padding: 18px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">pop</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">cubic-bezier(0.34, 1.4, 0.64, 1)</span> — 접수 완료 체크 등 1회성 강조 전용</div>
+          </div>
+          <div style="padding: 18px 28px; font-size: 14.5px; line-height: 1.9; color: #5E6A61;">이동 ≤ 24px · 리프트 2~4px · 스케일 ≤ 1.05<br>그리드 스태거 70ms 간격 · 리빌은 뷰포트 진입 1회만</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 버튼 · 링크 ══════════ -->
+  <section id="buttons" data-screen-label="버튼과 링크" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">02 · 버튼 · 링크 · 칩</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">누르는 감각을 손끝에</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">현재는 색상 변화뿐입니다. 리프트 · 프레스 · 포커스 링 세 가지 상태를 더해 반응성을 높입니다. 아래 버튼을 직접 올려보고, 눌러보고, Tab 키로 이동해 보세요.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: stretch;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 36px 34px; display: flex; flex-direction: column; gap: 26px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">라이브 데모</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+            <a href="#buttons" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; outline: none;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important; transform: translateY(-2px) !important; box-shadow: 0 10px 22px rgba(168,90,46,0.28) !important;" style-active="transform: translateY(0) scale(0.98); box-shadow: 0 3px 8px rgba(168,90,46,0.2);" style-focus="box-shadow: 0 0 0 3px rgba(196,112,63,0.35);">프라이머리</a>
+            <a href="#buttons" style="border: 1.5px solid #1C3A2E; color: #1C3A2E; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; transition: background 0.2s, color 0.2s, transform 0.2s; outline: none;" style-hover="background: #1C3A2E; color: #FAF6EE !important; transform: translateY(-2px);" style-active="transform: translateY(0) scale(0.98);" style-focus="box-shadow: 0 0 0 3px rgba(28,58,46,0.28); background: #1C3A2E; color: #FAF6EE !important;">세컨더리</a>
+            <span style="background: #D8CBB8; color: #FFFDF8; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; cursor: not-allowed;">비활성</span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+            <a href="#buttons" style="border: 1px solid #C9BFA9; color: #35423B; text-decoration: none; font-size: 15px; font-weight: 600; padding: 13px 24px; border-radius: 999px; transition: background 0.2s, border-color 0.2s, color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">칩 — 채움 전환</a>
+            <a href="#buttons" style="color: #C4703F; font-size: 15.5px; font-weight: 700; text-decoration: none; transition: color 0.12s;" style-hover="color: #A85A2E !important; text-decoration: underline !important; text-underline-offset: 4px !important;">텍스트 링크 →</a>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+          <div style="padding: 20px 28px; border-bottom: 1px solid #EFE6D2; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">제안 스펙</div>
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">호버</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;">배경 딥 톤 + <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">translateY(-2px)</span> + 테라코타 그림자 · 200ms standard</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">프레스</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">scale(0.98)</span> + 그림자 축소 · 120ms — “눌렸다”는 물리적 피드백</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">포커스 링</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">0 0 0 3px rgba(196,112,63,0.35)</span> — focus-visible에만, 키보드 접근성 필수</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">비활성</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;">배경 <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">#D8CBB8</span> · 모션 없음 · cursor: not-allowed</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 17px 28px; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">텍스트 링크</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;">밑줄 오프셋 4px 등장 + 화살표 4px 슬라이드(<a href="#cards" style="color: #C4703F; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">03 카드 데모</a> 참고)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 카드 ══════════ -->
+  <section id="cards" data-screen-label="카드" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">03 · 카드</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">부상 + 이미지 줌, 두 겹의 깊이</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">현재의 -4px 부상에 이미지 줌(1.05)과 화살표 슬라이드를 더해, 카드 전체가 살아있는 하나의 표면처럼 반응합니다. 카드 위에 마우스를 올려보세요.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 380px 1fr; gap: 24px; align-items: stretch;">
+        <div onMouseEnter="{{ cardEnter }}" onMouseLeave="{{ cardLeave }}" style="background: #FFFDF8; border: 1px solid {{ cardBorder }}; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transform: {{ cardTransform }}; box-shadow: {{ cardShadow }}; transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s, border-color 0.3s;">
+          <div style="overflow: hidden; height: 200px;">
+            <image-slot id="ds-motion-card" style="width: 100%; height: 200px; display: block; transform: {{ imgTransform }}; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);" shape="rect" placeholder="카드 이미지 — 호버 시 줌"></image-slot>
+          </div>
+          <div style="padding: 26px 26px 28px; display: flex; flex-direction: column; gap: 9px;">
+            <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+            <div style="font-family: 'Noto Serif KR', serif; font-size: 23px; font-weight: 600; color: #1C3A2E;">방문 간호</div>
+            <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #5E6A61;">의료 중심의 케어 매니지먼트.</p>
+            <div style="margin-top: 6px; color: #C4703F; font-size: 14.5px; font-weight: 700; display: flex; align-items: center; gap: 5px;">자세히 보기 <span style="display: inline-block; transform: {{ arrowShift }}; transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);">→</span></div>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; align-self: start;">
+          <div style="padding: 20px 28px; border-bottom: 1px solid #EFE6D2; font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">제안 스펙 — 호버 시 동시 진행</div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">카드 부상</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">translateY(-4px)</span> + 그린 틴트 그림자 · 300ms enter</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">이미지 줌</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">scale(1.05)</span> · 600ms gentle — 카드보다 느리게, 여운을 남기며</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">화살표</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">translateX(4px)</span> · 250ms — “다음이 있다”는 방향 신호</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 17px 28px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">보더</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;">#EFE6D2 → <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">#E2D5BD</span> 로 한 단계 깊게</div>
+          </div>
+          <div style="display: grid; grid-template-columns: 140px 1fr; gap: 20px; padding: 17px 28px; align-items: baseline;">
+            <div style="font-size: 14px; font-weight: 700; color: #1C3A2E;">적용 대상</div>
+            <div style="font-size: 14.5px; line-height: 1.7; color: #5E6A61;">서비스 카드 · 질환 카드 · 후기 카드(부상만, 줌 없음)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 내비 · 페이지 전환 ══════════ -->
+  <section id="transitions" data-screen-label="내비와 페이지 전환" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">04 · 내비게이션 · 페이지 전환</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">이동의 순간에도 품위를</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">스크롤에 반응해 몸을 낮추는 내비게이션, 그리고 끊기지 않고 이어지는 페이지 전환을 제안합니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">데모 A — 스크롤 시 내비 축소 (박스 안을 스크롤)</div>
+          <div onScroll="{{ onMiniScroll }}" style="height: 260px; overflow-y: auto; border: 1px solid #E4DCCB; border-radius: 16px; background: #FAF6EE; position: relative;">
+            <div style="position: sticky; top: 0; z-index: 5; background: #1C3A2E; height: {{ navHeight }}; box-shadow: {{ navShadow }}; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; transition: height 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;">
+              <div style="display: flex; align-items: baseline; gap: 5px;">
+                <span style="font-family: 'Noto Serif KR', serif; font-size: {{ navBrandSize }}; font-weight: 700; color: #FAF6EE; transition: font-size 0.25s;">새소망 방문요양</span>
+                <span style="width: 5px; height: 5px; border-radius: 50%; background: #C4703F; display: inline-block;"></span>
+              </div>
+              <div style="display: flex; gap: 18px; align-items: center;">
+                <span style="color: rgba(250,246,238,0.85); font-size: 13px; font-weight: 500;">홈케어 서비스</span>
+                <span style="background: #C4703F; color: #FFF9F0; font-size: 12.5px; font-weight: 700; padding: 8px 16px; border-radius: 999px;">상담 신청</span>
+              </div>
+            </div>
+            <div style="padding: 28px 24px 40px; display: flex; flex-direction: column; gap: 18px;">
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 26px; font-weight: 600; color: #1C3A2E;">아래로 스크롤해 보세요</div>
+              <p style="margin: 0; font-size: 14.5px; line-height: 1.8; color: #5E6A61;">78px → 56px로 낮아지며 그림자가 생깁니다. 콘텐츠를 위한 공간을 양보하면서도, 상담 버튼은 항상 손 닿는 곳에 남습니다.</p>
+              <div style="height: 90px; background: #F1E8D8; border-radius: 14px;"></div>
+              <div style="height: 90px; background: #F1E8D8; border-radius: 14px;"></div>
+              <div style="height: 90px; background: #F1E8D8; border-radius: 14px;"></div>
+              <div style="height: 90px; background: #F1E8D8; border-radius: 14px;"></div>
+            </div>
+          </div>
+          <div style="font-size: 14px; line-height: 1.8; color: #5E6A61;">스크롤 24px 초과 시 축소 · 250ms standard · 로고 23→19px · 그림자 <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #FAF6EE; padding: 2px 8px; border-radius: 6px;">0 10px 24px rgba(10,25,18,0.28)</span></div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 16px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">데모 B — 페이지 전환 시퀀스</div>
+          <div style="height: 260px; border: 1px solid #E4DCCB; border-radius: 16px; background: #FAF6EE; position: relative; overflow: hidden;">
+            <div style="position: absolute; inset: 0; background: #FAF6EE; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 0 36px;">
+              <div style="color: #C4703F; font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; opacity: {{ bOpacity }}; transform: {{ bShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">다음 페이지 — 홈케어 서비스</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 27px; line-height: 1.35; font-weight: 600; color: #1C3A2E; opacity: {{ bOpacity }}; transform: {{ bShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 70ms, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 70ms;">필요한 돌봄을, 필요한 만큼</div>
+              <div style="display: flex; gap: 10px; opacity: {{ bOpacity }}; transform: {{ bShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 140ms, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 140ms;">
+                <span style="border: 1px solid #C9BFA9; color: #35423B; font-size: 12.5px; font-weight: 600; padding: 9px 18px; border-radius: 999px;">방문 간호</span>
+                <span style="border: 1px solid #C9BFA9; color: #35423B; font-size: 12.5px; font-weight: 600; padding: 9px 18px; border-radius: 999px;">요양보호사</span>
+              </div>
+            </div>
+            <div style="position: absolute; inset: 0; background: #1C3A2E; display: flex; flex-direction: column; justify-content: center; gap: 12px; padding: 0 36px; opacity: {{ aOpacity }}; transform: {{ aShift }}; transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform 0.2s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none;">
+              <div style="color: #D9A05B; font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em;">현재 페이지 — 랜딩</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 27px; line-height: 1.35; font-weight: 600; color: #FAF6EE;">돌봄이 가장 필요한 순간</div>
+              <div style="display: flex; gap: 10px; margin-top: 6px;">
+                <span style="background: #C4703F; color: #FFF9F0; font-size: 12.5px; font-weight: 700; padding: 9px 18px; border-radius: 999px;">상담 신청하기</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px;">
+            <button onClick="{{ play }}" style="background: #1C3A2E; color: #FAF6EE; border: none; cursor: pointer; font-size: 14px; font-weight: 700; font-family: inherit; padding: 12px 24px; border-radius: 999px; transition: background 0.2s;" style-hover="background: #14261F !important;">{{ playLabel }}</button>
+            <span style="font-size: 14px; color: #5E6A61;">나가기 200ms → 진입 스태거 70ms × 3</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; padding: 26px 30px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C4703F;">전환 규칙</div>
+        <div style="font-size: 15px; line-height: 1.9; color: #35423B;">· 나가기: 콘텐츠만 <span style="font-family: ui-monospace, monospace; font-size: 13px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">opacity 0 · translateY(-12px) · 200ms</span> — 배경색은 즉시 유지해 화면 번쩍임 방지.<br>· 들어오기: 히어로의 아이브로우 → 제목 → 본문 → CTA 순서로 70ms 스태거, 각 500ms enter.<br>· 브라우저가 지원하면 View Transitions API 크로스페이드 240ms를 우선 사용, 미지원 시 즉시 전환으로 폴백.<br>· 같은 페이지 내 앵커 이동은 smooth 스크롤 유지 + 각 섹션에 <span style="font-family: ui-monospace, monospace; font-size: 13px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">scroll-margin-top: 98px</span> (고정 내비 높이 보정).<br>· 내비 액티브 밑줄은 페이지 진입 시 왼쪽에서 width 0 → 100%로 250ms에 그립니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 스크롤 리빌 ══════════ -->
+  <section id="reveal" data-screen-label="스크롤 리빌" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">05 · 스크롤 리빌 · 숫자 카운트</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">스크롤을 따라 차오르는 화면</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">섹션이 뷰포트에 들어올 때 한 번, 조용히 떠오릅니다. 카드 그리드는 70ms 간격으로 순서를 갖고, 통계 숫자는 카운트업으로 시선을 붙잡습니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 24px; align-items: start;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">그리드 스태거 리빌</div>
+            <button onClick="{{ replayReveal }}" style="background: none; border: 1.5px solid #1C3A2E; color: #1C3A2E; cursor: pointer; font-size: 13.5px; font-weight: 700; font-family: inherit; padding: 10px 20px; border-radius: 999px; transition: background 0.2s, color 0.2s;" style-hover="background: #1C3A2E !important; color: #FAF6EE !important;">리빌 다시 재생</button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+            <div style="background: #FAF6EE; border: 1px solid #EFE6D2; border-radius: 16px; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; opacity: {{ revealOpacity }}; transform: {{ revealShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1), transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);">
+              <div style="color: #C4703F; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 600; color: #1C3A2E;">방문 간호</div>
+              <div style="font-size: 13px; color: #8A9389;">delay 0ms</div>
+            </div>
+            <div style="background: #FAF6EE; border: 1px solid #EFE6D2; border-radius: 16px; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; opacity: {{ revealOpacity }}; transform: {{ revealShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 70ms, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 70ms;">
+              <div style="color: #C4703F; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;">일상 돌봄</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 600; color: #1C3A2E;">요양보호사</div>
+              <div style="font-size: 13px; color: #8A9389;">delay 70ms</div>
+            </div>
+            <div style="background: #FAF6EE; border: 1px solid #EFE6D2; border-radius: 16px; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; opacity: {{ revealOpacity }}; transform: {{ revealShift }}; transition: opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1) 140ms, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 140ms;">
+              <div style="color: #C4703F; font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 600; color: #1C3A2E;">만성질환 관리</div>
+              <div style="font-size: 13px; color: #8A9389;">delay 140ms</div>
+            </div>
+          </div>
+          <div style="font-size: 14px; line-height: 1.8; color: #5E6A61; border-top: 1px solid #EFE6D2; padding-top: 18px;">IntersectionObserver <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">threshold 0.15</span> · 진입 1회만 실행 · 24px 상승 · 스태거는 최대 5개까지, 이후 동시 등장 · 히어로는 스크롤 없이 로드 직후 재생</div>
+        </div>
+
+        <div style="background: #1C3A2E; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 24px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: rgba(250,246,238,0.5);">통계 카운트업</div>
+            <button onClick="{{ playCount }}" style="background: none; border: 1.5px solid rgba(250,246,238,0.45); color: #FAF6EE; cursor: pointer; font-size: 13.5px; font-weight: 700; font-family: inherit; padding: 10px 20px; border-radius: 999px; transition: border-color 0.2s;" style-hover="border-color: #FAF6EE !important; color: #FAF6EE !important;">카운트 재생</button>
+          </div>
+          <div style="display: flex; gap: 40px;">
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 44px; font-weight: 700; color: #FAF6EE; font-variant-numeric: tabular-nums;">{{ countDisplay }}</div>
+              <div style="font-size: 13.5px; font-weight: 600; color: rgba(250,246,238,0.6);">함께해 온 가정</div>
+            </div>
+            <div style="width: 1px; background: rgba(250,246,238,0.18);"></div>
+            <div style="display: flex; flex-direction: column; gap: 6px;">
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 44px; font-weight: 700; color: #FAF6EE; font-variant-numeric: tabular-nums;">{{ pctDisplay }}</div>
+              <div style="font-size: 13.5px; font-weight: 600; color: rgba(250,246,238,0.6);">가족 추천 지수</div>
+            </div>
+          </div>
+          <div style="font-size: 14px; line-height: 1.8; color: rgba(250,246,238,0.7); border-top: 1px solid rgba(250,246,238,0.15); padding-top: 18px;">900ms · ease-out cubic · 뷰포트 진입 1회 · <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: rgba(250,246,238,0.1); padding: 2px 8px; border-radius: 6px;">tabular-nums</span>로 자릿수 흔들림 방지</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 06 폼 · 피드백 ══════════ -->
+  <section id="forms" data-screen-label="폼과 피드백" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">06 · 폼 · 피드백</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">모든 입력에 응답합니다</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">상담 신청은 이 사이트에서 가장 중요한 행동입니다. 포커스 링, 접수 중 상태, 완료의 안도감까지 — 입력의 전 과정을 설계합니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 22px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">입력 필드 상태 (클릭해 보세요)</div>
+          <label style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: #5E6A61;">포커스 — 보더 + 소프트 링, 150ms</span>
+            <input type="text" placeholder="성함을 입력해 주세요" style="background: #FFFDF8; border: 1px solid #E4DCCB; border-radius: 12px; padding: 14px 16px; font-size: 15.5px; font-family: inherit; color: #22302A; outline: none; transition: border-color 0.15s, box-shadow 0.15s;" style-focus="border-color: #C4703F !important; box-shadow: 0 0 0 4px rgba(196,112,63,0.12) !important;">
+          </label>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-size: 13.5px; font-weight: 700; color: #A03D2E;">오류 — 흔들림 없이, 색과 문장으로</span>
+            <div style="background: #FFFDF8; border: 1.5px solid #A03D2E; border-radius: 12px; padding: 14px 16px; font-size: 15.5px; color: #22302A;">010-1234</div>
+            <span style="font-size: 13.5px; font-weight: 600; color: #A03D2E;">연락처 형식을 확인해 주세요. 예) 010-0000-0000</span>
+          </div>
+          <div style="border-top: 1px solid #EFE6D2; padding-top: 20px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">제출 시퀀스 (버튼을 눌러보세요)</div>
+            <button onClick="{{ submitPlay }}" style="background: #C4703F; color: #FFF9F0; border: none; cursor: pointer; font-size: 15.5px; font-weight: 700; font-family: inherit; padding: 16px 32px; border-radius: 999px; display: flex; align-items: center; justify-content: center; gap: 10px; transition: background 0.2s;" style-hover="background: #A85A2E !important;">
+              <sc-if value="{{ submitLoading }}" hint-placeholder-val="{{ false }}"><span style="width: 15px; height: 15px; border: 2px solid rgba(255,249,240,0.35); border-top-color: #FFF9F0; border-radius: 50%; display: inline-block; animation: spin 0.7s linear infinite;"></span></sc-if>
+              {{ submitLabel }}
+            </button>
+            <sc-if value="{{ submitDone }}" hint-placeholder-val="{{ false }}">
+              <div style="display: flex; align-items: center; gap: 14px; background: #F0F5F0; border: 1px solid #CBDCCC; border-radius: 14px; padding: 16px 20px; animation: fadeUp 0.45s cubic-bezier(0.22, 1, 0.36, 1);">
+                <span style="width: 34px; height: 34px; border-radius: 50%; background: #2E6B4F; color: #FFF9F0; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; animation: checkPop 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);">✓</span>
+                <span style="font-size: 14.5px; line-height: 1.6; color: #22302A;"><strong style="font-weight: 700;">신청이 접수되었습니다.</strong> 24시간 안에 연락드리겠습니다.</span>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 18px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">FAQ 아코디언 (열어보세요)</div>
+            <div style="background: #FAF6EE; border: 1px solid #EFE6D2; border-radius: 14px; overflow: hidden;">
+              <button onClick="{{ faqToggle }}" style="width: 100%; background: none; border: none; cursor: pointer; font-family: inherit; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; text-align: left;">
+                <span style="font-size: 15.5px; font-weight: 700; color: #1C3A2E;">비용은 어떻게 되나요?</span>
+                <span style="font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 600; color: #C4703F; flex-shrink: 0; display: inline-block; transform: {{ faqIconRot }}; transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);">+</span>
+              </button>
+              <div style="max-height: {{ faqMax }}; opacity: {{ faqOpacity }}; overflow: hidden; transition: max-height 0.3s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s;">
+                <p style="margin: 0; padding: 0 24px 20px; font-size: 14.5px; line-height: 1.8; color: #5E6A61;">서비스 종류와 이용 시간에 따라 달라집니다. 상담에서 상황을 확인한 뒤 투명한 견적을 먼저 안내해 드립니다.</p>
+              </div>
+            </div>
+            <div style="font-size: 14px; line-height: 1.8; color: #5E6A61;">펼침 <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">max-height + opacity · 300ms enter</span> · 아이콘은 교체 대신 <span style="font-family: ui-monospace, monospace; font-size: 12.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">+ → 45° 회전</span>으로 ×가 됩니다 · 한 번에 하나만 열림 유지</div>
+          </div>
+
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 16px;">
+            <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">시맨틱 컬러 추가 제안</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <span style="width: 44px; height: 44px; border-radius: 12px; background: #2E6B4F; flex-shrink: 0;"></span>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <span style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">성공</span>
+                  <span style="font-family: ui-monospace, monospace; font-size: 12.5px; color: #8A9389;">#2E6B4F</span>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 14px;">
+                <span style="width: 44px; height: 44px; border-radius: 12px; background: #A03D2E; flex-shrink: 0;"></span>
+                <div style="display: flex; flex-direction: column; gap: 2px;">
+                  <span style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">오류</span>
+                  <span style="font-family: ui-monospace, monospace; font-size: 12.5px; color: #8A9389;">#A03D2E</span>
+                </div>
+              </div>
+            </div>
+            <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #5E6A61;">폼 검증과 접수 완료 전용. 브랜드 그린·테라코타와 같은 흙 계열에서 파생해 팔레트의 결을 유지합니다.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 07 디테일 · 로드맵 ══════════ -->
+  <section id="details" data-screen-label="디테일과 로드맵" style="background: #FAF6EE; padding: 96px 40px 120px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">07 · 마이크로 디테일 · 적용 로드맵</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">작은 것들이 완성합니다</h2>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 22px 34px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">텍스트 선택 색</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">::selection 배경 <span style="font-family: ui-monospace, monospace; font-size: 13px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">#EAD9BF</span> / 글자 #1C3A2E — 이 문장을 드래그해 보세요 (제안 상태)</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 22px 34px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">이미지 로드</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">로딩 중 배경 #F1E8D8 → 로드 완료 시 opacity 0→1, 400ms 페이드인. 레이아웃 시프트 없음.</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 22px 34px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">앵커 오프셋</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">모든 섹션에 <span style="font-family: ui-monospace, monospace; font-size: 13px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">scroll-margin-top: 98px</span> — 고정 내비에 제목이 가려지는 문제 해결</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 22px 34px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">키보드 접근성</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">모든 인터랙티브 요소에 focus-visible 링(02 참고) · 아코디언은 aria-expanded 상태 반영</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 22px 34px; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">모션 축소 존중</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;"><span style="font-family: ui-monospace, monospace; font-size: 13px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">prefers-reduced-motion: reduce</span> 시 이동·스케일·카운트업 제거, 120ms 페이드만 유지</div>
+        </div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 30px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 30px; font-weight: 700; color: #C4703F;">1</span>
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #8A9389;">즉시 적용 · 저위험</span>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #1C3A2E;">상태 피드백</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.75; color: #5E6A61;">버튼 리프트·프레스·포커스 링, 입력 포커스 링, 텍스트 링크 화살표, 카드 이미지 줌, 아코디언 전환.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 30px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 30px; font-weight: 700; color: #C4703F;">2</span>
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #8A9389;">페이지 단위</span>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #1C3A2E;">스크롤 경험</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.75; color: #5E6A61;">섹션 리빌 + 그리드 스태거, 통계 카운트업, 내비 스크롤 축소, 제출 시퀀스(접수 중 → 완료).</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 30px; display: flex; flex-direction: column; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <span style="font-family: 'Noto Serif KR', serif; font-size: 30px; font-weight: 700; color: #C4703F;">3</span>
+            <span style="font-size: 13px; font-weight: 700; letter-spacing: 0.1em; color: #8A9389;">사이트 단위</span>
+          </div>
+          <div style="font-size: 16px; font-weight: 700; color: #1C3A2E;">페이지 전환</div>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.75; color: #5E6A61;">나가기/들어오기 시퀀스, View Transitions 크로스페이드, 히어로 진입 스태거, 이미지 페이드인.</p>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #E4DCCB; padding-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <div style="font-size: 14px; color: #8A9389;">모션 · 인터랙션 고도화 제안 v1.1 · 디자인 시스템 v1.0의 확장 문서</div>
+        <div style="flex-shrink: 0; display: flex; gap: 24px;">
+          <a href="디자인 시스템.dc.html" style="color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">디자인 시스템 v1.0 →</a>
+          <a href="홈케어 랜딩.dc.html" style="color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">랜딩 페이지로 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = {
+    cardHover: false,
+    faqOpen: false,
+    phase: 0,
+    revealOn: true,
+    count: 1200,
+    pct: 97,
+    submitState: "idle",
+    navCompact: false,
+  };
+
+  componentWillUnmount() {
+    clearTimeout(this._t1);
+    clearTimeout(this._t2);
+    clearTimeout(this._t3);
+    cancelAnimationFrame(this._raf);
+  }
+
+  renderVals() {
+    const s = this.state;
+
+    const play = () => {
+      if (s.phase === 0) {
+        this.setState({ phase: 1 });
+        this._t1 = setTimeout(() => this.setState({ phase: 2 }), 240);
+      } else {
+        clearTimeout(this._t1);
+        this.setState({ phase: 0 });
+      }
+    };
+
+    const replayReveal = () => {
+      this.setState({ revealOn: false });
+      this._t2 = setTimeout(() => this.setState({ revealOn: true }), 80);
+    };
+
+    const playCount = () => {
+      cancelAnimationFrame(this._raf);
+      const t0 = performance.now();
+      const dur = 900;
+      this.setState({ count: 0, pct: 0 });
+      const tick = (now) => {
+        const p = Math.min(1, (now - t0) / dur);
+        const e = 1 - Math.pow(1 - p, 3);
+        this.setState({ count: Math.round(1200 * e), pct: Math.round(97 * e) });
+        if (p < 1) this._raf = requestAnimationFrame(tick);
+      };
+      this._raf = requestAnimationFrame(tick);
+    };
+
+    const submitPlay = () => {
+      if (s.submitState === "idle") {
+        this.setState({ submitState: "loading" });
+        this._t3 = setTimeout(() => this.setState({ submitState: "done" }), 1300);
+      } else if (s.submitState === "done") {
+        this.setState({ submitState: "idle" });
+      }
+    };
+
+    return {
+      // 03 카드
+      cardEnter: () => this.setState({ cardHover: true }),
+      cardLeave: () => this.setState({ cardHover: false }),
+      cardTransform: s.cardHover ? "translateY(-4px)" : "translateY(0)",
+      cardShadow: s.cardHover ? "0 20px 44px rgba(28,58,46,0.14)" : "0 0 0 rgba(28,58,46,0)",
+      cardBorder: s.cardHover ? "#E2D5BD" : "#EFE6D2",
+      imgTransform: s.cardHover ? "scale(1.05)" : "scale(1)",
+      arrowShift: s.cardHover ? "translateX(4px)" : "translateX(0)",
+
+      // 04 내비 축소
+      onMiniScroll: (e) => {
+        const compact = e.target.scrollTop > 24;
+        if (compact !== this.state.navCompact) this.setState({ navCompact: compact });
+      },
+      navHeight: s.navCompact ? "56px" : "78px",
+      navShadow: s.navCompact ? "0 10px 24px rgba(10,25,18,0.28)" : "0 0 0 rgba(0,0,0,0)",
+      navBrandSize: s.navCompact ? "17px" : "20px",
+
+      // 04 페이지 전환
+      play,
+      playLabel: s.phase === 0 ? "페이지 전환 재생" : "처음으로 되돌리기",
+      aOpacity: s.phase === 0 ? 1 : 0,
+      aShift: s.phase === 0 ? "translateY(0)" : "translateY(-12px)",
+      bOpacity: s.phase === 2 ? 1 : 0,
+      bShift: s.phase === 2 ? "translateY(0)" : "translateY(18px)",
+
+      // 05 리빌 + 카운트
+      replayReveal,
+      revealOpacity: s.revealOn ? 1 : 0,
+      revealShift: s.revealOn ? "translateY(0)" : "translateY(24px)",
+      playCount,
+      countDisplay: s.count.toLocaleString("ko-KR") + "+",
+      pctDisplay: s.pct + "%",
+
+      // 06 제출 + FAQ
+      submitPlay,
+      submitLabel: s.submitState === "loading" ? "접수 중…" : s.submitState === "done" ? "다시 재생" : "상담 신청하기",
+      submitLoading: s.submitState === "loading",
+      submitDone: s.submitState === "done",
+      faqToggle: () => this.setState((st) => ({ faqOpen: !st.faqOpen })),
+      faqMax: s.faqOpen ? "160px" : "0px",
+      faqOpacity: s.faqOpen ? 1 : 0,
+      faqIconRot: s.faqOpen ? "rotate(45deg)" : "rotate(0deg)",
+    };
+  }
+}
+</script>
+</body>
+</html>

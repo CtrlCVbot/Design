@@ -1,0 +1,133 @@
+/* 승인된 디자인 시스템 테마를 앱의 기존 토큰에 매핑합니다. */
+:root,
+html[data-theme="original"] {
+  --forest: #1c3a2e;
+  --deep: #14261f;
+  --cream: #faf6ee;
+  --sand: #f1e8d8;
+  --ivory: #fffdf8;
+  --terra: #c4703f;
+  --terra-deep: #a85a2e;
+  --on-accent: #fff9f0;
+  --ink: #22302a;
+  --ink-soft: #35423b;
+  --sage: #5e6a61;
+  --muted: #8a9389;
+  --line: #efe6d2;
+  --line-strong: #e4dccb;
+  --gold: #d9a05b;
+  --gold-hover: #e2a265;
+  --star: #c98f2b;
+  --hero-art-start: #9e6e50;
+  --hero-art-mid: #e5c8a2;
+  --hero-art-end: #6f8a70;
+  --image-start: #d9aa73;
+  --image-mid: #f1dfbd;
+  --image-end: #688170;
+}
+
+html[data-theme="yellow"] {
+  --forest: #5a4612;
+  --deep: #2e281a;
+  --cream: #fbf8ec;
+  --sand: #f1e8cd;
+  --ivory: #fffef8;
+  --terra: #b89218;
+  --terra-deep: #7b5e0a;
+  --on-accent: #2d2a20;
+  --ink: #2d2a20;
+  --ink-soft: #3e3a2b;
+  --sage: #68634f;
+  --muted: #91896f;
+  --line: #e8dfc3;
+  --line-strong: #d9cda4;
+  --gold: #d6b849;
+  --gold-hover: #e3ca67;
+  --star: #b98813;
+  --hero-art-start: #7b5e0a;
+  --hero-art-mid: #e3ca67;
+  --hero-art-end: #68634f;
+  --image-start: #b89218;
+  --image-mid: #efe3ae;
+  --image-end: #5a4612;
+}
+
+html[data-theme="gold-navy"] {
+  --forest: #1f3a5f;
+  --deep: #172a44;
+  --cream: #fcfaf4;
+  --sand: #f5ecd4;
+  --ivory: #ffffff;
+  --terra: #efae16;
+  --terra-deep: #c9820c;
+  --on-accent: #1f3a5f;
+  --ink: #233750;
+  --ink-soft: #3d526d;
+  --sage: #607087;
+  --muted: #8a96a5;
+  --line: #e5e1d7;
+  --line-strong: #d5d0c3;
+  --gold: #f3b51c;
+  --gold-hover: #ffd05a;
+  --star: #e09c0b;
+  --hero-art-start: #1f3a5f;
+  --hero-art-mid: #f3b51c;
+  --hero-art-end: #3d526d;
+  --image-start: #efae16;
+  --image-mid: #f7d36c;
+  --image-end: #1f3a5f;
+}
+
+html[data-theme="saesomang-heritage"] {
+  --forest: #3b3069;
+  --deep: #241d43;
+  --cream: #fcfaf2;
+  --sand: #eef4f7;
+  --ivory: #ffffff;
+  --terra: #ddb51c;
+  --terra-deep: #a9820c;
+  --on-accent: #2c2548;
+  --ink: #29283a;
+  --ink-soft: #47465b;
+  --sage: #656777;
+  --muted: #8a8c98;
+  --line: #e3e0d8;
+  --line-strong: #d2cec2;
+  --gold: #e8c53a;
+  --gold-hover: #f0d65d;
+  --star: #a33e69;
+  --hero-art-start: #3b3069;
+  --hero-art-mid: #e8c53a;
+  --hero-art-end: #a33e69;
+  --image-start: #ddb51c;
+  --image-mid: #f4e7a4;
+  --image-end: #3b3069;
+}
+
+.site-nav { background: var(--forest); border-bottom: 1px solid color-mix(in srgb, var(--cream) 12%, transparent); }
+.site-nav .brand, .nav-phone { color: var(--cream); }
+.site-nav .brand span, .site-nav nav a:hover, .site-nav nav a.active { color: var(--gold-hover); }
+.site-nav nav a { color: color-mix(in srgb, var(--cream) 85%, transparent); }
+.site-nav-actions { display: flex; align-items: center; gap: 16px; }
+.nav-phone { font-size: 16px; font-weight: 700; text-decoration: none; }
+.theme-switcher { display: flex; align-items: center; gap: 8px; color: color-mix(in srgb, var(--cream) 78%, transparent); font-size: 12px; font-weight: 700; white-space: nowrap; }
+.theme-switcher select { min-height: 36px; padding: 0 12px; border: 1px solid color-mix(in srgb, var(--cream) 28%, transparent); border-radius: 999px; color: var(--cream); background: color-mix(in srgb, var(--forest) 70%, black 30%); font: inherit; cursor: pointer; }
+.theme-switcher select:focus-visible { outline: 3px solid color-mix(in srgb, var(--gold) 60%, transparent); outline-offset: 2px; }
+.theme-switcher option { color: var(--ink); background: var(--ivory); }
+.nav-cta, .primary { background: var(--terra); color: var(--on-accent); }
+.nav-cta:hover, .primary:hover { background: var(--terra-deep); color: var(--on-accent); }
+.press { background: var(--cream); border-color: var(--line); }
+.press-inner > b, .stats span { color: var(--muted); }
+.press-outlets { color: color-mix(in srgb, var(--muted) 80%, var(--ivory)); }
+.press-rating { color: var(--sage); }
+.press-rating i { color: var(--star); }
+.service-detail, .service-grid, .content-grid, .service-item { border-color: var(--line-strong); }
+.service-jump a { border-color: color-mix(in srgb, var(--cream) 35%, transparent); }
+.process-grid p, .dark-callout p, .aside-dark span, .condition-quote span, .hero p:not(.eyebrow) { color: color-mix(in srgb, var(--cream) 74%, transparent); }
+.hero-art { background: linear-gradient(145deg, var(--hero-art-start), var(--hero-art-mid) 50%, var(--hero-art-end)); color: color-mix(in srgb, var(--cream) 85%, transparent); }
+.image-placeholder { background: linear-gradient(135deg, var(--image-start), var(--image-mid) 45%, var(--image-end)); }
+.image-placeholder span { color: color-mix(in srgb, var(--cream) 90%, transparent); }
+input, select, textarea { border-color: var(--line-strong); }
+input:focus, select:focus, textarea:focus { border-color: var(--terra); outline-color: color-mix(in srgb, var(--terra) 20%, transparent); }
+.site-footer p { color: color-mix(in srgb, var(--cream) 58%, transparent); }
+.site-footer small { color: color-mix(in srgb, var(--cream) 40%, transparent); border-top-color: color-mix(in srgb, var(--cream) 13%, transparent); }

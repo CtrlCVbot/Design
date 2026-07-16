@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>새소망 방문요양센터 디자인 시스템 v2 — 개나리 옐로</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&family=Noto+Serif+KR:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --yellow: #F6C400;
+      --yellow-deep: #D6A900;
+      --yellow-pale: #FFF7CE;
+      --navy: #281668;
+      --navy-deep: #17103D;
+      --navy-soft: #50448A;
+      --pink: #E52B87;
+      --pink-deep: #C91C70;
+      --sky: #CBEFFF;
+      --sky-pale: #F0FBFF;
+      --green: #15864B;
+      --ink: #242336;
+      --body: #5E6070;
+      --line: #E8E5DB;
+      --canvas: #FFFEF8;
+      --white: #FFFFFF;
+      --shadow: 0 18px 46px rgba(40, 22, 104, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--canvas); font-family: "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { min-width: 1180px; overflow: hidden; }
+    .container { width: min(1180px, calc(100% - 80px)); margin: 0 auto; }
+    .eyebrow { margin: 0; color: var(--pink); font-size: 12px; font-weight: 800; letter-spacing: .14em; }
+    h1, h2, h3 { font-family: "Noto Serif KR", serif; letter-spacing: -.035em; }
+    h1 { margin: 0; font-size: 53px; line-height: 1.28; }
+    h2 { margin: 0; color: var(--navy); font-size: 36px; line-height: 1.38; }
+    h3 { margin: 0; font-size: 21px; }
+    p { color: var(--body); font-size: 15.5px; line-height: 1.8; }
+    .hero { position: relative; padding: 88px 0 80px; color: var(--white); background: var(--navy); }
+    .hero::after { content: ""; position: absolute; right: -56px; bottom: -92px; width: 390px; height: 390px; border: 54px solid var(--yellow); border-radius: 50%; opacity: .95; }
+    .hero .container { position: relative; z-index: 1; }
+    .hero .eyebrow { display: inline-flex; margin-bottom: 20px; padding: 8px 13px; border-radius: 999px; color: var(--navy); background: var(--yellow); letter-spacing: .1em; }
+    .hero p { max-width: 650px; margin: 20px 0 0; color: rgba(255,255,255,.76); font-size: 17px; }
+    .notice { display: flex; align-items: flex-start; gap: 14px; margin-top: 27px; max-width: 690px; padding: 17px 19px; border: 1px solid rgba(255,255,255,.18); border-radius: 16px; background: rgba(23,16,61,.42); }
+    .notice b { color: var(--yellow); white-space: nowrap; }
+    .notice span { color: rgba(255,255,255,.7); font-size: 13.5px; line-height: 1.65; }
+    .nav { position: sticky; top: 0; z-index: 5; display: flex; gap: 10px; justify-content: center; padding: 14px; border-bottom: 1px solid var(--line); background: rgba(255,254,248,.94); backdrop-filter: blur(16px); }
+    .nav a { padding: 9px 16px; border: 1px solid transparent; border-radius: 999px; color: var(--navy); font-size: 13px; font-weight: 700; text-decoration: none; }
+    .nav a:hover { border-color: var(--yellow); background: var(--yellow-pale); }
+    section { padding: 94px 0; }
+    .section-head { display: flex; flex-direction: column; gap: 12px; max-width: 760px; margin-bottom: 42px; }
+    .section-head p { margin: 0; }
+    .palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .swatch { overflow: hidden; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+    .swatch-color { height: 130px; }
+    .swatch-copy { display: grid; gap: 4px; padding: 18px; }
+    .swatch-copy b { color: var(--navy); font-size: 15px; }
+    .swatch-copy code { color: var(--body); font-size: 13px; }
+    .swatch-copy small { color: #868797; font-size: 12px; }
+    .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+    .role { padding: 30px; border-radius: 20px; }
+    .role h3 { margin-bottom: 13px; }
+    .role p { margin: 0; }
+    .role--yellow { background: var(--yellow-pale); border: 1px solid #F4DE76; }
+    .role--yellow h3 { color: var(--navy); }
+    .role--navy { color: var(--white); background: var(--navy); }
+    .role--navy h3, .role--navy p { color: var(--white); }
+    .role--navy p { opacity: .74; }
+    .samples { background: var(--sky-pale); }
+    .sample-grid { display: grid; grid-template-columns: 1.3fr .7fr; gap: 24px; }
+    .sample { overflow: hidden; border: 1px solid #D5E6EF; border-radius: 24px; background: var(--white); box-shadow: var(--shadow); }
+    .mini-hero { min-height: 338px; padding: 44px; color: var(--navy); background: linear-gradient(130deg, var(--yellow) 0%, #FFE47C 100%); }
+    .mini-hero .eyebrow { color: var(--pink-deep); }
+    .mini-hero h3 { max-width: 520px; margin-top: 14px; font-size: 32px; line-height: 1.42; }
+    .mini-hero p { max-width: 500px; margin: 15px 0 24px; color: rgba(40,22,104,.76); }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; font: inherit; font-size: 14px; font-weight: 800; text-decoration: none; }
+    .button--primary { color: var(--white); background: var(--navy); box-shadow: 0 8px 18px rgba(40,22,104,.2); }
+    .button--primary:hover { background: var(--navy-deep); transform: translateY(-2px); }
+    .button--secondary { color: var(--navy); border: 1.5px solid var(--navy); background: transparent; }
+    .button--accent { color: var(--white); background: var(--pink); }
+    .button--accent:hover { background: var(--pink-deep); }
+    .button:focus-visible, .link:focus-visible { outline: 3px solid rgba(246,196,0,.7); outline-offset: 3px; }
+    .sample-copy { display: grid; gap: 18px; padding: 31px; }
+    .sample-copy p { margin: 0; }
+    .sample-copy .link { color: var(--pink-deep); font-size: 14px; font-weight: 800; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .sample-aside { padding: 31px; background: var(--navy); }
+    .sample-aside .eyebrow { color: var(--yellow); }
+    .sample-aside h3 { margin-top: 13px; color: var(--white); font-size: 28px; }
+    .sample-aside p { color: rgba(255,255,255,.7); }
+    .tag { display: inline-flex; width: fit-content; padding: 8px 11px; border-radius: 999px; color: var(--navy); background: var(--yellow); font-size: 12px; font-weight: 800; }
+    .card-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .card { display: grid; gap: 15px; min-height: 270px; padding: 29px; border: 1px solid var(--line); border-radius: 20px; background: var(--white); }
+    .card:hover { border-color: #E9C640; box-shadow: var(--shadow); transform: translateY(-4px); }
+    .card p { margin: 0; font-size: 14px; }
+    .card .link { align-self: end; color: var(--pink-deep); font-size: 14px; font-weight: 800; }
+    .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .rule { padding: 32px; border-radius: 20px; }
+    .rule h3 { margin-bottom: 14px; }
+    .rule ul { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; color: var(--body); font-size: 14px; line-height: 1.65; }
+    .rule li { position: relative; padding-left: 23px; }
+    .rule li::before { position: absolute; left: 0; font-weight: 900; }
+    .rule--do { border: 1px solid #DCEEDB; background: #F5FFF4; }
+    .rule--do h3 { color: var(--green); }
+    .rule--do li::before { content: "✓"; color: var(--green); }
+    .rule--dont { border: 1px solid #F5DFE7; background: #FFF8FA; }
+    .rule--dont h3 { color: var(--pink-deep); }
+    .rule--dont li::before { content: "×"; color: var(--pink-deep); }
+    .footer { padding: 62px 0; color: var(--white); background: var(--navy-deep); }
+    .footer p { margin: 13px 0 0; color: rgba(255,255,255,.66); }
+    .footer strong { color: var(--yellow); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="container">
+        <p class="eyebrow">COLOR EXPLORATION · v2</p>
+        <h1>새소망의 개나리 노랑을<br>웹의 첫인상으로</h1>
+        <p>간판의 밝은 노랑을 브랜드의 온기와 발견성을 만드는 주색으로 재해석한 색상 시안입니다. 기존 앱에는 적용하지 않았으며, 이 문서는 색상 변화만 판단하기 위한 독립 미리보기입니다.</p>
+        <div class="notice"><b>검토 범위</b><span>색상 토큰, CTA, 섹션 대비, 카드와 링크의 포인트만 제안합니다. 레이아웃·카피·모션·사진은 현재 버전을 그대로 유지하는 전제입니다.</span></div>
+      </div>
+    </header>
+
+    <nav class="nav" aria-label="문서 목차">
+      <a href="#colors">색상 토큰</a><a href="#roles">사용 원칙</a><a href="#preview">화면 미리보기</a><a href="#rules">적용 규칙</a>
+    </nav>
+
+    <main>
+      <section id="colors">
+        <div class="container">
+          <div class="section-head"><p class="eyebrow">01 · COLOR TOKENS</p><h2>노랑은 선명하게, 신뢰는 네이비로 지킵니다</h2><p>간판의 노랑을 그대로 넓게 쓰기보다, 밝은 배경·강한 CTA·상태 표시에서 역할을 나눕니다. 본문과 긴 문장은 짙은 네이비와 차분한 잉크색으로 유지합니다.</p></div>
+          <div class="palette">
+            <article class="swatch"><div class="swatch-color" style="background:#F6C400"></div><div class="swatch-copy"><b>새소망 옐로</b><code>#F6C400</code><small>핵심 CTA · 선택 · 강조 면</small></div></article>
+            <article class="swatch"><div class="swatch-color" style="background:#281668"></div><div class="swatch-copy"><b>새소망 네이비</b><code>#281668</code><small>헤더 · 본문 제목 · CTA 텍스트</small></div></article>
+            <article class="swatch"><div class="swatch-color" style="background:#E52B87"></div><div class="swatch-copy"><b>희망 핑크</b><code>#E52B87</code><small>아이브로우 · 보조 CTA · 알림</small></div></article>
+            <article class="swatch"><div class="swatch-color" style="background:#CBEFFF"></div><div class="swatch-copy"><b>맑은 하늘</b><code>#CBEFFF</code><small>정보 배경 · 부드러운 구획</small></div></article>
+          </div>
+          <div id="roles" class="roles">
+            <article class="role role--yellow"><h3>개나리 옐로는 “행동”에</h3><p>상담 신청, 현재 선택, 숫자 강조, 짧은 안내 배경에 씁니다. 긴 흰색 텍스트를 올리지 않고, 항상 네이비 텍스트와 짝지어 명도를 확보합니다.</p></article>
+            <article class="role role--navy"><h3>네이비는 “신뢰”에</h3><p>상단 내비게이션, 제목, 전화번호, 주요 CTA의 바탕을 맡습니다. 노랑이 강해질수록 네이비가 화면의 무게 중심이 됩니다.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="preview" class="samples">
+        <div class="container">
+          <div class="section-head"><p class="eyebrow">02 · PAGE PREVIEW</p><h2>색상만 바꾸었을 때의 홈 화면 인상</h2><p>개나리 옐로를 메인 표면으로 쓰고, 네이비 CTA와 핑크 링크를 배치한 미리보기입니다. 실제 콘텐츠나 정보 구조는 바꾸지 않는 기준입니다.</p></div>
+          <div class="sample-grid">
+            <article class="sample"><div class="mini-hero"><p class="eyebrow">PREMIUM HOMECARE</p><h3>돌봄이 필요한 순간,<br>가장 먼저 떠오르는 이름</h3><p>따뜻한 발견성과 요양 서비스의 신뢰를 한 화면 안에서 함께 만듭니다.</p><a class="button button--primary" href="#buttons">상담 신청하기 <span>→</span></a></div><div class="sample-copy"><span class="tag">24시간 365일 상담</span><h3>밝은 첫인상, 차분한 안내</h3><p>밝은 노랑의 면적은 히어로와 행동 영역으로 제한하고, 정보 카드와 본문은 충분한 여백의 흰색·하늘색으로 정리합니다.</p><a class="link" href="#rules">색상 적용 기준 보기 →</a></div></article>
+            <aside class="sample sample-aside"><p class="eyebrow">PHONE CONSULTATION</p><h3>031-726-5288</h3><p>급하신 상황이라면 전화로 먼저 말씀해 주세요. 연결부터 안내까지 차분하게 돕겠습니다.</p><span class="tag">상담 가능</span></aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="buttons">
+        <div class="container">
+          <div class="section-head"><p class="eyebrow">03 · COMPONENT SAMPLE</p><h2>버튼과 카드에서의 색상 역할</h2><p>노랑을 모든 버튼에 반복하지 않습니다. 가장 중요한 행동은 네이비 버튼으로 안정감을 주고, 노랑은 선택·강조 면으로 쓰는 조합입니다.</p></div>
+          <div class="card-row">
+            <article class="card"><span class="tag">PRIMARY CTA</span><h3>상담 신청</h3><p>밝은 영역에서는 네이비 채움 버튼으로 시선과 명도 대비를 확보합니다.</p><a class="button button--primary" href="#buttons">상담 신청하기 →</a></article>
+            <article class="card"><span class="tag">SECONDARY</span><h3>전화 상담</h3><p>부차 행동은 네이비 테두리로 정돈해, 주 CTA와 우선순위를 나눕니다.</p><a class="button button--secondary" href="#buttons">031-726-5288</a></article>
+            <article class="card"><span class="tag">ACCENT</span><h3>새 소식</h3><p>핑크는 알림·짧은 강조에만 사용합니다. 노랑과 한 영역에서 경쟁시키지 않습니다.</p><a class="button button--accent" href="#buttons">알림 확인하기</a></article>
+          </div>
+        </div>
+      </section>
+
+      <section id="rules" style="background:#FFF7CE">
+        <div class="container">
+          <div class="section-head"><p class="eyebrow">04 · USAGE RULES</p><h2>적용 전 지켜야 할 색상 기준</h2><p>간판의 정체성은 살리되, 의료·돌봄 서비스에 필요한 읽기 쉬움과 신뢰를 해치지 않기 위한 제한입니다.</p></div>
+          <div class="do-dont">
+            <article class="rule rule--do"><h3>권장</h3><ul><li>노랑 배경에는 네이비 텍스트만 사용합니다.</li><li>네이비 헤더와 노랑 포인트를 기본 대비로 둡니다.</li><li>하늘색은 정보 블록과 보조 구획에 넓게 씁니다.</li><li>핑크는 아이브로우·배지·짧은 링크에 제한합니다.</li></ul></article>
+            <article class="rule rule--dont"><h3>피해야 할 조합</h3><ul><li>노랑 위에 흰색 본문이나 작은 글자를 올리지 않습니다.</li><li>노랑·핑크·하늘색을 한 CTA에 함께 쓰지 않습니다.</li><li>긴 본문을 네이비 바탕에 두지 않습니다.</li><li>노랑을 모든 섹션 배경으로 반복하지 않습니다.</li></ul></article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><div class="container"><strong>새소망 방문요양센터 · 디자인 시스템 v2 색상 시안</strong><p>간판 사진에서 추출한 개나리 옐로 중심의 탐색안입니다. 승인 전까지 기존 앱·기존 디자인 시스템에는 적용하지 않습니다.</p></div></footer>
+  </div>
+</body>
+</html>
