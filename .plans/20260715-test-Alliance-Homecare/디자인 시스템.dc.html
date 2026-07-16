@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FAF6EE; font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C4703F; }
+    a:hover { color: #A85A2E; }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="min-width: 1180px; color: #22302A;">
+
+  <!-- ══════════ 문서 헤더 ══════════ -->
+  <header data-screen-label="문서 헤더" style="background: #1C3A2E; padding: 88px 40px 80px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 24px;">
+      <div style="display: flex; align-items: center; gap: 14px;">
+        <span style="background: rgba(250,246,238,0.1); border: 1px solid rgba(250,246,238,0.25); color: #FAF6EE; font-size: 12.5px; font-weight: 700; letter-spacing: 0.1em; padding: 7px 14px; border-radius: 999px;">DESIGN SYSTEM v1.0</span>
+        <span style="color: rgba(250,246,238,0.5); font-size: 13.5px; font-weight: 600;">2026.07 기준</span>
+      </div>
+      <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 52px; line-height: 1.25; font-weight: 600; color: #FAF6EE; letter-spacing: -0.015em;">새소망 방문요양<br>디자인 시스템</h1>
+      <p style="margin: 0; font-size: 17.5px; line-height: 1.75; color: rgba(250,246,238,0.75); max-width: 640px; text-wrap: pretty;">따뜻함과 전문성이 공존하는 프리미엄 홈케어 브랜드의 시각 언어. 랜딩·서비스·후기·소개·상담 전 페이지에 적용되는 규칙을 정의합니다.</p>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 6px;">
+        <a href="#colors" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">01 컬러</a>
+        <a href="#type" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">02 타이포그래피</a>
+        <a href="#buttons" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">03 버튼 & 링크</a>
+        <a href="#components" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">04 컴포넌트</a>
+        <a href="#shapes" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">05 모양 & 이미지</a>
+        <a href="#layout" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">06 레이아웃</a>
+        <a href="#voice" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 18px; border-radius: 999px;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">07 보이스 & 톤</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ 01 컬러 ══════════ -->
+  <section id="colors" data-screen-label="컬러" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">01 · 컬러</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">숲과 흙, 그리고 온기</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">딥 포레스트 그린이 신뢰를, 크림이 편안함을, 테라코타가 온기와 행동을 담당합니다. 한 화면에서 배경은 크림 계열 최대 2가지만 사용합니다.</p>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">브랜드 코어</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #1C3A2E;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">딥 포레스트</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#1C3A2E</div>
+              <div style="font-size: 13px; color: #5E6A61;">주요 섹션 배경 · 브랜드 컬러</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #14261F;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">포레스트 딥</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#14261F</div>
+              <div style="font-size: 13px; color: #5E6A61;">푸터 · 가장 어두운 층위</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #C4703F;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">테라코타</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#C4703F</div>
+              <div style="font-size: 13px; color: #5E6A61;">CTA · 아이브로우 · 포인트</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #A85A2E;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">테라코타 딥</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#A85A2E</div>
+              <div style="font-size: 13px; color: #5E6A61;">버튼·링크 호버 상태</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">배경 & 서피스</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #FAF6EE; border-bottom: 1px solid #EFE6D2;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">크림</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#FAF6EE</div>
+              <div style="font-size: 13px; color: #5E6A61;">기본 페이지 배경</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #F1E8D8; border-bottom: 1px solid #EFE6D2;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">샌드</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#F1E8D8</div>
+              <div style="font-size: 13px; color: #5E6A61;">교차 섹션 배경 (후기·CTA)</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #FFFDF8; border-bottom: 1px solid #EFE6D2;"></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">아이보리</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#FFFDF8</div>
+              <div style="font-size: 13px; color: #5E6A61;">카드 서피스</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; display: grid; grid-template-columns: 1fr 1fr;"><div style="background: #EFE6D2;"></div><div style="background: #E4DCCB;"></div></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">라인</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#EFE6D2 · #E4DCCB</div>
+              <div style="font-size: 13px; color: #5E6A61;">카드 보더 · 구분선 · 입력 보더</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">텍스트 & 다크 배경 포인트</div>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;">
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; display: grid; grid-template-columns: 1fr 1fr;"><div style="background: #22302A;"></div><div style="background: #35423B;"></div></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">잉크</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#22302A · #35423B</div>
+              <div style="font-size: 13px; color: #5E6A61;">기본 본문 · 강조 본문</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; display: grid; grid-template-columns: 1fr 1fr;"><div style="background: #5E6A61;"></div><div style="background: #8A9389;"></div></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">세이지</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#5E6A61 · #8A9389</div>
+              <div style="font-size: 13px; color: #5E6A61;">보조 본문 · 캡션/뮤트</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; display: grid; grid-template-columns: 1fr 1fr;"><div style="background: #D9A05B;"></div><div style="background: #E2A265;"></div></div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">골드</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#D9A05B · #E2A265</div>
+              <div style="font-size: 13px; color: #5E6A61;">다크 배경 위 아이브로우 · 링크 호버</div>
+            </div>
+          </div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; overflow: hidden;">
+            <div style="height: 96px; background: #C98F2B; display: flex; align-items: center; justify-content: center; color: #FFF9F0; font-size: 20px; letter-spacing: 3px;">★★★★★</div>
+            <div style="padding: 18px 20px; display: flex; flex-direction: column; gap: 4px;">
+              <div style="font-size: 15px; font-weight: 700; color: #1C3A2E;">별점 골드</div>
+              <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 13px; color: #8A9389;">#C98F2B</div>
+              <div style="font-size: 13px; color: #5E6A61;">별점 전용 컬러</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; padding: 26px 30px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C4703F;">사용 규칙</div>
+        <div style="font-size: 15px; line-height: 1.8; color: #35423B;">· 다크 배경 위 텍스트는 <span style="font-family: ui-monospace, monospace; font-size: 13.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">#FAF6EE</span>에 투명도 0.6~0.85를 적용해 위계를 만듭니다.<br>· 테라코타는 화면당 한 가지 역할(주 CTA)에 집중시키고, 넓은 면적 사용은 채용 배너 등 1개 섹션으로 제한합니다.<br>· 크림 위 아이브로우는 테라코타, 딥 포레스트 위 아이브로우는 골드를 사용합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 02 타이포그래피 ══════════ -->
+  <section id="type" data-screen-label="타이포그래피" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">02 · 타이포그래피</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">명조의 품격, 고딕의 명료함</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">제목은 Noto Serif KR로 신뢰와 품격을, 본문·UI는 Pretendard로 읽기 편한 명료함을 담습니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 40px 38px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 64px; line-height: 1.2; font-weight: 600; color: #1C3A2E;">돌봄</div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 16px; font-weight: 700; color: #1C3A2E;">Noto Serif KR</div>
+            <div style="font-size: 14px; line-height: 1.7; color: #5E6A61;">디스플레이 · 제목 · 인용 · 큰 숫자 전용. 웨이트 500~700.</div>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 40px 38px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 64px; line-height: 1.2; font-weight: 700; color: #1C3A2E; letter-spacing: -0.02em;">안심</div>
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div style="font-size: 16px; font-weight: 700; color: #1C3A2E;">Pretendard</div>
+            <div style="font-size: 14px; line-height: 1.7; color: #5E6A61;">본문 · UI · 캡션 · 아이브로우. 웨이트 500~800.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Display<br>Serif 600 · 48~54px · 1.28 · -0.015em</div>
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 48px; line-height: 1.28; font-weight: 600; color: #1C3A2E; letter-spacing: -0.015em;">집에서 만나는 프리미엄 홈케어</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Heading<br>Serif 600 · 36~42px · 1.35 · -0.01em</div>
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 38px; line-height: 1.35; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em;">필요한 돌봄을, 필요한 만큼</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Title<br>Serif 600 · 22~26px</div>
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 600; color: #1C3A2E;">방문 간호</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Eyebrow<br>Sans 700 · 13~14px · 0.14em</div>
+          <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">홈케어 서비스</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Body Large<br>Sans 400 · 17~18px · 1.75~1.8</div>
+          <div style="font-size: 18px; line-height: 1.75; color: #5E6A61; max-width: 640px;">2006년부터 이어온 신뢰. 전문 간호사와 숙련된 요양보호사가 24시간 365일, 어르신과 가족의 곁을 지킵니다.</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; border-bottom: 1px solid #EFE6D2; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Body<br>Sans 400 · 15~16.5px · 1.7~1.8</div>
+          <div style="font-size: 15.5px; line-height: 1.7; color: #5E6A61; max-width: 640px;">식사·목욕·이동 등 일상생활 전반을 돕는 따뜻하고 세심한 손길.</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 280px 1fr; gap: 32px; padding: 30px 38px; align-items: center;">
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; line-height: 1.7; color: #8A9389;">Caption<br>Sans 500~600 · 13~14.5px</div>
+          <div style="font-size: 13.5px; color: #8A9389;">보호자 · 방문 간호 이용</div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; padding: 26px 30px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C4703F;">사용 규칙</div>
+        <div style="font-size: 15px; line-height: 1.8; color: #35423B;">· 한 화면에서 명조 제목의 크기 단계는 최대 3개까지만 사용합니다.<br>· 본문 줄길이는 최대 700px, 긴 문단에는 <span style="font-family: ui-monospace, monospace; font-size: 13.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">text-wrap: pretty</span>를 적용합니다.<br>· 숫자 강조(통계·연도·절차 번호)는 명조 700을 사용해 브랜드 인상을 통일합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 03 버튼 & 링크 ══════════ -->
+  <section id="buttons" data-screen-label="버튼과 링크" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">03 · 버튼 & 링크</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">모든 액션은 필 형태로</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">버튼과 칩은 모두 border-radius 999px의 필(pill)입니다. 주 CTA는 화면당 하나의 테라코타 버튼으로 제한합니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 40px 38px; display: flex; flex-direction: column; gap: 28px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">라이트 배경 위</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+            <a href="#buttons" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; transition: background 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important;">프라이머리</a>
+            <a href="#buttons" style="border: 1.5px solid #1C3A2E; color: #1C3A2E; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; transition: background 0.2s, color 0.2s;" style-hover="background: #1C3A2E !important; color: #FAF6EE !important;">세컨더리</a>
+            <a href="#buttons" style="color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">텍스트 링크 →</a>
+          </div>
+          <div style="font-size: 14px; line-height: 1.8; color: #5E6A61;">프라이머리: 테라코타 → 호버 시 딥 테라코타.<br>세컨더리: 1.5px 아웃라인 → 호버 시 배경 반전.<br>텍스트 링크: 테라코타 700 + 화살표, 호버 시 밑줄.</div>
+        </div>
+        <div style="background: #1C3A2E; border-radius: 20px; padding: 40px 38px; display: flex; flex-direction: column; gap: 28px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: rgba(250,246,238,0.5);">다크 배경 위</div>
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; align-items: center;">
+            <a href="#buttons" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; transition: background 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important;">프라이머리</a>
+            <a href="#buttons" style="border: 1.5px solid rgba(250,246,238,0.45); color: #FAF6EE; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; transition: border-color 0.2s;" style-hover="border-color: #FAF6EE !important; color: #FAF6EE !important;">아웃라인</a>
+            <a href="#buttons" style="border: 1px solid rgba(250,246,238,0.35); color: #FAF6EE; text-decoration: none; font-size: 15.5px; font-weight: 600; padding: 14px 26px; border-radius: 999px; transition: background 0.2s, border-color 0.2s;" style-hover="background: #C4703F !important; border-color: #C4703F !important; color: #FFF9F0 !important;">칩 / 태그</a>
+          </div>
+          <div style="font-size: 14px; line-height: 1.8; color: rgba(250,246,238,0.7);">아웃라인: 반투명 보더 → 호버 시 불투명.<br>칩: 1px 보더의 얇은 필, 호버 시 테라코타로 채움.<br>내비 링크: 크림 0.85 → 호버 시 골드 #E2A265.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 04 컴포넌트 ══════════ -->
+  <section id="components" data-screen-label="컴포넌트" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">04 · 컴포넌트</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">반복되는 패턴</h2>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: start;">
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">서비스 카드</div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px);">
+            <image-slot id="ds-card-demo" style="width: 100%; height: 160px; display: block;" shape="rect" placeholder="카드 이미지"></image-slot>
+            <div style="padding: 24px 24px 26px; display: flex; flex-direction: column; gap: 9px;">
+              <div style="color: #C4703F; font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em;">전문 케어</div>
+              <div style="font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 600; color: #1C3A2E;">방문 간호</div>
+              <p style="margin: 0; font-size: 15px; line-height: 1.7; color: #5E6A61;">의료 중심의 케어 매니지먼트.</p>
+              <a href="#components" style="margin-top: 6px; color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">자세히 보기 →</a>
+            </div>
+          </div>
+          <div style="font-size: 13.5px; line-height: 1.7; color: #5E6A61;">radius 20 · 보더 #EFE6D2 · 호버 시 -4px 부상 + 그린 섀도</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">후기 카드</div>
+          <figure style="margin: 0; background: #FFFDF8; border-radius: 20px; padding: 32px 30px 28px; display: flex; flex-direction: column; gap: 16px; border: 1px solid #EFE6D2;">
+            <div style="font-family: 'Noto Serif KR', serif; font-size: 48px; line-height: 0.6; color: #C4703F;">“</div>
+            <blockquote style="margin: 0; font-size: 15.5px; line-height: 1.8; color: #35423B;">담당 간호사님의 세심함 덕분에 온 가족이 처음으로 마음 편히 잠들 수 있었습니다.</blockquote>
+            <figcaption style="border-top: 1px solid #EFE6D2; padding-top: 14px; display: flex; flex-direction: column; gap: 2px;">
+              <span style="font-weight: 700; font-size: 14.5px; color: #1C3A2E;">김O현 님</span>
+              <span style="font-size: 13px; color: #8A9389;">보호자 · 방문 간호 이용</span>
+            </figcaption>
+          </figure>
+          <div style="font-size: 13.5px; line-height: 1.7; color: #5E6A61;">명조 인용부호로 시작 · 상단 보더 구분의 출처 표기</div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #8A9389;">체크 리스트 & 통계</div>
+          <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 30px 28px; display: flex; flex-direction: column; gap: 14px;">
+            <div style="display: flex; align-items: center; gap: 13px;">
+              <span style="width: 24px; height: 24px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+              <span style="font-size: 15px; font-weight: 600; color: #35423B;">체크 아이템 — 원형 배지 + 600 텍스트</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 13px;">
+              <span style="width: 24px; height: 24px; border-radius: 50%; background: #C4703F; color: #FFF9F0; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">✓</span>
+              <span style="font-size: 15px; font-weight: 600; color: #35423B;">아이콘은 ✓ 글리프만 사용</span>
+            </div>
+            <div style="border-top: 1px solid #EFE6D2; margin-top: 6px; padding-top: 20px; display: flex; gap: 36px;">
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div style="font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 700; color: #1C3A2E;">20년</div>
+                <div style="font-size: 13px; font-weight: 600; color: #8A9389;">통계 블록</div>
+              </div>
+              <div style="width: 1px; background: #E4DCCB;"></div>
+              <div style="display: flex; flex-direction: column; gap: 4px;">
+                <div style="font-family: 'Noto Serif KR', serif; font-size: 34px; font-weight: 700; color: #1C3A2E;">97%</div>
+                <div style="font-size: 13px; font-weight: 600; color: #8A9389;">명조 700 + 캡션</div>
+              </div>
+            </div>
+          </div>
+          <div style="font-size: 13.5px; line-height: 1.7; color: #5E6A61;">일러스트·이모지 대신 글리프와 숫자로 절제된 표현</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 05 모양 & 이미지 ══════════ -->
+  <section id="shapes" data-screen-label="모양과 이미지" style="background: #FAF6EE; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">05 · 모양 & 이미지</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">아치 — 브랜드의 시그니처</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">주요 인물 사진은 창문을 닮은 아치형 마스크로 자릅니다. 큰 라운드(200~240px)와 작은 라운드(28px)를 대각 또는 상하로 조합합니다.</p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+        <div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">
+          <image-slot id="ds-arch-1" style="width: 240px; height: 290px; display: block;" mask="inset(0 round 120px 120px 14px 14px)" placeholder="아치 상단"></image-slot>
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; color: #8A9389; text-align: center;">round 240px 240px 28px 28px<br><span style="color: #5E6A61; font-family: 'Pretendard Variable', sans-serif; font-size: 13.5px;">히어로 · 스토리 인물</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">
+          <image-slot id="ds-arch-2" style="width: 240px; height: 290px; display: block;" mask="inset(0 round 14px 100px 14px 100px)" placeholder="대각 아치"></image-slot>
+          <div style="font-family: ui-monospace, 'SF Mono', monospace; font-size: 12.5px; color: #8A9389; text-align: center;">round 28px 200px 28px 200px<br><span style="color: #5E6A61; font-family: 'Pretendard Variable', sans-serif; font-size: 13.5px;">교차 배치 섹션 (좌우 교대)</span></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 14px; align-items: center;">
+          <div style="width: 240px; height: 290px; display: grid; grid-template-rows: 1fr 1fr 1fr; gap: 14px;">
+            <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 12.5px; color: #8A9389;">카드 · radius 20</div>
+            <div style="background: #FFFDF8; border: 1px solid #E4DCCB; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 12.5px; color: #8A9389;">입력 필드 · radius 12</div>
+            <div style="background: #1C3A2E; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: ui-monospace, monospace; font-size: 12.5px; color: #FAF6EE;">버튼/칩 · radius 999</div>
+          </div>
+          <div style="font-size: 13.5px; color: #5E6A61; text-align: center;">라운드 토큰 3단계</div>
+        </div>
+      </div>
+
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 16px; padding: 26px 30px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C4703F;">이미지 규칙</div>
+        <div style="font-size: 15px; line-height: 1.8; color: #35423B;">· 사진은 자연광의 따뜻한 실내, 케어기버와 고객이 함께 있는 장면을 우선합니다.<br>· 카드 썸네일은 마스크 없이 직사각형(카드 radius가 자름)을 사용합니다.<br>· 일러스트·아이콘 그래픽은 사용하지 않습니다 — 사진, 글리프, 숫자로만 구성합니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 06 레이아웃 ══════════ -->
+  <section id="layout" data-screen-label="레이아웃" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">06 · 레이아웃 & 간격</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">넉넉한 여백이 신뢰를 만듭니다</h2>
+      </div>
+      <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; overflow: hidden;">
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 24px 38px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">컨테이너</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">본문 <span style="font-family: ui-monospace, monospace; font-size: 13.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">max-width 1280px</span> · 문서류 1180px · 좌우 패딩 40px · 최소 지원 폭 1180px</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 24px 38px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">섹션 리듬</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">상하 패딩 96~112px · 배경 순환: 크림 → 샌드 → 딥 포레스트 (연속 2개 섹션에 같은 배경 금지)</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 24px 38px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">그리드</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">카드 그리드 gap 24~28px · 2컬럼 스플릿 gap 72~84px · 통계 나열은 1px 세로 라인으로 구분</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 24px 38px; border-bottom: 1px solid #EFE6D2; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">텍스트 스택</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">아이브로우 → 제목 → 본문 → 액션 순서, flex column gap 14~26px · 본문 최대 폭 700px</div>
+        </div>
+        <div style="display: grid; grid-template-columns: 240px 1fr; gap: 32px; padding: 24px 38px; align-items: baseline;">
+          <div style="font-size: 14.5px; font-weight: 700; color: #1C3A2E;">그림자</div>
+          <div style="font-size: 15px; line-height: 1.7; color: #5E6A61;">기본은 무그림자 + 보더. 호버 부상과 플로팅 카드에만 <span style="font-family: ui-monospace, monospace; font-size: 13.5px; background: #F1E8D8; padding: 2px 8px; border-radius: 6px;">rgba(28,58,46,···)</span> 그린 틴트 그림자 사용</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 07 보이스 & 톤 ══════════ -->
+  <section id="voice" data-screen-label="보이스와 톤" style="background: #FAF6EE; padding: 96px 40px 120px;">
+    <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">07 · 보이스 & 톤</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 36px; font-weight: 600; color: #1C3A2E;">조용한 확신으로 말합니다</h2>
+        <p style="margin: 0; font-size: 16px; line-height: 1.75; color: #5E6A61; max-width: 700px; text-wrap: pretty;">과장하지 않고, 재촉하지 않습니다. 돌봄을 맡기는 가족의 불안을 이해하는 어른의 말투 — 존댓말, 짧은 문장, 구체적인 약속.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #1C3A2E;">이렇게 씁니다</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #1C3A2E; font-weight: 800;">✓</span><span style="font-size: 15.5px; line-height: 1.7; color: #35423B;">“전담 매니저가 24시간 안에 연락드립니다” — 구체적 약속</span></div>
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #1C3A2E; font-weight: 800;">✓</span><span style="font-size: 15.5px; line-height: 1.7; color: #35423B;">“돌봄이 필요한 순간, 함께 하겠습니다” — 감정에 대한 공감</span></div>
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #1C3A2E; font-weight: 800;">✓</span><span style="font-size: 15.5px; line-height: 1.7; color: #35423B;">“케어 가능 여부를 정직하게 말씀드립니다” — 한계도 인정</span></div>
+          </div>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 34px 32px; display: flex; flex-direction: column; gap: 18px;">
+          <div style="font-size: 13px; font-weight: 700; letter-spacing: 0.12em; color: #C4703F;">이렇게 쓰지 않습니다</div>
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #C4703F; font-weight: 800;">✕</span><span style="font-size: 15.5px; line-height: 1.7; color: #5E6A61;">“국내 1위! 최저가 요양 서비스!” — 과장과 느낌표</span></div>
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #C4703F; font-weight: 800;">✕</span><span style="font-size: 15.5px; line-height: 1.7; color: #5E6A61;">“지금 바로 신청하세요, 마감 임박!” — 재촉과 조급함</span></div>
+            <div style="display: flex; gap: 12px; align-items: baseline;"><span style="color: #C4703F; font-weight: 800;">✕</span><span style="font-size: 15.5px; line-height: 1.7; color: #5E6A61;">이모지·유행어·반말 — 브랜드 톤에서 제외</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="border-top: 1px solid #E4DCCB; padding-top: 32px; display: flex; align-items: center; justify-content: space-between; gap: 24px;">
+        <div style="font-size: 14px; color: #8A9389;">새소망 방문요양 디자인 시스템 v1.0 · 적용 페이지: 랜딩 / 홈케어 서비스 / 이용 후기 / 만성질환 케어 / 회사 소개 / 상담 신청</div>
+        <div style="flex-shrink: 0; display: flex; gap: 24px;">
+          <a href="모션과 인터랙션.dc.html" style="color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">모션 · 인터랙션 제안 v1.1 →</a>
+          <a href="홈케어 랜딩.dc.html" style="color: #C4703F; font-size: 15px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">랜딩 페이지로 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+</body>
+</html>

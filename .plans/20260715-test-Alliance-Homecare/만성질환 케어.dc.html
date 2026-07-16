@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600;700&display=swap">
+  <style>
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: #FAF6EE; font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", sans-serif; -webkit-font-smoothing: antialiased; }
+    a { color: #C4703F; }
+    a:hover { color: #A85A2E; }
+    @keyframes heroIn { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    ::selection { background: #EAD9BF; color: #1C3A2E; }
+    section[id] { scroll-margin-top: 98px; }
+    @view-transition { navigation: auto; }
+    [data-arrow] { display: inline-block; transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+    a:hover [data-arrow] { transform: translateX(4px); }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } html { scroll-behavior: auto; } }
+  </style>
+  <script src="./image-slot.js"></script>
+</helmet>
+
+<div style="min-width: 1180px; color: #22302A;">
+
+  <dc-import name="사이트 내비" active="conditions" style="position: sticky; top: 0; z-index: 60;" hint-size="100%,78px"></dc-import>
+
+  <!-- ══════════ 페이지 히어로 ══════════ -->
+  <section data-screen-label="만성질환 히어로" style="background: #1C3A2E; padding: 84px 40px 76px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px; animation: heroIn 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;">
+      <div style="color: #D9A05B; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">만성질환 케어</div>
+      <h1 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 48px; line-height: 1.3; font-weight: 600; color: #FAF6EE; letter-spacing: -0.015em; text-wrap: pretty;">질환을 이해하는 돌봄은<br>다릅니다</h1>
+      <p style="margin: 0; font-size: 18px; line-height: 1.75; color: rgba(250,246,238,0.75); max-width: 620px; text-wrap: pretty;">오래 이어지는 질환일수록 돌봄의 전문성이 삶의 질을 좌우합니다. 질환별 교육과 경험을 갖춘 전문 케어팀이 배정됩니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ 케어 방식 ══════════ -->
+  <section data-screen-label="케어 방식" style="background: #F1E8D8; padding: 100px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
+      <div style="display: flex; flex-direction: column; gap: 14px;" data-reveal="1">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">우리의 케어 방식</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em;">세 가지 원칙으로 움직입니다</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px;" data-reveal-group="1">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 40px; font-weight: 700; color: #C4703F;">01</div>
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 600; color: #1C3A2E;">질환 전문 케어팀 배정</h3>
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.75; color: #5E6A61; text-wrap: pretty;">질환별 교육과 실무 경험을 갖춘 간호사·요양보호사가 한 팀으로 배정되어, 담당이 바뀌어도 돌봄의 기준은 바뀌지 않습니다.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 40px; font-weight: 700; color: #C4703F;">02</div>
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 600; color: #1C3A2E;">주치의·병원 협진</h3>
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.75; color: #5E6A61; text-wrap: pretty;">진료 기록과 케어 기록을 연계해 의료진과 같은 방향으로 움직입니다. 증상 변화는 즉시 공유됩니다.</p>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 36px 32px; display: flex; flex-direction: column; gap: 14px;">
+          <div style="font-family: 'Noto Serif KR', serif; font-size: 40px; font-weight: 700; color: #C4703F;">03</div>
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 22px; font-weight: 600; color: #1C3A2E;">정기 가족 리포트</h3>
+          <p style="margin: 0; font-size: 15.5px; line-height: 1.75; color: #5E6A61; text-wrap: pretty;">상태 변화와 케어 내용을 정기적으로 정리해 보내드립니다. 멀리 있어도 곁에 있는 것처럼 안심할 수 있습니다.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ 질환 목록 ══════════ -->
+  <section data-screen-label="질환별 케어" style="background: #FAF6EE; padding: 104px 40px;">
+    <div style="max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 48px;">
+      <div style="text-align: center; display: flex; flex-direction: column; gap: 14px; align-items: center;" data-reveal="1">
+        <div style="color: #C4703F; font-size: 14px; font-weight: 700; letter-spacing: 0.14em;">질환별 전문 케어</div>
+        <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em;">이런 질환을 돌보고 있습니다</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;" data-reveal-group="1">
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">루게릭병 (ALS)</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">호흡·연하 기능의 변화까지 단계별로 대응하는 전문 케어.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">다발성 경화증</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">증상의 기복에 맞춰 유연하게 조정되는 케어 플랜.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">뇌졸중 후 회복</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">재활 운동 보조와 재발 방지를 위한 상시 모니터링.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">욕창·상처 관리</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">전문 간호사의 체계적인 상처 치료와 예방 관리.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">알츠하이머·치매</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">치매 전문 교육을 이수한 케어팀의 인지 중심 돌봄.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">파킨슨병</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">운동 증상 변화를 기록하고 낙상을 예방하는 돌봄.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">기관절개·인공호흡기</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">의료기기 관리에 숙련된 전문 간호 인력이 배정됩니다.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+        <div style="background: #FFFDF8; border: 1px solid #EFE6D2; border-radius: 20px; padding: 32px 28px; display: flex; flex-direction: column; gap: 12px; transition: box-shadow 0.25s, transform 0.25s, border-color 0.25s;" style-hover="box-shadow: 0 20px 44px rgba(28,58,46,0.12); transform: translateY(-4px); border-color: #E2D5BD !important;">
+          <h3 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 21px; font-weight: 600; color: #1C3A2E;">외상성 뇌손상</h3>
+          <p style="margin: 0; font-size: 14.5px; line-height: 1.7; color: #5E6A61; flex: 1; text-wrap: pretty;">인지·신체 회복을 함께 돕는 긴 호흡의 케어.</p>
+          <a href="상담 신청.dc.html" style="color: #C4703F; font-size: 14.5px; font-weight: 700; text-decoration: none;" style-hover="text-decoration: underline !important; color: #A85A2E !important;">상담하기 <span data-arrow="1">→</span></a>
+        </div>
+      </div>
+      <p style="margin: 0; font-size: 14px; color: #8A9389; text-align: center; text-wrap: pretty;">목록에 없는 질환도 상담해 주세요. 케어 가능 여부를 정직하게 말씀드립니다.</p>
+    </div>
+  </section>
+
+  <!-- ══════════ 인용 배너 ══════════ -->
+  <section data-screen-label="인용 배너" style="background: #1C3A2E; padding: 96px 40px;">
+    <div style="max-width: 880px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 24px; align-items: center;" data-reveal="1">
+      <div style="font-family: 'Noto Serif KR', serif; font-size: 72px; line-height: 0.5; color: #D9A05B;">“</div>
+      <blockquote style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 30px; line-height: 1.6; font-weight: 500; color: #FAF6EE; letter-spacing: -0.01em; text-wrap: pretty;">인공호흡기를 쓰시는 아버지 때문에 늘 긴장 속에 살았는데, 전문 간호사님이 계시니 온 가족의 일상이 돌아왔습니다.</blockquote>
+      <div style="display: flex; flex-direction: column; gap: 2px;">
+        <span style="font-weight: 700; font-size: 16px; color: #FAF6EE;">정O훈 님</span>
+        <span style="font-size: 14px; color: rgba(250,246,238,0.6);">보호자 · 만성질환 관리 이용</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════ CTA ══════════ -->
+  <section data-screen-label="상담 CTA" style="background: #F1E8D8; padding: 96px 40px;">
+    <div style="max-width: 760px; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 20px; align-items: center;" data-reveal="1">
+      <h2 style="margin: 0; font-family: 'Noto Serif KR', serif; font-size: 38px; line-height: 1.4; font-weight: 600; color: #1C3A2E; letter-spacing: -0.01em; text-wrap: pretty;">지금 겪고 계신 상황을<br>들려주세요</h2>
+      <p style="margin: 0; font-size: 17px; line-height: 1.75; color: #5E6A61; text-wrap: pretty;">질환명과 현재 상태만 알려주시면, 담당 케어 매니저가 가능한 케어 방안을 상세히 안내해 드립니다.</p>
+      <div style="display: flex; align-items: center; gap: 16px; margin-top: 12px;">
+        <a href="상담 신청.dc.html" style="background: #C4703F; color: #FFF9F0; text-decoration: none; font-size: 16px; font-weight: 700; padding: 17px 34px; border-radius: 999px; outline: none; transition: background 0.2s, transform 0.2s, box-shadow 0.2s;" style-hover="background: #A85A2E !important; color: #FFF9F0 !important; transform: translateY(-2px) !important; box-shadow: 0 10px 22px rgba(168,90,46,0.28) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(196,112,63,0.35) !important;">상담 신청하기</a>
+        <a href="tel:15882470" style="border: 1.5px solid #1C3A2E; color: #1C3A2E; text-decoration: none; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; outline: none; transition: background 0.2s, color 0.2s, transform 0.2s;" style-hover="background: #1C3A2E !important; color: #FAF6EE !important; transform: translateY(-2px) !important;" style-active="transform: translateY(0) scale(0.98) !important;" style-focus="box-shadow: 0 0 0 3px rgba(28,58,46,0.28) !important;">1588-2470</a>
+      </div>
+    </div>
+  </section>
+
+  <dc-import name="사이트 푸터" hint-size="100%,620px"></dc-import>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  componentDidMount() {
+    import("./motion.js").then((m) => { this._cleanupMotion = m.initMotion(); });
+  }
+
+  componentWillUnmount() {
+    if (this._cleanupMotion) this._cleanupMotion();
+  }
+
+  renderVals() {
+    return {};
+  }
+}
+</script>
+</body>
+</html>
